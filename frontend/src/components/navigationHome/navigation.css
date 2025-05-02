@@ -1,0 +1,67 @@
+.NavigationMainSec {
+  width: 100%;
+  padding: 0.4rem;
+  background-color:#eeecec ;
+  position: fixed;
+  z-index:999;
+}
+
+.NavigationMainSec nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 0rem auto 0rem;
+}
+
+.HomeNavLogoAndNameDiv {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  column-gap: 0.4rem;
+}
+
+.HomeNavLogoAndNameDiv img {
+  width: 3rem;
+}
+
+.HomeNavLogoAndNameDiv p {
+  color: black;
+  font-size: 1.1rem;
+}
+
+.HomeNavActualLinkDiv {
+  display: flex;
+  align-items: center;
+  column-gap: 0.8rem;
+}
+
+.HomeNavMainLinks {
+  text-decoration: none;
+  font-size: 1.15rem;
+  padding: 0rem 0.5rem;
+  color: black;
+}
+
+.HomeNavLogRegDiv {
+  border-left: 0.15rem #fc8415 solid;
+  padding-left: 1rem;
+  display: flex;
+  column-gap: 0.8rem;
+  align-items: center;
+}
+
+.HomeNavLogRegDiv a {
+  text-decoration: none;
+  font-size: 1.15rem;
+  padding: 0rem 0.5rem;
+  color: black;
+}
+
+.HomeNavLogRegDiv a:last-child {
+  background-color: #0483bb;
+  color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+}

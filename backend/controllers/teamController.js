@@ -1,0 +1,77 @@
+const Team = require("../models/teamModel");
+const TeamTask = require("../models/teamTaskModel");
+const EachTask = require("../models/assignTaskModel");
+
+const createTeam = async (req, res) => {
+  const { name } = req.body;
+  try {
+    if (!name) {
+      return res.status(422).json({ error: "Input all fields" });
+    }
+    const existTeam = await Team.findOne({ name });
+    if (existTeam) {
+      return res.status(422).json({ error: "Team already exist" });
+    }
+    const team = await Team.create({
+      admin: req.user._id,
+      name,
+      members: [req.user._id],
+    });
+    if (!team) {
+      return res.status(422).json({ error: "Unable to create team" });
+    }
+    res.status(200).json({ message: "Team created successfully" ,teamId:team._id});
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+};
+
+const getYourTeams = async (req, res) => {
+  try {
+    const teams = await Team.find({ members: { $in: [req.user._id] } });
+    if (!teams) {
+      return res.status(422).json({ error: "Unable to fetch teams" });
+    }
+    for(let each of teams){
+        each.isAdmin= each.admin.toString() === req.user._id.toString()
+    }
+    res.status(200).json(teams);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+};
+
+const deleteTeam = async (req, res) => {
+  try {
+    const team = await Team.deleteMany({ _id: req.params.id });
+    const teamtask = await TeamTask.deleteMany({ team: req.params.id });
+    const assignedTask = await EachTask.deleteMany({ team: req.params.id });
+
+    if (!team || !teamtask || !assignedTask) {
+      return res.status(422).json({ error: "Unable to delete" });
+    }
+    res.status(200).json({ message: "Deleted successfully" });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+};
+
+const getMembers=async(req,res)=>{
+  try {
+    const team=await Team.findById(req.params.teamId).populate("members","firstName lastName email")
+    if(!team){
+      return res.status(422).json({error:"Unable to fetch team members"})
+    }
+
+    res.status(200).json({members:team.members})
+
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+}
+
+module.exports = { createTeam, deleteTeam, getYourTeams ,getMembers};

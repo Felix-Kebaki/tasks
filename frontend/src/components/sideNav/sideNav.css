@@ -1,0 +1,192 @@
+.SideNavMainSec{
+    width:15rem;
+    height: 100dvh;
+    position: fixed;
+    background-color: white;
+    box-shadow: 0rem 0rem 0.5rem rgba(146, 146, 146, 0.308);
+    padding:0.5rem;
+}
+
+.SideNavTopMainDiv{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.SideNavProfileAndNameDiv{
+    display: flex;
+    column-gap: 0.5rem;
+    align-items: center;
+    cursor: pointer;
+    position:relative;
+}
+
+.SideNavProfileDiv{
+    width:2.3rem;
+    height: 2.3rem;
+    background-color: #FC8415;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.SideNavProfileDiv p{
+    color:white;
+}
+
+#SideNavNameArrow{
+    font-size:0.7rem;
+    margin-left:0.4rem;
+    color:rgba(0, 0, 0, 0.692);
+}
+
+.AppearAtTopOnSideNav{
+    display: none;
+}
+
+.AppearAtTopOnSideNavShow{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width:15rem;
+    box-shadow:0rem 0rem 0.5rem rgba(92, 92, 92, 0.377);
+    background-color: #eeecec;
+    bottom:-4.5rem;
+    padding:0.4rem;
+    border-radius:0.3rem;
+}
+
+.AppearAtTopOnSideNavShow p{
+    width: 100%;
+    padding:0.4rem 0.3rem 0.4rem 0.3rem;
+    border-radius:0.3rem;
+    font-size:0.9rem;
+}
+
+.AppearAtTopOnSideNavShow p:hover{
+    background-color: white;
+}
+
+.SideNavSubMenuIcons{
+    margin-right: 0.4rem;
+    font-size:0.9rem;
+}
+
+.SideNavNotificationIconMainDiv{
+    position:relative;
+    text-decoration: none;
+    color:black;
+}
+
+#BellIcon{
+    font-size: 1.4rem;
+}
+
+.NotificationNumberDiv{
+    position:absolute;
+    bottom:-0.6rem;
+    right:-0.5rem;
+    width:1rem;
+    height: 1rem;
+    border-radius:50%;
+    background-color: #0483bb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.NotificationNumberDiv p{
+    color:white;
+    padding:0.2rem;
+    font-size:0.6rem;
+}
+
+.SideNavMainNavlinksDiv{
+    display:flex;
+    flex-direction:column;
+    margin-top:0.6rem;
+    margin-left:0.5rem;
+}
+
+.EachLink{
+    text-decoration: none;
+    font-size:1rem;
+    color:rgba(0, 0, 0, 0.801);
+    padding:0.6rem 0.4rem 0.6rem 0.4rem;
+}
+
+.active{
+    color:#0483bb;
+}
+
+.active .SideNavLinkIcons{
+    color:black;
+}
+
+.EachLink:hover{
+    background-color: #eeecec;
+    border-radius: 0.3rem;
+}
+
+.SideNavLinkIcons{
+    margin-right: 0.4rem;
+}
+
+.TodayLink{
+    display: flex;
+    column-gap:0.4rem;
+    align-items: center;
+}
+
+.TodayLink div{
+    background-color: rgba(0, 0, 0, 0.801);
+    color:white;
+    font-size:0.6rem;
+    display: flex;
+    align-items: center;
+    text-decoration: overline;
+    padding:0.2rem;
+    border-radius:0.2rem;
+}
+
+
+/* CATEGORY */
+
+.SideNavMainCategoryDiv{
+  margin-top:0.8rem;
+}
+
+.CategoryMainTitleNav{
+    font-size:1.1rem;
+}
+
+.SideNavCategorydiv{
+    display: flex;
+    justify-content: space-between;
+    margin-top:0.5rem;
+    align-items:center;
+    padding:0.4rem 0.4rem;
+    border-radius: 0.3rem;
+}
+
+.SideNavCategorydiv:hover{
+    background-color: #eeecec;
+}
+
+.ActualCategory{
+    font-size:1rem;
+    color:rgba(0, 0, 0, 0.74);
+    display: flex;
+    align-items: center;
+}
+
+.ActualCategory span{
+    font-size:1.1rem;
+    color:#FC8415;
+    margin-right:0.3rem;
+}
+
+.ActualCategoryNo{
+    font-size:0.9rem;
+}

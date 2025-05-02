@@ -1,0 +1,93 @@
+.TeamMainSec {
+  width: 100%;
+  padding: 0rem 0.4rem 0rem 16.3rem;
+}
+
+.TeamMainDiv {
+  padding-top: 1.5rem;
+  width: 60rem;
+}
+
+.TopAtTeamDiv p {
+  font-size: 1.3rem;
+}
+
+.AllYourTeamsWrapperDiv {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.EachTeamMainDiv {
+  width: 100%;
+  padding: 0.5rem 0rem;
+  border-bottom: 0.1rem black solid;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+.EachTeamMainDiv a{
+    width:100%;
+    text-decoration: none;
+    display:flex;
+    column-gap:0.4rem;
+    align-items:center;
+}
+
+#EachTeamDot {
+  color: #fc8415;
+  font-size: 0.4rem;
+}
+
+.EachTeamMainDiv:last-child {
+  border: none;
+}
+
+.teamName{
+    color:black;
+}
+
+.isAdmin{
+    color:#0483bb;
+    font-size: 0.8rem;
+}
+
+.NotisAdmin{
+    color:#fc8415;
+    font-size: 0.8rem;
+}
+
+.DeleteTeamIcon{
+    color: #fc8415;
+    cursor:pointer;
+    padding:0.4rem;
+}
+
+.NoTeamMainDiv{
+    display: flex;
+    width:100%;
+    justify-content: center;
+    padding: 1rem 0rem;
+    border-bottom: 0.1rem black solid;
+}
+
+.NotAMemberOfTeamText{
+    color:#fc8415;
+    font-size:1.2rem;
+}
+
+.AddTeamButton {
+  padding: 0.8rem 0rem;
+  cursor: pointer;
+}
+
+#PlusTeam {
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.AddTeamButton:hover {
+  color: #0483bb;
+}

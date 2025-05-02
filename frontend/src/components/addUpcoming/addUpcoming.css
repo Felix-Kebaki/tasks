@@ -1,0 +1,84 @@
+.AddUpcomingMainSec{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width:100%;
+    height: 100%;
+}
+
+.AddUpcomingMainForm{
+    background-color: white;
+    padding:2rem;
+    border-radius: 0.3rem;
+}
+
+.AddUpcomingTopDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.AddUpcomingTopDiv p{
+    font-size:1.3rem;
+}
+
+.CloseAddUpcomingIcon{
+    cursor:pointer;
+    font-size:1.5rem;
+}
+
+.ActualUpcomintFormDiv{
+    margin-top:1rem;
+    width:30rem;
+}
+
+.ActualUpcomintFormDiv div{
+    width:80%;
+}
+
+.UpcomingInputDiv{
+    margin-top:0.8rem;
+}
+
+.UpcomingInputDiv label{
+    font-size:0.9rem;
+}
+
+.UpcomingInputDiv input{
+    width:100%;
+    border-radius:0.3rem;
+    border:0.1rem black solid;
+    background: transparent;
+    padding:0.3rem 0.2rem;
+}
+
+.CheckBoxUpcomingDiv{
+    display: flex;
+    column-gap:0.2rem;
+    margin-top:0.8rem;
+    justify-content: start;
+}
+
+.CheckBoxUpcomingDiv input{
+    width:1rem;
+}
+
+.CheckBoxUpcomingDiv p{
+    font-size:1rem;
+}
+
+.UpcomingCreateBtn{
+    margin-top:0.8rem;
+}
+
+.UpcomingCreateBtn input{
+    width:100%;
+    border:none;
+    background-color: #fc8415;
+    color:black;
+    padding:0.3rem 0rem;
+    cursor:pointer;
+    border-radius: 0.3rem;
+}
+
+

@@ -1,0 +1,11 @@
+export const BASE_URL=''
+export const USER_URL="/api/auth"
+export const GOAL_URL="/api/goals"
+export const TODAY_URL="/api/objectives"
+export const NOTIFY_URL="/api/notifications"
+export const TEAM_URL="/api/teams"
+export const INVITE_URL="/api/invitations"
+export const TEAMTASK_URL="/api/teamTask"
+export const ASSIGNTASK_URL="/api/eachTask"
+export const UPCOMING_URL="/api/upcomings"
+export const CATEGORY_URL="/api/allCategory"

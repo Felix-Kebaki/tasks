@@ -1,0 +1,72 @@
+.CreateTeamtaskMainSec{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    width:100%;
+    height: 100dvh;
+}
+
+.CreateTeamtaskForm{
+    background-color: white;
+    padding:2rem;
+}
+
+.CreateTeamtaskTopDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.CreateTeamtaskTitle {
+    font-size: 1.8rem;
+  }
+  
+
+.CloseAddTeamtaskIcon{
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.CreateTeamtaskDesc {
+    font-size: 1rem;
+    max-width: 40rem;
+  }
+  
+
+.TeamtaskActualFormDiv{
+    width:30rem;
+}
+
+.InputOfTeamtask{
+    width:100%;
+    margin-top:0.7rem;
+}
+
+.InputOfTeamtask label{
+    font-size:0.9rem;
+}
+
+.InputOfTeamtask input{
+    width:100%;
+    padding:0.3rem 0.2rem;
+    border-radius:0.3rem;
+    border:0.1rem black solid;
+    background-color: transparent;
+}
+
+.CreateTeamtaskButtonDiv{
+    margin-top:1rem;
+    width:100%;
+}
+
+.CreateTeamtaskButton{
+    background-color: #fc8415;
+    color:black;
+    border:none;
+    width:100%;
+    border-radius: 0.3rem;
+    padding:0.4rem 0rem;
+    cursor:pointer;
+    font-size: 1rem;
+}

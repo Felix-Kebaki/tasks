@@ -1,0 +1,97 @@
+
+.TeamDetailsMainSec{
+    padding:0rem 0.4rem 0rem 16.3rem;
+    width:100%;
+}
+.TopOfTeamDetailsDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top:1.5rem;
+}
+
+.TopOfTeamDetailsDiv p{
+    font-size:1.3rem;
+}
+
+.TopOfTeamDetailsDiv button{
+    background:#0483bb;
+    color:white;
+    border:none;
+    padding:0.4rem 1rem;
+    border-radius:0.3rem;
+    cursor:pointer;
+}
+
+.NoTeamTaskJustMembersDiv{
+    margin: 1rem 0rem 0.5rem 0.5rem;
+}
+
+.EachMemberDivWrapperNoTtask{
+    margin-top:0.5rem;
+}
+
+.NoTeamTaskMemberTitle{
+    font-size:1.15rem;
+    margin-bottom:0.5rem;
+}
+
+.EachMemberNameNoTtask{
+    font-size:1rem;
+}
+
+.EachMemberNameNoTtask span{
+    font-size:0.8rem;
+    color:#0483bb;
+}
+
+.NoTeamTaskMessageDiv{
+    display: flex;
+    justify-content:center;
+    padding:2rem 0rem;
+}
+
+.NoTeamTaskMessageDiv p{
+    color:#FC8415;
+    font-size:1.2rem;
+}
+
+
+.AllTeamtaskWithDetailsDivWrapper{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    row-gap:1.5rem;
+    margin-top:1rem;
+}
+
+.EachTeamtaskWithDetailsDiv{
+    background:white;
+    border-radius: 0.3rem;
+    padding:1rem;
+    width:50rem;
+    box-shadow: 0rem 0rem 0.4rem rgba(94, 94, 94, 0.308);
+}
+
+.EachteamTaskNameDueDateDiv{
+    display:flex;
+    justify-content:space-between;
+    align-items: start;
+}
+
+.EachteamTaskTitle{
+    font-size:1.3rem;
+}
+
+.EachteamtaskDueDate{
+    font-size:0.9rem;
+}
+
+.EachteamtaskDueDate span{
+    color:#FC8415;
+}
+
+.EachteamTaskDesc{
+    font-size:0.9rem;
+    margin-top:0.2rem;
+}

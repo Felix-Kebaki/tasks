@@ -1,0 +1,96 @@
+.CreateTeamMainSec {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CreateTeamMainForm {
+  padding: 2rem;
+  overflow-y: auto;
+  background-color: white;
+}
+
+.CreateTeamTopDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CreateTeamTitle {
+  font-size: 1.8rem;
+}
+
+.CreateTeamDesc {
+  font-size: 1rem;
+  max-width: 40rem;
+}
+
+.CloseAddTeamIcon {
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.CreateTeamDivWithInputs {
+  padding: 0.8rem 0rem;
+}
+
+.OnlyTeamNameDiv {
+  width: 20rem;
+}
+.OnlyTeamNameDiv label {
+  font-size: 0.9rem;
+}
+
+.OnlyTeamNameDiv input {
+  width: 100%;
+  padding: 0.3rem 0.1rem;
+}
+
+.InviteAtCreateTeamMainDiv {
+  margin-top: 0.8rem;
+}
+
+.NoteTextInInvite {
+  color: #fc8415;
+  font-size: 1.1rem;
+}
+
+.CreateTeamAllInvitesInputDiv{
+    display: flex;
+    flex-direction:column;
+    width:20rem;
+    row-gap:1rem;
+    margin-top:0.8rem;
+}
+
+.CreateTeamAllInvitesInputDiv input{
+    width: 100%;
+    padding: 0.3rem 0.1rem; 
+    border:none;
+    outline: none;
+    border-bottom: 0.1rem black solid;
+}
+
+.CreateTeamInviteMemberBtn{
+    cursor:pointer;
+}
+
+.CreateTeamInviteMemberBtn:hover{
+    color:#0483bb;
+}
+
+.CreateTeamSubmitBtn{
+    width:100%;
+}
+
+.CreateTeamSubmitBtn button{
+    width:100%;
+    background-color: #fc8415;
+    color: black;
+    border:none;
+    padding:0.3rem 0rem;
+    font-size:1rem;
+    cursor:pointer;
+}

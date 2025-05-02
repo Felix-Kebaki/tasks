@@ -1,0 +1,139 @@
+.DailyObjectivesMainSec{
+    width:100%;
+    padding:0rem 0.4rem 0rem 16.3rem;
+}
+
+.DailyObjectivesMainDiv{
+    padding-top:1.5rem;
+}
+
+.TodayMainTitle{
+    font-size:1.3rem;
+}
+
+.TodayDate{
+    margin-top:0.5rem;
+    font-size:0.9rem;
+    color:#0483bb;
+}
+
+.DailyObjectiveStartMainDiv{
+    width:60rem;
+    margin-top:1rem;
+}
+
+.OnlyObjectivesMainDiv{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap:0.5rem;
+    padding:0.5rem 0rem;
+    border-bottom:0.1rem black solid;
+}
+
+.OnlyObjectivesMainDiv:last-child{
+    border-bottom: none;
+}
+
+.ObjectiveMarkMainDiv{
+    display: flex;
+    column-gap:0.5rem;
+    align-items: center;
+}
+
+.ObjectiveMarkDiv{
+    width:1.5rem;
+    height:1.5rem;
+    border-radius: 50%;
+    border:0.1rem black solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+}
+
+.ObjectiveMarkDivDone{
+    background-color: #0483bb;
+    color: white;
+    border: none;
+}
+
+.ObjectiveMarkDivOutOfTime{
+    background-color: #FC8415;
+    color:white;
+    border:none;
+}
+
+.ActualObjective{
+    font-size:0.9rem;
+}
+
+.OutOfTimeText{
+    color:#FC8415;
+    font-size:0.8rem;
+}
+
+.ObjectiveBottomMainDiv{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ObjectiveTimeDiv{
+    display: flex;
+    column-gap:0.2rem;
+}
+
+.ObjectiveTimeDiv p{
+    font-size:0.8rem;
+}
+
+#TimeArrowObjectives{
+    font-size:0.8rem;
+}
+
+.ObjectiveTimeDiv p:first-child{
+    color:#8CA52B;
+}
+
+.ObjectiveTimeDiv p:last-child{
+    color:#FC8415;
+}
+
+.CategoryAndDeleteObjectiveDiv{
+    display: flex;
+    column-gap:1.5rem;
+}
+
+.CategoryAndDeleteObjectiveDiv p{
+    font-size:0.8rem;
+    text-transform: uppercase;
+    color:#0483bb;
+}
+
+.CategoryAndDeleteObjectiveDiv p span{
+    font-size:0.9rem;
+    text-transform: capitalize;
+    color:black;
+}
+
+.DeleteObjectiveIcon{
+    cursor:pointer;
+    color:black;
+    font-size:1rem;
+}
+
+.AddTaskButton{
+    padding:0.8rem 0rem ;
+    cursor:pointer;
+}
+
+#PlusObjective{
+    margin-right:0.5rem;
+    font-size:0.9rem;
+}
+
+
+.AddTaskButton:hover{
+    color:#0483bb;
+}
+

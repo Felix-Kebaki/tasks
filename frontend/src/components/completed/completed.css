@@ -1,0 +1,61 @@
+.CompletedMainSec{
+    padding:0rem 0.4rem 0rem 16.3rem;
+    width:100%;
+}
+
+
+.NoCompletedGoalMainDiv{
+    width:100%;
+    padding:2rem 0rem;
+}
+
+.NoCompletedGoalMainDiv p{
+    text-align: center;
+    color:#FC8415;
+    font-size: 1.2rem;
+}
+
+
+.CompletedTopDiv{
+    padding-top:1.5rem;
+}
+
+.CompletedTopDiv p{
+    font-size:1.3rem;
+}
+
+.CompleteEachDivWrapperDiv{
+    display:flex;
+    width:100%;
+    flex-wrap:wrap;
+    column-gap:1.25%;
+    row-gap:1rem;
+    margin-top:1.5rem;
+}
+
+.EachCompletedDiv{
+    width:32.5%;
+    background-color: white;
+    border-radius:0.3rem;
+    box-shadow:0rem 0rem 0.2rem rgba(100, 100, 100, 0.363);
+    padding:0.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.topOfEachCompGoalDiv{
+    display:flex;
+    align-items: center;
+    justify-content:space-between;
+}
+
+.EachCompStatusAndPriorityDiv{
+    display: flex;
+    column-gap:0.4rem;
+}
+
+.RewardMainTitle{
+    text-transform: uppercase;
+    color:#0483bb;
+}

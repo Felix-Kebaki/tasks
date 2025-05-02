@@ -1,0 +1,55 @@
+@font-face {
+  font-family: text;
+  src: url(../src/assets/fonts/SFPRODISPLAYREGULAR.OTF);
+}
+
+@font-face {
+  font-family: title;
+  src: url(../src/assets/fonts/SFPRODISPLAYMEDIUM.OTF);
+}
+
+.text{
+  font-family: text;
+}
+
+.title{
+  font-family: title;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+.MainAtApp{
+  min-height: 100dvh;
+  background-color: #eeecec;
+}
+
+.AppLoggedInMain{
+  min-height: 100dvh;
+  background-color: #eeecec;
+}
+
+
+/* ADD GOAL OVERFLOW */
+.OverflowAddMainDiv{
+  position:absolute;
+  top:0;
+  bottom:0;
+  right:0;
+  left:0;
+  width:100%;
+  min-height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.658);
+}
+
+
+
+/* #FC8415 orange*/
+/* #42620D  #8CA52B green */
