@@ -5,7 +5,7 @@ import { useMarkDoneMutation } from "../../redux/api/todayApiSlice";
 import { useDeleteObjectiveMutation } from "../../redux/api/todayApiSlice";
 import "./confirm.css";
 
-export function Confirm({ setConfirm, confirm, setMsg, msg }) {
+export function ObjectiveConfirm({ setConfirm, confirm, setMsg, msg }) {
   const [deleteGoal] = useDeleteGoalMutation();
   const [completeGoal] = useCompleteGoalMutation();
   const [markDone]=useMarkDoneMutation()
@@ -75,14 +75,12 @@ export function Confirm({ setConfirm, confirm, setMsg, msg }) {
     }
   }
 
-  const ConfirmDeleteTeam=async()=>{
-    
-  }
 
   return (
     <section className="ConfirmMainSec">
       <div className="ConfirmMainDiv">
-        <p>The objective will be {msg}</p>
+        <p className="ConfirmationMainTitle title">Confirmation</p>
+        <p className="ConfirmationMainDesc text">The objective will be {msg}</p>
         <div>
           <button
             onClick={
@@ -94,8 +92,7 @@ export function Confirm({ setConfirm, confirm, setMsg, msg }) {
                 ? ConfirmMarkObjDone
                 : msg ==="removed"
                 ?ConfirmDeleteObjective
-                : msg ==="removed"
-                ?ConfirmDeleteTeam: null
+                :  null
             }
           >
             confirm

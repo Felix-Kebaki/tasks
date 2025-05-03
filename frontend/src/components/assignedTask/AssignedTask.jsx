@@ -4,9 +4,57 @@ import "./assignedTask.css";
 import moment from "moment";
 
 import { useGetAssignedQuery } from "../../redux/api/assignTaskApiSlice";
+import { useStartTeamtaskMutation } from "../../redux/api/assignTaskApiSlice";
+import { useMarkAsDoneMutation } from "../../redux/api/assignTaskApiSlice";
+import { useDeleteYourtasksMutation } from "../../redux/api/assignTaskApiSlice";
 
 export function AssignedTask() {
   const { refetch, data, isLoading } = useGetAssignedQuery();
+  const [markAsDone] = useMarkAsDoneMutation();
+  const [startTeamtask] = useStartTeamtaskMutation();
+  const [deleteYourtasks]=useDeleteYourtasksMutation()
+
+  const HandleClickOnStartTeamtask = async (taskId) => {
+    try {
+      const res = await startTeamtask({ taskId });
+      if (res.error) {
+        console.error(res.error.data.error || res.error.error);
+      } else {
+        console.log(res.data.message);
+        refetch();
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const HandleClickOnDoneTeamtask = async (teamtaskId) => {
+    try {
+      const res = await markAsDone({ teamtaskId });
+      if (res.error) {
+        console.error(res.error.data.error || res.error.error);
+      } else {
+        console.log(res.data.message);
+        refetch();
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const HandleClickDeleteTeamtask = async(teamtaskId) => {
+    try {
+      const res=await deleteYourtasks({teamtaskId})
+      if (res.error) {
+        console.error(res.error.data.error || res.error.error);
+      } else {
+        console.log(res.data.message);
+        refetch();
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   useEffect(() => {
     refetch();
@@ -57,28 +105,47 @@ export function AssignedTask() {
                         ? "CompletedStatue"
                         : each.status === "In progress"
                         ? "InProgressStatue"
-                        : null
+                        :each.status ==="Out of time"
+                        ?"OutOfTimeStatus": null
                     }
                   >
                     {each.status}
                   </p>
-                  <button>
+                  <button
+                    onClick={
+                      each.status === "Not started"
+                        ? () => HandleClickOnStartTeamtask(each._id)
+                        : each.status === "In progress"
+                        ? () => HandleClickOnDoneTeamtask(each._id)
+                        : each.status === "Completed"
+                        ? () => HandleClickDeleteTeamtask(each._id)
+                        : null
+                    }
+                    className={
+                      each.status === "Completed" || "Out of time"
+                        ? "BottomDivForEachAssignDelete"
+                        : "BottomDivForEachAssignOthers"
+                    }
+                  >
                     {each.status === "Not started"
                       ? "Start"
-                      : each.status === "In progess"
+                      : each.status === "In progress"
                       ? "Done"
+                      : each.status === "Completed"
+                      ? "Delete"
+                      : each.status === "Out of time"
+                      ? "Delete"
                       : null}
                   </button>
                 </div>
               </div>
             ))}
         </div>
-      ) : data &&
-      data.message ? (
+      ) : data && data.message ? (
         <div className="NoAssignedTaskMainDiv">
-            <p className="text">You have no tasks assigned to you.</p>
+          <p className="text">You have no tasks assigned to you.</p>
         </div>
-      ):null}
+      ) : null}
     </section>
   );
 }

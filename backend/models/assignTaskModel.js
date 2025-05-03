@@ -17,7 +17,7 @@ const taskSchema=mongoose.Schema({
     },
     status:{
         type:String,
-        enum:["Not started","In progress","Completed"],
+        enum:["Not started","In progress","Completed","Out of time"],
         default:"Not started"
     },
     team:{
@@ -27,6 +27,9 @@ const taskSchema=mongoose.Schema({
     },
     startDate:{
         type:Date,
+    },
+    doneDate:{
+        type:Date
     }
 
 })

@@ -1,6 +1,6 @@
 
 .TeamDetailsMainSec{
-    padding:0rem 0.4rem 0rem 16.3rem;
+    padding:0rem 0.4rem 2rem 16.3rem;
     width:100%;
 }
 .TopOfTeamDetailsDiv{
@@ -83,6 +83,17 @@
     font-size:1.3rem;
 }
 
+.EachteamTaskTimeAndEachSubmenuDiv{
+    display:flex;
+    column-gap:0.8rem;
+}
+
+.EachteamTaskOutOfTimeMsg{
+    text-transform: uppercase;
+    color:#FC8415;
+    font-size:0.9rem;
+}
+
 .EachteamtaskDueDate{
     font-size:0.9rem;
 }
@@ -91,7 +102,88 @@
     color:#FC8415;
 }
 
+.EachteamTaskSubMenuDivWrapper{
+    cursor:pointer;
+    position:relative;
+}
+
+.EachteamTaskSubMenuDiv{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0rem 0rem 0.4rem rgba(104, 104, 104, 0.445);
+    padding:0.5rem;
+    position:absolute;
+    top:0;
+    border-radius: 0.3rem;
+    left:0rem;
+    width:10rem;
+}
+
+.EachteamTaskSubMenuDiv a{
+    text-decoration:none;
+    color:black;
+    padding:0.3rem 0.2rem;
+    font-size:0.9rem;
+}
+
+.EachteamTaskSubMenuDiv p{
+    color:black;
+    padding:0.3rem 0.2rem;
+    font-size:0.9rem;
+}
+
+.EachteamTaskSubMenuDiv p:hover{
+    background-color: #eeecec;
+}
+
+.EachteamTaskSubMenuDiv a:hover{
+    background-color: #eeecec;
+}
+
+.EachteamTaskSubmenuIcons{
+    margin-right:0.3rem;
+    font-size:0.9rem;
+    color:black;
+}
+
 .EachteamTaskDesc{
     font-size:0.9rem;
     margin-top:0.2rem;
+}
+
+.InputDivForAssigningTask{
+    margin-top:0.8rem;
+}
+
+.InputDivForAssigningTaskTitleMembers{
+    color:#0483bb;
+    font-size:0.8rem;
+    text-transform: uppercase;
+}
+
+.AllAssignedTeamtaskTeamDetailsWrapper{
+    margin:0.4rem 0rem 0.2rem 0.6rem;
+}
+
+.AssignTeamtaskInputMainDiv{
+    margin:0.1rem 0rem 0.5rem 0.6rem;
+    display: flex;
+}
+
+.AssignTeamtaskInputMainDiv input{
+    width:100%;
+    border: none;
+    border-bottom:0.1rem black solid;
+    padding:0.2rem 0.2rem;
+    outline: none;
+}
+
+.AssignTeamtaskInputMainDiv button{
+    background:#0483bb;
+    border-radius: 0.3rem;
+    border:none;
+    cursor:pointer;
+    color:white;
+    padding:0.2rem 1rem;
 }

@@ -21,6 +21,7 @@ connectDb()
 require("./utils/cron/processDailyObjectives")
 require("./utils/cron/goalUpdater")
 require("./utils/cron/deleteNotifications")
+require("./utils/cron/taskDeadlineChecker")
 
 app.use("/api/auth",require("./routers/userRouter"))
 app.use("/api/goals",require("./routers/goalRouter"))

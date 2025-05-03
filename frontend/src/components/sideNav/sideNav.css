@@ -159,12 +159,13 @@
 
 .CategoryMainTitleNav{
     font-size:1.1rem;
+    margin-bottom:0.5rem;
 }
 
 .SideNavCategorydiv{
     display: flex;
     justify-content: space-between;
-    margin-top:0.5rem;
+    margin-top:0rem;
     align-items:center;
     padding:0.4rem 0.4rem;
     border-radius: 0.3rem;

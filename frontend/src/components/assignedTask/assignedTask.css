@@ -34,7 +34,7 @@
 .TopEachAssignedDiv{
     display:flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: center;
 }
 
 .AssignedStatus{
@@ -104,7 +104,7 @@ margin-top:0.5rem;
 
 .InProgressStatue{
     font-size:0.9rem;
-    color:#0483bb;
+    color:#8CA52B;
     text-transform: uppercase;
 }
 
@@ -115,12 +115,27 @@ margin-top:0.5rem;
 }
 .CompletedStatue{
     font-size:0.9rem;
-    color:#8CA52B;
+    color:#0483bb;
     text-transform: uppercase;
 }
 
-.BottomDivForEachAssign button{
-    background-color: #0483bb;
+.OutOfTimeStatus{
+    font-size:0.9rem;
+    color:#FC8415;
+    text-transform: uppercase;
+}
+
+.BottomDivForEachAssignOthers{
+    background-color: red;
+    border:none;
+    padding:0.3rem 1rem;
+    cursor:pointer;
+    border-radius: 0.3rem;
+    color:white;
+}
+
+.BottomDivForEachAssignDelete{
+    background-color: #FC8415;
     border:none;
     padding:0.3rem 1rem;
     cursor:pointer;

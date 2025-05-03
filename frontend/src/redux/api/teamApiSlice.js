@@ -17,8 +17,8 @@ const teamApiSlice=apiSlice.injectEndpoints({
             })
         }),
         deleteTeam:builder.mutation({
-            query:(id)=>({
-                url:`${TEAM_URL}/deleteTeam/${id}`,
+            query:({teamId})=>({
+                url:`${TEAM_URL}/deleteTeam/${teamId}`,
                 method:'DELETE',
             })
         }),

@@ -1,0 +1,60 @@
+.InviteMainSec{
+    width:100%;
+    height: 100dvh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.InviteMainForm{
+    background:white;
+    border-radius: 0.3rem;
+    padding:1rem;
+    width:30rem;
+}
+
+.TopInviteMainDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.TopInviteMainTitle{
+    font-size:1.3rem;
+}
+
+.InviteFormCloseIcon{
+    font-size:1.5rem;
+    cursor:pointer;
+}
+
+.InviteInputEmailDiv{
+    width:100%;
+    margin-top:0.4rem;
+}
+
+.InviteInputEmailDiv label{
+    font-size:0.8rem;
+}
+
+.InviteInputEmailDiv input{
+    padding:0.3rem 0.2rem;
+    border:0.1rem black solid;
+    outline:none;
+    width:80%;
+    border-radius:0.3rem;
+}
+
+.InviteFormSubmitMainDiv{
+    margin-top:0.6rem;
+    width:100%;
+}
+
+.InviteFormSubmitMainDiv input{
+    width:80%;
+    border:none;
+    border-radius:0.3rem;
+    background-color: #FC8415;
+    padding:0.4rem 0rem;
+    cursor:pointer;
+}

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import moment from "moment";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import { useGetCompleteQuery } from "../../redux/api/goalApiSlice";
 import { useDeleteGoalMutation } from "../../redux/api/goalApiSlice";
@@ -53,7 +53,7 @@ export function Completed() {
                       </div>
                       <div className="GoalDelEditDoneDiv">
                         <FontAwesomeIcon
-                          icon={faTrash}
+                          icon={faTrashCan}
                           className="DeleteGoalIcon"
                           onClick={() => HandleClickOnDelete(complete._id)}
                         />

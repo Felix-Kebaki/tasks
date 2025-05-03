@@ -1,69 +1,101 @@
-.HeroMainSec{
-    padding-top:4rem;
-    width:100%;
-    position:relative;
+.HeroMainSec {
+  padding-top: 4rem;
+  width: 100%;
 }
 
-.HeroMainDiv{
-    display: flex;
-    justify-content:end;
-    align-items:center;
+.HeroMainDiv {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 80%;
+  margin: 0rem auto 0rem;
+  column-gap: 4rem;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.HeroWordingMainDiv {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  position: relative;
+}
+
+.welcomeToHeroTxt {
+  color: #fc8415;
+}
+
+.HeroMainTitle {
+  font-size: 5rem;
+  line-height: 5rem;
+}
+
+.HeroMainDesc {
+  font-size: 1.15rem;
+  margin-top: 0.5rem;
+  max-width: 80%;
+}
+
+.HeroMainBtnDiv {
+  padding: 0.7rem 2.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  border: none;
+  background-color: #0483bb;
+  color: white;
+  border-radius: 1rem;
+}
+
+.HeroImageMainDiv {
+  width: 50%;
+  height: 35rem;
+}
+
+.HeroImageMainDiv img {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+}
+
+.FloatingStarsMainDiv1 {
+  position: absolute;
+  top: 6rem;
+  left: 13rem;
+}
+
+.FloatingStarsMainDiv1 img {
+  width: 2rem;
+}
+
+.FloatingStarsMainDiv2 {
+  position: absolute;
+  right: 0;
+  top: 50%;
+}
+
+.FloatingStarsMainDiv2 img {
+  width: 3rem;
+  filter: brightness(1);
+}
+
+.FloatingStarsMainDiv {
+  position: absolute;
+  left: 20rem;
+  bottom:0;
+}
+
+.FloatingStarsMainDiv img {
+  width: 3rem;
+  filter: brightness(1);
+}
+
+
+.HeroBottomMainDiv{
+    width:100%;
+}
+
+.HeroBottomInsiderDiv{
     width:80%;
     margin:0rem auto 0rem;
-    column-gap: 4rem;
-    margin-top:2rem;
-}
-
-
-.HeroWordingMainDiv{
-    width:45%;
-    display: flex;
-    flex-direction: column;
-    row-gap: 2rem;
-}
-
-.welcomeToHeroTxt{
-    color:#fc8415;
-}
-
-.HeroMainTitle{
-    font-size:5rem;
-    line-height: 5rem;
-
-}
-
-.HeroMainDesc{
-    font-size:1.15rem;
-    margin-top:0.5rem;
-    max-width:80%;
-}
-
-.HeroMainBtnDiv{
-    padding:0.7rem 2.5rem;
-    cursor:pointer;
-    font-size:1rem;
-    border:none;
-    background-color: #0483bb;
-    color:white;
-    border-radius:1rem;
-}
-
-.HeroImageMainDiv{
-    width:50%;
-    height: 35rem;
-}
-
-.HeroImageMainDiv img{
-    width:100%;
-    height:100%;
-    border-radius:1rem;
-}
-
-.FloatingStarsMainDiv{
-    position:absolute;
-    left:0;
-}
-
-.FloatingStarsMainDiv img{
-    width:3rem;
 }

@@ -1,5 +1,6 @@
 const Team = require("../models/teamModel");
 const TeamTask = require("../models/teamTaskModel");
+const EachTask=require("../models/assignTaskModel")
 
 const createTeamTask = async (req, res) => {
   const { name, description ,dueDate } = req.body;
@@ -57,6 +58,7 @@ const getTeamTask = async (req, res) => {
         members: team.members,
         team:team._id,
         isAdmin: req.user._id.toString() === team.admin.toString(),
+        outOfTime:teamtask.outOfTime
       });
   } catch (error) {
     console.error(error.message);
@@ -64,4 +66,28 @@ const getTeamTask = async (req, res) => {
   }
 };
 
-module.exports = { createTeamTask, getTeamTask };
+
+const deleteTeamtask=async(req,res)=>{
+  try {
+    const teamtask=await TeamTask.findById(req.params.id)
+    if(!teamtask){
+      return res.status(422).json({error:"Unable to fetch the teamtask"})
+    }
+
+    if(req.user._id.toString()!== teamtask.admin.toString()){
+      return res.status(401).json({error:"Unauthorized access"})
+    }
+
+    const assignedTask=await EachTask.deleteMany({teamtask:teamtask._id})
+    if(!assignedTask){
+      return res.status(422).json({error:'Unable to delete assigned tasks'})
+    }
+    await teamtask.deleteOne()
+    res.status(200).json({message:"Deleted successfully"})
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+}
+
+module.exports = { createTeamTask, getTeamTask ,deleteTeamtask};

@@ -9,8 +9,6 @@ const sendInvite = async (req, res) => {
     if (!email) {
       return res.status(422).json({ error: "Email address required" });
     }
-console.log(email)
-console.log(req.params.teamId)
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ error: "The email is not registered" });

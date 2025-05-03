@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./dailyObjectives.css";
 import "../../index.css";
 import { ObjectiveForm } from "../createObjective/ObjectiveForm";
-import { Confirm } from "../confirm/Confirm";
+import { ObjectiveConfirm } from "../confirm/ObjectiveConfirm";
 
 import { useGetObjectivesQuery } from "../../redux/api/todayApiSlice";
 
@@ -108,7 +108,7 @@ export function DailyObjective() {
 
         {confirm !==null?
         <div className="OverflowAddMainDiv">
-            <Confirm setConfirm={setConfirm} msg={msg} setMsg={setMsg} confirm={confirm}/>
+            <ObjectiveConfirm setConfirm={setConfirm} msg={msg} setMsg={setMsg} confirm={confirm}/>
         </div>:null}
       </div>
     </section>

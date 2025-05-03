@@ -28,6 +28,13 @@ const teamTaskSchema=mongoose.Schema({
     },
     progress:{
         type:String,
+    },
+    outOfTime:{
+        type:Boolean,
+        default:false
+    },
+    doneDate:{
+        type:Date
     }
 })
 

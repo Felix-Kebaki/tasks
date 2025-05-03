@@ -13,7 +13,7 @@ import { usePauseGoalMutation } from "../../redux/api/goalApiSlice";
 import { useResumeGoalMutation } from "../../redux/api/goalApiSlice";
 
 import { GoalForm } from "../createGoal/GoalForm";
-import { Confirm } from "../confirm/Confirm";
+import { ObjectiveConfirm } from "../confirm/ObjectiveConfirm";
 
 import "./goals.css";
 import "../../index.css";
@@ -211,7 +211,7 @@ export function Goals() {
 
         {confirm !== null ? (
           <div className="OverflowAddMainDiv">
-            <Confirm
+            <ObjectiveConfirm
               setConfirm={setConfirm}
               confirm={confirm}
               setMsg={setMsg}

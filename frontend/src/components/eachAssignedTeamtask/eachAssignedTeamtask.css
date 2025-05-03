@@ -1,0 +1,54 @@
+.EachAssignedTeamtaskMainSec{
+    width:100%;
+    padding:0rem 0rem 0rem 0.8rem;
+}
+
+.EachAssignedTeamtaskMainSec .AssignedTeamTaskMainDiv{
+    width:100%;
+}
+
+.EachAssignedTeamtaskMainSec .AssignedTeamTaskMainDiv div{
+    display:flex;
+    justify-content: space-between;
+}   
+
+.EachAssignedTeamtaskMainName{
+    color:#3d3d3d;
+    font-size:0.9rem;
+    padding:0.2rem 0rem;
+}
+
+.EAchAssignedTeamtaskDeleteAndStatusDiv{
+    display: flex;
+    column-gap:0.8rem;
+    align-items:center;
+}
+
+#DeleteAssignedTaskIcon{
+    cursor:pointer;
+    font-size:0.9rem;
+    color:#FC8415;
+}
+
+.statusOfAssignedNotStartedTask{
+    font-size:0.8rem;
+    color:#FC8415;
+}
+.statusOfAssignedCompletedTask{
+    font-size:0.8rem;
+    color:#0483bb;
+}
+.statusOfAssignedInProgressTask{
+    font-size:0.8rem;
+    color:#8CA52B;
+}
+
+.EachAssignedTeamtaskNotAssignedDiv{
+    width:100%;
+    padding:0.2rem 0rem;
+}
+
+.EachAssignedTeamtaskNotAssignedDiv{
+    color:#FC8415;
+    font-size:0.9rem;
+}

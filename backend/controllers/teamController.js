@@ -45,14 +45,23 @@ const getYourTeams = async (req, res) => {
 
 const deleteTeam = async (req, res) => {
   try {
-    const team = await Team.deleteMany({ _id: req.params.id });
-    const teamtask = await TeamTask.deleteMany({ team: req.params.id });
-    const assignedTask = await EachTask.deleteMany({ team: req.params.id });
+    const team = await Team.findById(req.params.teamId);
+    if(!team){
+      res.status(422).json({error:"Unable to fetch the team"})
+    }
 
-    if (!team || !teamtask || !assignedTask) {
+    const teamtask = await TeamTask.deleteMany({ team: team._id });
+    const assignedTask = await EachTask.deleteMany({ team: team._id });
+
+    if (!teamtask || !assignedTask) {
       return res.status(422).json({ error: "Unable to delete" });
     }
-    res.status(200).json({ message: "Deleted successfully" });
+
+   const teamDel= await team.deleteOne()
+   if(!teamDel){
+    return res.status(422).json({error:"Unable to delete team"})
+   }
+  res.status(200).json({ message: "Deleted successfully" });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });

@@ -8,31 +8,45 @@
 
 .ConfirmMainDiv{
     background-color: white;
+    width:20rem;
     padding:1rem;
     border-radius:0.3rem;
 }
 
-.ConfirmMainDiv p{
-    font-size:1.2rem;
+.ConfirmationMainTitle{
+    font-size:1.3rem;
+}
+
+.ConfirmationMainDesc{
+    font-size:1rem;
+    margin-top:0.6rem;
 }
 
 .ConfirmMainDiv div{
     display: flex;
-    justify-content: space-between;
+    justify-content:space-around;
+    width:100%;
 }
 
 .ConfirmMainDiv div button{
-    width:50%;
     font-size:1.1rem;
+    width:49%;
     border:none;
     cursor:pointer;
     margin-top:0.5rem;
 }
 
 .ConfirmMainDiv div button:first-child{
-    background:green;
+    background:#0483bb;
+    padding:0.4rem;
+    color:white;
+    border-radius: 0.3rem;
+    font-size:0.9rem;
 }
 
 .ConfirmMainDiv div button:last-child{
-    background:red;
+    background:transparent;
+    border:0.1rem black solid;
+    border-radius: 0.3rem;
+    font-size:0.9rem;
 }

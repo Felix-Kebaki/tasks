@@ -5,7 +5,7 @@ const router=express.Router()
 
 router.post("/createTeam",Protect,createTeam)
 router.get("/getTeams",Protect,getYourTeams)
-router.delete("/deleteTeam/:id",Protect,deleteTeam)
+router.delete("/deleteTeam/:teamId",Protect,deleteTeam)
 router.get("/teamMembers/:teamId",Protect,getMembers)
 
 module.exports=router

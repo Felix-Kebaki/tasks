@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CreateTeam } from "../createTeam/CreateTeam";
-import { Confirm } from "../confirm/Confirm";
+import { TeamConfirm } from "../confirm/TeamConfirm";
 import "./team.css";
 
 import { useGetYourTeamsQuery } from "../../redux/api/teamApiSlice";
@@ -25,6 +25,7 @@ export function Team() {
 
   const HandleClickDeleteTeam=(id)=>{
     setConfirm(id)
+    setMsg("Are you sure you want the team and all it's data to be deleted")
   }
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export function Team() {
             yourTeams &&
             yourTeams.map((team) => (
               <div className="EachTeamMainDiv" key={team._id}>
-                <Link to={"/app/teams/"+team._id}>
+                <Link to={"/app/teams/eachTeamtask/"+team._id}>
                   <FontAwesomeIcon icon={faCircle} id="EachTeamDot" />
                   <p className="teamName text">{team.name}</p>
                   {team.isAdmin ? (
@@ -80,7 +81,7 @@ export function Team() {
         {
             confirm!==null?
             <div className="OverflowAddMainDiv">
-            <Confirm setAdd={setAdd} msg={msg} setMsg={setMsg} setConfirm={setConfirm}/>
+            <TeamConfirm confirm={confirm} msg={msg} setMsg={setMsg} setConfirm={setConfirm}/>
           </div>:null
         }
       </div>
