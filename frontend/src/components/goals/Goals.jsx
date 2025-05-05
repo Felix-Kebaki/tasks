@@ -102,25 +102,6 @@ export function Goals() {
           <FontAwesomeIcon icon={faPlus} /> Create Goal
         </button>
       </div>
-      {/* <div className="FilterGoalsMainDiv">
-        {categoryGoals &&
-          categoryGoals.map((category, index) => (
-            <input
-              type="text"
-              value={category.category}
-              key={category.id}
-              onClick={() => HandleFilterGoals(category.id, index)}
-              readOnly
-              onFocus={(e) => e.target.blur()}
-              className={
-                category.id === categoryValue
-                  ? "currentCategory text"
-                  : "otherCategory text"
-              }
-              onChange={() => {}}
-            />
-          ))}
-      </div> */}
       <div className="GoalsMainDiv">
         {goals && goals.length !== 0 ? (
           goals.map((goal) => (

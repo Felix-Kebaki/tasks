@@ -22,7 +22,7 @@ import { SubmissionsPage } from "./pages/SubmissionsPage.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/home",
+    path: "/",
     element: <App />,
   },
   {

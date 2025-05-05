@@ -36,20 +36,23 @@ html{
   background-color: #eeecec;
 }
 
-
-/* ADD GOAL OVERFLOW */
-.OverflowAddMainDiv{
-  position:absolute;
-  top:0;
-  bottom:0;
-  right:0;
-  left:0;
-  width:100%;
-  min-height: 100dvh;
-  background-color: rgba(0, 0, 0, 0.658);
+pre{
+  color:red;
 }
 
 
+/* ADD GOAL OVERFLOW */
+.OverflowAddMainDiv{
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.658);
+  overflow: hidden; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
 
-/* #FC8415 orange*/
-/* #42620D  #8CA52B green */

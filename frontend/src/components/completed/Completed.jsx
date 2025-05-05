@@ -29,6 +29,7 @@ export function Completed() {
 
   useEffect(() => {
     refetch();
+    console.log(completed)
   }, [refetch, completed]);
 
   return (

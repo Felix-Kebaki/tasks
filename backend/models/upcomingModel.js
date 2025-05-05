@@ -10,13 +10,13 @@ const upcomingSchema=mongoose.Schema({
         type:String,
         required:true
     },
-    description:{
-        type:String,
-        required:true
-    },
     eventDate:{
         type:Date,
         required:true
+    },
+    notified:{
+        type:Boolean,
+        default:false
     }
 })
 

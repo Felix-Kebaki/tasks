@@ -85,7 +85,15 @@
     width:100%;
 }
 
-.CreateTeamSubmitBtn button{
+.SubmitAllLoaderMode {
+  width:100%;
+  background-color: #fc8415;
+  border:none;
+  padding:0.18rem 0rem;
+  border-radius: 0.2rem;
+}
+
+.CreateTeamSubmitActualBtn{
     width:100%;
     background-color: #fc8415;
     color: black;
@@ -93,4 +101,6 @@
     padding:0.3rem 0rem;
     font-size:1rem;
     cursor:pointer;
+    border-radius: 0.2rem;
 }
+

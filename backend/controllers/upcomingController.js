@@ -1,15 +1,18 @@
 const Upcoming=require("../models/upcomingModel")
 
 const createUpcoming=async(req,res)=>{
-    const {title,description,eventDate}=req.body
+    const {title,eventDate}=req.body
     try {
-        if(!title || !description || !eventDate){
+        if(!title || !eventDate){
             return res.status(422).json({error:"Input all fields"})
         }
+        if(new Date(eventDate)<new Date()){
+            return res.status(422).json({error:"Can't set events in the past"})
+        }
+
         const upcoming=await Upcoming.create({
             user:req.user._id,
             title,
-            description,
             eventDate
         })
         if(!upcoming){
@@ -40,4 +43,17 @@ const getUpcomings=async(req,res)=>{
     }
 }
 
-module.exports={createUpcoming,getUpcomings}
+const deleteUpcoming=async(req,res)=>{
+    try {
+        const event=await Upcoming.deleteMany({eventDate:req.params.date})
+        if(!event){
+            return res.status(422).json({error:'Unable to fetch events'})
+        }
+        res.status(200).json({message:"Event deleted successfully"})
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).json({ error: "Server side issue" });
+    }
+}
+
+module.exports={createUpcoming,getUpcomings,deleteUpcoming}

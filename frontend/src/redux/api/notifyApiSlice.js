@@ -11,7 +11,7 @@ const notifyApiSlice=apiSlice.injectEndpoints({
         }),
         markAsSeen:builder.mutation({
             query:()=>({
-                url:`${NOTIFY_URL}/markSeen`,
+                url:`${NOTIFY_URL}/markallSeen`,
                 method:"POST"
             })
         }),

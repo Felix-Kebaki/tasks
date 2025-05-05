@@ -26,8 +26,7 @@ const notifySchema=mongoose.Schema({
     },
     type:{
         type:String,
-        enum:['Invite','Task','Personal goal'],
-        required:true
+        enum:["Invite"]
     }
 })
 

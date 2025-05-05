@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./createTeam.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
+import Loader from '../../assets/images/Loader.png'
 
 import { useCreateTeamMutation } from "../../redux/api/teamApiSlice";
 import { useSendInviteMutation } from "../../redux/api/invitesApiSlice";
@@ -11,11 +13,14 @@ import { useSendInviteMutation } from "../../redux/api/invitesApiSlice";
 export function CreateTeam({ setAdd }) {
   const [teamName, setTeamName] = useState("");
   const [invited, setInvited] = useState([]);
+  const [inviteMemberNo, setInviteMemberNo] = useState(0);
+  const [errorMessage,setErrorMessage]=useState("")
 
   const [createTeam, { isLoading }] = useCreateTeamMutation();
-  const [sendInvite] = useSendInviteMutation();
+  const [sendInvite, { isLoading: inviteLoading }] = useSendInviteMutation();
 
   const HandleInviteClick = () => {
+    setInviteMemberNo((prev) => prev + 1);
     setInvited((prev) => [...prev, ""]);
   };
 
@@ -30,30 +35,48 @@ export function CreateTeam({ setAdd }) {
     try {
       if (invited.length === 0) {
         console.error("Invite atleast one user");
+        setErrorMessage("Invite atleast one user");
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 3000);
       } else {
         const response = await createTeam({ name: teamName });
         if (response.error) {
           console.error(response.error.data.error || response.error.error);
+          setErrorMessage(response.error.data.error || response.error.error);
+          setTimeout(() => {
+            setErrorMessage("");
+          }, 3000);
         } else {
           console.log(response.data.message);
           const teamId = response.data.teamId;
           for (const each of invited) {
             if (each?.trim()) {
-              const res = await sendInvite({ data: { email: each } , teamId});
+              const res = await sendInvite({ data: { email: each }, teamId });
               if (res.error) {
                 console.log(res.error.data.error || res.error.error);
+                setErrorMessage(res.error.data.error || res.error.error);
+                setTimeout(() => {
+                  setErrorMessage("");
+                }, 3000);
               } else {
                 console.log("Invitation sent successfully");
               }
             }
           }
+          setInviteMemberNo(0);
           setAdd(false);
         }
       }
     } catch (error) {
       console.log(error.message);
+      setErrorMessage(error.message);      
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
     }
   };
+
 
   return (
     <section className="CreateTeamMainSec">
@@ -108,14 +131,24 @@ export function CreateTeam({ setAdd }) {
                 className="CreateTeamInviteMemberBtn text"
                 onClick={HandleInviteClick}
               >
-                <FontAwesomeIcon icon={faPlus} id="PlusObjective" /> Another
+                <FontAwesomeIcon icon={faPlus} id="PlusObjective" />
+                {inviteMemberNo !== 0 ? "Add another " : "Invite a "}
                 member
               </div>
               <div className="CreateTeamSubmitBtn">
-                <button type="submit" className="text">
-                  Create
+                <button type="submit" className={isLoading || inviteLoading?"SubmitAllLoaderMode":"CreateTeamSubmitActualBtn text"}>
+                  {isLoading || inviteLoading ? (
+                    <img
+                      src={Loader}
+                      alt="Loading..."
+                      className="LoaderImage"
+                    />
+                  ) : (
+                    "Create"
+                  )}
                 </button>
               </div>
+              <pre className="text">{errorMessage ? errorMessage : null}</pre>
             </div>
           </div>
         </div>

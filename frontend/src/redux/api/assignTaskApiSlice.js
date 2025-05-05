@@ -45,12 +45,6 @@ const assignTaskApiSlice = apiSlice.injectEndpoints({
             url:`${ASSIGNTASK_URL}/completeAssignedtask/${teamtaskId}`,
             method:"POST"
         })
-    }),
-    deleteYourtasks:builder.mutation({
-        query:({teamtaskId})=>({
-            url:`${ASSIGNTASK_URL}/deleteYourtask/${teamtaskId}`,
-            method:"DELETE"
-        })
     })
   }),
 });
@@ -62,6 +56,5 @@ export const {
   useGetTeamAssignedTaskQuery,
   useStartTeamtaskMutation,
   useDeleteAssignedTaskMutation,
-  useMarkAsDoneMutation,
-  useDeleteYourtasksMutation
+  useMarkAsDoneMutation
 } = assignTaskApiSlice;

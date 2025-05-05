@@ -22,6 +22,7 @@ require("./utils/cron/processDailyObjectives")
 require("./utils/cron/goalUpdater")
 require("./utils/cron/deleteNotifications")
 require("./utils/cron/taskDeadlineChecker")
+require("./utils/cron/upcomingevents")
 
 app.use("/api/auth",require("./routers/userRouter"))
 app.use("/api/goals",require("./routers/goalRouter"))

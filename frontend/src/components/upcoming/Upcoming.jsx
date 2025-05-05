@@ -2,18 +2,74 @@ import { useState, useEffect } from "react";
 import "./upcoming.css";
 
 import { AddUpcoming } from "../addUpcoming/AddUpcoming";
+import { UpcomingConfirm } from "../confirm/UpcomingConfirm";
 
 import { useGetUpcomingsQuery } from "../../redux/api/upcomingApiSlice";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faHashtag } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export function Upcoming() {
-  const [add, setAdd] = useState(null);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [events, setEvents] = useState({});
+  const [add, setAdd] = useState(null);
+  const [confirm, setConfirm] = useState(null);
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
+
+  const { data, refetch, isLoading } = useGetUpcomingsQuery({
+    month: month + 1,
+    year,
+  });
+
+  useEffect(() => {
+    refetch();
+    if (data && Array.isArray(data)) {
+      const eventMap = {};
+      data.forEach((event) => {
+        if (event.eventDate) {
+          const dateObj = new Date(event.eventDate);
+          if (!isNaN(dateObj)) {
+            const dateKey = dateObj.toISOString().split("T")[0];
+            if (!eventMap[dateKey]) {
+              eventMap[dateKey] = [];
+            }
+            eventMap[dateKey].push(event.title || "Untitled");
+          } else {
+            console.warn("Invalid date format in event:", event);
+          }
+        } else {
+          console.warn("Missing date in event:", event);
+        }
+      });
+      setEvents(eventMap);
+    }
+  }, [data, month, year, add,confirm]);
+
+  const handleNextMonth = () => {
+    const nextMonth = new Date(year, month + 1, 1);
+    setCurrentDate(nextMonth);
+  };
+
+  const handlePrevMonth = () => {
+    const prevMonth = new Date(year, month - 1, 1);
+    setCurrentDate(prevMonth);
+  };
+
+  const handleDateClick = async (date) => {
+    setAdd(null);
+    setAdd(date);
+  };
+
+  const HandleDeleteEvent = (date) => {
+    console.log("Clicked", date);
+  };
 
   const getDaysInMonth = (year, month) => {
     const date = new Date(year, month, 1);
@@ -27,40 +83,6 @@ export function Upcoming() {
 
   const days = getDaysInMonth(year, month);
 
-  const arg = { year, month:month+1};
-  const { refetch, data } = useGetUpcomingsQuery(arg);
-
-  const fetchEvents = async () => {
-    try {
-        const fetchedEvents = {};
-        data && data.forEach((event) => {
-          const dateKey = new Date(event.date).toISOString().split("T")[0];
-          if (!fetchedEvents[dateKey]) fetchedEvents[dateKey] = [];
-          fetchedEvents[dateKey].push(event);
-          console.log("Event on:", dateKey);
-        });
-        setEvents(fetchedEvents);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
-  };
-
-  const handleDateClick =async (date) => {
-    setAdd(date)
-     };
-
-     
-
-  useEffect(() => {
-    const today = new Date();
-    if (today.getMonth() !== month || today.getFullYear() !== year) {
-      setEvents({});
-    }
-    if(data){
-    fetchEvents()}
-    console.log(data)
-  }, [month, year,add]);
-
   const blankDays = [];
   if (days.length > 0) {
     for (let i = 0; i < days[0].getDay(); i++) {
@@ -69,54 +91,93 @@ export function Upcoming() {
       );
     }
   }
+
   return (
     <section className="UpcomingMainSec">
-      <div
-        className={
-          add !== null ? "calenderContainerNoScroll" : "calendarContainer"
-        }
-      >
+      <div className="UpcomingMainDiv">
+        <p className="UpcomingMainTitle title">Upcoming events</p>
         <div className="calendarHeader">
           <p className="title">
             {currentDate.toLocaleString("default", { month: "long" })} {year}
           </p>
+          <div className="NextAndPrevMonthIconDiv">
+            {
+              <FontAwesomeIcon
+                icon={faAngleLeft}
+                className="nextMonthbutton"
+                onClick={handlePrevMonth}
+              />
+            }
+            <FontAwesomeIcon
+              icon={faAngleRight}
+              onClick={handleNextMonth}
+              className="nextMonthbutton"
+            />
+          </div>
         </div>
-
-        <div className="calendar-days">
-          {daysOfWeek.map((day) => (
-            <div key={day} className="calendar-day-name text">
-              {day}
-            </div>
-          ))}
-        </div>
-
-        <div className="calendar-grid">
-          {blankDays}
-          {days.map((date) => {
-            const dateKey = date.toISOString().split("T")[0];
-            return (
-              <div
-                key={dateKey}
-                onClick={() => handleDateClick(date)}
-                className="calendar-day"
-              >
-                <div className="OnlyDateDiv text">{date.getDate()}</div>
-
-                {events[dateKey]?.map((e, i) => (
-                  <div key={i} className="eventMainDiv text">
-                    {e.name}
-                  </div>
-                ))}
+        <div className="calendarContainer">
+          <div className="calendarDays">
+            {daysOfWeek.map((day) => (
+              <div key={day} className="calendarDayName text">
+                {day}
               </div>
-            );
-          })}
+            ))}
+          </div>
+
+          <div className="calendar-grid">
+            {blankDays}
+            {days.map((date) => {
+              const dateKey = date.toISOString().split("T")[0];
+              return (
+                <div
+                  key={dateKey}
+                  onClick={() => handleDateClick(date)}
+                  className={
+                    events[dateKey] ? "calendar-day" : "calenderDayEmpty"
+                  }
+                >
+                  <div className="OnlyDateDivAndDeleteUpcoming text">
+                    <p>{date.getDate()}</p>
+                    {events[dateKey] ? (
+                      <FontAwesomeIcon
+                        icon={faXmark}
+                        id="DeleteUpcomingIcon"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setConfirm(date);
+                        }}
+                      />
+                    ) : null}
+                  </div>
+                  {events[dateKey] && (
+                    <div className="event">
+                      {events[dateKey].map((ev, i) => (
+                        <div key={i} className="eventMainDiv text">
+                          <div>
+                            <FontAwesomeIcon
+                              icon={faHashtag}
+                              id="HashtagIconAtUpcomings"
+                            />
+                            <p>{ev}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
+        {add !== null ? (
+          <div className="OverflowAddMainDiv">
+            <AddUpcoming setAdd={setAdd} add={add} />
+          </div>
+        ) : null}
+        {confirm !== null ? <div className="OverflowAddMainDiv">
+          <UpcomingConfirm setConfirm={setConfirm} confirm={confirm}/>
+        </div> : null}
       </div>
-      {add !== null ? (
-        <div className="OverflowAddMainDiv">
-          <AddUpcoming setAdd={setAdd} add={add} />
-        </div>
-      ) : null}
     </section>
   );
 }

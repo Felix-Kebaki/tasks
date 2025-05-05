@@ -41,7 +41,7 @@ export function EachAssignedTeamtask({ taskId, userId ,reload,isAdmin}) {
                     <p className="EachAssignedTeamtaskMainName text">{data.name}</p>
                     <div className="EAchAssignedTeamtaskDeleteAndStatusDiv">
                     {isAdmin ?<FontAwesomeIcon icon={faTrashCan} onClick={()=>HandleDeleteAssignedTask(data._id)} id="DeleteAssignedTaskIcon"/>:null}
-                    <p className={data.status==="Not started"?"statusOfAssignedNotStartedTask text":data.status==="In progress"?"statusOfAssignedInProgressTask text":"statusOfAssignedCompletedTask"}>{data.status}</p>
+                    <p className={data.status==="Not started"?"statusOfAssignedNotStartedTask text":data.status==="In progress"?"statusOfAssignedInProgressTask text":"statusOfAssignedCompletedTask text"}>{data.status}</p>
                     </div>
                 </div>
             ))

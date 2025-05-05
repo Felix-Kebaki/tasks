@@ -6,13 +6,11 @@ import moment from "moment";
 import { useGetAssignedQuery } from "../../redux/api/assignTaskApiSlice";
 import { useStartTeamtaskMutation } from "../../redux/api/assignTaskApiSlice";
 import { useMarkAsDoneMutation } from "../../redux/api/assignTaskApiSlice";
-import { useDeleteYourtasksMutation } from "../../redux/api/assignTaskApiSlice";
 
 export function AssignedTask() {
   const { refetch, data, isLoading } = useGetAssignedQuery();
   const [markAsDone] = useMarkAsDoneMutation();
   const [startTeamtask] = useStartTeamtaskMutation();
-  const [deleteYourtasks]=useDeleteYourtasksMutation()
 
   const HandleClickOnStartTeamtask = async (taskId) => {
     try {
@@ -42,19 +40,6 @@ export function AssignedTask() {
     }
   };
 
-  const HandleClickDeleteTeamtask = async(teamtaskId) => {
-    try {
-      const res=await deleteYourtasks({teamtaskId})
-      if (res.error) {
-        console.error(res.error.data.error || res.error.error);
-      } else {
-        console.log(res.data.message);
-        refetch();
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
 
   useEffect(() => {
     refetch();
@@ -111,14 +96,13 @@ export function AssignedTask() {
                   >
                     {each.status}
                   </p>
+                  {each.status!=="Completed"?
                   <button
                     onClick={
                       each.status === "Not started"
                         ? () => HandleClickOnStartTeamtask(each._id)
                         : each.status === "In progress"
                         ? () => HandleClickOnDoneTeamtask(each._id)
-                        : each.status === "Completed"
-                        ? () => HandleClickDeleteTeamtask(each._id)
                         : null
                     }
                     className={
@@ -131,12 +115,10 @@ export function AssignedTask() {
                       ? "Start"
                       : each.status === "In progress"
                       ? "Done"
-                      : each.status === "Completed"
-                      ? "Delete"
                       : each.status === "Out of time"
                       ? "Delete"
                       : null}
-                  </button>
+                  </button>:null}
                 </div>
               </div>
             ))}

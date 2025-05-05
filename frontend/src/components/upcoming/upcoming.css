@@ -3,42 +3,53 @@
     padding: 0rem 0.4rem 0rem 16.3rem;
 }
 
+.UpcomingMainDiv{
+    padding:1.5rem 0rem 1rem 0rem;
+}
+
+.UpcomingMainTitle{
+    font-size:1.3rem;
+}
+
 .calendarContainer {
     width: 100%;
     min-height: 100dvh;
-    box-shadow: 0rem 0rem 0.4rem rgba(0, 0, 0, 0.253);
+    box-shadow: 0rem 0rem 0.4rem rgba(99, 99, 99, 0.253);
     padding: 1.5rem 2rem 1.5rem 2rem;
     background-color: white;
     text-align: center;
-}
-
-.containerNoScroll{
-    width: 100%;
-    height: auto;
-    box-shadow: 0rem 0rem 0.4rem rgba(0, 0, 0, 0.253);
-    padding: 1.5rem 2rem 1.5rem 2rem;
-    background-color: red;
-    text-align: center;
-    overflow-y: hidden;
+    border-radius: 0.3rem;
 }
 
 .calendarHeader {
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-top:1rem;
+    margin-bottom: 1rem;
 }
 
 .calendarHeader p {
-    font-size:1.5rem;
+    font-size:1.2rem;
 }
 
-.calendar-days {
+.nextMonthbutton{
+    color: #0483bb;
+    cursor:pointer;
+    padding:0.3rem ;
+    font-size: 1.5rem;
+}
+
+.calendarDays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     font-weight: bold;
     margin-bottom: 1rem;
     text-align: start;
+}
+
+.calendarDayName{
+    font-size:1.2rem;
 }
 
 .calendar-grid {
@@ -48,6 +59,18 @@
 }
 
 .calendar-day {
+    background-color: #FC8415;
+    padding: 0.4rem;
+    min-height: 10rem;
+    cursor: pointer;
+    border-radius: 0.3rem;
+    display:flex;
+    flex-direction:column;
+    align-items: start;
+    row-gap:0.1rem;
+}
+
+.calenderDayEmpty{
     border: 0.1rem #eeecec solid;
     padding: 0.4rem;
     min-height: 10rem;
@@ -55,10 +78,11 @@
     border-radius: 0.3rem;
     display:flex;
     flex-direction:column;
-    row-gap:0.1rem;
+    align-items: start;
+    row-gap:0.1rem;;
 }
 
-.calendar-day:hover {
+.calenderDayEmpty:hover {
     background-color: #eeecec;
 }
 
@@ -68,10 +92,19 @@
     cursor: default;
 }
 
-.OnlyDateDiv{
+.OnlyDateDivAndDeleteUpcoming{
     display: flex;
-    justify-content: start;
-    font-size:1.3rem;
+    justify-content: space-between;
+    align-items: start;
+    width:100%;
+}
+
+.OnlyDateDivAndDeleteUpcoming p{
+    font-size:1.5rem;
+}
+
+#DeleteUpcomingIcon{
+    color:rgba(0, 0, 0, 0.671);
 }
 
 .eventMainDiv {
@@ -79,5 +112,22 @@
     flex-direction: column;
     justify-content: start;
     align-items: start;
-    color: #fc8415;
+}
+
+.eventMainDiv div{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    column-gap: 0.2rem;;
+}
+
+#HashtagIconAtUpcomings{
+    font-size:0.7rem;
+    margin-top:0.3rem;
+    color:rgba(0, 0, 0, 0.671);
+}
+
+.eventMainDiv div p{
+    text-align: start;
+    color:black;
 }

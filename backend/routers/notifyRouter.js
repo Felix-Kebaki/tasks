@@ -5,7 +5,7 @@ const router=express.Router()
 
 router.get("/getUnread",Protect,getUnread)
 router.get("/getAllNotifications",Protect,getAllNotifications)
-router.get("/markallSeen",Protect,markAllSeen)
+router.post("/markallSeen",Protect,markAllSeen)
 router.post("/markOneSeen/:id",Protect,markOneSeen)
 
 module.exports=router

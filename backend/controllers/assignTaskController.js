@@ -199,32 +199,6 @@ const deleteAssignedTeamtask = async (req, res) => {
 };
 
 
-const deletingYourTasks=async(req,res)=>{
-  try {
-    const yourtasks=await EachTask.findById(req.params.id)
-    if (!yourtasks) {
-      return res.status(422).json({ error: "Couldn't find the assigned task" });
-    }
-
-    if(yourtasks.assignedTo.toString() !== req.user._id.toString()){
-      return res.status(401).json({ error: "Unauthorized access" });
-    }
-
-    if(yourtasks.status==="Not started" || yourtasks.status==="In progress"){
-      return res.status(422).json({ error: "Task must be completed first" });
-    }
-
-    const deleted=await yourtasks.deleteOne()
-    if(!deleted){
-      return res.status(422).json({error:'Unable to delete'})
-    }
-    res.status(200).json({error:"Teamtask deleted successfully"})
-  } catch (error) {
-    console.error(error.message);
-    return res.status(500).json({ error: "Server side issue" });
-  }
-}
-
 
 
 
@@ -234,6 +208,5 @@ module.exports = {
   assignedTaskfromTheTeam,
   startTeamtask,
   deleteAssignedTeamtask,
-  completeTeamtask,
-  deletingYourTasks
+  completeTeamtask
 };

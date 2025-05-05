@@ -17,7 +17,7 @@ export function AppLogged() {
           </div>
         </main>
       ) : (
-        <Navigate to="/home" />
+        <Navigate to="/" />
       )}
     </>
   );
