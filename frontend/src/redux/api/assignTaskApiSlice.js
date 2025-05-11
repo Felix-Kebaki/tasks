@@ -16,12 +16,6 @@ const assignTaskApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    getAssignedMembers: builder.query({
-      query: ({ teamId }) => ({
-        url: `${ASSIGNTASK_URL}/getAssignedwithMember/${teamId}`,
-        method: "GET",
-      }),
-    }),
     getTeamAssignedTask: builder.query({
       query: ({ taskId, userId }) => ({
         url: `${ASSIGNTASK_URL}/getTeamAssignedTasks/${taskId}/${userId}`,
@@ -34,27 +28,40 @@ const assignTaskApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
-    deleteAssignedTask:builder.mutation({
-        query:({taskId})=>({
-            url:`${ASSIGNTASK_URL}/deleteAssignedtask/${taskId}`,
-            method:"DELETE"
-        })
+    deleteAssignedTask: builder.mutation({
+      query: ({ taskId }) => ({
+        url: `${ASSIGNTASK_URL}/deleteAssignedtask/${taskId}`,
+        method: "DELETE",
+      }),
     }),
-    markAsDone:builder.mutation({
-        query:({teamtaskId})=>({
-            url:`${ASSIGNTASK_URL}/completeAssignedtask/${teamtaskId}`,
-            method:"POST"
-        })
-    })
+    markAsDone: builder.mutation({
+      query: ({ teamtaskId, data }) => {
+        if (data.type === "Link") {
+          return {
+            url: `${ASSIGNTASK_URL}/completeAssignedtask/${teamtaskId}`,
+            method: "POST",
+            body: data,
+          };
+        }
+        const formData=new FormData()
+        formData.append("type",data.type)
+        formData.append('file',data.file)
+
+        return{
+          url: `${ASSIGNTASK_URL}/completeAssignedtask/${teamtaskId}`,
+          method: "POST",
+          body: formData
+        }
+      },
+    }),
   }),
 });
 
 export const {
   useAssignTaskMutation,
   useGetAssignedQuery,
-  useGetAssignedMembersQuery,
   useGetTeamAssignedTaskQuery,
   useStartTeamtaskMutation,
   useDeleteAssignedTaskMutation,
-  useMarkAsDoneMutation
+  useMarkAsDoneMutation,
 } = assignTaskApiSlice;

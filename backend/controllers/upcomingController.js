@@ -1,4 +1,5 @@
 const Upcoming=require("../models/upcomingModel")
+const capitalizeFirst=require("../utils/capitalize")
 
 const createUpcoming=async(req,res)=>{
     const {title,eventDate}=req.body
@@ -12,7 +13,7 @@ const createUpcoming=async(req,res)=>{
 
         const upcoming=await Upcoming.create({
             user:req.user._id,
-            title,
+            title:capitalizeFirst(title),
             eventDate
         })
         if(!upcoming){

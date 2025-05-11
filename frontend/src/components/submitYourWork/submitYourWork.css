@@ -1,0 +1,76 @@
+.SubmitYourWorkMainSec{
+    width:100%;
+    min-height:100dvh;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.SubmitYourWorkMainSec form{
+    padding:1rem;
+    background-color: white;
+}
+
+.SubmitYourWorkTopDiv{
+    display:flex;
+    justify-content: space-between;
+    align-items:start;
+}
+
+.SubmitYourWorkTopDiv p{
+    font-size:1.3rem;
+}
+
+#SubmitYourWorkCancelIcon{
+    font-size:1.3rem;
+    cursor:pointer;
+}
+
+.InputOfYourWorkType{
+    width:35rem;
+    margin-top:0.5rem;
+}
+
+.InputOfYourWorkType label{
+    font-size:0.9rem;
+}
+
+.InputOfYourWorkType select{
+    width:80%;
+    padding:0.3rem 0.2rem;
+    border-radius:0.3rem;
+    border:0.1rem black solid;
+    background-color: transparent;
+}
+
+.SubmitWorkLink{
+    width:35rem;
+    margin-top:0.5rem;
+}
+
+.SubmitWorkLink label{
+    font-size:0.9rem;
+}
+
+.SubmitWorkLink input{
+    width:80%;
+    padding:0.3rem 0.2rem;
+    border-radius:0.3rem;
+    border:0.1rem black solid;
+    background-color: transparent;
+}
+
+.SubmitWorkMainSubmitDiv{
+    width:35rem;
+    margin-top:0.5rem;
+}
+
+.SubmitWorkMainSubmitDiv input{
+    width:80%;
+    cursor:pointer;
+    background-color: #fc8415;
+    color:black;
+    border:none;
+    border-radius: 0.3rem;
+    padding:0.35rem ;
+}

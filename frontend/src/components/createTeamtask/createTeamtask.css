@@ -40,7 +40,7 @@
 
 .InputOfTeamtask{
     width:100%;
-    margin-top:0.7rem;
+    margin-top:0.5rem;
 }
 
 .InputOfTeamtask label{
@@ -52,6 +52,28 @@
     padding:0.3rem 0.2rem;
     border-radius:0.3rem;
     border:0.1rem black solid;
+    background-color: transparent;
+}
+
+.InputOfTeamtask select{
+    width:100%;
+    padding:0.3rem 0.2rem;
+    border-radius:0.3rem;
+    border:0.1rem black solid;
+    background-color: transparent;
+}
+
+.InputOfTeamtaskFile{
+    margin-top:0.5rem;
+}
+
+.InputOfTeamtaskFile label{
+    font-size:0.9rem;
+}
+
+.InputOfTeamtaskFile input{
+    width:100%;
+    padding:0.3rem 0.2rem;
     background-color: transparent;
 }
 

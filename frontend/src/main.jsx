@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
+import { ToastProvider } from "./context/ToastContext.jsx";
 
 import store from "./redux/store.js";
 import App from "./App.jsx";
@@ -19,6 +20,7 @@ import { NotificationPage } from "./pages/NotificationPage.jsx";
 import { TeamDetailsPage } from "./pages/TeamDetailsPage.jsx";
 import { UpcomingPage } from "./pages/UpcomingPage.jsx";
 import { SubmissionsPage } from "./pages/SubmissionsPage.jsx";
+import { AllPerCategoryPage } from "./pages/AllPerCategoryPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +76,10 @@ const router = createBrowserRouter([
         path: "/app/completed",
         element: <CompletedPage />,
       },
+      {
+        path: "/app/categories/:categoryName",
+        element: <AllPerCategoryPage />,
+      },
     ],
   },
   {
@@ -93,7 +99,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <ToastProvider>
+        <RouterProvider router={router} />
+      </ToastProvider>
     </Provider>
   </StrictMode>
 );

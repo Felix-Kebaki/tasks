@@ -1,4 +1,5 @@
 const Today = require("../models/todayModel");
+const capitalizeFirst=require("../utils/capitalize")
 
 const createToday = async (req, res) => {
   const { objective, startTime, endTime,category } = req.body;
@@ -27,10 +28,10 @@ const createToday = async (req, res) => {
     }
 
     const newObjective = await Today.create({
-      objective,
+      objective:capitalizeFirst(objective),
       startTime,
       endTime,
-      category,
+      category:capitalizeFirst(category),
       user: req.user._id,
     });
     if (!newObjective) {

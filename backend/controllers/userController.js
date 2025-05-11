@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 
 const generateTokenAndSetCookie = require("../utils/generateTokenAndSetCookie");
+const capitalizeFirst=require("../utils/capitalize")
 
 const registerUser = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -23,8 +24,8 @@ const registerUser = async (req, res) => {
     ).toString();
 
     const user = new User({
-      firstName,
-      lastName,
+      firstName:capitalizeFirst(firstName),
+      lastName:capitalizeFirst(lastName),
       email,
       password: hashedPassword,
       verificationCode: verificationToken,

@@ -7,12 +7,14 @@ import { CreateTeamtask } from "../createTeamtask/CreateTeamtask";
 import { EachAssignedTeamtask } from "../eachAssignedTeamtask/EachAssignedTeamtask";
 import { TeamConfirm } from "../confirm/TeamConfirm";
 import { Invite } from "../inviteMember/Invite";
+import { ViewAssets } from "../viewAssets/ViewAssets";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 import { useGetTeamtaskQuery } from "../../redux/api/teamTaskApiSlice";
@@ -24,10 +26,11 @@ export function TeamDetails() {
   const [assignedTask, setAssignedTask] = useState({});
   const [reload, setReload] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [invite,setInvite]=useState(null)
+  const [invite, setInvite] = useState(null);
 
-  const [confirm,setConfirm]=useState(null)
-  const [msg,setMsg]=useState("")
+  const [confirm, setConfirm] = useState(null);
+  const [msg, setMsg] = useState("");
+  const [view,setView]=useState(null)
 
   const { refetch: teamtaskRefetch, data: teamTasks } = useGetTeamtaskQuery({
     teamId: param.id,
@@ -85,17 +88,21 @@ export function TeamDetails() {
   };
 
   const HandleDeleteTeamtask = async (teamtaskId) => {
-    setMsg("Are you sure you want the Teamtask deleted with all of it's data")
-    setConfirm(teamtaskId)
+    setMsg("Are you sure you want the Teamtask deleted with all of it's data");
+    setConfirm(teamtaskId);
   };
 
-  const HandleClickOnInvite=(id)=>{
-    setInvite(id)
+  const HandleClickOnInvite = (id) => {
+    setInvite(id);
+  };
+
+  const HandleClickOnImg=(url)=>{
+    setView(url)
   }
 
   useEffect(() => {
     teamtaskRefetch();
-  }, [add, teamtaskRefetch,confirm,invite]);
+  }, [add, teamtaskRefetch, confirm, invite]);
 
   return (
     <section className="TeamDetailsMainSec">
@@ -153,21 +160,38 @@ export function TeamDetails() {
                       <FontAwesomeIcon icon={faEllipsisVertical} />
                       {hoveredIndex === index && (
                         <div className="EachteamTaskSubMenuDiv text">
-                          <Link to={"/app/teams/eachTeamtask/submissions/" + each._id}>
-                            <FontAwesomeIcon icon={faLink} className="EachteamTaskSubmenuIcons"/>
+                          <Link
+                            to={
+                              "/app/teams/eachTeamtask/submissions/" + each._id
+                            }
+                          >
+                            <FontAwesomeIcon
+                              icon={faLink}
+                              className="EachteamTaskSubmenuIcons"
+                            />
                             Submissions
                           </Link>
                           {teamTasks.isAdmin ? (
                             <>
                               <p>
-                                <FontAwesomeIcon icon={faPenToSquare} className="EachteamTaskSubmenuIcons" />
+                                <FontAwesomeIcon
+                                  icon={faPenToSquare}
+                                  className="EachteamTaskSubmenuIcons"
+                                />
                                 Edit
                               </p>
-                              <p onClick={()=>HandleClickOnInvite(each.team)}><FontAwesomeIcon icon={faUserPlus} className="EachteamTaskSubmenuIcons"/>
+                              <p onClick={() => HandleClickOnInvite(each.team)}>
+                                <FontAwesomeIcon
+                                  icon={faUserPlus}
+                                  className="EachteamTaskSubmenuIcons"
+                                />
                                 Invite member
                               </p>
                               <p onClick={() => HandleDeleteTeamtask(each._id)}>
-                                <FontAwesomeIcon icon={faTrashCan} className="EachteamTaskSubmenuIcons"/>
+                                <FontAwesomeIcon
+                                  icon={faTrashCan}
+                                  className="EachteamTaskSubmenuIcons"
+                                />
                                 Delete
                               </p>
                             </>
@@ -178,6 +202,36 @@ export function TeamDetails() {
                   </div>
                 </div>
                 <p className="EachteamTaskDesc text">{each.description}</p>
+                {each.fileType !== "None" && each.fileType === "Link" ? (
+                  <di className="EachTeamtaskResourceDiv">
+                    <a
+                    className="text"
+                      href={each.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Visit resource link <FontAwesomeIcon icon={faArrowUpRightFromSquare}  className="VisitLinkIcon"/>
+                    </a>
+                  </di>
+                ) : each.fileType !== "None" && each.fileType === "Photo" ? (
+                  <div className="EachTeamtaskImgResourceDiv">
+                    <img src={each.fileUrl} alt="Img" onClick={()=>HandleClickOnImg(each.fileUrl)}/>
+                    <div className="text">
+                      Resource as an image
+                    </div>
+                  </div>
+                ) : each.fileType !== "None" && each.fileType === "Document" ? (
+                  <div className="EachTeamtaskResourceDiv">
+                    <a
+                    className="text"
+                      href={each.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View Document <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="VisitLinkIcon"/>
+                    </a>
+                  </div>
+                ) : null}
                 <div className="InputDivForAssigningTask">
                   <p className="InputDivForAssigningTaskTitleMembers text">
                     Members
@@ -237,16 +291,24 @@ export function TeamDetails() {
           <CreateTeamtask add={add} setAdd={setAdd} />
         </div>
       ) : null}
-      {
-        confirm !==null?
+      {confirm !== null ? (
         <div className="OverflowAddMainDiv">
-          <TeamConfirm setMsg={setMsg} msg={msg} confirm={confirm} setConfirm={setConfirm}/>
+          <TeamConfirm
+            setMsg={setMsg}
+            msg={msg}
+            confirm={confirm}
+            setConfirm={setConfirm}
+          />
         </div>
-        :null
-      }{
-        invite !==null?
+      ) : null}
+      {invite !== null ? (
         <div className="OverflowAddMainDiv">
-          <Invite invite={invite} setInvite={setInvite}/>
+          <Invite invite={invite} setInvite={setInvite} />
+        </div>
+      ) : null}
+      {
+        view !==null?<div className="OverflowAddMainDiv">
+          <ViewAssets setView={setView} view={view}/>
         </div>:null
       }
     </section>

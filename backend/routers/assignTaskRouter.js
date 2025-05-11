@@ -8,13 +8,14 @@ const {
   completeTeamtask
 } = require("../controllers/assignTaskController");
 const Protect = require("../middleware/authMiddleware");
+const upload=require('../utils/cloudinary/storage')
 const router = express.Router();
 
 router.post("/assignTask/:teamId/:teamtaskId/:userId", Protect, Assigntask);
 router.get("/getAssignedtask", Protect, getAssignedTask);
 router.post("/startTeamtask/:taskId", Protect, startTeamtask);
 router.delete("/deleteAssignedtask/:id", Protect, deleteAssignedTeamtask);
-router.post("/completeAssignedtask/:id", Protect, completeTeamtask);
+router.post("/completeAssignedtask/:id", Protect,upload.single("file"), completeTeamtask);
 router.get(
   "/getTeamAssignedTasks/:taskId/:userId",
   Protect,

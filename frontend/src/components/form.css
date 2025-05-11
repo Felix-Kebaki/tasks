@@ -72,9 +72,21 @@
     margin-top:0.5rem;
 }
 
+.FormPasswordsDiv{
+    /* background-color: red;
+    display:flex;
+    flex-direction: column;
+    row-gap:-1rem; */
+}
+
 .InsideInputAtAuth div label{
     font-size:0.7rem;
     padding-bottom:1rem;
+}
+
+.InsideInputAtAuth .FormPasswordsDiv label{
+    font-size:0.7rem;
+    padding-bottom:0rem;
 }
 
 .InsideInputAtAuth div input{

@@ -1,0 +1,55 @@
+.TeamSubmissionsMainSec{
+    padding:0rem 0.4rem 2rem 16.3rem;
+    width:100%;
+}
+
+.TeamSubmissionsMainDiv{
+    padding-top:1.5rem;
+}
+
+.TeamSubmissionMainTitle{
+    font-size:1.3rem;
+}
+
+.TeamSubmissionsMainDivWrapper{
+    margin:0.8rem 0rem 0.9rem 0rem;
+}
+
+.EachTeamSubmissionsDiv{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    text-decoration: none;
+    padding:0.5rem 0.4rem;
+    border-radius: 0.3rem;
+}
+
+.EachTeamSubmissionsDiv:hover{
+    background: white;
+}
+
+.TeamSubmitType{
+    color:black;
+}
+
+.TeamSubmittedBy{
+    font-size:0.8rem;
+    color:#0483bb;
+    text-transform: uppercase;
+}
+
+.TeamSubmittedBy span{
+    color:black;
+    text-transform: none;
+    font-size:1.1rem;
+}
+
+.NoSubmissionsMadeDiv{
+    padding:2rem 0rem 2rem 0rem;
+}
+
+.NoSubmissionsMadeDiv p{
+    text-align: center;
+    color:#FC8415;
+    font-size:1.2rem;
+}

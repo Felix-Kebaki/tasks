@@ -29,7 +29,6 @@ export function Completed() {
 
   useEffect(() => {
     refetch();
-    console.log(completed)
   }, [refetch, completed]);
 
   return (
@@ -44,7 +43,7 @@ export function Completed() {
             <p className="title">Completed Objectives</p>
           </div>
           <div className="CompleteEachDivWrapperDiv">
-            {completed && 
+            {completed &&
               completed.map((complete) => (
                 <div key={complete._id} className="EachCompletedDiv">
                   <div>
@@ -76,23 +75,20 @@ export function Completed() {
                     <div>
                       <p className="dateTitle text">Duration:</p>
                       <p className="dateActual text">
-                        {complete.duration && complete.duration.days !== "0" ? (
-                          <span>{complete.duration.days} days,</span>
-                        ) : null}
-                        {complete.duration &&
-                        complete.duration.hours !== "0" ? (
-                          <span>{complete.duration.hours} hrs,</span>
-                        ) : null}
-                        {complete.duration &&
-                        complete.duration.minutes !== "0" ? (
-                          <span>{complete.duration.minutes} min</span>
-                        ) : <span>0 min</span>}
+                        {complete.duration.days !== "0"
+                          ? complete.duration.days +
+                            " days," +
+                            complete.duration.hours +
+                            " hrs"
+                          : complete.duration.hours +
+                            " hrs," +
+                            complete.duration.minutes +
+                            " min"}
                       </p>
                     </div>
                   </div>
                 </div>
-              ))
-            }
+              ))}
           </div>
         </>
       )}

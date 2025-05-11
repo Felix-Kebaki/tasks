@@ -43,15 +43,18 @@
 .ObjectiveTextareaDiv textarea{
     max-width:100%;
     min-width:100%;
-    max-height:10rem; 
-    min-height:10rem; 
+    max-height:8.1rem; 
+    min-height:8.1rem; 
+    border-radius: 0.3rem;
+    outline:none;
+    border:0.1rem black solid;
     padding:0.3rem 0.1rem;
 }
 
 .StartStopAndCategoryObjectiveDiv{
     display: flex;
     flex-direction: column;
-    row-gap:1rem;
+    row-gap:0.5rem;
 }
 
 .StartStopObjectiveMainDiv{
@@ -70,7 +73,15 @@
 
 .StartStopObjectiveMainDiv div input{
     width:100%;
+    border-radius: 0.3rem;
+    border:0.1rem black solid;
+    outline:none;
     padding:0.3rem 0.1rem;
+}
+
+.StartStopObjectiveMainDiv div .ClockInput{
+    width:100%;
+    padding:0.2rem 0.1rem;
 }
 
 .CategoryObjectiveDiv label{
@@ -79,15 +90,23 @@
 
 .CategoryObjectiveDiv input{
     width:100%;
+    border:0.1rem black solid;
+    outline: none;
+    border-radius: 0.3rem;
     padding:0.3rem 0.1rem;
 }
 
-.CreateObjectiveBtnDiv input{
+.CreateObjectiveBtnDiv{
+    margin-top:0.5rem;
+}
+
+.CreateObjectiveBtnDiv button{
     padding:0.5rem 0rem 0.5rem 0rem;
     width:100%;
     background-color: #FC8415;
     border:none;
     color:black;
     cursor:pointer;
+    border-radius: 0.3rem;
 }
 

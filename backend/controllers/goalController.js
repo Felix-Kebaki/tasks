@@ -1,5 +1,6 @@
 const Goal = require("../models/goalModel");
 const calculateDuration = require("../utils/calculateGoalDuration");
+const capitalizeFirst=require("../utils/capitalize")
 
 const createGoal = async (req, res) => {
   const {
@@ -38,14 +39,14 @@ const createGoal = async (req, res) => {
     }
 
     const newGoal = await Goal.create({
-      name,
-      description,
+      name:capitalizeFirst(name),
+      description:capitalizeFirst(description),
       status,
-      category,
+      category:capitalizeFirst(category),
       priority,
       startDate,
       endDate,
-      reward,
+      reward:capitalizeFirst(reward),
       user: req.user._id,
     });
     if (!newGoal) {

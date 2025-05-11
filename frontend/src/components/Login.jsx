@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import "./form.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import { useLoginMutation } from "../redux/api/userApiSlice";
 import { setCredentials } from "../redux/features/authSlice";
+import { useToast } from "../context/ToastContext";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+
 
 import formBackground from "../assets/images/authBackground.jpg";
 import Logo from "../assets/images/Logo.png";
@@ -23,6 +27,7 @@ export function Login() {
     password: "",
   });
   const { email, password } = formData;
+  const {showToast}=useToast()
 
   const OnChange = (e) => {
     setFormData((prev) => ({
@@ -52,7 +57,7 @@ export function Login() {
           setErrorMessage("");
         }, 3000);
       } else {
-        console.log(response.data.message);
+        showToast(response.data.message,"success")
         dispatch(setCredentials(response.data.User));
         navigate("/app");
       }
@@ -95,7 +100,7 @@ export function Login() {
                 />
                 <br />
               </div>
-              <div>
+              <div className="FormPasswordsDiv">
                 <label htmlFor="PasswordId" className="passwordLabel text">
                   Password
                 </label>

@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { useCreateObjectiveMutation } from "../../redux/api/todayApiSlice";
+import { useToast } from "../../context/ToastContext";
+
+import Loader from "../../assets/images/Loader.png"
 
 export function ObjectiveForm({ setAdd }) {
   const [objForm, setObjForm] = useState({
@@ -15,6 +18,7 @@ export function ObjectiveForm({ setAdd }) {
   });
   const { objective, startTime, endTime, category } = objForm;
   const [createObjective, { isLoading }] = useCreateObjectiveMutation();
+  const {showToast}=useToast()
 
   const HandleRemoveForm = () => {
     setAdd(false);
@@ -31,9 +35,10 @@ export function ObjectiveForm({ setAdd }) {
     try {
       const response = await createObjective(objForm);
       if (response.error) {
-        console.error(response.error.data.error || response.error.error);
+        showToast(response.error.data.error || response.error.error,"error");
+        setAdd(false)
       } else {
-        console.log(response.data.message);
+        showToast(response.data.message,"success");
         setAdd(false);
       }
     } catch (error) {
@@ -74,7 +79,7 @@ export function ObjectiveForm({ setAdd }) {
                   value={startTime}
                   onChange={OnChange}
                   name="startTime"
-                  className="text"
+                  className="ClockInput text"
                 />
               </div>
               <div className="text">
@@ -86,7 +91,7 @@ export function ObjectiveForm({ setAdd }) {
                   value={endTime}
                   onChange={OnChange}
                   name="endTime"
-                  className="text"
+                  className="ClockInput text"
                 />
               </div>
             </div>
@@ -103,7 +108,7 @@ export function ObjectiveForm({ setAdd }) {
               />
             </div>
             <div className="CreateObjectiveBtnDiv">
-              <input type="submit" value="Create" />
+              <button className={isLoading?"SubmitAuthLoaderMode":null}>{isLoading?<img src={Loader} alt="Loading..."/>:"Create"} </button>
             </div>
           </div>
         </div>

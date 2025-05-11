@@ -8,8 +8,14 @@ const categoryApiSlice=apiSlice.injectEndpoints({
                 url:`${CATEGORY_URL}/getAllCategory`,
                 method:"GET"
             })
+        }),
+        getAllPerCat:builder.query({
+            query:({categoryName})=>({
+                url:`${CATEGORY_URL}/goalAndObjectivesPerCategory/${categoryName}`,
+                method:"GET"
+            })
         })
     })
 })
 
-export const {useGetCategoryQuery}=categoryApiSlice
+export const {useGetCategoryQuery,useGetAllPerCatQuery}=categoryApiSlice

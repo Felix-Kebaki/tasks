@@ -3,7 +3,11 @@ import "./form.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
+import { setCredentials } from "../redux/features/authSlice";
 import { useRegisterMutation } from "../redux/api/userApiSlice";
+import { useToast } from "../context/ToastContext";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
@@ -11,7 +15,6 @@ import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import formBackground from "../assets/images/authBackground.jpg";
 import Logo from "../assets/images/Logo.png";
 import Loader from "../assets/images/Loader.png";
-import { setCredentials } from "../redux/features/authSlice";
 
 export function Register() {
   const navigate = useNavigate();
@@ -28,6 +31,7 @@ export function Register() {
     password2: "",
   });
   const { firstName, lastName, email, password, password2 } = formData;
+  const {showToast}=useToast()
 
   const [register, { isLoading }] = useRegisterMutation();
 
@@ -65,7 +69,7 @@ export function Register() {
             setErrorMessage("");
           }, 3000);
         } else {
-          console.log(response.data.message);
+          showToast(response.data.message,"success");
           dispatch(setCredentials(response.data.User));
           navigate("/app");
         }

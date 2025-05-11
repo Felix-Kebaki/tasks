@@ -1,6 +1,7 @@
 const Team = require("../models/teamModel");
 const TeamTask = require("../models/teamTaskModel");
 const EachTask = require("../models/assignTaskModel");
+const capitalizeFirst=require("../utils/capitalize")
 
 const createTeam = async (req, res) => {
   const { name } = req.body;
@@ -14,7 +15,7 @@ const createTeam = async (req, res) => {
     }
     const team = await Team.create({
       admin: req.user._id,
-      name,
+      name:capitalizeFirst(name),
       members: [req.user._id],
     });
     if (!team) {

@@ -5,9 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { useCreateEventMutation } from "../../redux/api/upcomingApiSlice";
+import { useToast } from "../../context/ToastContext";
 
 export function AddUpcoming({setAdd,add}) {
     const [name,setName]=useState("")
+    const {showToast}=useToast()
+    
 
     const [createEvent]=useCreateEventMutation()
 
@@ -16,12 +19,16 @@ export function AddUpcoming({setAdd,add}) {
         try {
             const res=await createEvent({title:name,eventDate:add})
             if(res.error){
-                console.error(res.error.data.error || res.error.error)
+              showToast(res.error.data.error || res.error.error,"error")
+              setAdd(null)
             }else{
+                showToast(res.data.message,"success")
                 setAdd(null)
             }
         } catch (error) {
             console.error(error.message)
+            showToast(error.message,"error")
+
         }
     }
 

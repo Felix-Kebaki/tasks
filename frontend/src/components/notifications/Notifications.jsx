@@ -107,7 +107,7 @@ export function Notifications() {
       )}
       {read && read.length !== 0 ? (
         <div className="OtherNotificationMainDiv">
-          <p className="OtherNotificationTitle title">Other notifications</p>
+          <p className="OtherNotificationTitle title">Read</p>
           <div className="AllOtherNotificationWrapper">
             {read &&
               read.map((readed) => (

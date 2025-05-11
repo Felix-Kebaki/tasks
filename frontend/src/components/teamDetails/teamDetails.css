@@ -152,6 +152,40 @@
     margin-top:0.2rem;
 }
 
+.EachTeamtaskResourceDiv{
+    margin:0.4rem 0rem 0.3rem 0rem;
+}
+
+.EachTeamtaskResourceDiv a{
+    text-decoration: none;
+    text-decoration: underline;
+    color:#FC8415;
+}
+
+.VisitLinkIcon{
+    font-size:0.9rem;
+    margin-left:0.4rem;
+}
+
+.EachTeamtaskImgResourceDiv{
+    margin:0.4rem 0rem 0.3rem 0rem;
+    display: flex;
+    align-items: center;
+    column-gap:0.4rem;
+}
+
+.EachTeamtaskImgResourceDiv img{
+    width:5rem;
+    height: 5rem;
+    object-fit: cover;
+    border-radius:0.2rem;
+    cursor:pointer;
+}
+
+.EachTeamtaskImgResourceDiv div{
+    font-size: 0.9rem;
+}
+
 .InputDivForAssigningTask{
     margin-top:0.8rem;
 }

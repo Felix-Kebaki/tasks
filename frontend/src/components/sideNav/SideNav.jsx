@@ -20,10 +20,10 @@ import { useGetUnreadQuery } from "../../redux/api/notifyApiSlice";
 import { useGetCategoryQuery } from "../../redux/api/allCategoryApiSlice";
 
 import "./sideNav.css";
+import { ProfileEdit } from "../profileEdit/ProfileEdit";
 
 export function SideNav() {
   const [profileView, setProfileView] = useState(false);
-  const [category,setCategory]=useState(null)
 
   const { userInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -186,14 +186,16 @@ export function SideNav() {
         <p className="CategoryMainTitleNav title">Categories</p>
       {
         categories && categories.map((cat)=>(
-          <div key={cat} className="SideNavCategorydiv">
-            <p className="ActualCategory text"><span>#</span>{cat}</p>
-            <p className="ActualCategoryNo text">2</p>
-          </div>
+          <Link to={"/app/categories/"+cat.category} key={cat} className="SideNavCategorydiv">
+            <p className="ActualCategory text"><span>#</span>{cat.category}</p>
+            <p className="ActualCategoryNo text">{cat.count}</p>
+          </Link>
         ))
       }
       </div>:null}
-      {profileView ? <div className="OverflowAddMainDiv"></div> : null}
+      {profileView ? <div className="OverflowAddMainDiv">
+        <ProfileEdit/>
+      </div> : null}
     </section>
   );
 }

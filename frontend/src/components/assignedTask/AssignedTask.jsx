@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./assignedTask.css";
 
 import moment from "moment";
+
+import { SumbitYouWork } from "../submitYourWork/SumbitYouWork";
 
 import { useGetAssignedQuery } from "../../redux/api/assignTaskApiSlice";
 import { useStartTeamtaskMutation } from "../../redux/api/assignTaskApiSlice";
 import { useMarkAsDoneMutation } from "../../redux/api/assignTaskApiSlice";
 
 export function AssignedTask() {
+  const [submit,setSubmit]=useState(null)
+
   const { refetch, data, isLoading } = useGetAssignedQuery();
   const [markAsDone] = useMarkAsDoneMutation();
   const [startTeamtask] = useStartTeamtaskMutation();
@@ -27,6 +31,7 @@ export function AssignedTask() {
   };
 
   const HandleClickOnDoneTeamtask = async (teamtaskId) => {
+    setSubmit(teamtaskId)
     try {
       const res = await markAsDone({ teamtaskId });
       if (res.error) {
@@ -43,7 +48,7 @@ export function AssignedTask() {
 
   useEffect(() => {
     refetch();
-  }, [refetch]);
+  }, [refetch,submit]);
   return (
     <section className="AssignedTaskMainSec">
       <div className="AssigneTaskActualMainDiv">
@@ -128,6 +133,11 @@ export function AssignedTask() {
           <p className="text">You have no tasks assigned to you.</p>
         </div>
       ) : null}
+      {
+        submit!==null?<div className="OverflowAddMainDiv">
+          <SumbitYouWork submit={submit} setSubmit={setSubmit}/>
+        </div>:null
+      }
     </section>
   );
 }

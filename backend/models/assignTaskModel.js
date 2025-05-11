@@ -31,7 +31,6 @@ const taskSchema=mongoose.Schema({
     doneDate:{
         type:Date
     }
-
 })
 
 
