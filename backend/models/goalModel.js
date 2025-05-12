@@ -7,10 +7,6 @@ const goalSchema = mongoose.Schema(
       ref: "User",
       required: true,
     },
-    completed: {
-      type: Boolean,
-      default: false,
-    },
     name: {
       type: String,
       required: true,
@@ -64,10 +60,6 @@ const goalSchema = mongoose.Schema(
         resumedAt: Date,
       },
     ],
-    outOfTime: {
-      type: Boolean,
-      default: false,
-    },
     duration: {
       days: String,
       hours: String,

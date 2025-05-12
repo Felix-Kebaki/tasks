@@ -27,7 +27,7 @@ export function TeamSubmissions() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <p className="TeamSubmitType text">View {each.fileType}</p>
+                <p className="TeamSubmitType text">{each.fileType==="Link"?"Visit":"View"} {each.fileType}</p>
                 <p className="TeamSubmittedBy text">
                   Submitted by:
                   <span>

@@ -41,7 +41,7 @@ export function AssignedTask() {
         refetch();
       }
     } catch (error) {
-      console.error(error.message);
+      console.error(error.message || error);
     }
   };
 
@@ -89,13 +89,13 @@ export function AssignedTask() {
                 <div className="BottomDivForEachAssign text">
                   <p
                     className={
-                      each.status === "Not started"
+                      each.status === "Not Started"
                         ? "NotStartedStatue"
                         : each.status === "Completed"
                         ? "CompletedStatue"
-                        : each.status === "In progress"
+                        : each.status === "In Progress"
                         ? "InProgressStatue"
-                        :each.status ==="Out of time"
+                        :each.status ==="Out of Time"
                         ?"OutOfTimeStatus": null
                     }
                   >
@@ -104,23 +104,23 @@ export function AssignedTask() {
                   {each.status!=="Completed"?
                   <button
                     onClick={
-                      each.status === "Not started"
+                      each.status === "Not Started"
                         ? () => HandleClickOnStartTeamtask(each._id)
-                        : each.status === "In progress"
+                        : each.status === "In Progress"
                         ? () => HandleClickOnDoneTeamtask(each._id)
                         : null
                     }
                     className={
-                      each.status === "Completed" || "Out of time"
+                      each.status === "Completed" || "Out of Time"
                         ? "BottomDivForEachAssignDelete"
                         : "BottomDivForEachAssignOthers"
                     }
                   >
-                    {each.status === "Not started"
+                    {each.status === "Not Started"
                       ? "Start"
-                      : each.status === "In progress"
+                      : each.status === "In Progress"
                       ? "Done"
-                      : each.status === "Out of time"
+                      : each.status === "Out of Time"
                       ? "Delete"
                       : null}
                   </button>:null}

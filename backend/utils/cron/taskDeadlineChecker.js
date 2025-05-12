@@ -39,7 +39,7 @@ cron.schedule("0 0 * * *", async () => {
       task.outOfTime = true;
       await task.save();
       const assignedTask=await EachTask.findOne({teamtask:task._id})
-      assignedTask.status("Out of time")
+      assignedTask.status("Out of Time")
       assignedTask.save()
     }
 

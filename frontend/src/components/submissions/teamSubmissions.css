@@ -5,6 +5,7 @@
 
 .TeamSubmissionsMainDiv{
     padding-top:1.5rem;
+    width:50rem;
 }
 
 .TeamSubmissionMainTitle{
@@ -20,12 +21,13 @@
     justify-content:space-between;
     align-items:center;
     text-decoration: none;
-    padding:0.5rem 0.4rem;
+    padding:0.5rem 0.8rem;
     border-radius: 0.3rem;
 }
 
 .EachTeamSubmissionsDiv:hover{
     background: white;
+    box-shadow: 0rem 0rem 0.4rem rgba(197, 197, 197, 0.397);
 }
 
 .TeamSubmitType{
@@ -41,7 +43,7 @@
 .TeamSubmittedBy span{
     color:black;
     text-transform: none;
-    font-size:1.1rem;
+    font-size:0.9rem;
 }
 
 .NoSubmissionsMadeDiv{

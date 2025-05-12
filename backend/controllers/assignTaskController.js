@@ -93,7 +93,7 @@ const startTeamtask = async (req, res) => {
     }
 
     teamTask.startDate = new Date();
-    teamTask.status = "In progress";
+    teamTask.status = "In Progress";
 
     const abletoSave = await teamTask.save();
     if (!abletoSave) {
@@ -130,29 +130,37 @@ const completeTeamtask = async (req, res) => {
 
     if(new Date(teamtask.dueDate)<=new Date()){
       teamtask.outOfTime=true
-      assignedTask.status="Out of time"
+      assignedTask.status="Out of Time"
       await teamtask.save()
       await assignedTask.save()
       return res.status(422).json({error:"Due date is exceeded"})
     }
 
-    if(assignedTask.status !== "In progress"){
+    if(assignedTask.status !== "In Progress"){
       return res.status(422).json({error:"Task must be in progress first"})
     }
 
     assignedTask.status="Completed"
     assignedTask.doneDate=new Date()
-    const submission={
-      submittedBy: req.user._id,
-      fileUrl:type==="Link"?fileUrl:type==="None"?undefined:req.file.path,
-      fileType: type,
-    }
-    teamtask.submissions.push(submission)
 
-    const markedteam=await teamtask.save()
+    if(type!=="None"){
+
+      const submission={
+        submittedBy: req.user._id,
+        fileUrl:type==="Link"?fileUrl:type==="None"?undefined:req.file.path,
+        fileType: type,
+      }
+      teamtask.submissions.push(submission)
+  
+      const markedteam=await teamtask.save()
+      if(!markedteam){
+        return res.status(422).json({error:"Unable to mark as done"})
+      }
+    }
+
     const marked=await assignedTask.save()
 
-    if(!marked || !markedteam){
+    if(!marked){
       return res.status(422).json({error:"Unable to mark as done"})
     }
     res.status(200).json({message:"Marked as complete"})

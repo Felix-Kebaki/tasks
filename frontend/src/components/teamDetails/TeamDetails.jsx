@@ -203,7 +203,7 @@ export function TeamDetails() {
                 </div>
                 <p className="EachteamTaskDesc text">{each.description}</p>
                 {each.fileType !== "None" && each.fileType === "Link" ? (
-                  <di className="EachTeamtaskResourceDiv">
+                  <div className="EachTeamtaskResourceDiv">
                     <a
                     className="text"
                       href={each.fileUrl}
@@ -212,7 +212,7 @@ export function TeamDetails() {
                     >
                       Visit resource link <FontAwesomeIcon icon={faArrowUpRightFromSquare}  className="VisitLinkIcon"/>
                     </a>
-                  </di>
+                  </div>
                 ) : each.fileType !== "None" && each.fileType === "Photo" ? (
                   <div className="EachTeamtaskImgResourceDiv">
                     <img src={each.fileUrl} alt="Img" onClick={()=>HandleClickOnImg(each.fileUrl)}/>

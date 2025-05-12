@@ -34,6 +34,7 @@ app.use("/api/eachTask",require("./routers/assignTaskRouter"))
 app.use("/api/invitations",require("./routers/inviteRouter"))
 app.use("/api/upcomings",require("./routers/upcomingRouter"))
 app.use("/api/allCategory",require("./routers/getAllCategoryRouter"))
+app.use("/api/allLength",require("./routers/dashboardRouter"))
 
 app.listen(PORT,()=>{
     console.log(`Server listening to port ${PORT}...`)

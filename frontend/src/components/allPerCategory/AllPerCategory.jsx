@@ -67,13 +67,13 @@ export function AllPerCategory() {
                         ? "Done"
                         : getCurrentTime(today.startTime, today.endTime) ===
                           true
-                        ? "Not started"
+                        ? "Not Started"
                         : getCurrentTime(today.startTime, today.endTime) ===
                           false
-                        ? "In progress"
+                        ? "In Progress"
                         : getCurrentTime(today.startTime, today.endTime) ===
                           "OutOfTime"
-                        ? "Out of time"
+                        ? "Out of Time"
                         : null}
                     </p>
                     <p className="ObjectiveTextAtCategory text">

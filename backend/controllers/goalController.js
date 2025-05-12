@@ -61,7 +61,7 @@ const createGoal = async (req, res) => {
 
 const getAllGoals = async (req, res) => {
   try {
-    const goals = await Goal.find({ user: req.user._id, completed: false });
+    const goals = await Goal.find({ user: req.user._id, status:{$ne:"Completed"} });
     if (!goals) {
       return res.status(422).json({ error: "Unable to fetch goals" });
     }
@@ -69,7 +69,6 @@ const getAllGoals = async (req, res) => {
       const currentDate = new Date();
       const finishDate = new Date(goal.endDate);
       if (finishDate <= currentDate) {
-        goal.outOfTime = true;
         goal.status = "Out of Time";
         await goal.save();
       }
@@ -90,10 +89,9 @@ const completeGoal = async (req, res) => {
     if (goal.user.toString() !== req.user._id.toString()) {
       return res.status(401).json({ error: "Unauthorized access" });
     }
-    if (goal.outOfTime) {
+    if (goal.status==="Out of Time") {
       return res.status(422).json({ error: "You ran out of time" });
     } else {
-      goal.completed = true;
       goal.dayCompleted = new Date();
       goal.status = "Completed";
       const durationDerived = calculateDuration(
@@ -119,7 +117,7 @@ const completeGoal = async (req, res) => {
 
 const getCompleted = async (req, res) => {
   try {
-    const goals = await Goal.find({ user: req.user._id, completed: true });
+    const goals = await Goal.find({ user: req.user._id, status: "Completed" });
 
     res.json(goals);
   } catch (error) {
