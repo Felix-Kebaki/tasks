@@ -81,4 +81,73 @@ const logoutUser = async (req, res) => {
   res.status(200).json({ message: "Logged out successfully" });
 };
 
-module.exports = { loginUser, registerUser, logoutUser };
+
+const editPassword=async(req,res)=>{
+  const {oldPassword,newPassword}=req.body
+  try {
+    if(!oldPassword || !newPassword){
+      return res.status(422).json({error:"Input all fields"})
+    }
+    const user=await User.findById(req.user._id)
+    if(!user){
+      return res.status(422).json({error:"Unable to fetch user data"})
+    }
+
+    const checkPassword=await bcrypt.compare(oldPassword,user.password)
+    if(!checkPassword){
+      return res.status(401).json({error:"Incorrect password"})
+    }
+
+    const salt=await bcrypt.genSalt(12)
+    const hashedPassword=await bcrypt.hash(newPassword,salt)
+
+    user.password=hashedPassword
+    user.updatedAt=new Date()
+    const saved=await user.save()
+    if(!saved){
+      return res.status(422).json({error:"Unable to make changes"})
+    }
+
+    res.status(200).json({message:"Password changed successfully"})
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+}
+
+
+const editProfile=async(req,res)=>{
+  try {
+    const userId = req.user._id; 
+
+    const allowedUpdates = ['firstName', 'lastName', 'email'];
+
+    // Create an update object dynamically from allowed fields
+    const updates = {};
+    for (let key of allowedUpdates) {
+      if (req.body[key] !== undefined) {
+        updates[key] = req.body[key];
+      }
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updates },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({
+      message: 'Profile updated successfully',
+      user:{...updatedUser._doc,password:undefined}
+    });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+}
+
+module.exports = { loginUser, registerUser, logoutUser ,editPassword ,editProfile};
