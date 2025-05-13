@@ -1,5 +1,7 @@
 const Goal = require("../models/goalModel");
 const Upcoming = require("../models/upcomingModel");
+const Team=require("../models/teamModel")
+const TeamTask=require("../models/teamTaskModel")
 const Today = require("../models/dailyReportModel");
 const EachTask = require("../models/assignTaskModel");
 
@@ -9,6 +11,7 @@ const getLengthOfEach = async (req, res) => {
     const today = await Today.find({ user: req.user._id });
     const assigned = await EachTask.find({ assignedTo: req.user._id });
     const goals = await Goal.find({ user: req.user._id });
+    const teams=await Team.find({members:req.user._id})
 
     if (!goals || !assigned || !today || !upcoming) {
       return res.status(422).json({ error: "Unable to fetch data" });
@@ -18,6 +21,7 @@ const getLengthOfEach = async (req, res) => {
       assigned: assigned.length,
       today: today.length,
       upcoming: upcoming.length,
+      team:teams.length
     });
   } catch (error) {
     console.error(error.message);
@@ -106,6 +110,51 @@ const getPerPriority = async (req, res) => {
   }
 };
 
+
+const getMonthlyUsage = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        const models = [
+          { model: Goal, name: "Goals", match: { user: userId } },
+          { model: Today, name: "Today", match: { user: userId } },
+          { model: Upcoming, name: "Upcoming", match: { user: userId } },
+          { model: Team, name: "Team", match: { admin: userId } },
+          { model: TeamTask, name: "TeamTask", match: { admin: userId } },
+          { model: EachTask, name: "EachTask", match: { assignedTo: userId } },
+        ];
+    
+        const monthlyCounts = new Array(12).fill(0); // Jan - Dec
+    
+        for (const { model, match } of models) {
+          const results = await model.aggregate([
+            { $match: match },
+            {
+              $group: {
+                _id: { $month: "$createdAt" },
+                count: { $sum: 1 },
+              },
+            },
+          ]);
+    
+          results.forEach(({ _id, count }) => {
+            monthlyCounts[_id - 1] += count;
+          });
+        }
+    
+        const monthLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    
+        return res.json({
+          labels: monthLabels,
+          NumberData: monthlyCounts,
+        });
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).json({ error: "Server side issue" });
+    }
+  };
+  
+
 const getRecentEvents = async (req, res) => {};
 
-module.exports = { getLengthOfEach, getPerStatus, getPerPriority };
+module.exports = { getLengthOfEach, getPerStatus, getPerPriority ,getMonthlyUsage };

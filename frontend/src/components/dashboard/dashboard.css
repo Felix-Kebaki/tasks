@@ -1,0 +1,58 @@
+.DashboardMainSec{
+    padding:0rem 0.4rem 0rem 16.3rem;
+    width:100%;
+}
+
+.DashboardMainDiv{
+    padding-top:1.5rem;
+}
+
+.DashboardTopMainDiv{
+    width:100%;
+    background:white;
+    padding:1rem;
+    border-radius:0.3rem;
+    margin-bottom:0.9rem;
+}
+
+.GreetingsAndNamePtag{
+    font-size:1.4rem;
+}
+
+.AllLengthsFromBackendDiv{
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    width:100%;
+    margin-top:0.5rem;
+}
+
+.DotIconAtDashboard{
+    font-size:0.6rem;
+    margin-right:0.5rem;
+}
+
+.EachLength1{
+    padding-left:0.4rem;
+    border-left: 0.2rem #FC8415 solid;
+}
+
+.EachLength2{
+    padding-left:0.4rem;
+    border-left: 0.2rem #0483bb solid;
+}
+
+.EachLength3{
+    padding-left:0.4rem;
+    border-left: 0.2rem #3EB489 solid;
+}
+
+.EachLength4{
+    padding-left:0.4rem;
+    border-left: 0.2rem #E53935 solid;
+}
+
+.EachLength5{
+    padding-left:0.4rem;
+    border-left: 0.2rem #64748B solid;
+}

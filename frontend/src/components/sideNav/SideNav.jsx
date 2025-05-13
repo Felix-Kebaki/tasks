@@ -115,7 +115,7 @@ export function SideNav() {
           </Link>
         </div>
         <div className="SideNavMainNavlinksDiv">
-          <NavLink to="/app" className="EachLink text" activeclassname="active">
+          <NavLink to="/app/dashboard" className="EachLink text" activeclassname="active">
             <FontAwesomeIcon
               icon={faTableColumns}
               className="SideNavLinkIcons"

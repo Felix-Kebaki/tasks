@@ -59,7 +59,7 @@ export function Login() {
       } else {
         showToast(response.data.message,"success")
         dispatch(setCredentials(response.data.User));
-        navigate("/app");
+        navigate("/app/dashboard");
       }
     } catch (error) {
       console.error("Error in frontend on trying to login", error.message);

@@ -71,7 +71,7 @@ export function Register() {
         } else {
           showToast(response.data.message,"success");
           dispatch(setCredentials(response.data.User));
-          navigate("/app");
+          navigate("/app/dashboard");
         }
       } else {
         setErrorMessage("Password don't match");
