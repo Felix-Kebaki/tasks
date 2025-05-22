@@ -24,16 +24,16 @@
   padding: 0.5rem 0rem;
   border-bottom: 0.1rem black solid;
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
 }
 
-.EachTeamMainDiv a{
-    width:100%;
-    text-decoration: none;
-    display:flex;
-    column-gap:0.4rem;
-    align-items:center;
+.EachTeamMainDiv a {
+  width: 100%;
+  text-decoration: none;
+  display: flex;
+  column-gap: 0.4rem;
+  align-items: center;
 }
 
 #EachTeamDot {
@@ -45,37 +45,37 @@
   border: none;
 }
 
-.teamName{
-    color:black;
+.teamName {
+  color: black;
 }
 
-.isAdmin{
-    color:#0483bb;
-    font-size: 0.8rem;
+.isAdmin {
+  color: #0483bb;
+  font-size: 0.8rem;
 }
 
-.NotisAdmin{
-    color:#fc8415;
-    font-size: 0.8rem;
+.NotisAdmin {
+  color: #fc8415;
+  font-size: 0.8rem;
 }
 
-.DeleteTeamIcon{
-    color: #fc8415;
-    cursor:pointer;
-    padding:0.4rem;
+.DeleteTeamIcon {
+  color: #fc8415;
+  cursor: pointer;
+  padding: 0.4rem;
 }
 
-.NoTeamMainDiv{
-    display: flex;
-    width:100%;
-    justify-content: center;
-    padding: 1rem 0rem;
-    border-bottom: 0.1rem black solid;
+.NoTeamMainDiv {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 1rem 0rem;
+  border-bottom: 0.1rem black solid;
 }
 
-.NotAMemberOfTeamText{
-    color:#fc8415;
-    font-size:1.2rem;
+.NotAMemberOfTeamText {
+  color: #fc8415;
+  font-size: 1.2rem;
 }
 
 .AddTeamButton {
@@ -90,4 +90,64 @@
 
 .AddTeamButton:hover {
   color: #0483bb;
+}
+
+@media screen and (max-width: 1229px) {
+  .TeamMainSec {
+    padding: 0rem 0.3rem 0rem 4rem;
+  }
+  .TeamMainDiv {
+    padding-top: 0.8rem;
+  }
+  .TopAtTeamDiv {
+    font-size: 1.25rem;
+  }
+  .AllYourTeamsWrapperDiv {
+    margin-top: 0.4rem;
+  }
+}
+
+@media screen and (max-width: 1029px) {
+  .TeamMainDiv {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .TeamMainSec {
+    padding: 0rem 0.3rem 0rem 3.6rem;
+  }
+  .EachTeamMainDiv a {
+    column-gap: 0.2rem;
+    align-items: center;
+  }
+
+  .NotAMemberOfTeamText {
+    font-size: 1rem;
+    text-align: center;
+  }
+  .AddTeamButton {
+    font-size: 1rem;
+    padding: 0.5rem 0rem;
+  }
+  #PlusTeam {
+    margin-right: 0.3rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 314px) {
+  #EachTeamDot {
+    font-size: 0.3rem;
+  }
+  .teamName {
+    font-size: 0.9rem;
+  }
+  .isAdmin {
+    display: none;
+  }
+
+  .NotisAdmin {
+    display: none;
+  }
 }

@@ -6,8 +6,8 @@ import {faXmark} from '@fortawesome/free-solid-svg-icons'
 
 
 export function ProfileEdit() {
-  const [passwordForm,setPasswordForm]=useState({current:"",new:"",confirmNew:""})
-  const {current,new,confirmNew}=passwordForm
+  const [passwordForm,setPasswordForm]=useState({current:"",newPass:"",confirmNew:""})
+  const {current,newPass,confirmNew}=passwordForm
 
   const OnChange=(e)=>{
     setPasswordForm((prev)=>({
@@ -29,11 +29,11 @@ export function ProfileEdit() {
                   <input type="password" id='oldPasswordId' value={current} name='current' onChange={OnChange} />
                 </div>
                 <div>
-                  <label htmlFor="oldPasswordId">password</label><br/>
-                  <input type="password" id='oldPasswordId' value={current} name='current' onChange={OnChange} />
+                  <label htmlFor="NewPasswordId">New password</label><br/>
+                  <input type="password" id='NewPasswordId' value={newPass} name='newPass' onChange={OnChange} />
                 </div>
                 <div>
-                  <label htmlFor="confirmPasswordId">password</label><br/>
+                  <label htmlFor="confirmPasswordId">Confirm password</label><br/>
                   <input type="password" id='confirmPasswordId' value={confirmNew} name='confirmNew' onChange={OnChange} />
                 </div>
               </div>

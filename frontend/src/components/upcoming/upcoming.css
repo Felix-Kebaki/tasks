@@ -131,3 +131,9 @@
     text-align: start;
     color:black;
 }
+
+@media screen and (max-width: 1229px) {
+  .UpcomingMainSec {
+    padding: 0rem 0.3rem 0rem 4rem;
+  }
+}

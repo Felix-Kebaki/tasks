@@ -1,195 +1,338 @@
-.SideNavMainSec{
-    width:15rem;
-    height: 100dvh;
-    position: fixed;
-    background-color: white;
-    box-shadow: 0rem 0rem 0.5rem rgba(146, 146, 146, 0.308);
-    padding:0.5rem;
+.SideNavMainSec {
+  width: 15rem;
+  height: 100dvh;
+  position: fixed;
+  background-color: white;
+  box-shadow: 0rem 0rem 0.5rem rgba(146, 146, 146, 0.308);
+  padding: 0.5rem;
+  overflow-y: auto;
+  /* overflow: visible; */
 }
 
-.SideNavTopMainDiv{
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
+.SideNavMainSecResponsive {
+  width: 15rem;
+  height: 100dvh;
+  position: fixed;
+  background-color: white;
+  box-shadow: 0rem 0rem 0.5rem rgba(146, 146, 146, 0.308);
+  padding: 0.5rem;
+  overflow-y: auto;
+  /* overflow: visible; */
 }
 
-.SideNavProfileAndNameDiv{
-    display: flex;
-    column-gap: 0.5rem;
-    align-items: center;
-    cursor: pointer;
-    position:relative;
+.SideNavTopMainDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.SideNavProfileDiv{
-    width:2.3rem;
-    height: 2.3rem;
-    background-color: #FC8415;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.SideNavProfileAndNameDiv {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
 }
 
-.SideNavProfileDiv p{
-    color:white;
+.SideNavProfileDiv {
+  width: 2.3rem;
+  height: 2.3rem;
+  background-color: #fc8415;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#SideNavNameArrow{
-    font-size:0.7rem;
-    margin-left:0.4rem;
-    color:rgba(0, 0, 0, 0.692);
+.SideNavProfileDiv p {
+  color: white;
 }
 
-.AppearAtTopOnSideNav{
-    display: none;
+#SideNavNameArrow {
+  font-size: 0.7rem;
+  margin-left: 0.4rem;
+  color: rgba(0, 0, 0, 0.692);
 }
 
-.AppearAtTopOnSideNavShow{
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    width:15rem;
-    box-shadow:0rem 0rem 0.5rem rgba(92, 92, 92, 0.377);
-    background-color: #eeecec;
-    bottom:-4.5rem;
-    padding:0.4rem;
-    border-radius:0.3rem;
+.AppearAtTopOnSideNav {
+  display: none;
 }
 
-.AppearAtTopOnSideNavShow p{
-    width: 100%;
-    padding:0.4rem 0.3rem 0.4rem 0.3rem;
-    border-radius:0.3rem;
-    font-size:0.9rem;
+.AppearAtTopOnSideNavShow {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 15rem;
+  box-shadow: 0rem 0rem 0.5rem rgba(92, 92, 92, 0.377);
+  background-color: #eeecec;
+  bottom: -4.5rem;
+  padding: 0.4rem;
+  border-radius: 0.3rem;
 }
 
-.AppearAtTopOnSideNavShow p:hover{
-    background-color: white;
+.AppearAtTopOnSideNavShow p {
+  width: 100%;
+  padding: 0.4rem 0.3rem 0.4rem 0.3rem;
+  border-radius: 0.3rem;
+  font-size: 0.9rem;
 }
 
-.SideNavSubMenuIcons{
-    margin-right: 0.4rem;
-    font-size:0.9rem;
+.AppearAtTopOnSideNavShow p:hover {
+  background-color: white;
 }
 
-.SideNavNotificationIconMainDiv{
-    position:relative;
-    text-decoration: none;
-    color:black;
+.SideNavSubMenuIcons {
+  margin-right: 0.4rem;
+  font-size: 0.9rem;
 }
 
-#BellIcon{
-    font-size: 1.4rem;
+.SideNavNotificationIconMainDiv {
+  position: relative;
+  text-decoration: none;
+  color: black;
 }
 
-.NotificationNumberDiv{
-    position:absolute;
-    bottom:-0.6rem;
-    right:-0.5rem;
-    width:1rem;
-    height: 1rem;
-    border-radius:50%;
-    background-color: #0483bb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#BellIcon {
+  font-size: 1.4rem;
 }
 
-.NotificationNumberDiv p{
-    color:white;
-    padding:0.2rem;
-    font-size:0.6rem;
+.NotificationNumberDiv {
+  position: absolute;
+  bottom: -0.6rem;
+  right: -0.5rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: #0483bb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.SideNavMainNavlinksDiv{
-    display:flex;
-    flex-direction:column;
-    margin-top:0.6rem;
-    margin-left:0.5rem;
+.NotificationNumberDiv p {
+  color: white;
+  padding: 0.2rem;
+  font-size: 0.6rem;
 }
 
-.EachLink{
-    text-decoration: none;
-    font-size:1rem;
-    color:rgba(0, 0, 0, 0.801);
-    padding:0.6rem 0.4rem 0.6rem 0.4rem;
+.SideNavResponsiveIconDiv {
+  display: none;
 }
 
-.active{
-    color:#0483bb;
+.SideNavMainNavlinksDiv {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.6rem;
+  margin-left: 0.5rem;
 }
 
-.active .SideNavLinkIcons{
-    color:black;
+.EachLink {
+  text-decoration: none;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.801);
+  padding: 0.6rem 0.4rem 0.6rem 0.4rem;
 }
 
-.EachLink:hover{
-    background-color: #eeecec;
-    border-radius: 0.3rem;
+.active {
+  color: #0483bb;
 }
 
-.SideNavLinkIcons{
-    margin-right: 0.4rem;
+.EachLink:hover {
+  background-color: #eeecec;
+  border-radius: 0.3rem;
 }
 
-.TodayLink{
-    display: flex;
-    column-gap:0.4rem;
-    align-items: center;
+.SideNavLinkIcons {
+  margin-right: 0.4rem;
 }
 
-.TodayLink div{
-    background-color: rgba(0, 0, 0, 0.801);
-    color:white;
-    font-size:0.6rem;
-    display: flex;
-    align-items: center;
-    text-decoration: overline;
-    padding:0.2rem;
-    border-radius:0.2rem;
+.TodayLink {
+  display: flex;
+  column-gap: 0.4rem;
+  align-items: center;
 }
 
+.BlueColorBackground {
+  background-color: #0483bb;
+}
+
+.BlackColorBackground {
+  background-color: rgba(0, 0, 0, 0.801);
+}
+
+.TodayLink div {
+  color: white;
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  text-decoration: overline;
+  padding: 0.2rem;
+  border-radius: 0.2rem;
+}
 
 /* CATEGORY */
 
-.SideNavMainCategoryDiv{
-  margin-top:0.8rem;
+.SideNavMainCategoryDiv {
+  margin-top: 0.8rem;
 }
 
-.CategoryMainTitleNav{
-    font-size:1.1rem;
-    margin-bottom:0.5rem;
+.CategoryMainTitleNav {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
 }
 
-.SideNavCategorydiv{
+.SideNavCategorydiv {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0rem;
+  align-items: center;
+  padding: 0.4rem 0.4rem;
+  border-radius: 0.3rem;
+  text-decoration: none;
+}
+
+.SideNavCategorydiv:hover {
+  background-color: #eeecec;
+}
+
+.ActualCategory {
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.74);
+  display: flex;
+  align-items: center;
+}
+
+.ActualCategory span {
+  font-size: 1.1rem;
+  color: #fc8415;
+  margin-right: 0.3rem;
+}
+
+.ActualCategoryNo {
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.74);
+}
+
+@media screen and (max-width: 1229px) {
+  .SideNavMainSec {
+    width: 3rem;
+    transition: all ease-in-out 0.3s;
+  }
+
+  .SideNavMainSecResponsive {
+    width: 15rem;
+    transition: all ease-in-out 0.3s;
+  }
+
+  .SideNavMainSec nav {
     display: flex;
+    flex-direction: column-reverse;
+    row-gap: 4rem;
     justify-content: space-between;
-    margin-top:0rem;
-    align-items:center;
-    padding:0.4rem 0.4rem;
-    border-radius: 0.3rem;
-    text-decoration: none;
-}
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+  }
 
-.SideNavCategorydiv:hover{
-    background-color: #eeecec;
-}
-
-.ActualCategory{
-    font-size:1rem;
-    color:rgba(0, 0, 0, 0.74);
+  .SideNavMainSecResponsive nav {
     display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: start;
+    row-gap: 4rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+  }
+
+  .SideNavMainSec .FirstNameOnlyOnSideNav {
+    display: none;
+  }
+
+  .SideNavMainSecResponsive .FirstNameOnlyOnSideNav {
+    display: block;
+  }
+
+  .SideNavMainSec .SideNavTopMainDiv {
+    flex-direction: column-reverse;
+    row-gap: 0.7rem;
+  }
+
+  .SideNavMainSecResponsive .SideNavTopMainDiv {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
+  }
+
+  .SideNavProfileDiv {
+    width: 2rem;
+    height: 2rem;
+  }
+  .SideNavProfileDiv p {
+    font-size: 0.9rem;
+  }
+
+  .AppearAtTopOnSideNavShow {
+    width: 7rem;
+    left: 2rem;
+    top: -1.5rem;
+    height: auto;
+    z-index: 999999;
+  }
+
+  .SideNavShowIcon:hover {
+    background-color: #eeecec;
+  }
+
+  .SideNavMainNavlinksDiv {
+    align-items: start;
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 0rem;
+    margin-top: 0rem;
+  }
+
+  .SideNavResponsiveIconDiv {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+  }
+
+  .SideNavShowIcon {
+    color: #fc8415;
+    cursor: pointer;
+    border-radius: 0.3rem;
+    padding: 0.6rem 0.4rem 0.6rem 0.4rem;
+  }
+
+  .SideNavMainSecResponsive .SideNavMainNavlinksDiv .EachLink {
+    display: flex;
+    width: 100%;
+    column-gap: 0.5rem;
+  }
+  .SideNavMainSecResponsive .SideNavMainNavlinksDiv .EachLink span {
+    display: block;
+  }
+
+  .EachLink span {
+    display: none;
+  }
+
+  .SideNavLinkIcons {
+    margin-right: 0rem;
+  }
+  .SideNavMainCategoryDiv {
+    display: none;
+  }
+  .SideNavMainCategoryDivResponsive {
+    margin-top: 0.8rem;
+    width: 100%;
+  }
 }
 
-.ActualCategory span{
-    font-size:1.1rem;
-    color:#FC8415;
-    margin-right:0.3rem;
-}
-
-.ActualCategoryNo{
-    font-size:0.9rem;
-    color:rgba(0, 0, 0, 0.74);
+@media screen and (max-width: 245px) {
+  .SideNavMainSecResponsive {
+    width: 100%;
+  }
 }

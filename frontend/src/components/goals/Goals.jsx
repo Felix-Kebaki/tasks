@@ -113,7 +113,7 @@ export function Goals() {
                 </div>
                 <p className="GoalName title">{goal.name}</p>
                 <p className="GoalDesc text">
-                  {goal.description.substring(0, 60)}...
+                  {goal.description}
                 </p>
               </div>
               <div>

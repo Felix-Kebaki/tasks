@@ -23,31 +23,6 @@
     cursor:pointer;
 }
 
-/* 
-.FilterGoalsMainDiv{
-    display: flex;
-    column-gap:1.5rem;
-    margin:0.5rem 0rem 0.5rem 0rem;
-}
-
-.FilterGoalsMainDiv input{
-    background-color: transparent;
-    outline:none;
-    cursor: pointer;
-    width:4rem;
-    font-size:1rem;
-    padding-bottom:0.2rem;
-}
-
-.otherCategory{
-    border:none;
-}
-
-.currentCategory{
-    border: none;
-    border-bottom:0.17rem #FC8415 solid;
-} */
-
 .GoalsMainDiv{
     display:flex;
     width:100%;
@@ -170,4 +145,52 @@
     text-align: center;
     color:#FC8415;
     font-size: 1.2rem;
+}
+
+
+@media screen and (max-width: 1229px) {
+  .GoalsMainSec {
+    padding: 0rem 0.3rem 0rem 4rem;
+  }
+    .TopDivInGoalsPage {
+    padding-top: 0.8rem;
+  }
+  .TopDivInGoalsPage p {
+    font-size: 1.25rem;
+  }
+  .GoalsMainDiv{
+    margin-top:0.8rem;
+}
+
+}
+
+@media screen and (max-width: 1044px) {
+    .EachGoalDiv{
+    width:48.5%;
+}
+}
+
+@media screen and (max-width: 668px) {
+        .EachGoalDiv{
+    width:100%;
+}
+}
+
+@media screen and (max-width: 576px) {
+  .GoalsMainSec {
+    padding: 0rem 0.3rem 0rem 3.6rem;
+  }
+  .NoGoalMainDiv p{
+    font-size:1rem;
+  }
+}
+
+@media screen and (max-width: 314px) {
+      .TopDivInGoalsPage p {
+    font-size: 1.15rem;
+  }
+  .TopDivInGoalsPage button{
+    font-size:0.8rem;
+    padding:0.3rem 0.8rem;
+}
 }

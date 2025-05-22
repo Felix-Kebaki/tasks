@@ -8,9 +8,16 @@
     margin-bottom: 0.9rem;
 }
 
+canvas{
+  position: relative ;
+  z-index: 0 ;
+  pointer-events: auto ;
+}
+
 .LineGraphOnly{
     width:100%;
     position:relative;
+    z-index: 0;
     height: 30rem;
     display:flex;
     align-items:center;

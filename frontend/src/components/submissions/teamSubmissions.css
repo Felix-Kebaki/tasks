@@ -47,11 +47,39 @@
 }
 
 .NoSubmissionsMadeDiv{
-    padding:2rem 0rem 2rem 0rem;
+    padding:1rem 0rem 1rem 0rem;
 }
 
 .NoSubmissionsMadeDiv p{
     text-align: center;
     color:#FC8415;
     font-size:1.2rem;
+}
+
+@media screen and (max-width: 1229px) {
+  .TeamSubmissionsMainSec {
+    padding: 0rem 0.3rem 0rem 4rem;
+  }
+  .TeamSubmissionsMainDiv{
+    padding-top:0.8rem;
+    width:100%;
+}
+  .TeamSubmissionMainTitle {
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .TeamSubmissionsMainSec {
+    padding: 0rem 0.3rem 0rem 3.6rem;
+  }
+  .NoSubmissionsMadeDiv p{
+    font-size:1rem;
+}
+}
+
+@media screen and (max-width: 314px) {
+  .TeamSubmissionMainTitle {
+    font-size: 1.15rem;
+  }
 }

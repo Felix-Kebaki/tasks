@@ -26,9 +26,12 @@ export function DailyObjective() {
     setAdd(true);
   };
 
-  const HandleDoneClick=(id)=>{
+  const HandleDoneClick=(id,outOftime)=>{
+    if(outOftime){
+      return null
+    }else{
     setConfirm(id)
-    setMsg("marked as done")
+    setMsg("marked as done")}
   }
 
   const HandleClickDelete=(id)=>{
@@ -54,8 +57,7 @@ export function DailyObjective() {
             objectives.map((obj) => (
               <div key={obj._id} className="OnlyObjectivesMainDiv">
                 <div className="ObjectiveMarkMainDiv">
-                  <div
-                  onClick={()=>HandleDoneClick(obj._id)}
+                  <div onClick={()=>HandleDoneClick(obj._id,obj.outOfTime)}
                     className={
                       obj.outOfTime
                         ? "ObjectiveMarkDiv ObjectiveMarkDivOutOfTime"

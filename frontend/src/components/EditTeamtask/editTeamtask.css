@@ -1,0 +1,70 @@
+.EditTeamtaskMainDiv{
+    padding:1.5rem;
+    background:white;
+    border-radius: 0.3rem;
+    box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
+}
+
+.EditTeamtaskTopDiv{
+    display:flex;
+    justify-content: space-between;
+    align-items:top;
+}
+
+.EditTeamtaskTopDiv p{
+    font-size: 1.3rem;
+}
+
+.TeamtaskEditExitIcon{
+    font-size:1.3rem;
+    cursor:pointer;
+}
+
+.EditTeamtaskActualForm{
+    width:40rem;
+    margin-top:0.5rem;
+}
+
+.EditTeamtaskActualForm div{
+    width:100%;
+    margin:0.5rem;
+}
+
+.EditTeamtaskActualForm div select{
+    width:90%;
+    border:0.1rem black solid;
+    outline: none;
+    border-radius: 0.3rem;
+    padding:0.4rem 0.4rem;
+}
+
+.EditTeamtaskActualForm div input{
+    width:90%;
+    border:0.1rem black solid;
+    outline: none;
+    border-radius: 0.3rem;
+    padding:0.4rem 0.4rem;
+}
+
+.DocAndPhotoDiv{
+    border:none;
+}
+
+.EditTeamtaskActualForm div label{
+    font-size:0.8rem;
+}
+
+.TeamtaskEditBtn{
+    width:100%;
+    padding-top:0.5rem;
+}
+
+.TeamtaskEditBtn button{
+    width:90%;
+    background: #FC8415;
+    color:black;
+    cursor:pointer;
+    padding:0.4rem 0rem;
+    border-radius: 0.3rem;
+    border:none;
+}

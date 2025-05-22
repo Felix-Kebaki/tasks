@@ -1,43 +1,44 @@
 const Team = require("../models/teamModel");
 const TeamTask = require("../models/teamTaskModel");
-const EachTask=require("../models/assignTaskModel")
-const capitalizeFirst=require("../utils/capitalize")
-const cloudinary=require("../utils/cloudinary/cloudinary")
-const path=require("path")
+const EachTask = require("../models/assignTaskModel");
+const capitalizeFirst = require("../utils/capitalize");
+const cloudinary = require("../utils/cloudinary/cloudinary");
+const path = require("path");
 
 const createTeamTask = async (req, res) => {
-  const { name, description ,dueDate ,type ,fileUrl} = req.body;
+  const { name, description, dueDate, type, fileUrl } = req.body;
   try {
-    if (!name || !description || !dueDate || !type ) {
+    if (!name || !description || !dueDate || !type) {
       return res.status(422).json({ error: "Input all fields" });
     }
-    if ((type==="Photo" || type==="Document") && !req.file) {
-      return res.status(400).json({ error: 'No file uploaded' });
+    if ((type === "Photo" || type === "Document") && !req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
     }
 
-    if(type==="Link" && !fileUrl){
-      return res.status(400).json({error:"Link is not provided"})
+    if (type === "Link" && !fileUrl) {
+      return res.status(400).json({ error: "Link is not provided" });
     }
-    
+
     const theTeam = await Team.findById(req.params.id);
     if (theTeam.admin.toString() !== req.user._id.toString()) {
       return res.status(401).json({ error: "You're not an admin" });
     }
- 
+
     const existTask = await TeamTask.findOne({ name });
     if (existTask) {
       return res.status(422).json({ error: "Teamtask already exist" });
     }
 
     const created = await TeamTask.create({
-      name:capitalizeFirst(name),
-      description:capitalizeFirst(description),
+      name: capitalizeFirst(name),
+      description: capitalizeFirst(description),
       dueDate,
       teamName: theTeam.name,
       admin: theTeam.admin,
       team: theTeam._id,
-      fileUrl:type==="Link"?fileUrl:type==="None"?undefined:req.file.path,
-      fileType:type
+      fileUrl:
+        type === "Link" ? fileUrl : type === "None" ? undefined : req.file.path,
+      fileType: type,
     });
     if (!created) {
       return res.status(422).json({ error: "Unable to create teamTask" });
@@ -64,23 +65,20 @@ const getTeamTask = async (req, res) => {
       return res.status(422).json({ error: "Couldn't fetch the team" });
     }
 
-    res
-      .status(200)
-      .json({
-        teamTasks: teamtask,
-        members: team.members,
-        team:team._id,
-        isAdmin: req.user._id.toString() === team.admin.toString(),
-        outOfTime:teamtask.outOfTime
-      });
+    res.status(200).json({
+      teamTasks: teamtask,
+      members: team.members,
+      team: team._id,
+      isAdmin: req.user._id.toString() === team.admin.toString(),
+      outOfTime: teamtask.outOfTime,
+    });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });
   }
 };
 
-
-const deleteTeamtask=async(req,res)=>{
+const deleteTeamtask = async (req, res) => {
   try {
     const teamtask = await TeamTask.findById(req.params.id);
     if (!teamtask) {
@@ -95,7 +93,9 @@ const deleteTeamtask=async(req,res)=>{
       const teamtaskPublicId = extractPublicId(teamtask.fileUrl);
       if (teamtaskPublicId) {
         const resourceType = getResourceType(teamtask.fileUrl);
-        await cloudinary.uploader.destroy(teamtaskPublicId, { resource_type: resourceType });
+        await cloudinary.uploader.destroy(teamtaskPublicId, {
+          resource_type: resourceType,
+        });
       }
     }
 
@@ -106,7 +106,9 @@ const deleteTeamtask=async(req,res)=>{
         const taskPublicId = extractPublicId(task.fileUrl);
         if (taskPublicId) {
           const resourceType = getResourceType(task.fileUrl);
-          await cloudinary.uploader.destroy(taskPublicId, { resource_type: resourceType });
+          await cloudinary.uploader.destroy(taskPublicId, {
+            resource_type: resourceType,
+          });
         }
       }
     }
@@ -119,41 +121,154 @@ const deleteTeamtask=async(req,res)=>{
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });
   }
-}
+};
 
 function extractPublicId(fileUrl) {
-  if (!fileUrl || typeof fileUrl !== 'string') return null;
+  if (!fileUrl || typeof fileUrl !== "string") return null;
 
-  const parts = fileUrl.split('/');
+  const parts = fileUrl.split("/");
   const fileName = parts[parts.length - 1];
-  const publicId = fileName?.split('.')[0];
+  const publicId = fileName?.split(".")[0];
   return publicId ? `submissions/${publicId}` : null;
 }
 
 function getResourceType(fileUrl) {
-  if (!fileUrl || typeof fileUrl !== 'string') return 'image'; // default fallback
+  if (!fileUrl || typeof fileUrl !== "string") return "image"; // default fallback
 
-  const ext = fileUrl.split('.').pop().toLowerCase();
-  if (['jpg', 'jpeg', 'png', 'svg'].includes(ext)) return 'image';
-  if (['mp4', 'mov', 'avi'].includes(ext)) return 'video';
-  return 'raw';
+  const ext = fileUrl.split(".").pop().toLowerCase();
+  if (["jpg", "jpeg", "png", "svg"].includes(ext)) return "image";
+  if (["mp4", "mov", "avi"].includes(ext)) return "video";
+  return "raw";
 }
 
-
-const getSubmissions=async(req,res)=>{
+const getSubmissions = async (req, res) => {
   try {
-    const teamtask=await TeamTask.findById(req.params.teamtaskId).populate("submissions.submittedBy", "firstName lastName")
-    if(!teamtask){
-      return res.status(422).json({error:"Unable to fetch Teamtask Submissions"})
+    const teamtask = await TeamTask.findById(req.params.teamtaskId).populate(
+      "submissions.submittedBy",
+      "firstName lastName"
+    );
+    if (!teamtask) {
+      return res
+        .status(422)
+        .json({ error: "Unable to fetch Teamtask Submissions" });
     }
 
-    res.status(200).json(teamtask)
+    res.status(200).json(teamtask);
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });
   }
+};
+
+const editTeamtask = async (req, res) => {
+  try {
+    const { fileType, fileUrl: linkUrl } = req.body;
+
+    const currentTask = await TeamTask.findById(req.params.teamtaskId);
+    if (!currentTask) {
+      return res.status(404).json({ message: "Teamtask not found" });
+    }
+
+    const updates = {};
+
+    if (fileType === "Document" || fileType === "Photo") {
+      if (req.file) {
+        // Delete previous file if it existed and wasn't a link or None
+        if (
+          currentTask.fileUrl &&
+          currentTask.fileType !== "Link" &&
+          currentTask.fileType !== "None"
+        ) {
+          const publicId = extractPublicId(currentTask.fileUrl);
+          const resourceType = getResourceType(currentTask.fileUrl);
+          if (publicId) {
+            await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
+          }
+        }
+
+        updates.fileUrl = req.file.path; 
+        updates.fileType = fileType;
+      } else {
+        return res.status(400).json({ message: "File is required for Document or Photo" });
+      }
+    } else if (fileType === "Link") {
+      updates.fileUrl = linkUrl;
+      updates.fileType = "Link";
+
+      if (
+        currentTask.fileUrl &&
+        currentTask.fileType !== "Link" &&
+        currentTask.fileType !== "None"
+      ) {
+        const publicId = extractPublicId(currentTask.fileUrl);
+        const resourceType = getResourceType(currentTask.fileUrl);
+        if (publicId) {
+          await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
+        }
+      }
+    } else if (fileType === "None") {
+      updates.fileUrl = undefined;
+      updates.fileType = "None";
+
+      if (
+        currentTask.fileUrl &&
+        currentTask.fileType !== "Link" &&
+        currentTask.fileType !== "None"
+      ) {
+        const publicId = extractPublicId(currentTask.fileUrl);
+        const resourceType = getResourceType(currentTask.fileUrl);
+        if (publicId) {
+          await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
+        }
+      }
+    }
+
+    //Handle other fields
+    const allowedUpdates = ["name", "description", "dueDate"];
+    for (let key of allowedUpdates) {
+      if (req.body[key] !== undefined) {
+        updates[key] = req.body[key];
+      }
+    }
+
+    const updatedTeamtask = await TeamTask.findByIdAndUpdate(
+      req.params.teamtaskId,
+      { $set: updates },
+      { new: true, runValidators: true }
+    );
+
+    if(!updatedTeamtask){
+      return res.status(422).json({error:"Unable to update"})
+    }
+
+    res.status(200).json({
+      message: "Teamtask updated successfully",
+    });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+};
+
+
+const getEachTeamtask=async(req,res)=>{
+  try {
+    const teamtask=await TeamTask.findById(req.params.teamtaskId)
+    if(!teamtask){
+      return res.status(422).json({error:"Unable to fetch Teamtask"})
+    }
+    res.status(200).json(teamtask)
+  } catch (error) {
+        console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
 }
 
-
-
-module.exports = { createTeamTask, getTeamTask ,deleteTeamtask,getSubmissions};
+module.exports = {
+  createTeamTask,
+  getTeamTask,
+  deleteTeamtask,
+  getSubmissions,
+  editTeamtask,
+  getEachTeamtask
+};

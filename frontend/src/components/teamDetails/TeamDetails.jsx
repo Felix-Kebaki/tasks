@@ -8,6 +8,7 @@ import { EachAssignedTeamtask } from "../eachAssignedTeamtask/EachAssignedTeamta
 import { TeamConfirm } from "../confirm/TeamConfirm";
 import { Invite } from "../inviteMember/Invite";
 import { ViewAssets } from "../viewAssets/ViewAssets";
+import { EditTeamtask } from "../EditTeamtask/EditTeamtask";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
@@ -27,10 +28,11 @@ export function TeamDetails() {
   const [reload, setReload] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [invite, setInvite] = useState(null);
+  const [editTeamtask, setEditTeamtask] = useState(null);
 
   const [confirm, setConfirm] = useState(null);
   const [msg, setMsg] = useState("");
-  const [view,setView]=useState(null)
+  const [view, setView] = useState(null);
 
   const { refetch: teamtaskRefetch, data: teamTasks } = useGetTeamtaskQuery({
     teamId: param.id,
@@ -92,17 +94,21 @@ export function TeamDetails() {
     setConfirm(teamtaskId);
   };
 
+  const HandleEditTeamtask = (teamtaskId) => {
+    setEditTeamtask(teamtaskId);
+  };
+
   const HandleClickOnInvite = (id) => {
     setInvite(id);
   };
 
-  const HandleClickOnImg=(url)=>{
-    setView(url)
-  }
+  const HandleClickOnImg = (url) => {
+    setView(url);
+  };
 
   useEffect(() => {
     teamtaskRefetch();
-  }, [add, teamtaskRefetch, confirm, invite]);
+  }, [add, teamtaskRefetch, confirm, invite, editTeamtask]);
 
   return (
     <section className="TeamDetailsMainSec">
@@ -137,8 +143,56 @@ export function TeamDetails() {
             {teamTasks?.teamTasks?.map((each, index) => (
               <div key={each._id} className="EachTeamtaskWithDetailsDiv">
                 <div className="EachteamTaskNameDueDateDiv">
-                  <p className="EachteamTaskTitle text">{each.name}</p>
-
+                  <div className="EachteamTaskTitleAndIconDiv">
+                    <p className="EachteamTaskTitle text">{each.name}</p>
+                    <ul
+                      className="EachteamTaskSubMenuDivWrapperSecond"
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                    >
+                      <FontAwesomeIcon icon={faEllipsisVertical} />
+                      {hoveredIndex === index && (
+                        <div className="EachteamTaskSubMenuDiv text">
+                          <Link
+                            to={
+                              "/app/teams/eachTeamtask/submissions/" + each._id
+                            }
+                          >
+                            <FontAwesomeIcon
+                              icon={faLink}
+                              className="EachteamTaskSubmenuIcons"
+                            />
+                            Submissions
+                          </Link>
+                          {teamTasks.isAdmin ? (
+                            <>
+                              <p onClick={() => HandleEditTeamtask(each._id)}>
+                                <FontAwesomeIcon
+                                  icon={faPenToSquare}
+                                  className="EachteamTaskSubmenuIcons"
+                                />
+                                Edit
+                              </p>
+                              <p onClick={() => HandleClickOnInvite(each.team)}>
+                                <FontAwesomeIcon
+                                  icon={faUserPlus}
+                                  className="EachteamTaskSubmenuIcons"
+                                />
+                                Invite member
+                              </p>
+                              <p onClick={() => HandleDeleteTeamtask(each._id)}>
+                                <FontAwesomeIcon
+                                  icon={faTrashCan}
+                                  className="EachteamTaskSubmenuIcons"
+                                />
+                                Delete
+                              </p>
+                            </>
+                          ) : null}
+                        </div>
+                      )}
+                    </ul>
+                  </div>
                   <div className="EachteamTaskTimeAndEachSubmenuDiv">
                     {each.outOfTime ? (
                       <p className="EachteamTaskOutOfTimeMsg text">
@@ -173,7 +227,7 @@ export function TeamDetails() {
                           </Link>
                           {teamTasks.isAdmin ? (
                             <>
-                              <p>
+                              <p onClick={() => HandleEditTeamtask(each._id)}>
                                 <FontAwesomeIcon
                                   icon={faPenToSquare}
                                   className="EachteamTaskSubmenuIcons"
@@ -205,30 +259,40 @@ export function TeamDetails() {
                 {each.fileType !== "None" && each.fileType === "Link" ? (
                   <div className="EachTeamtaskResourceDiv">
                     <a
-                    className="text"
+                      className="text"
                       href={each.fileUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Visit resource link <FontAwesomeIcon icon={faArrowUpRightFromSquare}  className="VisitLinkIcon"/>
+                      Visit resource link{" "}
+                      <FontAwesomeIcon
+                        icon={faArrowUpRightFromSquare}
+                        className="VisitLinkIcon"
+                      />
                     </a>
                   </div>
                 ) : each.fileType !== "None" && each.fileType === "Photo" ? (
                   <div className="EachTeamtaskImgResourceDiv">
-                    <img src={each.fileUrl} alt="Img" onClick={()=>HandleClickOnImg(each.fileUrl)}/>
-                    <div className="text">
-                      Resource as an image
-                    </div>
+                    <img
+                      src={each.fileUrl}
+                      alt="Img"
+                      onClick={() => HandleClickOnImg(each.fileUrl)}
+                    />
+                    <div className="text">Resource as an image</div>
                   </div>
                 ) : each.fileType !== "None" && each.fileType === "Document" ? (
                   <div className="EachTeamtaskResourceDiv">
                     <a
-                    className="text"
+                      className="text"
                       href={each.fileUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      View Document <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="VisitLinkIcon"/>
+                      View Document{" "}
+                      <FontAwesomeIcon
+                        icon={faArrowUpRightFromSquare}
+                        className="VisitLinkIcon"
+                      />
                     </a>
                   </div>
                 ) : null}
@@ -239,7 +303,7 @@ export function TeamDetails() {
                   <div className="AllAssignedTeamtaskTeamDetailsWrapper">
                     {teamTasks?.members?.map((member, index) => (
                       <div key={member._id}>
-                        <p className="text">
+                        <p className="AllAssignedTeamtaskMembersName text">
                           {member.firstName} {member.lastName}
                         </p>
                         <EachAssignedTeamtask
@@ -306,11 +370,19 @@ export function TeamDetails() {
           <Invite invite={invite} setInvite={setInvite} />
         </div>
       ) : null}
-      {
-        view !==null?<div className="OverflowAddMainDiv">
-          <ViewAssets setView={setView} view={view}/>
-        </div>:null
-      }
+      {view !== null ? (
+        <div className="OverflowAddMainDiv">
+          <ViewAssets setView={setView} view={view} />
+        </div>
+      ) : null}
+      {editTeamtask !== null ? (
+        <div className="OverflowAddMainDiv">
+          <EditTeamtask
+            editTeamtask={editTeamtask}
+            setEditTeamtask={setEditTeamtask}
+          />
+        </div>
+      ) : null}
     </section>
   );
 }

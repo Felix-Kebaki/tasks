@@ -59,3 +59,31 @@
     text-transform: uppercase;
     color:#0483bb;
 }
+
+
+@media screen and (max-width: 1229px) {
+  .CompletedMainSec {
+    padding: 0rem 0.3rem 0rem 4rem;
+  }
+  .CompletedTopDiv {
+    padding-top: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+      .CompletedMainSec {
+    padding: 0rem 0.3rem 0rem 3.6rem;
+  }
+  .NoCompletedGoalMainDiv{
+    padding: 2rem 0rem;
+  }
+  .NoCompletedGoalMainDiv p{
+    font-size: 1rem;
+}
+}
+
+@media screen and (max-width: 314px) {
+  .CompletedTopDiv p{
+    font-size: 1.15rem;
+  }
+}
