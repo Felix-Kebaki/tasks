@@ -1,89 +1,116 @@
-.CompletedMainSec{
-    padding:0rem 0.4rem 0rem 16.3rem;
-    width:100%;
+.CompletedMainSec {
+  padding: 0rem 0.4rem 1rem 16.3rem;
+  width: 100%;
 }
 
-
-.NoCompletedGoalMainDiv{
-    width:100%;
-    padding:2rem 0rem;
+.NoCompletedGoalMainDiv {
+  width: 100%;
+  padding: 2rem 0rem;
 }
 
-.NoCompletedGoalMainDiv p{
-    text-align: center;
-    color:#FC8415;
-    font-size: 1.2rem;
+.NoCompletedGoalMainDiv p {
+  text-align: center;
+  color: #fc8415;
+  font-size: 1.2rem;
 }
 
-
-.CompletedTopDiv{
-    padding-top:1.5rem;
+.CompletedTopDiv {
+  padding-top: 1.5rem;
 }
 
-.CompletedTopDiv p{
-    font-size:1.3rem;
+.CompletedTopDiv p {
+  font-size: 1.3rem;
 }
 
-.CompleteEachDivWrapperDiv{
-    display:flex;
-    width:100%;
-    flex-wrap:wrap;
-    column-gap:1.25%;
-    row-gap:1rem;
-    margin-top:1.5rem;
+.CompleteEachDivWrapperDiv {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  column-gap: 1.25%;
+  row-gap: 1rem;
+  margin-top: 1.5rem;
 }
 
-.EachCompletedDiv{
-    width:32.5%;
-    background-color: white;
-    border-radius:0.3rem;
-    box-shadow:0rem 0rem 0.2rem rgba(100, 100, 100, 0.363);
-    padding:0.7rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.EachCompletedDiv {
+  width: 32.5%;
+  background-color: white;
+  border-radius: 0.3rem;
+  box-shadow: 0rem 0rem 0.2rem rgba(100, 100, 100, 0.363);
+  padding: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.topOfEachCompGoalDiv{
-    display:flex;
-    align-items: center;
-    justify-content:space-between;
+.topOfEachCompGoalDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.EachCompStatusAndPriorityDiv{
-    display: flex;
-    column-gap:0.4rem;
+.EachCompStatusAndPriorityDiv {
+  display: flex;
+  column-gap: 0.4rem;
 }
 
-.RewardMainTitle{
-    text-transform: uppercase;
-    color:#0483bb;
+.RewardMainTitle {
+  text-transform: uppercase;
+  color: #0483bb;
 }
-
 
 @media screen and (max-width: 1229px) {
   .CompletedMainSec {
-    padding: 0rem 0.3rem 0rem 4rem;
+    padding: 0rem 0.3rem 0.5rem 4rem;
   }
   .CompletedTopDiv {
     padding-top: 0.8rem;
   }
+  .CompleteEachDivWrapperDiv {
+  margin-top: 1rem;
+}
+
+}
+
+@media screen and (max-width: 1044px) {
+  .CompleteEachDivWrapperDiv {
+    row-gap: 0.7rem;
+  }
+  .EachCompletedDiv {
+    width: 48.5%;
+  }
+}
+
+@media screen and (max-width: 668px) {
+  .CompletedMainSec {
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
+  }
+  .EachCompletedDiv {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 576px) {
-      .CompletedMainSec {
-    padding: 0rem 0.3rem 0rem 3.6rem;
+  .CompleteEachDivWrapperDiv {
+    row-gap: 0.5rem;
   }
-  .NoCompletedGoalMainDiv{
+
+  .priorityP {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  .GoalName {
+    font-size: 1.1rem;
+  }
+  .NoCompletedGoalMainDiv {
     padding: 2rem 0rem;
   }
-  .NoCompletedGoalMainDiv p{
+  .NoCompletedGoalMainDiv p {
     font-size: 1rem;
-}
+  }
 }
 
 @media screen and (max-width: 314px) {
-  .CompletedTopDiv p{
+  .CompletedTopDiv p {
     font-size: 1.15rem;
   }
 }

@@ -71,7 +71,7 @@ export function Completed() {
                     <p className="GoalName title">{complete.name}</p>
                     <p className="GoalDesc text">
                       <span className="RewardMainTitle title">Reward:</span>{" "}
-                      {complete.reward.substring(0, 60)}...
+                      {complete.reward}
                     </p>
                   </div>
                   <div className="DateOfGoalsDiv">
