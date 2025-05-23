@@ -1,58 +1,168 @@
-.DashboardMainSec{
-    padding:0rem 0.4rem 1rem 16.3rem;
-    width:100%;
+.DashboardMainSec {
+  padding: 0rem 0.4rem 1rem 16.3rem;
+  width: 100%;
 }
 
-.DashboardMainDiv{
-    padding-top:1.5rem;
+.DashboardMainDiv {
+  padding-top: 1.5rem;
 }
 
-.DashboardTopMainDiv{
-    width:100%;
-    background:white;
-    padding:1rem;
-    border-radius:0.3rem;
-    margin-bottom:0.9rem;
+.DashboardTopMainDiv {
+  width: 100%;
+  background: white;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  margin-bottom: 0.9rem;
 }
 
-.GreetingsAndNamePtag{
-    font-size:1.4rem;
+.GreetingsAndNamePtag {
+  font-size: 1.4rem;
+  text-wrap: nowrap;
 }
 
-.AllLengthsFromBackendDiv{
-    display:flex;
-    justify-content:space-between;
-    align-items: center;
-    width:100%;
-    margin-top:0.5rem;
+.AllLengthsFromBackendDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.5rem;
 }
 
-.DotIconAtDashboard{
-    font-size:0.6rem;
-    margin-right:0.5rem;
+.EachLength1 {
+  text-wrap: nowrap;
+  padding-left: 0.4rem;
+  border-left: 0.2rem #fc8415 solid;
 }
 
-.EachLength1{
-    padding-left:0.4rem;
-    border-left: 0.2rem #FC8415 solid;
+.EachLength2 {
+  text-wrap: nowrap;
+  padding-left: 0.4rem;
+  border-left: 0.2rem #0483bb solid;
 }
 
-.EachLength2{
-    padding-left:0.4rem;
-    border-left: 0.2rem #0483bb solid;
+.EachLength3 {
+  text-wrap: nowrap;
+  padding-left: 0.4rem;
+  border-left: 0.2rem #3eb489 solid;
 }
 
-.EachLength3{
-    padding-left:0.4rem;
-    border-left: 0.2rem #3EB489 solid;
+.EachLength4 {
+  text-wrap: nowrap;
+  padding-left: 0.4rem;
+  border-left: 0.2rem #e53935 solid;
 }
 
-.EachLength4{
-    padding-left:0.4rem;
-    border-left: 0.2rem #E53935 solid;
+.EachLength5 {
+  text-wrap: nowrap;
+  padding-left: 0.4rem;
+  border-left: 0.2rem #64748b solid;
 }
 
-.EachLength5{
-    padding-left:0.4rem;
-    border-left: 0.2rem #64748B solid;
+.EachLength6 {
+  text-wrap: nowrap;
+  padding-left: 0.4rem;
+  border-left: 0.2rem #64748b solid;
+}
+
+@media screen and (max-width: 1229px) {
+  .DashboardMainSec {
+    padding: 0rem 0.3rem 0rem 3.6rem;
+  }
+  .DashboardMainDiv {
+    padding-top: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 691px) {
+  .AllLengthsFromBackendDiv {
+    row-gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .EachLength1 {
+    width: 33%;
+  }
+
+  .EachLength2 {
+    width: 33%;
+  }
+
+  .EachLength3 {
+    width: 33%;
+  }
+
+  .EachLength4 {
+    width: 33%;
+  }
+
+  .EachLength5 {
+    width: 33%;
+  }
+
+  .EachLength6 {
+    width: 33%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .GreetingsAndNamePtag {
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 434px) {
+  .EachLength1 {
+    width: 50%;
+  }
+
+  .EachLength2 {
+    width: 50%;
+  }
+
+  .EachLength3 {
+    width: 50%;
+  }
+
+  .EachLength4 {
+    width: 50%;
+  }
+
+  .EachLength5 {
+    width: 50%;
+  }
+
+  .EachLength6 {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 317px) {
+  .EachLength1 {
+    width: 100%;
+  }
+
+  .EachLength2 {
+    width: 100%;
+  }
+
+  .EachLength3 {
+    width: 100%;
+  }
+
+  .EachLength4 {
+    width: 100%;
+  }
+
+  .EachLength5 {
+    width: 100%;
+  }
+
+  .EachLength6 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 292px) {
+  .GreetingsAndNamePtag {
+    font-size: 1.1rem;
+  }
 }

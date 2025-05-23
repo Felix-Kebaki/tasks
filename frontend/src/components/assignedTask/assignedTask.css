@@ -159,6 +159,18 @@
   }
 }
 
+@media screen and (max-width: 1044px) {
+    .EachAssignedTaskDiv{
+    width:48.5%;
+}
+}
+
+@media screen and (max-width: 668px) {
+        .EachAssignedTaskDiv{
+    width:100%;
+}
+}
+
 @media screen and (max-width: 576px) {
       .AssignedTaskMainSec {
     padding: 0rem 0.3rem 0rem 3.6rem;

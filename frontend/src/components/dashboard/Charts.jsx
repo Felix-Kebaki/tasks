@@ -1,5 +1,5 @@
 // src/components/Charts.jsx
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./charts.css";
 import { Doughnut, Bar } from "react-chartjs-2";
 import {
@@ -21,7 +21,24 @@ ChartJS.register(
   Legend
 );
 
+
 export function Charts({ statusData, priorityData }) {
+
+  const [legendPosition,setLegendPosition]=useState()
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 1042) {
+        setLegendPosition("bottom"); // stack labels below the chart
+      } else {
+        setLegendPosition("right"); // default position
+      }
+    };
+
+    handleResize(); // set on initial load
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   //Doughnut Chart for Status 
   const statusLabels = [
     "Completed",
@@ -76,7 +93,7 @@ export function Charts({ statusData, priorityData }) {
               maintainAspectRatio: false,
               plugins: {
                 legend: {
-                  position: "right", 
+                  position: legendPosition, 
                   labels: {
                     usePointStyle: true,
                     padding: 20,

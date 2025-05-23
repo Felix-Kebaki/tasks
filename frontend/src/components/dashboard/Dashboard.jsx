@@ -54,18 +54,21 @@ export function Dashboard() {
       <div className="DashboardMainDiv">
         <div className="DashboardTopMainDiv">
           <p className="GreetingsAndNamePtag text">
-            Greetings ,{userInfo.firstName} {userInfo.lastName}
+            Greetings 👋,{userInfo.firstName}
           </p>
           <div className="AllLengthsFromBackendDiv text">
             <p className="EachLength1">Today: {Ldata.today}</p>
             <p className="EachLength2">Goals: {Ldata.goals}</p>
-            <p className="EachLength3">Assigned tasks: {Ldata.assigned}</p>
-            <p className="EachLength4">Upcomings: {Ldata.upcoming}</p>
             <p className="EachLength5">Teams: {Ldata.team}</p>
+            <p className="EachLength4">Upcomings: {Ldata.upcoming}</p>
+            <p className="EachLength6">Completed: {Ldata.completed}</p>
+            <p className="EachLength3">Assigned tasks: {Ldata.assigned}</p>
           </div>
         </div>
+        <div style={{zIndex:"-1"}}>
         <LineGraph labels={usageLabels || []} data={usageData || []} />
         <Charts statusData={Sdata} priorityData={Pdata} />
+        </div>
       </div>
     </section>
   );

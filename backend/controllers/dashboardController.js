@@ -12,6 +12,7 @@ const getLengthOfEach = async (req, res) => {
     const assigned = await EachTask.find({ assignedTo: req.user._id });
     const goals = await Goal.find({ user: req.user._id });
     const teams=await Team.find({members:req.user._id})
+    const allCompleted=await Goal.find({user:req.user._id,status:"Completed"})
 
     if (!goals || !assigned || !today || !upcoming) {
       return res.status(422).json({ error: "Unable to fetch data" });
@@ -21,7 +22,8 @@ const getLengthOfEach = async (req, res) => {
       assigned: assigned.length,
       today: today.length,
       upcoming: upcoming.length,
-      team:teams.length
+      team:teams.length,
+      completed:allCompleted.length
     });
   } catch (error) {
     console.error(error.message);
