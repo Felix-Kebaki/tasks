@@ -1,5 +1,5 @@
 .AllPerCategoryMainSec{
-    padding:0rem 0.4rem 0rem 16.3rem;
+    padding:0rem 0.4rem 1rem 16.3rem;
     width:100%;
 }
 
@@ -193,4 +193,76 @@
 .StartAndDueDateOfGoalsPerCatDiv p:last-child{
     font-size:0.8rem;
     color:#0483bb;
+}
+
+
+@media screen and (max-width: 1229px) {
+  .AllPerCategoryMainSec {
+    padding: 0rem 0.3rem 0.5rem 4rem;
+  }
+    .AllPerCategoryMainDiv {
+    padding-top: 0.8rem;
+  }
+  .AllPerCatMainTitle {
+    font-size: 1.25rem;
+  }
+  .AllPerCatMainTitle span{
+    font-size:0.9rem;
+}
+.TodayAndGoalMainDivWrapper{
+    margin-top:0.4rem;
+}
+.TodayAndGoalTitle{
+    font-size:1.1rem;
+}
+
+.OnlyGoalForMargin{
+    margin-top:0.8rem;
+}
+
+
+}
+
+@media screen and (max-width: 1044px) {
+    .EachTodayAndGoalWrapperDiv{
+    row-gap: 0rem;
+}
+.EachTodayAllPerCatDiv{
+    width:49.39%;
+}
+.EachGoalAllPerCatDiv{
+    width:49.39%;
+}
+}
+
+@media screen and (max-width: 713px) {
+    .EachGoalAllPerCatDiv{
+    width:100%;
+}
+}
+
+@media screen and (max-width: 576px) {
+      .AllPerCategoryMainSec {
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
+  }
+    .EachTodayAllPerCatDiv{
+    width:100%;
+}
+}
+
+@media screen and (max-width: 308px) {
+.EachGoalAtAllCatPrority{
+    padding:0.3rem 0.5rem;
+    font-size:0.7rem;
+}
+}
+
+@media screen and (max-width: 286px) {
+.StartAndStopTimeAsCategoryDiv p{
+    font-size: 0.7rem;
+}
+
+.StartAndStopTimeAsCategoryDiv p span{
+    font-size:0.7rem;
+}
 }
