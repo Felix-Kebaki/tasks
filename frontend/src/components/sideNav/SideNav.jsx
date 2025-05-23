@@ -23,6 +23,7 @@ import { useGetCategoryQuery } from "../../redux/api/allCategoryApiSlice";
 
 import "./sideNav.css";
 import { ProfileEdit } from "../profileEdit/ProfileEdit";
+import { Loading } from "../loading/Loading";
 
 export function SideNav() {
   const [profileView, setProfileView] = useState(false);
@@ -36,7 +37,7 @@ export function SideNav() {
 
   const [logout] = useLogoutMutation();
   const { refetch, data: notifications, isLoading } = useGetUnreadQuery();
-  const { refetch: catrefetch, data: categories } = useGetCategoryQuery();
+  const { refetch: catrefetch, data: categories ,isLoading:CategoryLoading} = useGetCategoryQuery();
 
   const HanldeMouseEnter = () => {
     document
@@ -80,6 +81,14 @@ export function SideNav() {
     }
   }, [location.pathname]);
 
+
+  if(CategoryLoading || isLoading){
+    return(
+      <div className="MainLoaderDiv">
+        <Loading/>
+      </div>
+    )
+  }
 
   return (
     <section

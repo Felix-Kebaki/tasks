@@ -3,6 +3,7 @@ import "./dashboard.css";
 
 import { Charts } from "./Charts";
 import { LineGraph } from "./LineGraph";
+import { Loading } from "../loading/Loading";
 
 import { useSelector } from "react-redux";
 
@@ -47,7 +48,7 @@ export function Dashboard() {
     usageData.length === 0 ||
     usageLabels.length === 0
   ) {
-    return <div>Loading....</div>;
+    return <div className="MainLoaderDiv"><Loading/></div>;
   }
   return (
     <section className="DashboardMainSec">

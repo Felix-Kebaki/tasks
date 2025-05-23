@@ -1,84 +1,140 @@
-.AddUpcomingMainSec{
-    display: flex;
-    justify-content: center;
-    align-items:center;
-    width:100%;
-    height: 100%;
+.AddUpcomingMainSec {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
-.AddUpcomingMainForm{
-    background-color: white;
-    padding:2rem;
-    border-radius: 0.3rem;
+.AddUpcomingMainForm {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.3rem;
 }
 
-.AddUpcomingTopDiv{
-    display: flex;
-    justify-content: space-between;
-    align-items:center;
+.AddUpcomingTopDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.AddUpcomingTopDiv p{
-    font-size:1.3rem;
+.AddUpcomingTopDiv p {
+  font-size: 1.3rem;
 }
 
-.CloseAddUpcomingIcon{
-    cursor:pointer;
-    font-size:1.5rem;
+.CloseAddUpcomingIcon {
+  cursor: pointer;
+  font-size: 1.5rem;
 }
 
-.ActualUpcomintFormDiv{
-    margin-top:1rem;
-    width:30rem;
+.ActualUpcomintFormDiv {
+  margin-top: 1rem;
+  width: 30rem;
 }
 
-.ActualUpcomintFormDiv div{
-    width:80%;
+.ActualUpcomintFormDiv div {
+  width: 80%;
 }
 
-.UpcomingInputDiv{
-    margin-top:0.8rem;
+.UpcomingInputDiv {
+  margin-top: 0.8rem;
 }
 
-.UpcomingInputDiv label{
-    font-size:0.9rem;
+.UpcomingInputDiv label {
+  font-size: 0.9rem;
 }
 
-.UpcomingInputDiv input{
-    width:100%;
-    border-radius:0.3rem;
-    border:0.1rem black solid;
-    background: transparent;
-    padding:0.3rem 0.2rem;
+.UpcomingInputDiv input {
+  width: 100%;
+  border-radius: 0.3rem;
+  border: 0.1rem black solid;
+  background: transparent;
+  padding: 0.3rem 0.2rem;
 }
 
-.CheckBoxUpcomingDiv{
-    display: flex;
-    column-gap:0.2rem;
-    margin-top:0.8rem;
-    justify-content: start;
+.CheckBoxUpcomingDiv {
+  display: flex;
+  column-gap: 0.2rem;
+  margin-top: 0.8rem;
+  justify-content: start;
 }
 
-.CheckBoxUpcomingDiv input{
-    width:1rem;
+.CheckBoxUpcomingDiv input {
+  width: 1rem;
 }
 
-.CheckBoxUpcomingDiv p{
-    font-size:1rem;
+.CheckBoxUpcomingDiv p {
+  font-size: 1rem;
 }
 
-.UpcomingCreateBtn{
-    margin-top:0.8rem;
+.UpcomingCreateBtn {
+  margin-top: 0.8rem;
 }
 
-.UpcomingCreateBtn input{
-    width:100%;
-    border:none;
-    background-color: #fc8415;
-    color:black;
-    padding:0.3rem 0rem;
-    cursor:pointer;
-    border-radius: 0.3rem;
+.CreateUpcomingBtn {
+  width: 100%;
+  border: none;
+  background-color: #fc8415;
+  color: black;
+  padding: 0.35rem 0rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
 }
 
+.CreateUpcomingLoader {
+  padding: 0.3rem 0rem;
+  width: 100%;
+  background-color: #fc8415;
+  border-radius: 0.3rem;
+  border: none;
+}
 
+@keyframes CreateUpcomingSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.CreateUpcomingLoader img {
+  height: 1rem;
+  width: 1.2rem;
+  animation: CreateUpcomingSpin 1s ease-in infinite;
+}
+
+@media screen and (max-width: 729px) {
+  .AddUpcomingMainForm {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .AddUpcomingTopDiv p {
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .AddUpcomingMainForm {
+    width: 97%;
+    margin: 0rem auto 0rem;
+  }
+  .ActualUpcomintFormDiv {
+    margin-top: 0rem;
+    width: 100%;
+  }
+  .ActualUpcomintFormDiv div {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 269px) {
+      .AddUpcomingMainForm {
+    padding: 1rem 0.4rem 1rem 0.4rem; 
+  }
+  .AddUpcomingTopDiv p {
+    font-size: 1.1rem;
+  }
+}

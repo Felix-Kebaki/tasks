@@ -3,6 +3,7 @@ import "./dailyObjectives.css";
 import "../../index.css";
 import { ObjectiveForm } from "../createObjective/ObjectiveForm";
 import { ObjectiveConfirm } from "../confirm/ObjectiveConfirm";
+import { Loading } from "../loading/Loading";
 
 import { useGetObjectivesQuery } from "../../redux/api/todayApiSlice";
 
@@ -42,6 +43,14 @@ export function DailyObjective() {
   useEffect(() => {
     refetch();
   }, [refetch, add,confirm]);
+
+  if(isLoading){
+    return(
+      <div className="MainLoaderDiv">
+        <Loading/>
+      </div>
+    )
+  }
   return (
     <section className="DailyObjectivesMainSec">
       <div className="DailyObjectivesMainDiv">

@@ -8,6 +8,7 @@ import { useGetCompleteQuery } from "../../redux/api/goalApiSlice";
 import { useDeleteGoalMutation } from "../../redux/api/goalApiSlice";
 
 import "./completed.css";
+import { Loading } from "../loading/Loading";
 
 export function Completed() {
   const { refetch, data: completed, isLoading } = useGetCompleteQuery();
@@ -30,6 +31,14 @@ export function Completed() {
   useEffect(() => {
     refetch();
   }, [refetch, completed]);
+
+  if(isLoading){
+    return(
+      <div className="MainLoaderDiv">
+        <Loading/>
+      </div>
+    )
+  }
 
   return (
     <section className="CompletedMainSec">

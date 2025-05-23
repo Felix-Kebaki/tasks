@@ -9,6 +9,7 @@ import { TeamConfirm } from "../confirm/TeamConfirm";
 import { Invite } from "../inviteMember/Invite";
 import { ViewAssets } from "../viewAssets/ViewAssets";
 import { EditTeamtask } from "../EditTeamtask/EditTeamtask";
+import {Loading} from '../loading/Loading'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
@@ -18,8 +19,8 @@ import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
-import { useGetTeamtaskQuery } from "../../redux/api/teamTaskApiSlice";
 import { useAssignTaskMutation } from "../../redux/api/assignTaskApiSlice";
+import { useGetTeamtaskQuery } from "../../redux/api/teamTaskApiSlice";
 
 export function TeamDetails() {
   const param = useParams();
@@ -34,16 +35,10 @@ export function TeamDetails() {
   const [msg, setMsg] = useState("");
   const [view, setView] = useState(null);
 
-  const { refetch: teamtaskRefetch, data: teamTasks } = useGetTeamtaskQuery({
+  const { refetch: teamtaskRefetch, data: teamTasks,isLoading } = useGetTeamtaskQuery({
     teamId: param.id,
   });
-  // const { refetch, data: MemberAssigned } = useGetAssignedMembersQuery({
-  //   teamId: param.id,
-  // });
-  const [assignTask] = useAssignTaskMutation();
-  // const { refetch2, data, isLoading } = useGetTeamTaskQuery({
-  //   teamId: param.id,
-  // });
+  const [assignTask,{isLoading:assignLoading}] = useAssignTaskMutation();
 
   const HandleAddTeamTask = (teamid) => {
     setAdd(teamid);
@@ -109,6 +104,15 @@ export function TeamDetails() {
   useEffect(() => {
     teamtaskRefetch();
   }, [add, teamtaskRefetch, confirm, invite, editTeamtask]);
+
+
+  if(isLoading){
+    return(
+      <div className="MainLoaderDiv">
+        <Loading/>
+      </div>
+    )
+  }
 
   return (
     <section className="TeamDetailsMainSec">

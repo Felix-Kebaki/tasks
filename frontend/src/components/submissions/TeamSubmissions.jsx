@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 
 import { useGetSubmissionsQuery } from "../../redux/api/teamTaskApiSlice";
 
+import {Loading} from '../loading/Loading'
+
 export function TeamSubmissions() {
   const param = useParams();
   const { refetch, data, isLoading } = useGetSubmissionsQuery({
@@ -13,6 +15,14 @@ export function TeamSubmissions() {
   useEffect(() => {
     refetch();
   }, [refetch]);
+
+  if(isLoading){
+    return(
+      <div className="MainLoaderDiv">
+        <Loading/>
+      </div>
+    )
+  }
   return (
     <section className="TeamSubmissionsMainSec">
       <div className="TeamSubmissionsMainDiv">

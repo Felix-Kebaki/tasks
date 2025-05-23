@@ -14,6 +14,7 @@ import { useResumeGoalMutation } from "../../redux/api/goalApiSlice";
 
 import { GoalForm } from "../createGoal/GoalForm";
 import { ObjectiveConfirm } from "../confirm/ObjectiveConfirm";
+import { Loading } from "../loading/Loading";
 
 import "./goals.css";
 import "../../index.css";
@@ -91,7 +92,11 @@ export function Goals() {
   }, [refetch, add, confirm]);
 
   if (isLoading) {
-    return <p>Loading</p>;
+    return (
+      <div className="MainLoaderDiv">
+        <Loading />
+      </div>
+    );
   }
 
   return (
@@ -112,9 +117,7 @@ export function Goals() {
                   <p className="priorityP text">{goal.priority}</p>
                 </div>
                 <p className="GoalName title">{goal.name}</p>
-                <p className="GoalDesc text">
-                  {goal.description}
-                </p>
+                <p className="GoalDesc text">{goal.description}</p>
               </div>
               <div>
                 <div className="DateOfGoalsDiv">

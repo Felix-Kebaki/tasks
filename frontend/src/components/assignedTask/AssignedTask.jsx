@@ -4,6 +4,7 @@ import "./assignedTask.css";
 import moment from "moment";
 
 import { SumbitYouWork } from "../submitYourWork/SumbitYouWork";
+import { Loading } from "../loading/Loading";
 
 import { useGetAssignedQuery } from "../../redux/api/assignTaskApiSlice";
 import { useStartTeamtaskMutation } from "../../redux/api/assignTaskApiSlice";
@@ -49,6 +50,14 @@ export function AssignedTask() {
   useEffect(() => {
     refetch();
   }, [refetch,submit]);
+
+  if(isLoading){
+    return(
+      <div className="MainLoaderDiv">
+        <Loading/>
+      </div>
+    )
+  }
   return (
     <section className="AssignedTaskMainSec">
       <div className="AssigneTaskActualMainDiv">

@@ -3,6 +3,7 @@ import "./upcoming.css";
 
 import { AddUpcoming } from "../addUpcoming/AddUpcoming";
 import { UpcomingConfirm } from "../confirm/UpcomingConfirm";
+import { Loading } from "../loading/Loading";
 
 import { useGetUpcomingsQuery } from "../../redux/api/upcomingApiSlice";
 
@@ -67,10 +68,6 @@ export function Upcoming() {
     setAdd(date);
   };
 
-  const HandleDeleteEvent = (date) => {
-    console.log("Clicked", date);
-  };
-
   const getDaysInMonth = (year, month) => {
     const date = new Date(year, month, 1);
     const days = [];
@@ -90,6 +87,14 @@ export function Upcoming() {
         <div key={`blank-${i}`} className="calendar-day empty"></div>
       );
     }
+  }
+
+  if(isLoading){
+    return(
+      <div className="MainLoaderDiv">
+        <Loading/>
+      </div>
+    )
   }
 
   return (

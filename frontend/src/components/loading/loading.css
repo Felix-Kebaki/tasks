@@ -1,0 +1,39 @@
+.LoaderMainDiv {
+  display: flex;
+  flex-direction: column;
+  row-gap:0.4rem;
+  max-height: 100vh;
+  background: white;
+  z-index:99999999;
+}
+
+.LoaderMainDiv div{
+    padding:0.5rem 0.8rem;
+    border-radius:1rem;
+    background-color: #0483bb;
+}
+
+.TickLoader {
+  width: 3rem;
+  height: 3rem;
+  transform: scale(1.6);
+}
+
+.fill {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: fillTick 2s infinite ease-in-out;
+}
+
+
+@keyframes fillTick {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 100;
+  }
+}

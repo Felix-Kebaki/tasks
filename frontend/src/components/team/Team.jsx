@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CreateTeam } from "../createTeam/CreateTeam";
 import { TeamConfirm } from "../confirm/TeamConfirm";
+import {Loading} from '../loading/Loading'
 import "./team.css";
 
 import { useGetYourTeamsQuery } from "../../redux/api/teamApiSlice";
@@ -31,6 +32,14 @@ export function Team() {
   useEffect(() => {
     refetch();
   }, [refetch, add,confirm]);
+
+  if(isLoading){
+    return(
+      <div className="MainLoaderDiv">
+        <Loading/>
+      </div>
+    )
+  }
 
   return (
     <section className="TeamMainSec">

@@ -5,6 +5,7 @@ import { useGetAllPerCatQuery } from "../../redux/api/allCategoryApiSlice";
 
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import { Loading } from "../loading/Loading";
 
 export function AllPerCategory() {
   const params = useParams();
@@ -33,6 +34,14 @@ export function AllPerCategory() {
     getCurrentTime();
     console.log(data);
   }, [refetch]);
+
+  if(isLoading){
+    return(
+      <div className="MainLoaderDiv">
+        <Loading/>
+      </div>
+    )
+  }
 
   return (
     <section className="AllPerCategoryMainSec">
