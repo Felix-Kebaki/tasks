@@ -5,6 +5,8 @@ import "./goalForm.css";
 
 import { useCreateGoalMutation } from "../../redux/api/goalApiSlice";
 
+import Loader from '../../assets/images/blackLoader.png'
+
 export function GoalForm({ setAdd }) {
   const [goalForm, setGoalForm] = useState({
     name: "",
@@ -52,11 +54,6 @@ export function GoalForm({ setAdd }) {
     }
   };
 
-  if(isLoading){
-    return(
-        <p style={{fontSize:"5rem"}}>Loading....</p>
-    )
-  }
 
   return (
     <section className="GoalFormMainSec">
@@ -188,7 +185,7 @@ export function GoalForm({ setAdd }) {
                 </div>
               </div>
               <div className="CreateGoalAtForm">
-                <input type="submit" value={"Create"} />
+                <button className={isLoading?"CreateGoalLoader":"CreateGoalAtFormBtn text"}>{isLoading?<img src={Loader} alt="Loading..."/>:"Create"}</button>
               </div>
             </div>
           </div>

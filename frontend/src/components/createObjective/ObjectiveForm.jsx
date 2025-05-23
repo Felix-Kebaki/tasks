@@ -7,7 +7,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useCreateObjectiveMutation } from "../../redux/api/todayApiSlice";
 import { useToast } from "../../context/ToastContext";
 
-import Loader from "../../assets/images/Loader.png"
+import Loader from "../../assets/images/blackLoader.png"
 
 export function ObjectiveForm({ setAdd }) {
   const [objForm, setObjForm] = useState({
@@ -108,7 +108,7 @@ export function ObjectiveForm({ setAdd }) {
               />
             </div>
             <div className="CreateObjectiveBtnDiv">
-              <button className={isLoading?"SubmitAuthLoaderMode":null}>{isLoading?<img src={Loader} alt="Loading..."/>:"Create"} </button>
+              <button className={isLoading?"SubmitAuthLoaderObjective":"CreateObjectiveBtn text"}>{isLoading?<img src={Loader} alt="Loading..."/>:"Create"} </button>
             </div>
           </div>
         </div>

@@ -1,102 +1,214 @@
-.GoalFormMainSec{
-    width: 100%;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items: center;
+.GoalFormMainSec {
+  width: 100%;
+  max-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
 }
 
-.GoalFormActualForm{
-    padding:2rem;
-    background-color: white;
+.GoalFormActualForm {
+  padding: 2rem;
+  border-radius: 0.3rem;
+  background-color: white;
 }
 
-.TopOfGoalFormDiv{
-    display: flex;
+.TopOfGoalFormDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.CreateGoalTitle {
+  font-size: 1.8rem;
+}
+
+.CreateGoalDesc {
+  font-size: 1rem;
+  max-width: 40rem;
+}
+
+.CloseAddGoalIcon {
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.GoalFormAllInputDiv {
+  display: flex;
+  margin-top: 1rem;
+  column-gap: 2rem;
+}
+
+.NameDescGoalForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.NameDescGoalForm div {
+  width: 20rem;
+}
+
+.NameDescGoalForm div label {
+  font-size: 0.9rem;
+}
+
+.NameDescGoalForm div input {
+  width: 100%;
+  padding: 0.3rem 0.1rem;
+  outline: none;
+  border-radius: 0.3rem;
+  border: 0.1rem black solid;
+}
+
+.NameDescGoalForm div textarea {
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 8.75rem;
+  min-height: 8.75rem;
+  padding: 0.3rem 0.1rem;
+  outline: none;
+  border-radius: 0.3rem;
+  border: 0.1rem black solid;
+}
+
+.AllOtherAtGoalFormMainDiv {
+  width: 30rem;
+}
+
+.AllOtherAtGoalFormMainDiv label {
+  font-size: 0.9rem;
+}
+
+.AnyOfTheTwoGoalForm {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.AnyOfTheTwoGoalForm div {
+  width: 49%;
+}
+
+.AnyOfTheTwoGoalForm div select {
+  width: 100%;
+  padding: 0.3rem 0.1rem;
+  outline: none;
+  border-radius: 0.3rem;
+  border: 0.1rem black solid;
+}
+
+.AnyOfTheTwoGoalForm div input {
+  width: 100%;
+  padding: 0.3rem 0.1rem;
+  outline: none;
+  border-radius: 0.3rem;
+  border: 0.1rem black solid;
+}
+
+.CreateGoalAtForm {
+  width: 100%;
+}
+
+.CreateGoalAtFormBtn {
+  padding: 0.45rem 0rem 0.45rem 0rem;
+  width: 100%;
+  border-radius: 0.3rem;
+  background-color: #fc8415;
+  border: none;
+  color: black;
+  cursor: pointer;
+}
+
+.CreateGoalLoader {
+  padding: 0.35rem 0rem;
+  width: 100%;
+  background-color: #fc8415;
+  border-radius: 0.3rem;
+  border: none;
+}
+
+@keyframes LoaderCreateGoal {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.CreateGoalLoader img {
+  height: 1rem;
+  width: 1.2rem;
+  animation: LoaderCreateGoal 1s ease-in infinite;
+}
+
+@media screen and (max-width: 907px) {
+  .GoalFormActualForm {
+    padding: 1rem;
+    width: 97%;
+    margin: 0rem auto 0rem;
+  }
+  .GoalFormAllInputDiv {
+    column-gap: 0rem;
     justify-content: space-between;
+  }
+  .NameDescGoalForm {
+    width: 42%;
+    row-gap: 0.5rem;
+  }
+  .NameDescGoalForm div {
+    width: 100%;
+  }
+
+  .AllOtherAtGoalFormMainDiv {
+    width: 57%;
+  }
+
+  .AnyOfTheTwoGoalForm {
+    width: 100%;
+    margin-bottom: 0.8rem;
+  }
+
+  .AnyOfTheTwoGoalForm div {
+    width: 49%;
+  }
 }
 
-.CreateGoalTitle{
-    font-size:1.8rem;
-}
-
-.CreateGoalDesc{
-    font-size:1rem;
-    max-width:40rem;
-}
-
-.CloseAddGoalIcon{
-    font-size:1.6rem;
-    cursor:pointer;
-}
-
-.GoalFormAllInputDiv{
-    display: flex;
-    margin-top:1rem;
-    column-gap: 2rem;
-}
-
-.NameDescGoalForm{
-    display: flex;
+@media screen and (max-width: 576px) {
+  .CreateGoalTitle {
+    font-size: 1.5rem;
+  }
+  .CreateGoalDesc {
+    font-size: 0.9rem;
+    max-width: 100%;
+  }
+    .GoalFormAllInputDiv {
     flex-direction:column;
-    row-gap:1rem;
+    row-gap:0.5rem;
+  }
+    .NameDescGoalForm {
+    width: 100%;
+  }
+  .NameDescGoalForm div textarea {
+  max-height: 5rem;
+  min-height: 5rem;
+}
+.AllOtherAtGoalFormMainDiv {
+  width: 100%;
+}
+  .AnyOfTheTwoGoalForm {
+    margin-bottom: 0.5rem;
+  }
 }
 
-.NameDescGoalForm div{
-    width:20rem;
+@media screen and (max-width: 344px) {
+.AnyOfTheTwoGoalForm {
+  flex-direction:column;
+  row-gap:0.5rem;
+}
+.AnyOfTheTwoGoalForm div {
+  width: 100%;
 }
 
-.NameDescGoalForm div label{
-    font-size:0.9rem;
-}
-
-.NameDescGoalForm div input{
-    width:100%;
-    padding:0.3rem 0.1rem;
-}
-
-.NameDescGoalForm div textarea{
-    max-width:100%;
-    min-width:100%;
-    max-height: 10rem;
-    min-height: 10rem;
-    padding:0.3rem 0.1rem;
-}
-
-.AllOtherAtGoalFormMainDiv{
-    width:30rem;
-}
-
-.AllOtherAtGoalFormMainDiv label{
-    font-size:0.9rem;
-}
-
-.AnyOfTheTwoGoalForm{
-    display: flex;
-    justify-content:space-between;
-    width:100%;
-    margin-bottom:1rem;
-}
-
-.AnyOfTheTwoGoalForm div{
-    width:49%;
-}
-
-.AnyOfTheTwoGoalForm div select{
-    width:100%;
-    padding:0.3rem 0.1rem;
-}
-
-.AnyOfTheTwoGoalForm div input{
-    width:100%;
-    padding:0.3rem 0.1rem;
-}
-
-.CreateGoalAtForm input{
-    padding:0.5rem 0rem 0.5rem 0rem;
-    width:100%;
-    background-color: #FC8415;
-    border:none;
-    color:black;
-    cursor:pointer;
 }
