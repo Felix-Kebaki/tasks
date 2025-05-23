@@ -51,7 +51,8 @@ export function AssignedTask() {
     refetch();
   }, [refetch,submit]);
 
-  if(isLoading){
+  const [check,setCheck]=useState(true)
+  if(check){
     return(
       <div className="MainLoaderDiv">
         <Loading/>

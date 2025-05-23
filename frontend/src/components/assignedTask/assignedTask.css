@@ -181,6 +181,17 @@
   }
 }
 
+@media screen and (max-width: 397px) {
+.AssignedStatus {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.7rem;
+}
+.DueAssignedDate span {
+  font-size: 0.8rem;
+  margin-left: 0.1rem;
+}
+}
+
 @media screen and (max-width: 314px) {
   .YourAssignedTaskTitle{
     font-size: 1.15rem;

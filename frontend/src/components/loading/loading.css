@@ -37,3 +37,16 @@
     stroke-dashoffset: 100;
   }
 }
+
+
+@media screen and (max-width:567px){
+  .LoaderMainDiv div{
+    padding:0.3rem 0.5rem;
+    border-radius:0.7rem;
+}
+  .TickLoader {
+  width: 2rem;
+  height: 2rem;
+  transform: scale(1.5);
+}
+}
