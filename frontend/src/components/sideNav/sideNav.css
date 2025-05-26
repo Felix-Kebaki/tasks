@@ -5,8 +5,7 @@
   background-color: white;
   box-shadow: 0rem 0rem 0.5rem rgba(146, 146, 146, 0.308);
   padding: 0.5rem;
-  overflow-y: auto;
-  /* overflow: visible; */
+  overflow: visible;
 }
 
 .SideNavMainSecResponsive {
@@ -16,8 +15,7 @@
   background-color: white;
   box-shadow: 0rem 0rem 0.5rem rgba(146, 146, 146, 0.308);
   padding: 0.5rem;
-  overflow-y: auto;
-  /* overflow: visible; */
+  overflow: visible;
 }
 
 .SideNavTopMainDiv {
@@ -75,6 +73,19 @@
   padding: 0.4rem 0.3rem 0.4rem 0.3rem;
   border-radius: 0.3rem;
   font-size: 0.9rem;
+}
+
+.AppearAtTopOnSideNavShow a {
+  width: 100%;
+  text-decoration: none;
+  color:black;
+  padding: 0.4rem 0.3rem 0.4rem 0.3rem;
+  border-radius: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.AppearAtTopOnSideNavShow a:hover{
+  background-color: white;
 }
 
 .AppearAtTopOnSideNavShow p:hover {
@@ -230,8 +241,8 @@
     flex-direction: column-reverse;
     row-gap: 4rem;
     justify-content: space-between;
-    overflow-y: auto;
-    overflow-x: hidden;
+    /* overflow-y: auto; */
+    /* overflow-x: hidden; */
     height: 100%;
   }
 
@@ -241,8 +252,8 @@
     justify-content: space-between;
     align-items: start;
     row-gap: 4rem;
-    overflow-x: hidden;
-    overflow-y: auto;
+    /* overflow-x: hidden; */
+    /* overflow-y: auto; */
     height: 100%;
   }
 
@@ -276,11 +287,21 @@
 
   .AppearAtTopOnSideNavShow {
     width: 7rem;
-    left: 2rem;
+    left: 0rem;
+    background-color: red;
     top: -1.5rem;
     height: auto;
     z-index: 999999;
   }
+
+.SideNavNotificationIconMainDiv {
+  margin-bottom: 0.3rem;
+  margin-right: 0.7rem;
+}
+.NotificationNumberDiv {
+  bottom: -0.5rem;
+  right: -0.6rem;
+}
 
   .SideNavShowIcon:hover {
     background-color: #eeecec;

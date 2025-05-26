@@ -137,3 +137,44 @@
     padding: 0rem 0.3rem 0rem 4rem;
   }
 }
+
+
+@media screen and (max-width: 768px) {
+  .calendarDays, .calendar-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .calendar-day, .calenderDayEmpty {
+    min-height: 60px;
+    font-size: 0.8rem;
+  }
+
+  .calendarHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .calendarDays, .calendar-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .calendarDayName {
+    font-size: 0.7rem;
+  }
+
+  .calendar-day, .calenderDayEmpty {
+    padding: 0.4rem;
+    min-height: 50px;
+  }
+
+  .event {
+    font-size: 0.7rem;
+    padding: 0.2rem;
+  }
+
+  .calendarHeader p {
+    font-size: 1.1rem;
+  }
+}

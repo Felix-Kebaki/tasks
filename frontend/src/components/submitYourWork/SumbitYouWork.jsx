@@ -6,6 +6,8 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { useMarkAsDoneMutation } from "../../redux/api/assignTaskApiSlice";
 
+import Loader from '../../assets/images/blackLoader.png'
+
 export function SumbitYouWork({ submit, setSubmit }) {
   const [submitForm, setSubmitForm] = useState({
     type: "",
@@ -21,7 +23,7 @@ export function SumbitYouWork({ submit, setSubmit }) {
     }));
   };
 
-  const [markAsDone] = useMarkAsDoneMutation();
+  const [markAsDone,{isLoading}] = useMarkAsDoneMutation();
 
   const HandleSubmitWork = async (e) => {
     e.preventDefault();
@@ -64,7 +66,7 @@ export function SumbitYouWork({ submit, setSubmit }) {
             id="SubmitYourWorkCancelIcon"
           />
         </div>
-        <p className="text">
+        <p className="SubmitYourWorkDesc text">
           Submit your work either as document, photo or link
         </p>
         <div className="InputOfYourWorkType">
@@ -112,7 +114,7 @@ export function SumbitYouWork({ submit, setSubmit }) {
         ) : null}
         {type !== "" ? (
           <div className="SubmitWorkMainSubmitDiv">
-            <input type="submit" value={type === "None" ? "Done" : "Submit"} />
+            <button className={isLoading?"SubmitWorkMainSubmitLoader":"SubmitWorkMainSubmit"}>{isLoading?<img src={Loader} alt="Loading..."/>:type==="None"?"Done":"Submit"}</button>
           </div>
         ) : null}
       </form>

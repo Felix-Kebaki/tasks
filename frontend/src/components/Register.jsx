@@ -95,7 +95,7 @@ export function Register() {
         <img src={formBackground} className="AuthBackground" />
         <div className="AuthActualFormDiv">
           <form className="AuthFormDiv" onSubmit={HandleFormSubmit}>
-            <Link to="/home" className="AuthFormLogoAndTitle">
+            <Link to="/" className="AuthFormLogoAndTitle">
               <img src={Logo} alt="" />
               <p className="title">TaskTracker</p>
             </Link>

@@ -7,8 +7,9 @@
 }
 
 .SubmitYourWorkMainSec form{
-    padding:1rem;
+    padding:1.5rem;
     background-color: white;
+    border-radius: 0.3rem;
 }
 
 .SubmitYourWorkTopDiv{
@@ -38,6 +39,7 @@
 .InputOfYourWorkType select{
     width:80%;
     padding:0.3rem 0.2rem;
+      outline: none;
     border-radius:0.3rem;
     border:0.1rem black solid;
     background-color: transparent;
@@ -55,6 +57,7 @@
 .SubmitWorkLink input{
     width:80%;
     padding:0.3rem 0.2rem;
+    outline: none;
     border-radius:0.3rem;
     border:0.1rem black solid;
     background-color: transparent;
@@ -65,7 +68,7 @@
     margin-top:0.5rem;
 }
 
-.SubmitWorkMainSubmitDiv input{
+.SubmitWorkMainSubmit{
     width:80%;
     cursor:pointer;
     background-color: #fc8415;
@@ -73,4 +76,78 @@
     border:none;
     border-radius: 0.3rem;
     padding:0.35rem ;
+}
+
+.SubmitWorkMainSubmitLoader {
+    width:80%;
+    background-color: #fc8415;
+    border:none;
+    border-radius: 0.3rem;
+    padding:0.3rem 0rem;
+}
+
+@keyframes SubmitWorkSpin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+.SubmitWorkMainSubmitLoader img{
+    width:1rem;
+    height:0.9rem;
+    animation: SubmitWorkSpin 1s ease-in infinite;
+}
+
+
+
+@media screen and (max-width:623px){
+    .SubmitYourWorkMainSec form{
+    padding:1rem;
+    width:97%;
+    margin:0rem auto 0rem ;
+}
+}
+
+@media screen and (max-width:492px){
+        .SubmitYourWorkMainSec form{
+    padding:1rem 0.4rem 1rem 0.4rem;
+}
+    .InputOfYourWorkType{
+        width:100%;
+    }
+    .InputOfYourWorkType select{
+    width:100%;
+}
+.SubmitWorkLink{
+    width:100%;
+}
+
+    .SubmitWorkLink input{
+    width:100%;
+}
+
+.SubmitWorkMainSubmitDiv{
+    width:100%;
+}
+
+.SubmitWorkMainSubmit{
+    width:100%;
+}
+
+.SubmitWorkMainSubmitLoader {
+    width:100%;
+}
+
+}
+
+@media screen and (max-width:234px){
+    .SubmitYourWorkTopDiv p{
+    font-size:1.1rem;
+}
+.SubmitYourWorkDesc{
+    font-size:0.9rem;
+}
 }

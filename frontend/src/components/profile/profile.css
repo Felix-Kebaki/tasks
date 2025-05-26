@@ -1,0 +1,171 @@
+.ProfileEditMainSec {
+  width: 100%;
+  padding: 0rem 0.4rem 1rem 16.3rem;
+}
+
+.ProfileEditMainDiv {
+  padding-top: 1.5rem;
+  width: 60rem;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1%;
+  row-gap: 0.6rem;
+}
+
+.ProfileMainForm {
+  width: 50%;
+  background-color: white;
+  padding: 1.3rem;
+  border-radius: 0.3rem;
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
+}
+
+.ProfileMainForm p{
+    font-size: 1.1rem;
+}
+
+.ProfileMainForm div{
+    width:80%;
+    margin-top:0.6rem;
+}
+
+.ProfileMainForm div label{
+    font-size:0.8rem;
+}
+
+.ProfileMainForm div input{
+    width:100%;
+    outline: none;
+    border-radius: 0.3rem;
+    border:0.1rem black solid;
+    padding:0.4rem 0.2rem;
+}
+
+.ProfileMainForm div button{
+    width:100%;
+    border:none;
+    border-radius:0.3rem;
+    font-size: 0.8rem;;
+}
+
+.DisabledBtn{
+    color:black;
+    background-color: #eeecec;
+    padding:0.4rem 0rem;
+}
+
+.EditProfileBtn{
+    background-color: #0483bb;
+    color:white;
+    cursor:pointer;
+    padding:0.4rem 0rem;
+}
+
+@keyframes EditProfileSpin{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+.EditProfileLoader{
+    background-color: #0483bb;
+    padding:0.1rem 0rem;
+}
+
+.EditProfileLoader img{
+    width:1.2rem;
+    height:1.3rem;
+    animation: EditProfileSpin 1s ease-in infinite;
+}
+
+.PasswordMainForm {
+  width: 49%;
+  background-color: white;
+  padding: 1.3rem;
+  border-radius: 0.3rem;
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
+}
+
+.PasswordMainForm p{
+    font-size:1.1rem;
+}
+
+.PasswordMainForm .EditPasswordOuterDiv{
+    width:80%;
+    margin-top:0.6rem;
+}
+
+.EditPasswordInputContainer{
+    width:100%;
+    position:relative;
+}
+
+.PasswordMainForm div input{
+    width:100%;
+    outline: none;
+    border-radius: 0.3rem;
+    border:0.1rem black solid;
+    padding:0.4rem 0.2rem;
+}
+
+.EditPasswordIconsDiv{
+    position:absolute;
+    right:0.3rem;
+    bottom:0;
+    top:0;
+    align-content: center;
+    cursor:pointer;
+    user-select: none;
+}
+
+.EditPasswordIcons{
+    font-size:0.8rem;
+}
+
+.PasswordMainForm div label{
+    font-size:0.8rem;
+}
+
+.PasswordMainForm div button{
+        width:100%;
+    border:none;
+    border-radius:0.3rem;
+    font-size: 0.8rem;;
+    padding:0.4rem 0rem;
+}
+
+.DeleteAccountMainDiv {
+  width: 50%;
+  background-color: white;
+  padding: 1.3rem;
+  border-radius: 0.3rem;
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
+}
+
+.DeleteAccountMainTitle{
+    font-size:1.1rem;
+}
+
+.DeleteAccMainDisc{
+    font-size: 0.9rem;
+    margin-top:0.6rem;
+}
+
+.DeleteAccountMainDiv div{
+    width:100%;
+    margin-top:0.6rem;
+    display:flex;
+    justify-content: end;
+}
+
+.DeleteAccountMainDiv div button{
+    background:#fc8415;
+    padding:0.4rem 1rem;
+    border-radius: 0.7rem;
+    cursor:pointer;
+    font-size:0.9rem;
+    border:none;
+}

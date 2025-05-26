@@ -22,7 +22,7 @@
 .fill {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
-  animation: fillTick 2s infinite ease-in-out;
+  animation: fillTick 1.5s infinite ease-in-out;
 }
 
 

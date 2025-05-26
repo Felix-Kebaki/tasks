@@ -22,11 +22,9 @@ import { useGetUnreadQuery } from "../../redux/api/notifyApiSlice";
 import { useGetCategoryQuery } from "../../redux/api/allCategoryApiSlice";
 
 import "./sideNav.css";
-import { ProfileEdit } from "../profileEdit/ProfileEdit";
 import { Loading } from "../loading/Loading";
 
 export function SideNav() {
-  const [profileView, setProfileView] = useState(false);
   const [sideNavState, setSideNavState] = useState(false);
   const [dailyBackground,setDailyBackground]=useState(false)
 
@@ -50,9 +48,6 @@ export function SideNav() {
       .classList.remove("AppearAtTopOnSideNavShow");
   };
 
-  const HandleViewProfile = () => {
-    setProfileView(true);
-  };
 
   const HandleClickOnSideNav = () => {
     setSideNavState(!sideNavState);
@@ -112,13 +107,13 @@ export function SideNav() {
               <FontAwesomeIcon icon={faAngleDown} id="SideNavNameArrow" />
             </p>
             <div className="AppearAtTopOnSideNav">
-              <p className="text" onClick={HandleViewProfile}>
+              <Link to="/app/profile" className="text">
                 <FontAwesomeIcon
                   icon={faUser}
                   className="SideNavSubMenuIcons"
                 />
                 Profile
-              </p>
+              </Link>
               <p onClick={HandleClickLogout} className="text">
                 <FontAwesomeIcon
                   icon={faArrowRightFromBracket}
@@ -274,11 +269,6 @@ export function SideNav() {
                 <p className="ActualCategoryNo text">{cat.count}</p>
               </Link>
             ))}
-        </div>
-      ) : null}
-      {profileView ? (
-        <div className="OverflowAddMainDiv">
-          <ProfileEdit />
         </div>
       ) : null}
     </section>

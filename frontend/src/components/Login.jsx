@@ -76,7 +76,7 @@ export function Login() {
         <img src={formBackground} className="AuthBackground" />
         <div className="AuthActualFormDiv">
           <form className="AuthFormDiv" onSubmit={HandleSubmitLogin}>
-            <Link to="/home" className="AuthFormLogoAndTitle">
+            <Link to="/" className="AuthFormLogoAndTitle">
               <img src={Logo} alt="" />
               <p className="title">TaskTracker</p>
             </Link>
@@ -113,13 +113,13 @@ export function Login() {
                     onChange={OnChange}
                     className="text"
                   />
-                  <span className="InsideShowPasswordIcon">
+                  <div className="InsideShowPasswordIcon">
                     {!show ? (
                       <FontAwesomeIcon icon={faEyeSlash} onClick={ShowTrue} className="ShowHideIcon" />
                     ) : (
                       <FontAwesomeIcon icon={faEye} onClick={ShowFalse} className="ShowHideIcon" />
                     )}
-                  </span>
+                  </div>
                 </div>
               </div>
               <div>

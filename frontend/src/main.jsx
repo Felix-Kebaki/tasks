@@ -21,6 +21,7 @@ import { TeamDetailsPage } from "./pages/TeamDetailsPage.jsx";
 import { UpcomingPage } from "./pages/UpcomingPage.jsx";
 import { SubmissionsPage } from "./pages/SubmissionsPage.jsx";
 import { AllPerCategoryPage } from "./pages/AllPerCategoryPage.jsx";
+import { ProfilePage } from "./pages/ProfilePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "/app/goals",
         element: <GoalsPage />,
+      },
+      {
+        path:"/app/profile",
+        element:<ProfilePage/>
       },
       {
         path: "/app/daily-objectives",

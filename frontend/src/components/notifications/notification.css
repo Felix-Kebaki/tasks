@@ -1,5 +1,5 @@
 .NotificationMainSec{
-    padding:0rem 0.4rem 0rem 16.3rem;
+    padding:0rem 0.4rem 1rem 16.3rem;
     width:100%;
 }
 
@@ -27,7 +27,7 @@
     width:60rem;
     margin-top:1rem;
     display:flex;
-    align-items: center;
+    align-items: end;
     justify-content: space-between;
 }
 
@@ -107,4 +107,86 @@
     text-transform: uppercase;
     color:#0483bb;
     font-size:0.7rem;
+}
+
+@media screen and (max-width: 1229px) {
+  .NotificationMainSec {
+    padding: 0rem 0.3rem 0.5rem 4rem;
+  }
+  .UnreadTopNotificationDiv{
+    padding-top:0.8rem;
+}
+.UnreadMainTitle{
+    font-size:1.25rem;
+}
+.OtherNotificationTitle{
+    font-size:1.25rem;
+}
+}
+
+@media screen and (max-width: 1041px) {
+.UnreadActualEachMainDiv{
+    width:100%;
+    margin-top:0.8rem;
+}
+.NoUnreadNotificationDiv{
+    width:100%;
+    padding:1.5rem 0rem 1.5rem 0rem;
+}
+.OtherNotificationMainDiv{
+    padding-top:0.4rem;
+    width:100%;
+}
+.AllOtherNotificationWrapper div{
+    display: flex;
+    width:100%;
+    justify-content:space-between;
+    padding:0.3rem 0rem;
+}
+.AcceptInviteBtn{
+    padding:0.2rem 1rem;
+    font-size: 0.8rem;
+}
+
+.RejectInviteBtn{
+    padding:0.2rem 1rem;
+    font-size: 0.8rem;
+}
+
+}
+
+@media screen and (max-width: 640px) {
+    .DateOfNotifications{
+    font-size:0.8rem;
+}
+
+.DateOfNotifications span{
+    font-size:0.6rem;
+}
+}
+
+@media screen and (max-width: 576px) {
+  .NotificationMainSec {
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
+  }
+  .DateOfNotifications span{
+    display: none;
+}
+    .DateOfNotifications{
+    color: #0483bb;
+}
+
+.AcceptOrRejectInviteDiv{
+    flex-direction: column;
+    row-gap:0.2rem;
+}
+
+.AcceptInviteBtn{
+    padding:0.1rem 0.6rem;
+    font-size:0.8rem;
+}
+.RejectInviteBtn{
+    padding:0.1rem 0.7rem;
+    font-size:0.8rem;
+}
 }
