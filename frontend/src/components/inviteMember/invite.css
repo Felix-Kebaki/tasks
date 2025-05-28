@@ -1,60 +1,111 @@
-.InviteMainSec{
-    width:100%;
-    height: 100dvh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.InviteMainSec {
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.InviteMainForm{
-    background:white;
-    border-radius: 0.3rem;
-    padding:1rem;
-    width:30rem;
+.InviteMainForm {
+  background: white;
+  border-radius: 0.3rem;
+  padding: 1rem;
+  width: 30rem;
 }
 
-.TopInviteMainDiv{
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
+.TopInviteMainDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
 }
 
-.TopInviteMainTitle{
-    font-size:1.3rem;
+.TopInviteMainTitle {
+  font-size: 1.3rem;
 }
 
-.InviteFormCloseIcon{
-    font-size:1.5rem;
-    cursor:pointer;
+.InviteFormCloseIcon {
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
-.InviteInputEmailDiv{
-    width:100%;
-    margin-top:0.4rem;
+.InviteInputEmailDiv {
+  width: 100%;
+  margin-top: 0.4rem;
 }
 
-.InviteInputEmailDiv label{
-    font-size:0.8rem;
+.InviteInputEmailDiv label {
+  font-size: 0.8rem;
 }
 
-.InviteInputEmailDiv input{
-    padding:0.3rem 0.2rem;
-    border:0.1rem black solid;
-    outline:none;
-    width:80%;
-    border-radius:0.3rem;
+.InviteInputEmailDiv input {
+  padding: 0.3rem 0.2rem;
+  border: 0.1rem black solid;
+  outline: none;
+  width: 80%;
+  border-radius: 0.3rem;
 }
 
-.InviteFormSubmitMainDiv{
-    margin-top:0.6rem;
-    width:100%;
+.InviteFormSubmitMainDiv {
+  margin-top: 0.6rem;
+  width: 100%;
 }
 
-.InviteFormSubmitMainDiv input{
-    width:80%;
-    border:none;
-    border-radius:0.3rem;
-    background-color: #FC8415;
-    padding:0.4rem 0rem;
-    cursor:pointer;
+.InviteFormSubmitMainDiv button {
+  width: 80%;
+  border: none;
+  border-radius: 0.3rem;
+}
+
+.InviteFormSubmitMainDiv .InviteDisableBtn {
+  background-color: #eeecec;
+  color: rgb(206, 206, 206);
+  padding: 0.4rem 0rem;
+}
+
+.InviteFormSubmit {
+  background-color: #fc8415;
+  color: black;
+  cursor: pointer;
+  padding: 0.4rem 0rem;
+}
+
+.InviteLoader {
+  background-color: #fc8415;
+  padding: 0.23rem 0rem;
+}
+@keyframes InviteSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.InviteLoader img {
+  width: 1.2rem;
+  height: 1.1rem;
+  animation: InviteSpin 1s ease-in infinite;
+}
+
+@media screen and (max-width: 490px) {
+  .InviteMainForm {
+    padding: 1rem;
+    width: 97%;
+  }
+  .TopInviteMainTitle {
+    font-size: 1.1rem;
+  }
+  .InviteFormCloseIcon {
+    font-size: 1.3rem;
+  }
+  .InviteInputEmailDiv label {
+    font-size: 0.7rem;
+  }
+  .InviteInputEmailDiv input {
+    width: 100%;
+  }
+  .InviteFormSubmitMainDiv button {
+    width: 100%;
+  }
 }

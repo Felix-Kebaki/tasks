@@ -189,7 +189,7 @@ const editTeamtask = async (req, res) => {
         updates.fileUrl = req.file.path; 
         updates.fileType = fileType;
       } else {
-        return res.status(400).json({ message: "File is required for Document or Photo" });
+        return res.status(400).json({ error: `File is required for ${fileType}` });
       }
     } else if (fileType === "Link") {
       updates.fileUrl = linkUrl;
@@ -220,6 +220,8 @@ const editTeamtask = async (req, res) => {
         if (publicId) {
           await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
         }
+        currentTask.fileUrl=undefined
+        await currentTask.save()
       }
     }
 
@@ -230,6 +232,7 @@ const editTeamtask = async (req, res) => {
         updates[key] = req.body[key];
       }
     }
+    console.log(updates)
 
     const updatedTeamtask = await TeamTask.findByIdAndUpdate(
       req.params.teamtaskId,

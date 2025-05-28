@@ -1,94 +1,150 @@
-.CreateTeamtaskMainSec{
-    display: flex;
-    align-items: center;
-    justify-content:center;
-    width:100%;
-    height: 100dvh;
+.CreateTeamtaskMainSec {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100dvh;
 }
 
-.CreateTeamtaskForm{
-    background-color: white;
-    padding:2rem;
+.CreateTeamtaskForm {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.3rem;
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
 }
 
-.CreateTeamtaskTopDiv{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.CreateTeamtaskTopDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
 
 .CreateTeamtaskTitle {
-    font-size: 1.8rem;
-  }
-  
+  font-size: 1.8rem;
+}
 
-.CloseAddTeamtaskIcon{
-    font-size: 1.6rem;
-    cursor: pointer;
+.CloseAddTeamtaskIcon {
+  font-size: 1.6rem;
+  cursor: pointer;
 }
 
 .CreateTeamtaskDesc {
-    font-size: 1rem;
-    max-width: 40rem;
+  font-size: 1rem;
+  max-width: 40rem;
+}
+
+.TeamtaskActualFormDiv {
+  width: 30rem;
+}
+
+.InputOfTeamtask {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.InputOfTeamtask label {
+  font-size: 0.9rem;
+}
+
+.InputOfTeamtask input {
+  width: 100%;
+  padding: 0.3rem 0.2rem;
+  border-radius: 0.3rem;
+  border: 0.1rem black solid;
+  background-color: transparent;
+}
+
+.InputOfTeamtask select {
+  width: 100%;
+  padding: 0.3rem 0.2rem;
+  border-radius: 0.3rem;
+  border: 0.1rem black solid;
+  background-color: transparent;
+}
+
+.InputOfTeamtaskFile {
+  margin-top: 0.5rem;
+}
+
+.InputOfTeamtaskFile label {
+  font-size: 0.9rem;
+}
+
+.InputOfTeamtaskFile input {
+  width: 100%;
+  padding: 0.3rem 0.2rem;
+  background-color: transparent;
+}
+
+.CreateTeamtaskButtonDiv {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.CreateTeamtaskButtonDiv button {
+  border: none;
+  width: 100%;
+  border-radius: 0.3rem;
+  background-color: #fc8415;
+}
+
+.CreateTeamtaskButton {
+  color: black;
+  padding: 0.4rem 0rem;
+  cursor: pointer;
+}
+
+.CreateTeamtaskLoader {
+  padding: 0.26rem 0rem;
+}
+
+@keyframes createTeamtaskSpin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-
-.TeamtaskActualFormDiv{
-    width:30rem;
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.InputOfTeamtask{
-    width:100%;
-    margin-top:0.5rem;
+.CreateTeamtaskLoader img {
+  width: 1.2rem;
+  height: 1.1rem;
+  animation: createTeamtaskSpin 1s ease-in infinite;
 }
 
-.InputOfTeamtask label{
-    font-size:0.9rem;
+@media screen and (max-width: 746px) {
+  .CreateTeamtaskForm {
+    padding: 1rem;
+    width: 97%;
+  }
+  .CreateTeamtaskDesc {
+    width: 100%;
+  }
+
+  .TeamtaskActualFormDiv {
+    width: 80%;
+  }
 }
 
-.InputOfTeamtask input{
-    width:100%;
-    padding:0.3rem 0.2rem;
-    border-radius:0.3rem;
-    border:0.1rem black solid;
-    background-color: transparent;
+@media screen and (max-width: 576px) {
+  .CreateTeamtaskTitle {
+    font-size: 1.5rem;
+  }
+  .CloseAddTeamtaskIcon {
+    font-size: 1.4rem;
+  }
+
+  .CreateTeamtaskDesc {
+    font-size: 0.9rem;
+  }
+  .TeamtaskActualFormDiv {
+    width: 100%;
+  }
 }
 
-.InputOfTeamtask select{
-    width:100%;
-    padding:0.3rem 0.2rem;
-    border-radius:0.3rem;
-    border:0.1rem black solid;
-    background-color: transparent;
-}
-
-.InputOfTeamtaskFile{
-    margin-top:0.5rem;
-}
-
-.InputOfTeamtaskFile label{
-    font-size:0.9rem;
-}
-
-.InputOfTeamtaskFile input{
-    width:100%;
-    padding:0.3rem 0.2rem;
-    background-color: transparent;
-}
-
-.CreateTeamtaskButtonDiv{
-    margin-top:1rem;
-    width:100%;
-}
-
-.CreateTeamtaskButton{
-    background-color: #fc8415;
-    color:black;
-    border:none;
-    width:100%;
-    border-radius: 0.3rem;
-    padding:0.4rem 0rem;
-    cursor:pointer;
-    font-size: 1rem;
+@media screen and (max-width: 337px) {
+  .CreateTeamtaskForm {
+    padding: 1rem 0.4rem 1rem 0.4rem;
+  }
 }

@@ -288,7 +288,6 @@
   .AppearAtTopOnSideNavShow {
     width: 7rem;
     left: 0rem;
-    background-color: red;
     top: -1.5rem;
     height: auto;
     z-index: 999999;

@@ -7,9 +7,11 @@
 }
 
 .CreateTeamMainForm {
-  padding: 2rem;
+  padding: 1.5rem;
   overflow-y: auto;
+  border-radius: 0.3rem;
   background-color: white;
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
 }
 
 .CreateTeamTopDiv {
@@ -19,7 +21,7 @@
 }
 
 .CreateTeamTitle {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
 
 .CreateTeamDesc {
@@ -40,11 +42,14 @@
   width: 20rem;
 }
 .OnlyTeamNameDiv label {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .OnlyTeamNameDiv input {
   width: 100%;
+  border-radius: 0.3rem;
+  border: 0.1rem black solid;
+  outline: none;
   padding: 0.3rem 0.1rem;
 }
 
@@ -57,50 +62,92 @@
   font-size: 1.1rem;
 }
 
-.CreateTeamAllInvitesInputDiv{
-    display: flex;
-    flex-direction:column;
-    width:20rem;
-    row-gap:1rem;
-    margin-top:0.8rem;
+.CreateTeamAllInvitesInputDiv {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  row-gap: 1rem;
+  margin-top: 0.8rem;
 }
 
-.CreateTeamAllInvitesInputDiv input{
-    width: 100%;
-    padding: 0.3rem 0.1rem; 
-    border:none;
-    outline: none;
-    border-bottom: 0.1rem black solid;
+.CreateTeamAllInvitesInputDiv input {
+  width: 100%;
+  padding: 0.3rem 0.1rem;
+  border: none;
+  outline: none;
+  border-bottom: 0.1rem black solid;
 }
 
-.CreateTeamInviteMemberBtn{
-    cursor:pointer;
+.CreateTeamInviteMemberBtn {
+  cursor: pointer;
 }
 
-.CreateTeamInviteMemberBtn:hover{
-    color:#0483bb;
+.CreateTeamInviteMemberBtn:hover {
+  color: #0483bb;
 }
 
-.CreateTeamSubmitBtn{
-    width:100%;
+.CreateTeamSubmitBtnDiv {
+  width: 100%;
 }
 
-.SubmitAllLoaderMode {
-  width:100%;
+.CreateTeamSubmitBtnDiv button {
+  border-radius: 0.3rem;
+  border: none;
+  width: 100%;
   background-color: #fc8415;
-  border:none;
-  padding:0.18rem 0rem;
-  border-radius: 0.2rem;
 }
 
-.CreateTeamSubmitActualBtn{
-    width:100%;
-    background-color: #fc8415;
-    color: black;
-    border:none;
-    padding:0.3rem 0rem;
-    font-size:1rem;
-    cursor:pointer;
-    border-radius: 0.2rem;
+.CreateTeamSubmitBtn {
+  color: black;
+  padding: 0.4rem 0rem;
+  cursor: pointer;
 }
 
+.CreateTeamLoader {
+  padding: 0.25rem 0rem;
+}
+
+@keyframes CreateTeamSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.CreateTeamLoader img {
+  width: 1.1rem;
+  height: 1.1rem;
+  animation: CreateTeamSpin 1s ease-in infinite;
+}
+
+@media screen and (max-width: 576px) {
+  .CreateTeamMainForm {
+    width: 97%;
+    padding:1rem 0.5rem 1rem 0.5rem;
+  }
+  .CreateTeamTitle {
+  font-size: 1.5rem;
+}
+
+.CreateTeamDesc {
+  font-size: 0.9rem;
+  max-width: 100%;
+}
+.OnlyTeamNameDiv label {
+  font-size: 0.7rem;
+}
+.NoteTextInInvite {
+  font-size: 0.9rem;
+}
+}
+
+@media screen and (max-width: 351px) {
+  .OnlyTeamNameDiv {
+  width: 100%;
+}
+.CreateTeamAllInvitesInputDiv {
+  width: 100%;
+}
+}

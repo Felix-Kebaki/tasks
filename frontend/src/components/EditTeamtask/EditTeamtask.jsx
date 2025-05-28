@@ -1,5 +1,7 @@
 import "./editTeamtask.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+import { Loading } from "../loading/Loading";
 
 import { useGetEachTeamtaskQuery } from "../../redux/api/teamTaskApiSlice";
 import { useEditTheTeamtaskMutation } from "../../redux/api/teamTaskApiSlice";
@@ -9,11 +11,15 @@ import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
+import Loader from "../../assets/images/blackLoader.png";
+
 export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
   const { refetch, data, isLoading } = useGetEachTeamtaskQuery({
     teamtaskId: editTeamtask,
   });
-  const [editTheTeamtask] = useEditTheTeamtaskMutation();
+  const [editTheTeamtask, { isLoading: editLoading }] =
+    useEditTheTeamtaskMutation();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -38,12 +44,20 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
       });
       if (res.error) {
         console.error(res.error.data.error || res.error.error);
+        setErrorMessage(res.error.data.error || res.error.error);
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 3000);
       } else {
         console.log(res.data.message);
         setEditTeamtask(null);
       }
     } catch (error) {
       console.log(error.message);
+      setErrorMessage(error.message);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
     }
   };
 
@@ -52,6 +66,17 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
     setType(newValue);
     setNewtype(newValue);
   };
+
+  const isUnchanged = useMemo(() => {
+    return (
+      name === (data?.name || "") &&
+      description === (data?.description || "") &&
+      dueDate === moment(data?.dueDate).format("YYYY-MM-DD") &&
+      type === (data?.fileType || "") &&
+      fileUrl === (data?.fileUrl || "") &&
+      !editLoading
+    );
+  }, [data, name, description, dueDate, type, fileUrl]);
 
   useEffect(() => {
     if (data) {
@@ -64,7 +89,11 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
   }, [data]);
 
   if (!data || isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="MainLoaderDiv">
+        <Loading />
+      </div>
+    );
   }
 
   return (
@@ -119,7 +148,7 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
               <option value="Document">Document</option>
             </select>
           </div>
-          {newtype === "" ? (
+          {type === "None" ? null : newtype === "" ? (
             <div className="text">
               <label htmlFor="SameLinkId">{type}</label>
               <br />
@@ -153,10 +182,25 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
                 onChange={(e) => setNewfile(e.target.value)}
               />
             </div>
-          ) : newtype === "None" ? null : null}
-          <div className="TeamtaskEditBtn text">
-            <button type="submit">Update</button>
+          ) : newtype === "None" || type === "None" ? null : null}
+          <div className="TeamtaskEditBtnDiv text">
+            <button
+              disabled={isUnchanged}
+              type="submit"
+              className={
+                isUnchanged
+                  ? "TeamtaskDisabledBtn"
+                  : editLoading
+                  ? "TeamtaskEditLoader"
+                  : !editLoading
+                  ? "TeamtaskEditBtn"
+                  : null
+              }
+            >
+              {editLoading ? <img src={Loader} alt="Loading..." /> : "Update"}
+            </button>
           </div>
+          <pre>{errorMessage}</pre>
         </form>
       </div>
     </section>

@@ -30,11 +30,14 @@ export function Profile() {
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
   const [show3, setShow3] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessagePass, setErrorMessagePass] = useState("");
 
   const { firstName, lastName, email } = profileForm;
   const { current, newPass, confirmNew } = passwordForm;
 
-  const [editPassword] = useEditPasswordMutation();
+  const [editPassword, { isLoading: isLoadingPass }] =
+    useEditPasswordMutation();
   const [editProfile, { isLoading }] = useEditProfileMutation();
 
   const OnChange = (e) => {
@@ -63,15 +66,26 @@ export function Profile() {
         });
         if (res.error) {
           console.error(res.error.data.error || res.error.error);
+          setErrorMessagePass(res.error.data.error || res.error.error);
+          setTimeout(() => {
+            setErrorMessagePass("");
+          }, 3000);
         } else {
           console.log(res.data.message);
           setPasswordForm({ current: "", newPass: "", confirmNew: "" });
         }
       } else {
-        console.error("Password don't match");
+        setErrorMessagePass("Password don't match");
+        setTimeout(() => {
+          setErrorMessagePass("");
+        }, 3000);
       }
     } catch (error) {
       console.error(error.message);
+      setErrorMessagePass(error.message);
+      setTimeout(() => {
+        setErrorMessagePass("");
+      }, 3000);
     }
   };
 
@@ -81,12 +95,20 @@ export function Profile() {
       const res = await editProfile({ data: profileForm });
       if (res.error) {
         console.error(res.error.data.message || res.error.error);
+        setErrorMessage(res.error.data.error || res.error.error);
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 3000);
       } else {
         console.log(res.data.message);
         localStorage.setItem("userInfo", JSON.stringify(res.data.user));
       }
     } catch (error) {
       console.error(error.message);
+      setErrorMessage(error.message);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
     }
   };
 
@@ -167,6 +189,7 @@ export function Profile() {
               {isLoading ? <img src={Loader} alt="Loading..." /> : "Save"}
             </button>
           </div>
+          <pre>{errorMessage}</pre>
         </form>
         <form onSubmit={HandleEditPassword} className="PasswordMainForm">
           <p className="title">Password</p>
@@ -229,9 +252,24 @@ export function Profile() {
               </div>
             </div>
             <div className="EditPasswordOuterDiv text">
-              <button disabled={isPasswordKeyed} type="submit">Save</button>
+              <button
+                disabled={!isPasswordKeyed}
+                type="submit"
+                className={
+                  !isPasswordKeyed
+                    ? "DisabledBtn"
+                    : !isLoadingPass
+                    ? "EditProfileBtn"
+                    : isLoadingPass
+                    ? "EditProfileLoader"
+                    : null
+                }
+              >
+                {isLoadingPass ? <img src={Loader} alt="Loading..." /> : "Save"}
+              </button>
             </div>
           </div>
+          <pre>{errorMessagePass}</pre>
         </form>
         <div className="DeleteAccountMainDiv">
           <p className="DeleteAccountMainTitle title">Delete Account</p>

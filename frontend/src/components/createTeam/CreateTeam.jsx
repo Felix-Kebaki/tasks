@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import Loader from '../../assets/images/Loader.png'
+import Loader from '../../assets/images/blackLoader.png'
 
 import { useCreateTeamMutation } from "../../redux/api/teamApiSlice";
 import { useSendInviteMutation } from "../../redux/api/invitesApiSlice";
@@ -135,13 +135,12 @@ export function CreateTeam({ setAdd }) {
                 {inviteMemberNo !== 0 ? "Add another " : "Invite a "}
                 member
               </div>
-              <div className="CreateTeamSubmitBtn">
-                <button type="submit" className={isLoading || inviteLoading?"SubmitAllLoaderMode":"CreateTeamSubmitActualBtn text"}>
+              <div className="CreateTeamSubmitBtnDiv">
+                <button type="submit" className={isLoading || inviteLoading?"CreateTeamLoader":"CreateTeamSubmitBtn text"}>
                   {isLoading || inviteLoading ? (
                     <img
                       src={Loader}
                       alt="Loading..."
-                      className="LoaderImage"
                     />
                   ) : (
                     "Create"

@@ -6,6 +6,8 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { useCreateTeamtaskMutation } from "../../redux/api/teamTaskApiSlice";
 
+import Loader from '../../assets/images/blackLoader.png'
+
 export function CreateTeamtask({ setAdd, add }) {
   const [data, setData] = useState({
     name: "",
@@ -24,7 +26,7 @@ export function CreateTeamtask({ setAdd, add }) {
     }));
   };
 
-  const [createTeamtask] = useCreateTeamtaskMutation();
+  const [createTeamtask,{isLoading}] = useCreateTeamtaskMutation();
 
   const HandleSubmitTeamtask = async (e) => {
     e.preventDefault();
@@ -161,11 +163,10 @@ export function CreateTeamtask({ setAdd, add }) {
             </div>
           ) : type === "None" ? null : null}
           <div className="CreateTeamtaskButtonDiv">
-            <input
+            <button
               type="submit"
-              value={"Create"}
-              className="CreateTeamtaskButton text"
-            />
+              className={isLoading?"CreateTeamtaskLoader":"CreateTeamtaskButton text"}
+            >{isLoading?<img src={Loader} alt="Loading..."/> :"Create"}</button>
           </div>
         </div>
       </form>

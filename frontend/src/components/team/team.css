@@ -94,7 +94,7 @@
 
 @media screen and (max-width: 1229px) {
   .TeamMainSec {
-    padding: 0rem 0.3rem 0rem 4rem;
+    padding: 0rem 0.3rem 0.5rem 4rem;
   }
   .TeamMainDiv {
     padding-top: 0.8rem;
@@ -115,7 +115,7 @@
 
 @media screen and (max-width: 576px) {
   .TeamMainSec {
-    padding: 0rem 0.3rem 0rem 3.6rem;
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
   .EachTeamMainDiv a {
     column-gap: 0.2rem;

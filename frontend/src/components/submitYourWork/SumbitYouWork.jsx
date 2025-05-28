@@ -79,9 +79,9 @@ export function SumbitYouWork({ submit, setSubmit }) {
               Select upload type
             </option>
             <option value="None">None</option>
-            <option value="Document">Documents</option>
-            <option value="Photo">Images</option>
-            <option value="Link">Links</option>
+            <option value="Document">Document</option>
+            <option value="Photo">Image</option>
+            <option value="Link">Link</option>
           </select>
         </div>
         {type !== "" && type !== "Link" && type !== "None" ? (

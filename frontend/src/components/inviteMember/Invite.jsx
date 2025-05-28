@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import "./invite.css";
 
 import { useSendInviteMutation } from "../../redux/api/invitesApiSlice";
@@ -6,9 +6,11 @@ import { useSendInviteMutation } from "../../redux/api/invitesApiSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faXmark} from '@fortawesome/free-solid-svg-icons'
 
+import Loader from '../../assets/images/blackLoader.png'
+
 export function Invite({invite,setInvite}) {
     const [email,setEmail]=useState("")
-    const [sendInvite]=useSendInviteMutation()
+    const [sendInvite,{isLoading}]=useSendInviteMutation()
   const HandleSubmitInvite =async (e) => {
     e.preventDefault();
     try {
@@ -28,6 +30,12 @@ export function Invite({invite,setInvite}) {
     setInvite(null)
   }
 
+  const isUnchangedInvite=useMemo(()=>{
+    return(
+      email.length !==0
+    )
+  },[email])
+
   return (
     <section className="InviteMainSec">
       <form onSubmit={HandleSubmitInvite} className="InviteMainForm">
@@ -39,8 +47,8 @@ export function Invite({invite,setInvite}) {
             <label htmlFor="inviteEmailId" className="text">Email address</label><br/>
             <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} id="inviteEmailId" className="text" />
         </div>
-        <div className="InviteFormSubmitMainDiv">
-            <input type="submit" value={"Invite"} />
+        <div className="InviteFormSubmitMainDiv text">
+            <button disabled={!isUnchangedInvite} type="submit" className={!isUnchangedInvite?"InviteDisableBtn":isLoading?"InviteLoader":!isLoading?"InviteFormSubmit":null}>{isLoading?<img src={Loader} alt="Loading..."/>:"Invite"}</button> 
         </div>
       </form>
     </section>
