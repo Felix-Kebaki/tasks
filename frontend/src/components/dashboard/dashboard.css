@@ -1,10 +1,10 @@
 .DashboardMainSec {
-  padding: 0rem 0.4rem 1rem 16.3rem;
+  padding: 0rem 0.4rem 1rem 16.1rem;
   width: 100%;
 }
 
 .DashboardMainDiv {
-  padding-top: 1.5rem;
+  padding-top: 1rem;
 }
 
 .DashboardTopMainDiv {
@@ -69,7 +69,7 @@
     padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
   .DashboardMainDiv {
-    padding-top: 0.8rem;
+    padding-top: 0.5rem;
   }
 }
 
@@ -112,26 +112,38 @@
 @media screen and (max-width: 434px) {
   .EachLength1 {
     width: 50%;
+    font-size: 0.9rem;
   }
 
   .EachLength2 {
     width: 50%;
+    font-size: 0.9rem;
   }
 
   .EachLength3 {
     width: 50%;
+    font-size: 0.9rem;
   }
 
   .EachLength4 {
     width: 50%;
+    font-size: 0.9rem;
   }
 
   .EachLength5 {
     width: 50%;
+    font-size: 0.9rem;
   }
 
   .EachLength6 {
+    font-size: 0.9rem;
     width: 50%;
+  }
+}
+
+@media screen and (max-width: 399px) {
+    .DashboardMainSec {
+      padding: 0rem 0.4rem 0.5rem 3rem;
   }
 }
 

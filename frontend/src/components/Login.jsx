@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
-
 import formBackground from "../assets/images/authBackground.jpg";
 import Logo from "../assets/images/Logo.png";
 import Loader from "../assets/images/Loader.png";
@@ -27,7 +26,7 @@ export function Login() {
     password: "",
   });
   const { email, password } = formData;
-  const {showToast}=useToast()
+  const { showToast } = useToast();
 
   const OnChange = (e) => {
     setFormData((prev) => ({
@@ -38,26 +37,21 @@ export function Login() {
 
   const [login, { isLoading }] = useLoginMutation();
 
-  const ShowFalse = () => {
-    setShow(false);
-  };
-
-  const ShowTrue = () => {
-    setShow(true);
-  };
-
   const HandleSubmitLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await login(formData);
       if (response.error) {
-        console.error("Error logging in", response.error.data.error || response.error.error);
+        console.error(
+          "Error logging in",
+          response.error.data.error || response.error.error
+        );
         setErrorMessage(response.error.data.error || response.error.error);
         setTimeout(() => {
           setErrorMessage("");
         }, 3000);
       } else {
-        showToast(response.data.message,"success")
+        showToast(response.data.message, "success");
         dispatch(setCredentials(response.data.User));
         navigate("/app/dashboard");
       }
@@ -85,7 +79,7 @@ export function Login() {
               New user? <Link to="/register">Create an account</Link>
             </p>
             <div className="InsideInputAtAuth">
-              <div>
+              <div className="EachInputAuthMainDiv text">
                 <label htmlFor="EmailId" className="text">
                   Email address
                 </label>
@@ -100,11 +94,9 @@ export function Login() {
                 />
                 <br />
               </div>
-              <div className="FormPasswordsDiv">
-                <label htmlFor="PasswordId" className="passwordLabel text">
-                  Password
-                </label>
-                <div className="passwordsInputDiv">
+              <div className="EachInputAuthMainDiv text">
+                <label htmlFor="passwordId">Password</label>
+                <div className="EachInputAuthPasswordContainer">
                   <input
                     type={show ? "text" : "password"}
                     id="PasswordId"
@@ -114,19 +106,21 @@ export function Login() {
                     className="text"
                   />
                   <div className="InsideShowPasswordIcon">
-                    {!show ? (
-                      <FontAwesomeIcon icon={faEyeSlash} onClick={ShowTrue} className="ShowHideIcon" />
-                    ) : (
-                      <FontAwesomeIcon icon={faEye} onClick={ShowFalse} className="ShowHideIcon" />
-                    )}
+                      <FontAwesomeIcon
+                        icon={!show?faEyeSlash :faEye}
+                        onClick={()=>setShow(!show)}
+                        className="ShowHideIcon"
+                      />
                   </div>
                 </div>
               </div>
-              <div>
+              <div className="SubmitAuthFormMainDiv">
                 <button
                   type="submit"
                   className={
-                    isLoading ? "SubmitAuthLoaderMode" : "SubmitAuthForm text"
+                    isLoading
+                      ? "SubmitAuthLoaderMode"
+                      : "SubmitAuthFormBtn text"
                   }
                 >
                   {isLoading ? (

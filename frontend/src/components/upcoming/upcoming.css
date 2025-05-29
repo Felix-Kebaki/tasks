@@ -1,10 +1,10 @@
 .UpcomingMainSec{
     width: 100%;
-    padding: 0rem 0.4rem 0rem 16.3rem;
+    padding: 0rem 0.4rem 1rem 16.1rem;
 }
 
 .UpcomingMainDiv{
-    padding:1.5rem 0rem 1rem 0rem;
+    padding-top:1rem;
 }
 
 .UpcomingMainTitle{
@@ -14,7 +14,7 @@
 .calendarContainer {
     width: 100%;
     min-height: 100dvh;
-    box-shadow: 0rem 0rem 0.4rem rgba(99, 99, 99, 0.253);
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
     padding: 1.5rem 2rem 1.5rem 2rem;
     background-color: white;
     text-align: center;
@@ -134,8 +134,12 @@
 
 @media screen and (max-width: 1229px) {
   .UpcomingMainSec {
-    padding: 0rem 0.3rem 0rem 4rem;
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
+.UpcomingMainDiv{
+    padding-top:0.5rem;
+}
+
 }
 
 
@@ -176,5 +180,11 @@
 
   .calendarHeader p {
     font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 399px) {
+    .UpcomingMainSec {
+      padding: 0rem 0.4rem 0.5rem 3rem;
   }
 }

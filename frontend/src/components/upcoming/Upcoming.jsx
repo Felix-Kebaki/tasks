@@ -100,7 +100,7 @@ export function Upcoming() {
   return (
     <section className="UpcomingMainSec">
       <div className="UpcomingMainDiv">
-        <p className="UpcomingMainTitle title">Upcoming events</p>
+        <p className="UpcomingMainTitle title">Events calendar</p>
         <div className="calendarHeader">
           <p className="title">
             {currentDate.toLocaleString("default", { month: "long" })} {year}

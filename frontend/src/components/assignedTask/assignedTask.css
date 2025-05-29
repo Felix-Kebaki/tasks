@@ -1,10 +1,10 @@
 .AssignedTaskMainSec {
-  padding: 0rem 0.4rem 0rem 16.3rem;
+  padding: 0rem 0.4rem 1rem 16.1rem;
   width: 100%;
 }
 
 .AssigneTaskActualMainDiv {
-  padding-top: 1.5rem;
+  padding-top: 1rem;
 }
 
 .YourAssignedTaskTitle {
@@ -17,14 +17,14 @@
   flex-wrap: wrap;
   column-gap: 1.25%;
   row-gap: 1rem;
-  padding-top: 1.5rem;
+  padding-top: 0.7rem;
 }
 
 .EachAssignedTaskDiv {
   width: 32.5%;
   background-color: white;
   border-radius: 0.3rem;
-  box-shadow: 0rem 0rem 0.2rem rgba(100, 100, 100, 0.363);
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
   padding: 0.7rem;
   display: flex;
   flex-direction: column;
@@ -152,33 +152,30 @@
 
 @media screen and (max-width: 1229px) {
   .AssignedTaskMainSec {
-    padding: 0rem 0.3rem 0rem 4rem;
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
   .AssigneTaskActualMainDiv {
-    padding-top: 0.8rem;
+    padding-top: 0.5rem;
   }
 }
 
 @media screen and (max-width: 1044px) {
-    .EachAssignedTaskDiv{
-    width:48.5%;
-}
+  .EachAssignedTaskDiv {
+    width: 48.5%;
+  }
 }
 
 @media screen and (max-width: 668px) {
-        .EachAssignedTaskDiv{
-    width:100%;
-}
+  .EachAssignedTaskDiv {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 576px) {
-      .AssignedTaskMainSec {
-    padding: 0rem 0.3rem 0rem 3.6rem;
-  }
   .AssignedTaskMainDiv {
-  padding-top: 0.8rem;
-  row-gap:0.6rem;
-}
+    padding-top: 0.8rem;
+    row-gap: 0.6rem;
+  }
 
   .NoAssignedTaskMainDiv p {
     padding: 2rem 0rem;
@@ -186,19 +183,25 @@
   }
 }
 
+@media screen and (max-width: 399px) {
+  .AssignedTaskMainSec {
+    padding: 0rem 0.3rem 0.5rem 3rem;
+  }
+}
+
 @media screen and (max-width: 397px) {
-.AssignedStatus {
-  padding: 0.2rem 0.6rem;
-  font-size: 0.7rem;
-}
-.DueAssignedDate span {
-  font-size: 0.8rem;
-  margin-left: 0.1rem;
-}
+  .AssignedStatus {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
+  }
+  .DueAssignedDate span {
+    font-size: 0.8rem;
+    margin-left: 0.1rem;
+  }
 }
 
 @media screen and (max-width: 314px) {
-  .YourAssignedTaskTitle{
+  .YourAssignedTaskTitle {
     font-size: 1.15rem;
   }
 }

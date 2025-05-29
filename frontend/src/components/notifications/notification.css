@@ -4,7 +4,7 @@
 }
 
 .UnreadTopNotificationDiv{
-    padding-top:1.5rem;
+    padding-top:1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -114,7 +114,7 @@
     padding: 0rem 0.3rem 0.5rem 4rem;
   }
   .UnreadTopNotificationDiv{
-    padding-top:0.8rem;
+    padding-top:0.5rem;
 }
 .UnreadMainTitle{
     font-size:1.25rem;
@@ -189,4 +189,10 @@
     padding:0.1rem 0.7rem;
     font-size:0.8rem;
 }
+}
+
+@media screen and (max-width: 399px) {
+    .NotificationMainSec {
+      padding: 0rem 0.4rem 0.5rem 3.3rem;
+  }
 }

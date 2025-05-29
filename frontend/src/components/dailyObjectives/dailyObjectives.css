@@ -1,10 +1,10 @@
 .DailyObjectivesMainSec {
   width: 100%;
-  padding: 0rem 0.4rem 1rem 16.3rem;
+  padding: 0rem 0.4rem 1rem 16.1rem;
 }
 
 .DailyObjectivesMainDiv {
-  padding-top: 1.5rem;
+  padding-top: 1rem;
 }
 
 .TodayMainTitle {
@@ -139,10 +139,10 @@
 
 @media screen and (max-width: 1229px) {
   .DailyObjectivesMainSec {
-    padding: 0rem 0.3rem 0.5rem 4rem;
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
   .DailyObjectivesMainDiv {
-    padding-top: 0.8rem;
+    padding-top: 0.5rem;
   }
   .TodayMainTitle {
     font-size: 1.25rem;
@@ -161,9 +161,6 @@
 }
 
 @media screen and (max-width: 576px) {
-  .DailyObjectivesMainSec {
-    padding: 0rem 0.3rem 0.5rem 3.6rem;
-  }
   .ObjectiveMarkMainDiv {
     column-gap: 0.3rem;
   }
@@ -183,6 +180,12 @@
   #PlusObjective {
     margin-right: 0.3rem;
     font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 399px) {
+    .DailyObjectivesMainSec {
+      padding: 0rem 0.4rem 0.5rem 3rem;
   }
 }
 

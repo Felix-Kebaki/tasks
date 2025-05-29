@@ -1,12 +1,12 @@
 .TeamDetailsMainSec {
-  padding: 0rem 0.4rem 1rem 16.3rem;
+  padding: 0rem 0.4rem 1rem 16.1rem;
   width: 100%;
 }
 .TopOfTeamDetailsDiv {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1.5rem;
+  padding-top: 1rem;
 }
 
 .TopOfTeamDetailsDiv p {
@@ -68,7 +68,7 @@
   border-radius: 0.3rem;
   padding: 1rem;
   width: 50rem;
-  box-shadow: 0rem 0rem 0.4rem rgba(94, 94, 94, 0.308);
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
 }
 
 .EachteamTaskNameDueDateDiv {
@@ -236,10 +236,10 @@
 
 @media screen and (max-width: 1229px) {
   .TeamDetailsMainSec {
-    padding: 0rem 0.3rem 0.5rem 4rem;
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
   .TopOfTeamDetailsDiv {
-    padding-top: 0.8rem;
+    padding-top: 0.5rem;
   }
   .TopOfTeamDetailsDiv p {
     font-size: 1.25rem;
@@ -260,9 +260,6 @@
 }
 
 @media screen and (max-width: 576px) {
-  .TeamDetailsMainSec {
-    padding: 0rem 0.3rem 0.5rem 3.6rem;
-  }
   .NoTeamTaskMessageDiv {
     padding: 1.5rem 0rem;
   }
@@ -294,6 +291,12 @@
   .AssignTeamtaskInputMainDiv button {
     font-size: 0.7rem;
     padding: 0.2rem 0.6rem;
+  }
+}
+
+@media screen and (max-width: 399px) {
+  .TeamDetailsMainSec {
+    padding: 0rem 0.3rem 0.5rem 3rem;
   }
 }
 

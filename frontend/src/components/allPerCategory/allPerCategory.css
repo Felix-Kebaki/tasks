@@ -1,10 +1,10 @@
 .AllPerCategoryMainSec{
-    padding:0rem 0.4rem 1rem 16.3rem;
+    padding:0rem 0.4rem 1rem 16.1rem;
     width:100%;
 }
 
 .AllPerCategoryMainDiv{
-    padding-top:1.5rem;
+    padding-top:1rem;
 }
 
 .AllPerCatMainTitle{
@@ -42,7 +42,7 @@
     padding:0.4rem;
     margin-top:0.6rem;
     border-radius: 0.3rem;
-    box-shadow: 0rem 0rem 0.5rem rgba(192, 192, 192, 0.534);
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -125,7 +125,7 @@
     padding:0.4rem;
     margin-top:0.6rem;
     border-radius: 0.3rem;
-    box-shadow: 0rem 0rem 0.5rem rgba(192, 192, 192, 0.534);
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -198,10 +198,10 @@
 
 @media screen and (max-width: 1229px) {
   .AllPerCategoryMainSec {
-    padding: 0rem 0.3rem 0.5rem 4rem;
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
     .AllPerCategoryMainDiv {
-    padding-top: 0.8rem;
+    padding-top: 0.5rem;
   }
   .AllPerCatMainTitle {
     font-size: 1.25rem;
@@ -242,12 +242,16 @@
 }
 
 @media screen and (max-width: 576px) {
-      .AllPerCategoryMainSec {
-    padding: 0rem 0.3rem 0.5rem 3.6rem;
-  }
+
     .EachTodayAllPerCatDiv{
     width:100%;
 }
+}
+
+@media screen and (max-width: 399px) {
+      .AllPerCategoryMainSec {
+    padding: 0rem 0.3rem 0.5rem 3rem;
+  }
 }
 
 @media screen and (max-width: 308px) {

@@ -3,7 +3,7 @@
   height: 100dvh;
   position: fixed;
   background-color: white;
-  box-shadow: 0rem 0rem 0.5rem rgba(146, 146, 146, 0.308);
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
   padding: 0.5rem;
   overflow: visible;
 }
@@ -13,7 +13,7 @@
   height: 100dvh;
   position: fixed;
   background-color: white;
-  box-shadow: 0rem 0rem 0.5rem rgba(146, 146, 146, 0.308);
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
   padding: 0.5rem;
   overflow: visible;
 }
@@ -241,8 +241,6 @@
     flex-direction: column-reverse;
     row-gap: 4rem;
     justify-content: space-between;
-    /* overflow-y: auto; */
-    /* overflow-x: hidden; */
     height: 100%;
   }
 
@@ -252,8 +250,6 @@
     justify-content: space-between;
     align-items: start;
     row-gap: 4rem;
-    /* overflow-x: hidden; */
-    /* overflow-y: auto; */
     height: 100%;
   }
 
@@ -286,14 +282,14 @@
   }
 
   .AppearAtTopOnSideNavShow {
-    width: 7rem;
+    width: 9rem;
     left: 0rem;
-    top: -1.5rem;
-    height: auto;
+    top:-4.5rem;
     z-index: 999999;
+    bottom:0;
   }
 
-.SideNavNotificationIconMainDiv {
+.SideNavMainSecResponsive .SideNavNotificationIconMainDiv {
   margin-bottom: 0.3rem;
   margin-right: 0.7rem;
 }
@@ -302,9 +298,17 @@
   right: -0.6rem;
 }
 
+.SideNavLinkIcons {
+  margin-right: 0rem;
+}
   .SideNavShowIcon:hover {
     background-color: #eeecec;
   }
+
+  .TodayLink div {
+  font-size: 0.55rem;
+  padding: 0.15rem;
+}
 
   .SideNavMainNavlinksDiv {
     align-items: start;
@@ -349,6 +353,12 @@
   .SideNavMainCategoryDivResponsive {
     margin-top: 0.8rem;
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 399px) {
+    .SideNavMainSec {
+    width: 2.5rem;
   }
 }
 

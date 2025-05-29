@@ -1,10 +1,10 @@
 .TeamMainSec {
   width: 100%;
-  padding: 0rem 0.4rem 1rem 16.3rem;
+  padding: 0rem 0.4rem 1rem 16.1rem;
 }
 
 .TeamMainDiv {
-  padding-top: 1.5rem;
+  padding-top: 1rem;
   width: 60rem;
 }
 
@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .EachTeamMainDiv {
@@ -94,16 +94,16 @@
 
 @media screen and (max-width: 1229px) {
   .TeamMainSec {
-    padding: 0rem 0.3rem 0.5rem 4rem;
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
   .TeamMainDiv {
-    padding-top: 0.8rem;
+    padding-top: 0.5rem;
   }
   .TopAtTeamDiv {
     font-size: 1.25rem;
   }
   .AllYourTeamsWrapperDiv {
-    margin-top: 0.4rem;
+    margin-top: 0.3rem;
   }
 }
 
@@ -114,9 +114,6 @@
 }
 
 @media screen and (max-width: 576px) {
-  .TeamMainSec {
-    padding: 0rem 0.3rem 0.5rem 3.6rem;
-  }
   .EachTeamMainDiv a {
     column-gap: 0.2rem;
     align-items: center;
@@ -133,6 +130,12 @@
   #PlusTeam {
     margin-right: 0.3rem;
     font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 399px) {
+    .TeamMainSec {
+      padding: 0rem 0.4rem 0.5rem 3rem;
   }
 }
 

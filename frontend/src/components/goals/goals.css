@@ -1,13 +1,13 @@
 
 .GoalsMainSec{
-    padding:0rem 0.4rem 1rem 16.3rem;
+    padding:0rem 0.4rem 1rem 16.1rem;
     width:100%;
 }
 .TopDivInGoalsPage{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top:1.5rem;
+    padding-top:1rem;
 }
 
 .TopDivInGoalsPage p{
@@ -27,16 +27,16 @@
     display:flex;
     width:100%;
     flex-wrap:wrap;
-    column-gap:1.25%;
-    row-gap:1rem;
-    margin-top:1.5rem;
+    column-gap:0.5%;
+    row-gap:0.6rem;
+    margin-top:0.8rem;
 }
 
 .EachGoalDiv{
-    width:32.5%;
+    width:33%;
     background-color: white;
     border-radius:0.3rem;
-    box-shadow:0rem 0rem 0.2rem rgba(100, 100, 100, 0.363);
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
     padding:0.7rem;
     display: flex;
     flex-direction: column;
@@ -50,6 +50,7 @@
 
 .topOfEachGoalDiv div{
     display: flex;
+    align-items: center;
     column-gap:0.3rem;
 }
 
@@ -152,23 +153,47 @@
 
 @media screen and (max-width: 1229px) {
   .GoalsMainSec {
-    padding: 0rem 0.3rem 0.5rem 4rem;
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
     .TopDivInGoalsPage {
-    padding-top: 0.8rem;
+    padding-top: 0.5rem;
   }
   .TopDivInGoalsPage p {
     font-size: 1.25rem;
   }
   .GoalsMainDiv{
-    margin-top:0.8rem;
+    margin-top:0.7rem;
 }
 
 }
 
 @media screen and (max-width: 1044px) {
+      .GoalsMainDiv{
+    column-gap: 0.6rem;
+}
     .EachGoalDiv{
-    width:48.5%;
+    width:49.4%;
+}
+}
+
+@media screen and (max-width: 933px) {
+    .EachGoalDiv{
+    width:49.4%;
+}
+}
+@media screen and (max-width: 862px) {
+    .EachGoalDiv{
+    width:49.3%;
+}
+}
+@media screen and (max-width: 769px) {
+    .EachGoalDiv{
+    width:49.25%;
+}
+}
+@media screen and (max-width: 743px) {
+    .EachGoalDiv{
+    width:49.1%;
 }
 }
 
@@ -179,9 +204,6 @@
 }
 
 @media screen and (max-width: 576px) {
-  .GoalsMainSec {
-    padding: 0rem 0.3rem 0.5rem 3.6rem;
-  }
   
 .statusP{
     padding:0.2rem 0.5rem;
@@ -199,6 +221,12 @@
 
   .NoGoalMainDiv p{
     font-size:1rem;
+  }
+}
+
+@media screen and (max-width: 399px) {
+    .GoalsMainSec {
+      padding: 0rem 0.4rem 0.5rem 3rem;
   }
 }
 
@@ -221,5 +249,19 @@
 .priorityP{
     padding:0.2rem 0.3rem;
     font-size:0.7rem;
+}
+}
+
+@media screen and (max-width: 264px) {
+.statusP{
+    padding:0rem ;
+    background:transparent;
+    color:#FC8415;
+}
+
+.priorityP{
+    padding:0rem;
+    background:transparent;
+    color:#0483bb;
 }
 }

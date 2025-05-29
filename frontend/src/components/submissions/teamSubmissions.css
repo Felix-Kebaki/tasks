@@ -1,10 +1,10 @@
 .TeamSubmissionsMainSec{
-    padding:0rem 0.4rem 1rem 16.3rem;
+    padding:0rem 0.4rem 1rem 16.1rem;
     width:100%;
 }
 
 .TeamSubmissionsMainDiv{
-    padding-top:1.5rem;
+    padding-top:1rem;
     width:50rem;
 }
 
@@ -27,7 +27,7 @@
 
 .EachTeamSubmissionsDiv:hover{
     background: white;
-    box-shadow: 0rem 0rem 0.4rem rgba(197, 197, 197, 0.397);
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
 }
 
 .TeamSubmitType{
@@ -59,10 +59,10 @@
 
 @media screen and (max-width: 1229px) {
   .TeamSubmissionsMainSec {
-    padding: 0rem 0.3rem 0.5rem 4rem;
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
   .TeamSubmissionsMainDiv{
-    padding-top:0.8rem;
+    padding-top:0.5rem;
     width:100%;
 }
   .TeamSubmissionMainTitle {
@@ -89,6 +89,12 @@
   .NoSubmissionsMadeDiv p{
     font-size:1rem;
 }
+}
+
+@media screen and (max-width: 399px) {
+  .TeamSubmissionsMainSec {
+    padding: 0rem 0.3rem 0.5rem 3rem;
+  }
 }
 
 @media screen and (max-width: 314px) {

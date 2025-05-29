@@ -1,6 +1,7 @@
 .AuthFormMainSec {
   width: 100%;
   height: 100dvh;
+  overflow-y: auto;
 }
 
 .AuthFormMainDiv {
@@ -29,140 +30,128 @@
 .AuthFormDiv {
   background: #eeecec;
   padding: 1.5rem 3rem 1.5rem 2rem;
+  margin:0.7rem;
   border-radius: 0.3rem;
   display: flex;
   flex-direction: column;
 }
 
-.AuthFormLogoAndTitle{
-    display:flex;
-    text-decoration: none;
-    column-gap:0.4rem;
-    align-items: center;
+.AuthFormLogoAndTitle {
+  display: flex;
+  text-decoration: none;
+  column-gap: 0.4rem;
+  align-items: center;
 }
 
-.AuthFormLogoAndTitle img{
-    width:4rem;
+.AuthFormLogoAndTitle img {
+  width: 4rem;
 }
 
-.AuthFormLogoAndTitle p{
-    font-size:1rem;
-    color:black;
+.AuthFormLogoAndTitle p {
+  font-size: 1rem;
+  color: black;
 }
 
-.WhichTypeOfAuth{
-    font-size:1.4rem;
-    margin-top:0.7rem;
+.WhichTypeOfAuth {
+  font-size: 1.4rem;
+  margin-top: 0.7rem;
 }
 
-.SwitchToOtherFormAuth{
-    margin-top:0.7rem;
-    font-size:0.9rem;
+.SwitchToOtherFormAuth {
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
 }
 
-.SwitchToOtherFormAuth a{
-    color:#FC8415;
+.SwitchToOtherFormAuth a {
+  color: #fc8415;
 }
 
-.InsideInputAtAuth{
-    margin-top:0.7rem;
+.InsideInputAtAuth {
+  margin-top: 0.7rem;
 }
 
-.InsideInputAtAuth div{
-    margin-top:0.5rem;
+.EachInputAuthMainDiv {
+  margin-top: 0.5rem;
 }
 
-.FormPasswordsDiv{
-    display:flex;
-    flex-direction: column;
-    row-gap:0rem;
-    margin-bottom: 0rem;
+.EachInputAuthMainDiv {
+  width: 18rem;
 }
 
-.InsideInputAtAuth div label{
-    font-size:0.7rem;
-    margin-bottom:0rem;
+.EachInputAuthPasswordContainer {
+  position: relative;
+  width: 100%;
 }
 
-.InsideInputAtAuth .FormPasswordsDiv label{
-    font-size:0.7rem;
-    padding-bottom:0rem;
+.EachInputAuthMainDiv input {
+  width: 100%;
+  padding: 0.4rem 0.3rem;
+  border: 0.1rem black solid;
+  background-color: transparent;
+  outline: none;
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
 }
 
-.InsideInputAtAuth div input{
-    width:20rem;
-    background:transparent;
-    border: 0.1rem black solid;
-    border-radius:0.3rem;
-    padding:0.5rem 0.4rem;
+.EachInputAuthMainDiv label {
+  font-size: 0.7rem;
 }
 
-
-.passwordsInputDiv{
-    position:relative;
-    width:20rem;
+.InsideShowPasswordIcon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0.3rem;
+  cursor: pointer;
+  user-select: none;
+  align-content: center;
 }
 
-.passwordsInputDiv input{
-    width:100%;
-    background:transparent;
-    border: 0.1rem black solid;
-    border-radius:0.3rem;
-    padding:0.5rem 0.4rem;
+.ShowHideIcon {
+  font-size: 0.8rem;
+  background-color: #eeecec;
+  padding: 0.2rem 0rem 0.2rem 0.2rem;
+  cursor: pointer;
 }
 
-.passwordsInputDiv .InsideShowPasswordIcon{
-    position:absolute;
-    right:0.3rem;
-    bottom:0;
-    top:0;
-    align-content: center;
-    cursor:pointer;
-    user-select: none;
+.SubmitAuthFormMainDiv {
+  margin-top: 0.7rem;
 }
 
-.ShowHideIcon{
-    font-size:0.9rem;
+.SubmitAuthFormMainDiv button {
+  background: #0483bb;
+  width: 100%;
+  border: none;
+  border-radius: 0.3rem;
 }
 
-.InsideInputAtAuth div .SubmitAuthForm{
-    background:#0483bb;
-    margin-top:0.5rem;
-    color:white;
-    width:100%;
-    border:none;
-    border-radius:0.3rem;
-    padding:0.6rem 0rem 0.6rem 0rem;
-    cursor:pointer;
-} 
-
-.SubmitAuthLoaderMode{
-    background:#0483bb;
-    margin-top:0.5rem;
-    color:white;
-    width:100%;
-    border:none;
-    border-radius:0.3rem;
-    padding:0.2rem 0rem 0.2rem 0rem;
-}
-@keyframes rotate {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+.SubmitAuthFormBtn {
+  padding: 0.4rem 0rem;
+  color: white;
+  font-size: 0.8rem;
+  cursor: pointer;
 }
 
-.LoaderImage{
-    width:1.5rem;
-    animation: rotate 1s ease-in infinite;
+.SubmitAuthLoaderMode {
+  padding: 0.15rem 0rem;
+}
+@keyframes AuthSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
+.LoaderImage {
+  width: 1.4rem;
+  height: 1.25rem;
+  animation: AuthSpin 1s ease-in infinite;
+}
 
-
-.AuthFormDiv pre{
-    margin-top:0.7rem;
-    color:red;
-    font-size:0.9rem;
+.AuthFormDiv pre {
+  margin-top: 0.7rem;
+  color: red;
+  font-size: 0.9rem;
 }

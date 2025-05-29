@@ -193,6 +193,8 @@
   .NameDescGoalForm div textarea {
   max-height: 5rem;
   min-height: 5rem;
+    max-width: 100%;
+  min-width: 100%;
 }
 .AllOtherAtGoalFormMainDiv {
   width: 100%;

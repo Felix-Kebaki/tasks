@@ -1,5 +1,5 @@
 .CompletedMainSec {
-  padding: 0rem 0.4rem 1rem 16.3rem;
+  padding: 0rem 0.4rem 1rem 16.1rem;
   width: 100%;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .CompletedTopDiv {
-  padding-top: 1.5rem;
+  padding-top: 1rem;
 }
 
 .CompletedTopDiv p {
@@ -35,7 +35,7 @@
   width: 32.5%;
   background-color: white;
   border-radius: 0.3rem;
-  box-shadow: 0rem 0rem 0.2rem rgba(100, 100, 100, 0.363);
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
   padding: 0.7rem;
   display: flex;
   flex-direction: column;
@@ -60,10 +60,10 @@
 
 @media screen and (max-width: 1229px) {
   .CompletedMainSec {
-    padding: 0rem 0.3rem 0.5rem 4rem;
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
   .CompletedTopDiv {
-    padding-top: 0.8rem;
+    padding-top: 0.5rem;
   }
   .CompleteEachDivWrapperDiv {
   margin-top: 1rem;
@@ -81,9 +81,7 @@
 }
 
 @media screen and (max-width: 668px) {
-  .CompletedMainSec {
-    padding: 0rem 0.3rem 0.5rem 3.6rem;
-  }
+
   .EachCompletedDiv {
     width: 100%;
   }
@@ -109,6 +107,12 @@
   }
 }
 
+
+@media screen and (max-width: 399px) {
+    .CompletedMainSec {
+    padding: 0rem 0.3rem 0.5rem 3rem;
+  }
+}
 
 @media screen and (max-width: 314px) {
   .CompletedTopDiv p {

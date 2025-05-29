@@ -21,8 +21,8 @@ export function Register() {
   const dispatch = useDispatch();
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [show1,setShow1]=useState(false)
-  const [show2,setShow2]=useState(false)
+  const [show1, setShow1] = useState(false);
+  const [show2, setShow2] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -31,7 +31,7 @@ export function Register() {
     password2: "",
   });
   const { firstName, lastName, email, password, password2 } = formData;
-  const {showToast}=useToast()
+  const { showToast } = useToast();
 
   const [register, { isLoading }] = useRegisterMutation();
 
@@ -41,22 +41,6 @@ export function Register() {
       [e.target.name]: e.target.value,
     }));
   };
-
-  const ShowFalse1 = () => {
-    setShow1(false);
-  };
-
-  const ShowTrue1 = () => {
-    setShow1(true);
-  };
-  const ShowFalse2 = () => {
-    setShow2(false);
-  };
-
-  const ShowTrue2 = () => {
-    setShow2(true);
-  };
-
 
   const HandleFormSubmit = async (e) => {
     e.preventDefault();
@@ -69,7 +53,7 @@ export function Register() {
             setErrorMessage("");
           }, 3000);
         } else {
-          showToast(response.data.message,"success");
+          showToast(response.data.message, "success");
           dispatch(setCredentials(response.data.User));
           navigate("/app/dashboard");
         }
@@ -104,7 +88,7 @@ export function Register() {
               Already have an account? <Link to="/login">Sign in</Link>
             </p>
             <div className="InsideInputAtAuth">
-              <div>
+              <div className="EachInputAuthMainDiv text">
                 <label htmlFor="FirstName" className="text">
                   First name
                 </label>
@@ -119,7 +103,7 @@ export function Register() {
                 />
                 <br />
               </div>
-              <div>
+              <div className="EachInputAuthMainDiv text">
                 <label htmlFor="LastName" className="text">
                   Last name
                 </label>
@@ -134,7 +118,7 @@ export function Register() {
                 />
                 <br />
               </div>
-              <div>
+              <div className="EachInputAuthMainDiv text">
                 <label htmlFor="EmailId" className="text">
                   Email address
                 </label>
@@ -149,11 +133,11 @@ export function Register() {
                 />
                 <br />
               </div>
-              <div>
+              <div className="EachInputAuthMainDiv text">
                 <label htmlFor="PasswordId" className="text">
                   Password
                 </label>
-                <div className="passwordsInputDiv">
+                <div className="EachInputAuthPasswordContainer">
                   <input
                     type={show1 ? "text" : "password"}
                     id="PasswordId"
@@ -162,21 +146,21 @@ export function Register() {
                     onChange={OnChange}
                     className="text"
                   />
-                  <span className="InsideShowPasswordIcon">
-                    {!show1 ? (
-                      <FontAwesomeIcon icon={faEyeSlash} onClick={ShowTrue1} className="ShowHideIcon" />
-                    ) : (
-                      <FontAwesomeIcon icon={faEye} onClick={ShowFalse1} className="ShowHideIcon"/>
-                    )}
-                  </span>
+                  <div className="InsideShowPasswordIcon">
+                    <FontAwesomeIcon
+                      icon={!show1 ? faEyeSlash : faEye}
+                      onClick={() => setShow1(!show1)}
+                      className="ShowHideIcon"
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div>
+              <div className="EachInputAuthMainDiv text">
                 <label htmlFor="Password2Id" className="text">
                   Confirm password
                 </label>
-                <div className="passwordsInputDiv">
+                <div className="EachInputAuthPasswordContainer">
                   <input
                     type={show2 ? "text" : "password"}
                     id="Password2Id"
@@ -185,20 +169,22 @@ export function Register() {
                     onChange={OnChange}
                     className="text"
                   />
-                  <span className="InsideShowPasswordIcon">
-                    {!show2 ? (
-                      <FontAwesomeIcon icon={faEyeSlash} onClick={ShowTrue2} className="ShowHideIcon"/>
-                    ) : (
-                      <FontAwesomeIcon icon={faEye} onClick={ShowFalse2} className="ShowHideIcon" />
-                    )}
-                  </span>
+                  <div className="InsideShowPasswordIcon">
+                    <FontAwesomeIcon
+                      icon={!show2 ? faEyeSlash : faEye}
+                      onClick={() => setShow2(!show2)}
+                      className="ShowHideIcon"
+                    />
+                  </div>
                 </div>
               </div>
-              <div>
+              <div className="SubmitAuthFormMainDiv">
                 <button
                   type="submit"
                   className={
-                    isLoading ? "SubmitAuthLoaderMode" : "SubmitAuthForm text"
+                    isLoading
+                      ? "SubmitAuthLoaderMode"
+                      : "SubmitAuthFormBtn text"
                   }
                 >
                   {isLoading ? (
