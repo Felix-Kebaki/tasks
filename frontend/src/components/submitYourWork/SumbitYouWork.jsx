@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import "./submitYourWork.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,7 +6,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { useMarkAsDoneMutation } from "../../redux/api/assignTaskApiSlice";
 
-import Loader from '../../assets/images/blackLoader.png'
+import Loader from "../../assets/images/blackLoader.png";
 
 export function SumbitYouWork({ submit, setSubmit }) {
   const [submitForm, setSubmitForm] = useState({
@@ -23,7 +23,7 @@ export function SumbitYouWork({ submit, setSubmit }) {
     }));
   };
 
-  const [markAsDone,{isLoading}] = useMarkAsDoneMutation();
+  const [markAsDone, { isLoading }] = useMarkAsDoneMutation();
 
   const HandleSubmitWork = async (e) => {
     e.preventDefault();
@@ -32,12 +32,14 @@ export function SumbitYouWork({ submit, setSubmit }) {
         teamtaskId: submit,
         data: {
           type,
-          fileUrl: type === "None" ? undefined : type === "Link" ? link : undefined,
-          file: type === "None"
-          ? undefined
-          : type !== "Link" && type !== "None"
-          ? upload
-          : undefined,
+          fileUrl:
+            type === "None" ? undefined : type === "Link" ? link : undefined,
+          file:
+            type === "None"
+              ? undefined
+              : type !== "Link" && type !== "None"
+              ? upload
+              : undefined,
         },
       });
       if (res.error) {
@@ -50,6 +52,14 @@ export function SumbitYouWork({ submit, setSubmit }) {
       console.error(error.message);
     }
   };
+
+  const unChangedUpload = useMemo(() => {
+    return upload === null;
+  }, [upload]);
+
+  const unChangedLink = useMemo(() => {
+    return link === "";
+  }, [link]);
 
   const Cancel = () => {
     setSubmit(null);
@@ -114,7 +124,28 @@ export function SumbitYouWork({ submit, setSubmit }) {
         ) : null}
         {type !== "" ? (
           <div className="SubmitWorkMainSubmitDiv">
-            <button className={isLoading?"SubmitWorkMainSubmitLoader":"SubmitWorkMainSubmit"}>{isLoading?<img src={Loader} alt="Loading..."/>:type==="None"?"Done":"Submit"}</button>
+            <button
+              disabled={type === "Link" ? unChangedLink : unChangedUpload}
+              className={
+                type === "Link" && unChangedLink
+                  ? "DisabledSubmitWork text"
+                  : type !== "Link" && type!=="None" && unChangedUpload
+                  ? "DisabledSubmitWork text"
+                  : isLoading
+                  ? "SubmitWorkMainSubmitLoader"
+                  : !isLoading
+                  ? "SubmitWorkMainSubmit text"
+                  : null
+              }
+            >
+              {isLoading ? (
+                <img src={Loader} alt="Loading..." />
+              ) : type === "None" ? (
+                "Done"
+              ) : (
+                "Submit"
+              )}
+            </button>
           </div>
         ) : null}
       </form>

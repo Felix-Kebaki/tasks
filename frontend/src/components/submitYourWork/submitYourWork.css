@@ -1,153 +1,163 @@
-.SubmitYourWorkMainSec{
-    width:100%;
-    min-height:100dvh;
-    display:flex;
-    justify-content:center;
-    align-items: center;
+.SubmitYourWorkMainSec {
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.SubmitYourWorkMainSec form{
-    padding:1.5rem;
-    background-color: white;
-    border-radius: 0.3rem;
+.SubmitYourWorkMainSec form {
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 0.3rem;
 }
 
-.SubmitYourWorkTopDiv{
-    display:flex;
-    justify-content: space-between;
-    align-items:start;
+.SubmitYourWorkTopDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
 }
 
-.SubmitYourWorkTopDiv p{
-    font-size:1.3rem;
+.SubmitYourWorkTopDiv p {
+  font-size: 1.3rem;
 }
 
-#SubmitYourWorkCancelIcon{
-    font-size:1.3rem;
-    cursor:pointer;
+#SubmitYourWorkCancelIcon {
+  font-size: 1.3rem;
+  cursor: pointer;
 }
 
-.InputOfYourWorkType{
-    width:35rem;
-    margin-top:0.5rem;
+.InputOfYourWorkType {
+  width: 35rem;
+  margin-top: 0.5rem;
 }
 
-.InputOfYourWorkType label{
-    font-size:0.9rem;
+.InputOfYourWorkType label {
+  font-size: 0.9rem;
 }
 
-.InputOfYourWorkType select{
-    width:80%;
-    padding:0.3rem 0.2rem;
-      outline: none;
-    border-radius:0.3rem;
-    border:0.1rem black solid;
-    background-color: transparent;
+.InputOfYourWorkType select {
+  width: 80%;
+  padding: 0.3rem 0.2rem;
+  outline: none;
+  border-radius: 0.3rem;
+  border: 0.1rem black solid;
+  background-color: transparent;
 }
 
-.SubmitWorkLink{
-    width:35rem;
-    margin-top:0.5rem;
+.SubmitWorkLink {
+  width: 35rem;
+  margin-top: 0.5rem;
 }
 
-.SubmitWorkLink label{
-    font-size:0.9rem;
+.SubmitWorkLink label {
+  font-size: 0.9rem;
 }
 
-.SubmitWorkLink input{
-    width:80%;
-    padding:0.3rem 0.2rem;
-    outline: none;
-    border-radius:0.3rem;
-    border:0.1rem black solid;
-    background-color: transparent;
+.SubmitWorkLink input {
+  width: 80%;
+  padding: 0.3rem 0.2rem;
+  outline: none;
+  border-radius: 0.3rem;
+  border: 0.1rem black solid;
+  background-color: transparent;
 }
 
-.SubmitWorkMainSubmitDiv{
-    width:35rem;
-    margin-top:0.5rem;
+.SubmitWorkMainSubmitDiv {
+  width: 35rem;
+  margin-top: 0.5rem;
 }
 
-.SubmitWorkMainSubmit{
-    width:80%;
-    cursor:pointer;
-    background-color: #fc8415;
-    color:black;
-    border:none;
-    border-radius: 0.3rem;
-    padding:0.35rem ;
+.DisabledSubmitWork {
+  width: 80%;
+  background-color: #eeecec;
+  color: black;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.35rem;
+}
+
+.SubmitWorkMainSubmit {
+  width: 80%;
+  cursor: pointer;
+  background-color: #fc8415;
+  color: black;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.35rem;
 }
 
 .SubmitWorkMainSubmitLoader {
-    width:80%;
-    background-color: #fc8415;
-    border:none;
-    border-radius: 0.3rem;
-    padding:0.3rem 0rem;
+  width: 80%;
+  background-color: #fc8415;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.27rem 0rem;
 }
 
 @keyframes SubmitWorkSpin {
-    0%{
-        transform: rotate(0deg);
-    }
-    100%{
-        transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.SubmitWorkMainSubmitLoader img{
-    width:1rem;
-    height:0.9rem;
-    animation: SubmitWorkSpin 1s ease-in infinite;
+.SubmitWorkMainSubmitLoader img {
+  width: 1rem;
+  height: 0.9rem;
+  animation: SubmitWorkSpin 1s ease-in infinite;
 }
 
-
-
-@media screen and (max-width:623px){
-    .SubmitYourWorkMainSec form{
-    padding:1rem;
-    width:97%;
-    margin:0rem auto 0rem ;
-}
+@media screen and (max-width: 623px) {
+  .SubmitYourWorkMainSec form {
+    padding: 1rem;
+    width: 97%;
+    margin: 0rem auto 0rem;
+  }
 }
 
-@media screen and (max-width:492px){
-        .SubmitYourWorkMainSec form{
-    padding:1rem 0.4rem 1rem 0.4rem;
-}
-    .InputOfYourWorkType{
-        width:100%;
-    }
-    .InputOfYourWorkType select{
-    width:100%;
-}
-.SubmitWorkLink{
-    width:100%;
+@media screen and (max-width: 492px) {
+  .SubmitYourWorkMainSec form {
+    padding: 1rem 0.4rem 1rem 0.4rem;
+  }
+  .InputOfYourWorkType {
+    width: 100%;
+  }
+  .InputOfYourWorkType select {
+    width: 100%;
+  }
+  .SubmitWorkLink {
+    width: 100%;
+  }
+
+  .SubmitWorkLink input {
+    width: 100%;
+  }
+
+  .SubmitWorkMainSubmitDiv {
+    width: 100%;
+  }
+
+  .DisabledSubmitWork {
+    width: 100%;
+  }
+
+  .SubmitWorkMainSubmit {
+    width: 100%;
+  }
+
+  .SubmitWorkMainSubmitLoader {
+    width: 100%;
+  }
 }
 
-    .SubmitWorkLink input{
-    width:100%;
-}
-
-.SubmitWorkMainSubmitDiv{
-    width:100%;
-}
-
-.SubmitWorkMainSubmit{
-    width:100%;
-}
-
-.SubmitWorkMainSubmitLoader {
-    width:100%;
-}
-
-}
-
-@media screen and (max-width:234px){
-    .SubmitYourWorkTopDiv p{
-    font-size:1.1rem;
-}
-.SubmitYourWorkDesc{
-    font-size:0.9rem;
-}
+@media screen and (max-width: 234px) {
+  .SubmitYourWorkTopDiv p {
+    font-size: 1.1rem;
+  }
+  .SubmitYourWorkDesc {
+    font-size: 0.9rem;
+  }
 }
