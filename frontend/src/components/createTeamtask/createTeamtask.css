@@ -52,6 +52,7 @@
   border-radius: 0.3rem;
   border: 0.1rem black solid;
   background-color: transparent;
+  outline: none;
 }
 
 .InputOfTeamtask select {
@@ -60,6 +61,7 @@
   border-radius: 0.3rem;
   border: 0.1rem black solid;
   background-color: transparent;
+  outline: none;
 }
 
 .InputOfTeamtaskFile {
@@ -74,6 +76,7 @@
   width: 100%;
   padding: 0.3rem 0.2rem;
   background-color: transparent;
+  outline: none;
 }
 
 .CreateTeamtaskButtonDiv {

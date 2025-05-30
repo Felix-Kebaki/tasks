@@ -2,8 +2,8 @@ const Team = require("../models/teamModel");
 const EachTask = require("../models/assignTaskModel");
 const TeamTask = require("../models/teamTaskModel");
 const User = require("../models/userModel");
-const capitalizeFirst=require("../utils/capitalize")
-const path=require("path")
+const capitalizeFirst = require("../utils/capitalize");
+const path = require("path");
 
 const Assigntask = async (req, res) => {
   const { name } = req.body;
@@ -15,11 +15,11 @@ const Assigntask = async (req, res) => {
     if (req.user._id.toString() !== team.admin.toString()) {
       return res.status(401).json({ error: "You're not an admin" });
     }
- 
+
     const teamtask = await TeamTask.findById(req.params.teamtaskId);
-    
+
     const newTask = await EachTask.create({
-      name:capitalizeFirst(name),
+      name: capitalizeFirst(name),
       assignedTo: req.params.userId,
       teamtask: teamtask._id,
       team: team._id,
@@ -27,7 +27,7 @@ const Assigntask = async (req, res) => {
     if (!newTask) {
       return res.status(422).json({ error: "Unable to assign task" });
     }
-   
+
     res.status(200).json({ message: "Task assigned successfully" });
   } catch (error) {
     console.error(error.message);
@@ -108,63 +108,73 @@ const startTeamtask = async (req, res) => {
 };
 
 const completeTeamtask = async (req, res) => {
-  const {type,fileUrl}=req.body
+  const { type, fileUrl } = req.body;
   try {
-    if(!type){
-      return res.status(422).json({error:"Input all fields"})
+    if (!type) {
+      return res.status(422).json({ error: "Input all fields" });
     }
 
-    const assignedTask=await EachTask.findById(req.params.id)
-    if(!assignedTask){
-      return res.status(422).json({error:"Unable to find the assigned task"})
+    const assignedTask = await EachTask.findById(req.params.id);
+    if (!assignedTask) {
+      return res
+        .status(422)
+        .json({ error: "Unable to find the assigned task" });
     }
 
-    const teamtask=await TeamTask.findById(assignedTask.teamtask)
-    if(!teamtask){
-      return res.status(422).json({error:"Unable to find the Teamtask"})
+    const teamtask = await TeamTask.findById(assignedTask.teamtask);
+    if (!teamtask) {
+      return res.status(422).json({ error: "Unable to find the Teamtask" });
     }
 
-    if((type==="Photo" || type==="Document") && !req.file){
-      return res.status(400).json({ error: 'No file uploaded' });
+    if ((type === "Photo" || type === "Document") && !req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
     }
 
-    if(new Date(teamtask.dueDate)<=new Date()){
-      teamtask.outOfTime=true
-      assignedTask.status="Out of Time"
-      await teamtask.save()
-      await assignedTask.save()
-      return res.status(422).json({error:"Due date is exceeded"})
+    if (new Date(teamtask.dueDate) <= new Date()) {
+      teamtask.outOfTime = true;
+      assignedTask.status = "Out of Time";
+      await teamtask.save();
+      await assignedTask.save();
+      return res.status(422).json({ error: "Due date is exceeded" });
     }
 
-    if(assignedTask.status !== "In Progress"){
-      return res.status(422).json({error:"Task must be in progress first"})
+    if (assignedTask.status !== "In Progress") {
+      return res.status(422).json({ error: "Task must be in progress first" });
     }
 
-    assignedTask.status="Completed"
-    assignedTask.doneDate=new Date()
-
-    if(type!=="None"){
-
-      const submission={
+    if (type !== "None") {
+      const submission = {
         submittedBy: req.user._id,
-        fileUrl:type==="Link"?fileUrl:type==="None"?undefined:req.file.path,
+        fileUrl:
+          type === "Link"
+            ? fileUrl
+            : type === "None"
+            ? undefined
+            : req.file.path,
+        submissionPublicId: req.file?.filename,
+        submissionType: req.file?.mimetype.startsWith("image/")
+          ? "image"
+          : req.file?.mimetype.startsWith("video/")
+          ? "video"
+          : "raw",
         fileType: type,
-      }
-      teamtask.submissions.push(submission)
-  
-      const markedteam=await teamtask.save()
-      if(!markedteam){
-        return res.status(422).json({error:"Unable to mark as done"})
+      };
+      teamtask.submissions.push(submission);
+
+      assignedTask.status = "Completed";
+      assignedTask.doneDate = new Date();
+      const markedteam = await teamtask.save();
+      if (!markedteam) {
+        return res.status(422).json({ error: "Unable to mark as done" });
       }
     }
 
-    const marked=await assignedTask.save()
+    const marked = await assignedTask.save();
 
-    if(!marked){
-      return res.status(422).json({error:"Unable to mark as done"})
+    if (!marked) {
+      return res.status(422).json({ error: "Unable to mark as done" });
     }
-    res.status(200).json({message:"Marked as complete"})
-
+    res.status(200).json({ message: "Marked as complete" });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });
@@ -194,13 +204,11 @@ const deleteAssignedTeamtask = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   Assigntask,
   getAssignedTask,
   assignedTaskfromTheTeam,
   startTeamtask,
   deleteAssignedTeamtask,
-  completeTeamtask
+  completeTeamtask,
 };

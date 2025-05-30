@@ -45,23 +45,35 @@ const teamTaskSchema = mongoose.Schema({
     enum: ["Photo", "Document", "Link", "None"],
     required: true,
   },
+  filePublicId: {
+    type: String,
+  },
+  resourceType: {
+    type: String,
+  },
   submissions: [
     {
       fileType: {
         type: String,
-        enum: ["Photo", "Document", "Link", "None"]
+        enum: ["Photo", "Document", "Link", "None"],
       },
-      fileUrl:{
+      fileUrl: {
+        type: String,
+      },
+      submissionType:{
+        type:String
+      },
+      submissionPublicId:{
         type:String
       },
       submittedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
-      submittedOn:{
-        type:Date,
-        default:Date.now
-      }
+      submittedOn: {
+        type: Date,
+        default: Date.now,
+      },
     },
   ],
 });
