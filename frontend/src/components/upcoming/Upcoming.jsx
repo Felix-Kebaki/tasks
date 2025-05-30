@@ -51,7 +51,7 @@ export function Upcoming() {
       });
       setEvents(eventMap);
     }
-  }, [data, month, year, add,confirm]);
+  }, [data, month, year, add, confirm]);
 
   const handleNextMonth = () => {
     const nextMonth = new Date(year, month + 1, 1);
@@ -84,17 +84,17 @@ export function Upcoming() {
   if (days.length > 0) {
     for (let i = 0; i < days[0].getDay(); i++) {
       blankDays.push(
-        <div key={`blank-${i}`} className="calendar-day empty"></div>
+        <div key={`blank-${i}`} className="calendarDays empty"></div>
       );
     }
   }
 
-  if(isLoading){
-    return(
+  if (isLoading) {
+    return (
       <div className="MainLoaderDiv">
-        <Loading/>
+        <Loading />
       </div>
-    )
+    );
   }
 
   return (
@@ -102,23 +102,20 @@ export function Upcoming() {
       <div className="UpcomingMainDiv">
         <p className="UpcomingMainTitle title">Events calendar</p>
         <div className="calendarHeader">
-          <p className="title">
+          <FontAwesomeIcon
+            icon={faAngleLeft}
+            className="nextMonthbutton"
+            onClick={handlePrevMonth}
+          />
+          <p className="text">
             {currentDate.toLocaleString("default", { month: "long" })} {year}
           </p>
-          <div className="NextAndPrevMonthIconDiv">
-            {
-              <FontAwesomeIcon
-                icon={faAngleLeft}
-                className="nextMonthbutton"
-                onClick={handlePrevMonth}
-              />
-            }
-            <FontAwesomeIcon
-              icon={faAngleRight}
-              onClick={handleNextMonth}
-              className="nextMonthbutton"
-            />
-          </div>
+
+          <FontAwesomeIcon
+            icon={faAngleRight}
+            onClick={handleNextMonth}
+            className="nextMonthbutton"
+          />
         </div>
         <div className="calendarContainer">
           <div className="calendarDays">
@@ -129,7 +126,7 @@ export function Upcoming() {
             ))}
           </div>
 
-          <div className="calendar-grid">
+          <div className="CalendarGridMainDiv">
             {blankDays}
             {days.map((date) => {
               const dateKey = date.toISOString().split("T")[0];
@@ -137,12 +134,16 @@ export function Upcoming() {
                 <div
                   key={dateKey}
                   onClick={() => handleDateClick(date)}
-                  className={
-                    events[dateKey] ? "calendar-day" : "calenderDayEmpty"
-                  }
+                  className="CalenderDayMainDiv"
                 >
-                  <div className="OnlyDateDivAndDeleteUpcoming text">
-                    <p>{date.getDate()}</p>
+                  <div
+                    className={
+                      events[dateKey]
+                        ? " OnlyDateDivAndDeleteUpcoming text"
+                        : "OnlyDateDivWithoutDeleteUpcoming text"
+                    }
+                  >
+                    <p className="OnlyDatesWithEvent">{date.getDate()}</p>
                     {events[dateKey] ? (
                       <FontAwesomeIcon
                         icon={faXmark}
@@ -179,9 +180,11 @@ export function Upcoming() {
             <AddUpcoming setAdd={setAdd} add={add} />
           </div>
         ) : null}
-        {confirm !== null ? <div className="OverflowAddMainDiv">
-          <UpcomingConfirm setConfirm={setConfirm} confirm={confirm}/>
-        </div> : null}
+        {confirm !== null ? (
+          <div className="OverflowAddMainDiv">
+            <UpcomingConfirm setConfirm={setConfirm} confirm={confirm} />
+          </div>
+        ) : null}
       </div>
     </section>
   );

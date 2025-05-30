@@ -1,5 +1,6 @@
 .UpcomingMainSec{
     width: 100%;
+    background-color: #eeecec;
     padding: 0rem 0.4rem 1rem 16.1rem;
 }
 
@@ -11,68 +12,57 @@
     font-size:1.3rem;
 }
 
-.calendarContainer {
-    width: 100%;
-    min-height: 100dvh;
-  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
-    padding: 1.5rem 2rem 1.5rem 2rem;
-    background-color: white;
-    text-align: center;
-    border-radius: 0.3rem;
-}
-
 .calendarHeader {
     display: flex;
-    justify-content: space-between;
+    column-gap:0.3rem;
     align-items: center;
-    margin-top:1rem;
-    margin-bottom: 1rem;
+    margin-top:0.5rem;
 }
 
 .calendarHeader p {
-    font-size:1.2rem;
+    font-size:1rem;
 }
 
 .nextMonthbutton{
     color: #0483bb;
     cursor:pointer;
     padding:0.3rem ;
-    font-size: 1.5rem;
+    font-size: 0.9rem;
+}
+
+
+.calendarContainer {
+    width: 100%;
+    height: auto;
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
+    padding: 0.5rem;
+    background-color: white;
+    margin-top:0.4rem;
+    text-align: center;
+    border-radius: 0.3rem;
 }
 
 .calendarDays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    font-weight: bold;
+    font-weight: normal;
     margin-bottom: 1rem;
     text-align: start;
 }
 
 .calendarDayName{
-    font-size:1.2rem;
+    font-size:1rem;
 }
 
-.calendar-grid {
+.CalendarGridMainDiv{
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
-}
-
-.calendar-day {
-    background-color: #FC8415;
-    padding: 0.4rem;
-    min-height: 10rem;
-    cursor: pointer;
-    border-radius: 0.3rem;
-    display:flex;
-    flex-direction:column;
-    align-items: start;
-    row-gap:0.1rem;
+    gap: 0rem;
 }
 
 .calenderDayEmpty{
     border: 0.1rem #eeecec solid;
-    padding: 0.4rem;
+    padding: 0rem;
     min-height: 10rem;
     cursor: pointer;
     border-radius: 0.3rem;
@@ -82,29 +72,47 @@
     row-gap:0.1rem;;
 }
 
-.calenderDayEmpty:hover {
-    background-color: #eeecec;
-}
 
-.calendar-day.empty {
+
+.calendarDays .empty {
     background: none;
     border: none;
     cursor: default;
 }
 
+.CalenderDayMainDiv{
+  min-height: 10rem;
+  border:0.1rem #eeecec solid;
+  cursor:pointer;
+}
+
+
+.OnlyDateDivWithoutDeleteUpcoming{
+      display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    background-color: #eeecec;
+      padding:0.15rem;
+}
+
 .OnlyDateDivAndDeleteUpcoming{
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: center;
     width:100%;
+    background-color: #FC8415;
+    padding:0.15rem;
 }
 
-.OnlyDateDivAndDeleteUpcoming p{
-    font-size:1.5rem;
+.OnlyDatesWithEvent{
+  font-size:0.8rem;
 }
 
 #DeleteUpcomingIcon{
-    color:rgba(0, 0, 0, 0.671);
+    color:black;
+    cursor:pointer;
+    font-size:0.8rem;
 }
 
 .eventMainDiv {
@@ -118,18 +126,19 @@
     display: flex;
     justify-content: start;
     align-items: start;
-    column-gap: 0.2rem;;
+    column-gap: 0.1rem;
 }
 
 #HashtagIconAtUpcomings{
-    font-size:0.7rem;
-    margin-top:0.3rem;
+    font-size:0.5rem;
+    margin-top:0.26rem;
     color:rgba(0, 0, 0, 0.671);
 }
 
 .eventMainDiv div p{
     text-align: start;
-    color:black;
+    color:rgba(0, 0, 0, 0.671);
+    font-size:0.8rem;
 }
 
 @media screen and (max-width: 1229px) {
@@ -143,44 +152,28 @@
 }
 
 
-@media screen and (max-width: 768px) {
-  .calendarDays, .calendar-grid {
-    grid-template-columns: repeat(7, 1fr);
+@media screen and (max-width: 1071px) {
+  .UpcomingMainSec{
+    width:max-content;
   }
-
-  .calendar-day, .calenderDayEmpty {
-    min-height: 60px;
-    font-size: 0.8rem;
-  }
-
-  .calendarHeader {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.calendarContainer {
+    width: 70rem;
+    overflow: visible;
+}
 }
 
-@media screen and (max-width: 480px) {
-  .calendarDays, .calendar-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+@media screen and (max-width: 576px) {
+  .UpcomingMainTitle{
+    font-size:1.2rem;
+}
+.calendarHeader p {
+    font-size:0.9rem;
+}
 
-  .calendarDayName {
-    font-size: 0.7rem;
-  }
+.nextMonthbutton{
+    font-size: 0.8rem;
+}
 
-  .calendar-day, .calenderDayEmpty {
-    padding: 0.4rem;
-    min-height: 50px;
-  }
-
-  .event {
-    font-size: 0.7rem;
-    padding: 0.2rem;
-  }
-
-  .calendarHeader p {
-    font-size: 1.1rem;
-  }
 }
 
 @media screen and (max-width: 399px) {

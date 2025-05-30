@@ -5,7 +5,7 @@
   background-color: white;
   box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
   padding: 0.5rem;
-  overflow: visible;
+  /* overflow: visible; */
 }
 
 .SideNavMainSecResponsive {
@@ -13,9 +13,9 @@
   height: 100dvh;
   position: fixed;
   background-color: white;
-  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
+  box-shadow: 0rem 0rem 0.4rem rgba(192, 192, 192, 0.582);
   padding: 0.5rem;
-  overflow: visible;
+  /* overflow: visible; */
 }
 
 .SideNavTopMainDiv {
@@ -242,6 +242,8 @@
     row-gap: 4rem;
     justify-content: space-between;
     height: 100%;
+    overflow-y: auto;
+    overflow-x:hidden;
   }
 
   .SideNavMainSecResponsive nav {

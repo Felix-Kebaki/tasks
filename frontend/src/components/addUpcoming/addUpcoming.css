@@ -50,6 +50,7 @@
   border: 0.1rem black solid;
   background: transparent;
   padding: 0.3rem 0.2rem;
+  outline: none;
 }
 
 .CheckBoxUpcomingDiv {
@@ -69,6 +70,16 @@
 
 .UpcomingCreateBtn {
   margin-top: 0.8rem;
+}
+
+.DisabledUpcomingBtn{
+    width: 100%;
+  border: none;
+  background-color: #eeecec;
+  color: black;
+  padding: 0.35rem 0rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
 }
 
 .CreateUpcomingBtn {

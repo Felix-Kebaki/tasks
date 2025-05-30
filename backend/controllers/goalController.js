@@ -44,7 +44,7 @@ const createGoal = async (req, res) => {
       status,
       category:capitalizeFirst(category),
       priority,
-      startDate,
+      startDate:status==="In Progress"?new Date():startDate,
       endDate,
       reward:capitalizeFirst(reward),
       user: req.user._id,

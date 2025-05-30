@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import "./addUpcoming.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,6 +32,10 @@ export function AddUpcoming({ setAdd, add }) {
     }
   };
 
+  const isUnchanged = useMemo(() => {
+    return name.length == 0;
+  }, [name]);
+
   return (
     <section className="AddUpcomingMainSec">
       <form className="AddUpcomingMainForm" onSubmit={HandleSubmitUpcoming}>
@@ -59,8 +63,15 @@ export function AddUpcoming({ setAdd, add }) {
           </div>
           <div className="UpcomingCreateBtn">
             <button
+              disabled={isUnchanged}
               className={
-                isLoading ? "CreateUpcomingLoader" : "CreateUpcomingBtn text"
+                isUnchanged
+                  ? "DisabledUpcomingBtn text"
+                  : isLoading
+                  ? "CreateUpcomingLoader"
+                  : !isLoading
+                  ? "CreateUpcomingBtn text"
+                  : null
               }
             >
               {isLoading ? <img src={Loader} alt="Loading..." /> : "Create"}
