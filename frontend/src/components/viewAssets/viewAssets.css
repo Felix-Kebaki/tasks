@@ -4,20 +4,22 @@
     align-items: center;
     width:100%;
     min-height: 100dvh;
-    position:relative;
 }
 
 .ViewAssetsMainDiv{
     width:30rem;
+    position:relative;
 }
 
 .CancelImgOnClick{
     position:absolute;
-    top:0.5rem;
-    right:0.5rem;
+    top:0.2rem;
+    right:0.2rem;
     cursor:pointer;
-    font-size:2rem;
-    color:white;
+    font-size:1.4rem;
+    color:#fc8415;
+    backdrop-filter: blur(0.4rem);
+    padding:0.4rem;
 }
 
 .ViewAssetsMainDiv img{

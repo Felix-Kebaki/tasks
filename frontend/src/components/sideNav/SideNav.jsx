@@ -27,7 +27,8 @@ import { Loading } from "../loading/Loading";
 export function SideNav() {
   const [sideNavState, setSideNavState] = useState(false);
   const [dailyBackground, setDailyBackground] = useState(false);
-  const [date,setDate]=useState(2)
+  const [date, setDate] = useState(0);
+  const [isSmallerScreen, setIsSmallerScreen] = useState(false);
 
   const { userInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export function SideNav() {
     isLoading: CategoryLoading,
   } = useGetCategoryQuery();
 
-  const HanldeMouseEnter = () => {
+  const HandleMouseEnter = () => {
     document
       .querySelector(".AppearAtTopOnSideNav")
       .classList.add("AppearAtTopOnSideNavShow");
@@ -51,6 +52,13 @@ export function SideNav() {
     document
       .querySelector(".AppearAtTopOnSideNav")
       .classList.remove("AppearAtTopOnSideNavShow");
+  };
+
+  const HandleFullSideNav = () => {
+    setSideNavState(!sideNavState);
+        document
+      .querySelector(".AppearAtTopOnSideNav")
+      .classList.add("AppearAtTopOnSideNavShow");
   };
 
   const HandleClickOnSideNav = () => {
@@ -69,8 +77,25 @@ export function SideNav() {
 
   useEffect(() => {
     catrefetch();
-    setDate(new Date().getDate())
+    setDate(new Date().getDate());
   }, [catrefetch]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1229) {
+        setIsSmallerScreen(true);
+      } else {
+        setIsSmallerScreen(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (location.pathname === "/app/daily-objectives") {
@@ -97,7 +122,9 @@ export function SideNav() {
         <div className="SideNavTopMainDiv">
           <div
             className="SideNavProfileAndNameDiv"
-            onMouseEnter={HanldeMouseEnter}
+            onMouseEnter={
+              (!isSmallerScreen && !sideNavState) || sideNavState ? HandleMouseEnter :isSmallerScreen && !sideNavState? HandleFullSideNav:null
+            }
             onMouseLeave={HandleMouseLeave}
           >
             <div className="SideNavProfileDiv">
@@ -144,7 +171,13 @@ export function SideNav() {
           </Link>
         </div>
         <div className="SideNavMainNavlinksDiv">
-          <div className="SideNavResponsiveIconDiv">
+          <div
+            className={
+              !sideNavState
+                ? "SideNavResponsiveIconDiv SideNavResponsiveIconDivCenter"
+                : "SideNavResponsiveIconDiv SideNavResponsiveIconDivEnd"
+            }
+          >
             {!sideNavState ? (
               <FontAwesomeIcon
                 icon={faAnglesRight}

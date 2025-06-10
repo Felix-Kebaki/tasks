@@ -5,8 +5,9 @@
   background-color: white;
   box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
   padding: 0.5rem;
-  /* overflow: visible; */
+  overflow-y: auto;
 }
+
 
 .SideNavMainSecResponsive {
   width: 15rem;
@@ -15,7 +16,7 @@
   background-color: white;
   box-shadow: 0rem 0rem 0.4rem rgba(192, 192, 192, 0.582);
   padding: 0.5rem;
-  /* overflow: visible; */
+   overflow-y: auto;
 }
 
 .SideNavTopMainDiv {
@@ -239,18 +240,22 @@
   .SideNavMainSec {
     width: 3rem;
     transition: all ease-in-out 0.3s;
+    padding:0rem;
+    position: fixed;
   }
 
   .SideNavMainSecResponsive {
     width: 15rem;
     z-index:999999;
     transition: all ease-in-out 0.3s;
+        position: fixed;
   }
 
   .SideNavMainSec nav {
     display: flex;
     flex-direction: column-reverse;
     row-gap: 4rem;
+    padding:0rem 0rem 0.2rem 0rem;
     justify-content: space-between;
     height: 100%;
     overflow-y: auto;
@@ -314,16 +319,13 @@
 .SideNavLinkIcons {
   margin-right: 0rem;
 }
-  .SideNavShowIcon:hover {
-    background-color: #eeecec;
-  }
 
   .TodayLink div {
   font-size: 0.55rem;
 }
 
   .SideNavMainNavlinksDiv {
-    align-items: start;
+    align-items: center;
     width: 100%;
     justify-content: space-between;
     margin-left: 0rem;
@@ -333,11 +335,20 @@
   .SideNavResponsiveIconDiv {
     display: flex;
     width: 100%;
+    margin-top:0.3rem;
+  }
+
+  .SideNavResponsiveIconDivCenter{
+        justify-content: center;
+  }
+
+  .SideNavResponsiveIconDivEnd{
     justify-content: end;
   }
 
   .SideNavShowIcon {
     color: #fc8415;
+    background-color: #eeecec;
     cursor: pointer;
     border-radius: 0.3rem;
     padding: 0.6rem 0.4rem 0.6rem 0.4rem;
@@ -372,6 +383,7 @@
     .SideNavMainSec {
     width: 2.5rem;
   }
+  
 }
 
 @media screen and (max-width: 245px) {

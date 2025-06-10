@@ -76,6 +76,14 @@ const teamTaskSchema = mongoose.Schema({
       },
     },
   ],
+  allAssigned:{
+    type:Number,
+    default:0
+  },
+  completedOnes:{
+    type:Number,
+    default:0
+  }
 });
 
 module.exports = mongoose.model("TeamTask", teamTaskSchema);

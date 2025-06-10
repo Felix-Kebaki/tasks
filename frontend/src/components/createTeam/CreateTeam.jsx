@@ -33,8 +33,7 @@ export function CreateTeam({ setAdd }) {
   const HandleSubmitCreateTeam = async (e) => {
     e.preventDefault();
     try {
-      if (invited.length === 0) {
-        console.error("Invite atleast one user");
+      if (invited.length === 0 || invited.some(item=>item ==="")) {
         setErrorMessage("Invite atleast one user");
         setTimeout(() => {
           setErrorMessage("");
@@ -42,13 +41,11 @@ export function CreateTeam({ setAdd }) {
       } else {
         const response = await createTeam({ name: teamName });
         if (response.error) {
-          console.error(response.error.data.error || response.error.error);
           setErrorMessage(response.error.data.error || response.error.error);
           setTimeout(() => {
             setErrorMessage("");
           }, 3000);
         } else {
-          console.log(response.data.message);
           const teamId = response.data.teamId;
           for (const each of invited) {
             if (each?.trim()) {

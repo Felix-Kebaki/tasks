@@ -300,6 +300,12 @@ export function TeamDetails() {
                     </a>
                   </div>
                 ) : null}
+                <div className="ProgressBarMainOuterDiv">
+                  <p className="text">{each.completedOnes!==0?"Progress":"No progress"}</p>
+                  <div className="ProgressBarMainDiv">
+                    <div className="ProgressBackgroundShowing" style={{width:`${(each.completedOnes/each.allAssigned)*100}%`}}></div>
+                  </div>
+                </div>
                 <div className="InputDivForAssigningTask">
                   <p className="InputDivForAssigningTaskTitleMembers text">
                     Members

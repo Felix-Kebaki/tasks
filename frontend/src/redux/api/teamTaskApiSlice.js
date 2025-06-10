@@ -73,7 +73,7 @@ const teamTaskApiSlice = apiSlice.injectEndpoints({
         url: `${TEAMTASK_URL}/getEachTeamtask/${teamtaskId}`,
         method: "GET",
       }),
-    }),
+    })
   }),
 });
 

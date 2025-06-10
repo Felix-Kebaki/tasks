@@ -90,7 +90,6 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
     }
   };
 
-
   useEffect(() => {
     if (data) {
       setName(data.name || "");
@@ -100,6 +99,33 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
       setLinkUrl(data?.fileType === "Link" ? data.fileUrl : undefined);
     }
   }, [data]);
+
+  const isUnchanged = useMemo(() => {
+    return(
+      name===data?.name || ""&&
+      description===data?.description || "" &&
+      type===data?.fileType || "" &&
+      dueDate===moment(data?.dueDate).format("YYYY-MM-DD") || ""
+    )
+  }, [
+    name,
+    description,
+    dueDate,
+    type
+  ]);
+
+  const isUnchangedLink=useMemo(()=>{
+    return(
+      linkUrl===data?.fileUrl || "" &&
+      name===data?.name || ""&&
+      description===data?.description || "" &&
+      type===data?.fileType || "" &&
+      dueDate===moment(data?.dueDate).format("YYYY-MM-DD") || ""
+    )
+  },[linkUrl,   name,
+    description,
+    dueDate,
+    type])
 
   if (!data || isLoading) {
     return (
@@ -194,10 +220,10 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
           ) : newtype === "None" || type === "None" ? null : null}
           <div className="TeamtaskEditBtnDiv text">
             <button
-              disabled={isUnchanged}
+              disabled={(newtype === "" && type === "Link")?isUnchangedLink:isUnchanged}
               type="submit"
               className={
-                isUnchanged
+              ((newtype === "" && type === "Link")?isUnchangedLink:isUnchanged)
                   ? "TeamtaskDisabledBtn"
                   : editLoading
                   ? "TeamtaskEditLoader"

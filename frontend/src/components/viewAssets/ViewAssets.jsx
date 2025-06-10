@@ -7,8 +7,8 @@ import {faXmark} from '@fortawesome/free-solid-svg-icons'
 export function ViewAssets({view,setView}) {
   return (
     <section className='ViewAssetsMainSec'>
-      <FontAwesomeIcon icon={faXmark} className='CancelImgOnClick' onClick={()=>setView(null)}/>
       <div className='ViewAssetsMainDiv'>
+      <FontAwesomeIcon icon={faXmark} className='CancelImgOnClick' onClick={()=>setView(null)}/>
         <img src={view} alt="" />
       </div>
     </section>

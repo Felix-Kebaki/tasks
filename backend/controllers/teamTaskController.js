@@ -69,13 +69,13 @@ const getTeamTask = async (req, res) => {
     if (!team) {
       return res.status(422).json({ error: "Couldn't fetch the team" });
     }
-
+    
     res.status(200).json({
       teamTasks: teamtask,
       members: team.members,
       team: team._id,
       isAdmin: req.user._id.toString() === team.admin.toString(),
-      outOfTime: teamtask.outOfTime,
+      outOfTime: teamtask.outOfTime
     });
   } catch (error) {
     console.error(error.message);
@@ -269,11 +269,13 @@ const getEachTeamtask = async (req, res) => {
   }
 };
 
+
+
 module.exports = {
   createTeamTask,
   getTeamTask,
   deleteTeamtask,
   getSubmissions,
   editTeamtask,
-  getEachTeamtask,
+  getEachTeamtask
 };

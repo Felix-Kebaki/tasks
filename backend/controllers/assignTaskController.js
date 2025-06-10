@@ -28,6 +28,9 @@ const Assigntask = async (req, res) => {
       return res.status(422).json({ error: "Unable to assign task" });
     }
 
+    teamtask.allAssigned+=1
+    await teamtask.save()
+
     res.status(200).json({ message: "Task assigned successfully" });
   } catch (error) {
     console.error(error.message);
@@ -171,6 +174,8 @@ const completeTeamtask = async (req, res) => {
     }
 
     const marked = await assignedTask.save();
+    teamtask.completedOnes+=1
+    await teamtask.save()
 
     if (!marked) {
       return res.status(422).json({ error: "Unable to mark as done" });

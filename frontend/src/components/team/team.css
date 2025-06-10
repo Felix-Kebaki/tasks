@@ -21,7 +21,7 @@
 
 .EachTeamMainDiv {
   width: 100%;
-  padding: 0.5rem 0rem;
+  padding: 0.4rem 0rem;
   border-bottom: 0.1rem black solid;
   display: flex;
   justify-content: space-between;
@@ -79,7 +79,7 @@
 }
 
 .AddTeamButton {
-  padding: 0.8rem 0rem;
+  padding: 0.5rem 0rem;
   cursor: pointer;
 }
 
@@ -114,18 +114,27 @@
 }
 
 @media screen and (max-width: 576px) {
+  .EachTeamMainDiv {
+  padding: 0.2rem 0rem;
+}
   .EachTeamMainDiv a {
     column-gap: 0.2rem;
     align-items: center;
   }
+  #EachTeamDot {
+    font-size: 0.3rem;
+  }
+  .teamName {
+  font-size:0.9rem;
+}
 
   .NotAMemberOfTeamText {
     font-size: 1rem;
     text-align: center;
   }
   .AddTeamButton {
-    font-size: 1rem;
-    padding: 0.5rem 0rem;
+    font-size: 0.9rem;
+    padding: 0.2rem 0rem;
   }
   #PlusTeam {
     margin-right: 0.3rem;
@@ -140,9 +149,6 @@
 }
 
 @media screen and (max-width: 314px) {
-  #EachTeamDot {
-    font-size: 0.3rem;
-  }
   .teamName {
     font-size: 0.9rem;
   }

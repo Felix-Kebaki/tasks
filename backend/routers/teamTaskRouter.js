@@ -7,7 +7,7 @@ const {
   deleteTeamtask,
   getSubmissions,
   editTeamtask,
-  getEachTeamtask,
+  getEachTeamtask
 } = require("../controllers/teamTaskController");
 const router = express.Router();
 

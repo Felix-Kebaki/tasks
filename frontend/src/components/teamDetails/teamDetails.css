@@ -130,6 +130,7 @@
   border-radius: 0.3rem;
   left: 0rem;
   width: 10rem;
+  z-index:9999;
 }
 
 .EachteamTaskSubMenuDiv a {
@@ -198,8 +199,37 @@
   font-size: 0.9rem;
 }
 
+.ProgressBarMainOuterDiv{
+  position:relative;
+  margin-top:0.3rem;
+  width:100%;
+  padding:0.4rem 0rem 0rem 0rem;
+}
+
+.ProgressBarMainOuterDiv p{
+  position: absolute;
+  right:0;
+  top:0;
+  font-size:0.7rem;
+  color:#fc8415;
+}
+
+.ProgressBarMainDiv{
+  width:100%;
+  background-color: #eeecec;
+  border-radius:1rem;
+  height: 0.2rem;
+  margin-top:0.5rem;
+}
+
+.ProgressBackgroundShowing{
+  background-color: #0483bb;
+  border-radius: 1rem;
+  height: 100%;
+}
+
 .InputDivForAssigningTask {
-  margin-top: 0.8rem;
+  margin-top: 0.5rem;
 }
 
 .InputDivForAssigningTaskTitleMembers {
