@@ -165,22 +165,26 @@ const editTeamtask = async (req, res) => {
 
     if (fileType === "Document" || fileType === "Photo") {
       if (req.file) {
-        // Delete previous file if it existed and wasn't a link or None
         if (
-          currentTask.fileUrl &&
           currentTask.fileType !== "Link" &&
           currentTask.fileType !== "None"
         ) {
-          const publicId = extractPublicId(currentTask.fileUrl);
-          const resourceType = getResourceType(currentTask.fileUrl);
+          const publicId = currentTask.filePublicId;
+          const resourceType = currentTask.resourceType;
           if (publicId) {
             await cloudinary.uploader.destroy(publicId, {
               resource_type: resourceType,
-            });
+            }).then((result)=>console.log(result));
           }
         }
 
         updates.fileUrl = req.file.path;
+        updates.filePublicId = req.file?.filename;
+        updates.resourceType = req.file?.mimetype.startsWith("image/")
+            ? "image"
+            : req.file?.mimetype.startsWith("video/")
+            ? "video"
+            : "raw";
         updates.fileType = fileType;
       } else {
         return res
@@ -192,36 +196,36 @@ const editTeamtask = async (req, res) => {
       updates.fileType = "Link";
 
       if (
-        currentTask.fileUrl &&
         currentTask.fileType !== "Link" &&
         currentTask.fileType !== "None"
       ) {
-        const publicId = extractPublicId(currentTask.fileUrl);
-        const resourceType = getResourceType(currentTask.fileUrl);
+        const publicId = currentTask.filePublicId;
+        const resourceType = currentTask.resourceType;
         if (publicId) {
           await cloudinary.uploader.destroy(publicId, {
             resource_type: resourceType,
-          });
+          }).then((result)=>console.log(result));
         }
+        updates.filePublicId = undefined
+        updates.resourceType = undefined
       }
     } else if (fileType === "None") {
       updates.fileUrl = undefined;
       updates.fileType = "None";
 
       if (
-        currentTask.fileUrl &&
         currentTask.fileType !== "Link" &&
         currentTask.fileType !== "None"
       ) {
-        const publicId = extractPublicId(currentTask.fileUrl);
-        const resourceType = getResourceType(currentTask.fileUrl);
+        const publicId = currentTask.filePublicId;
+        const resourceType = currentTask.resourceType;
         if (publicId) {
           await cloudinary.uploader.destroy(publicId, {
             resource_type: resourceType,
-          });
+          }).then((result)=>console.log(result));
         }
-        currentTask.fileUrl = undefined;
-        await currentTask.save();
+        updates.filePublicId = undefined
+        updates.resourceType = undefined
       }
     }
 
@@ -232,7 +236,6 @@ const editTeamtask = async (req, res) => {
         updates[key] = req.body[key];
       }
     }
-    console.log(updates);
 
     const updatedTeamtask = await TeamTask.findByIdAndUpdate(
       req.params.teamtaskId,

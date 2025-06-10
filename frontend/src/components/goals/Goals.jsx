@@ -15,6 +15,7 @@ import { useResumeGoalMutation } from "../../redux/api/goalApiSlice";
 import { GoalForm } from "../createGoal/GoalForm";
 import { ObjectiveConfirm } from "../confirm/ObjectiveConfirm";
 import { Loading } from "../loading/Loading";
+import { EditGoal } from "../editGoal/EditGoal";
 
 import "./goals.css";
 import "../../index.css";
@@ -28,6 +29,7 @@ export function Goals() {
   const [add, setAdd] = useState(false);
   const [confirm, setConfirm] = useState(null);
   const [msg, setMsg] = useState("");
+  const [edit, setEdit] = useState(null);
 
   const HandleClickOnAdd = () => {
     setAdd(true);
@@ -38,7 +40,9 @@ export function Goals() {
     setMsg("deleted");
   };
 
-  const HandleClickOnEdit = () => {};
+  const HandleClickOnEdit = (goalId) => {
+    setEdit(goalId)
+  };
 
   const HandleClickStart = async (id) => {
     try {
@@ -89,7 +93,7 @@ export function Goals() {
 
   useEffect(() => {
     refetch();
-  }, [refetch, add, confirm]);
+  }, [refetch, add, confirm,edit]);
 
   if (isLoading) {
     return (
@@ -137,19 +141,19 @@ export function Goals() {
                 <div className="BottomPartOfGoalDiv">
                   {goal.status === "Not Started" ? (
                     <div className="BottomGoalLotOfOptions">
-                      <button onClick={() => HandleClickStart(goal._id)}>
+                      <button onClick={() => HandleClickStart(goal._id)} className="StartBorderBtn">
                         Start
                       </button>
                     </div>
                   ) : goal.status === "Paused" ? (
                     <div className="BottomGoalLotOfOptions">
-                      <button onClick={() => HandleClickOnResume(goal._id)}>
+                      <button onClick={() => HandleClickOnResume(goal._id)} className="StartBorderBtn">
                         Resume
                       </button>
                     </div>
                   ) : goal.status === "In Progress" ? (
                     <div className="BottomGoalLotOfOptions">
-                      <button onClick={() => HandleClickOnPause(goal._id)}>
+                      <button onClick={() => HandleClickOnPause(goal._id)} className="StartBorderBtn">
                         Pause
                       </button>
                     </div>
@@ -201,6 +205,12 @@ export function Goals() {
               setMsg={setMsg}
               msg={msg}
             />
+          </div>
+        ) : null}
+
+        {edit !== null ? (
+          <div className="OverflowAddMainDiv">
+            <EditGoal edit={edit} setEdit={setEdit} />
           </div>
         ) : null}
       </div>

@@ -1,6 +1,6 @@
 const Goal = require("../models/goalModel");
 const calculateDuration = require("../utils/calculateGoalDuration");
-const capitalizeFirst=require("../utils/capitalize")
+const capitalizeFirst = require("../utils/capitalize");
 
 const createGoal = async (req, res) => {
   const {
@@ -39,14 +39,14 @@ const createGoal = async (req, res) => {
     }
 
     const newGoal = await Goal.create({
-      name:capitalizeFirst(name),
-      description:capitalizeFirst(description),
+      name: capitalizeFirst(name),
+      description: capitalizeFirst(description),
       status,
-      category:capitalizeFirst(category),
+      category: capitalizeFirst(category),
       priority,
-      startDate:status==="In Progress"?new Date():startDate,
+      startDate: status === "In Progress" ? new Date() : startDate,
       endDate,
-      reward:capitalizeFirst(reward),
+      reward: capitalizeFirst(reward),
       user: req.user._id,
     });
     if (!newGoal) {
@@ -61,7 +61,10 @@ const createGoal = async (req, res) => {
 
 const getAllGoals = async (req, res) => {
   try {
-    const goals = await Goal.find({ user: req.user._id, status:{$ne:"Completed"} });
+    const goals = await Goal.find({
+      user: req.user._id,
+      status: { $ne: "Completed" },
+    });
     if (!goals) {
       return res.status(422).json({ error: "Unable to fetch goals" });
     }
@@ -89,7 +92,7 @@ const completeGoal = async (req, res) => {
     if (goal.user.toString() !== req.user._id.toString()) {
       return res.status(401).json({ error: "Unauthorized access" });
     }
-    if (goal.status==="Out of Time") {
+    if (goal.status === "Out of Time") {
       return res.status(422).json({ error: "You ran out of time" });
     } else {
       goal.dayCompleted = new Date();
@@ -100,7 +103,7 @@ const completeGoal = async (req, res) => {
         goal.pausePeriod
       );
 
-      goal.duration=durationDerived
+      goal.duration = durationDerived;
       const markedDone = await goal.save();
 
       if (!markedDone) {
@@ -156,14 +159,53 @@ const editGoal = async (req, res) => {
     if (goal.user.toString() !== req.user._id.toString()) {
       return res.status(401).json({ error: "Unauthorized access" });
     }
+
+    const now = new Date();
+    const startDateUpdated = new Date(req.body.startDate);
+    if (req.body.startDate) {
+      if (now > startDateUpdated) {
+        return res
+          .status(422)
+          .json({ error: "Start date can't be in the past" });
+      } else if (startDateUpdated>new Date(req.body.endDate || goal.endDate)) {
+        return res.status(422).json({error:"Due date can't be below start date"})
+      }
+    }
+
+    if (
+      req.body.endDate &&
+      new Date(req.body.endDate) < new Date(goal.startDate)
+    ) {
+      return res
+        .status(422)
+        .json({ error: "Due date can't be before start Date" });
+    }
+
+    if (req.body.status && req.body.status === "In Progress") {
+      req.body.startDate = new Date();
+    }
+
+    if(goal.status==="Out of Time"){
+      if(req.body.endDate && !req.body.startDate){
+        req.body.status="In Progress"
+      }else if(req.body.endDate && req.body.startDate){
+        if(new Date(req.body.startDate)>now){
+          req.body.status="Not Started"
+        }else{
+          req.body.status="In Progress"
+        }
+      }
+    }
+
     const editted = await Goal.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
+      runValidators: true,
     });
-    await editted.save();
     if (!editted) {
-      return res.status(422).json({ error: "Couldn't edit goal" });
+      return res.status(422).json({ error: "Unable to update" });
     }
-    res.status(200).json(editted);
+
+    res.status(200).json({ message: "Goal updated" });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });
@@ -236,7 +278,20 @@ const resumeGoal = async (req, res) => {
 
     await goal.save();
 
-    res.json({ message: "Goal resumed"});
+    res.json({ message: "Goal resumed" });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+};
+
+const getSingleGoal = async (req, res) => {
+  try {
+    const goal = await Goal.findById(req.params.goalId);
+    if (!goal) {
+      return res.status(422).json({ error: "Unable to fetch data" });
+    }
+    res.status(200).json(goal);
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });
@@ -253,4 +308,5 @@ module.exports = {
   startGoal,
   pauseGoal,
   resumeGoal,
+  getSingleGoal,
 };

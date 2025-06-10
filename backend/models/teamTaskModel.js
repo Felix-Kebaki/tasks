@@ -60,11 +60,11 @@ const teamTaskSchema = mongoose.Schema({
       fileUrl: {
         type: String,
       },
-      submissionType:{
-        type:String
+      submissionType: {
+        type: String,
       },
-      submissionPublicId:{
-        type:String
+      submissionPublicId: {
+        type: String,
       },
       submittedBy: {
         type: mongoose.Schema.Types.ObjectId,

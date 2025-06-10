@@ -52,6 +52,19 @@ const goalApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
+    singleGoal:builder.query({
+      query:({goalId})=>({
+        url:`${GOAL_URL}/singeGoal/${goalId}`,
+        method:"GET"
+      })
+    }),
+    editGoal:builder.mutation({
+      query:({data,id})=>({
+        url:`${GOAL_URL}/updateGoal/${id}`,
+        method:"PUT",
+        body:data
+      })
+    })
   }),
 });
 
@@ -63,5 +76,7 @@ export const {
   useGetCompleteQuery,
   useStartGoalMutation,
   usePauseGoalMutation,
-  useResumeGoalMutation
+  useResumeGoalMutation,
+  useSingleGoalQuery,
+  useEditGoalMutation
 } = goalApiSlice;

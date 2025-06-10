@@ -14,7 +14,7 @@ import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import { useSelector, useDispatch } from "react-redux";
-import { Link, NavLink, useNavigate,useLocation } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 
 import { logoutS } from "../../redux/features/authSlice";
 import { useLogoutMutation } from "../../redux/api/userApiSlice";
@@ -26,16 +26,21 @@ import { Loading } from "../loading/Loading";
 
 export function SideNav() {
   const [sideNavState, setSideNavState] = useState(false);
-  const [dailyBackground,setDailyBackground]=useState(false)
+  const [dailyBackground, setDailyBackground] = useState(false);
+  const [date,setDate]=useState(2)
 
   const { userInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location=useLocation()
+  const location = useLocation();
 
   const [logout] = useLogoutMutation();
   const { refetch, data: notifications, isLoading } = useGetUnreadQuery();
-  const { refetch: catrefetch, data: categories ,isLoading:CategoryLoading} = useGetCategoryQuery();
+  const {
+    refetch: catrefetch,
+    data: categories,
+    isLoading: CategoryLoading,
+  } = useGetCategoryQuery();
 
   const HanldeMouseEnter = () => {
     document
@@ -47,7 +52,6 @@ export function SideNav() {
       .querySelector(".AppearAtTopOnSideNav")
       .classList.remove("AppearAtTopOnSideNavShow");
   };
-
 
   const HandleClickOnSideNav = () => {
     setSideNavState(!sideNavState);
@@ -65,6 +69,7 @@ export function SideNav() {
 
   useEffect(() => {
     catrefetch();
+    setDate(new Date().getDate())
   }, [catrefetch]);
 
   useEffect(() => {
@@ -76,13 +81,12 @@ export function SideNav() {
     }
   }, [location.pathname]);
 
-
-  if(CategoryLoading || isLoading){
-    return(
+  if (CategoryLoading || isLoading) {
+    return (
       <div className="MainLoaderDiv">
-        <Loading/>
+        <Loading />
       </div>
-    )
+    );
   }
 
   return (
@@ -171,7 +175,21 @@ export function SideNav() {
             className="EachLink text TodayLink"
             activeclassname="active"
           >
-            <div className={dailyBackground?"BlueColorBackground":"BlackColorBackground"}>{new Date().getDate()}</div>
+            <div
+              className={
+                dailyBackground && date <= 9
+                  ? "BlueColorBackgroundAndOne"
+                  : !dailyBackground && date <= 9
+                  ? "BlackColorBackgroundOne"
+                  : dailyBackground && date >= 9
+                  ? "BlueColorBackgroundAndTwo"
+                  : !dailyBackground && date >= 9
+                  ? "BlackColorBackgroundTwo"
+                  : null
+              }
+            >
+              {date}
+            </div>
             <span>Today</span>
           </NavLink>
           <NavLink
@@ -238,7 +256,7 @@ export function SideNav() {
                 categories.map((cat) => (
                   <Link
                     to={"/app/categories/" + cat.category}
-                    key={cat}
+                    key={cat.category}
                     className="SideNavCategorydiv"
                   >
                     <p className="ActualCategory text">
@@ -259,7 +277,7 @@ export function SideNav() {
             categories.map((cat) => (
               <Link
                 to={"/app/categories/" + cat.category}
-                key={cat}
+                key={cat.category}
                 className="SideNavCategorydiv"
               >
                 <p className="ActualCategory text">

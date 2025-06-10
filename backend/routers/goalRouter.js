@@ -9,6 +9,7 @@ const {
   startGoal,
   pauseGoal,
   resumeGoal,
+  getSingleGoal
 } = require("../controllers/goalController");
 const Protect = require("../middleware/authMiddleware");
 const router = express.Router();
@@ -22,5 +23,6 @@ router.post("/startGoal/:id", Protect, startGoal);
 router.post("/pauseGoal/:id", Protect, pauseGoal);
 router.post("/resumeGoal/:id", Protect, resumeGoal);
 router.get("/completedGoal", Protect, getCompleted);
+router.get("/singeGoal/:goalId", Protect, getSingleGoal);
 
 module.exports = router;

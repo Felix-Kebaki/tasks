@@ -20,7 +20,12 @@ router.post(
 router.delete("/deleteTeamtask/:id", Protect, deleteTeamtask);
 router.get("/getTeamtask/:teamId", Protect, getTeamTask);
 router.get("/getTeamtaskSubmissions/:teamtaskId", Protect, getSubmissions);
-router.put("/updateTeamtask/:teamtaskId", Protect, editTeamtask);
+router.put(
+  "/updateTeamtask/:teamtaskId",
+  Protect,
+  upload.single("file"),
+  editTeamtask
+);
 router.get("/getEachTeamtask/:teamtaskId", Protect, getEachTeamtask);
 
 module.exports = router;

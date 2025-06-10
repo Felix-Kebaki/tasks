@@ -35,13 +35,14 @@ const teamTaskApiSlice = apiSlice.injectEndpoints({
             body: data,
           };
         }
+
         const formData = new FormData();
+        formData.append("fileType", data.fileType);
         formData.append("name", data.name);
         formData.append("description", data.description);
         formData.append("dueDate", data.dueDate);
-        formData.append("fileType", data.fileType);
-        formData.append("file", data.fileUrl);
-
+        formData.append("file", data.file);
+       
         return {
           url: `${TEAMTASK_URL}/updateTeamtask/${teamtaskId}`,
           method: "PUT",
@@ -84,3 +85,6 @@ export const {
   useGetEachTeamtaskQuery,
   useEditTheTeamtaskMutation
 } = teamTaskApiSlice;
+
+
+        

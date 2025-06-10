@@ -106,11 +106,16 @@
 
 .BottomGoalLotOfOptions button{
     color:#0483bb;
-    border:none;
     text-transform: uppercase;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     background:transparent;
     cursor:pointer;
+}
+
+.StartBorderBtn{
+    border:0.1rem #0483bb solid;
+    padding:0.2rem 0.7rem;
+    border-radius: 0.3rem;
 }
 
 .BottomGoalLotOfOptions p{

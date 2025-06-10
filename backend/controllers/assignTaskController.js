@@ -148,8 +148,6 @@ const completeTeamtask = async (req, res) => {
         fileUrl:
           type === "Link"
             ? fileUrl
-            : type === "None"
-            ? undefined
             : req.file.path,
         submissionPublicId: req.file?.filename,
         submissionType: req.file?.mimetype.startsWith("image/")
@@ -167,6 +165,9 @@ const completeTeamtask = async (req, res) => {
       if (!markedteam) {
         return res.status(422).json({ error: "Unable to mark as done" });
       }
+    }else if(type==="None"){
+      assignedTask.status="Completed"
+      assignedTask.doneDate = new Date();
     }
 
     const marked = await assignedTask.save();

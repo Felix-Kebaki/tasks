@@ -110,6 +110,15 @@
   width: 100%;
 }
 
+.CreateGoalDisabled{
+  padding: 0.45rem 0rem 0.45rem 0rem;
+  width: 100%;
+  border-radius: 0.3rem;
+  background-color: #eeecec;
+  border: none;
+  color: rgba(60, 60, 60, 0.726);
+}
+
 .CreateGoalAtFormBtn {
   padding: 0.45rem 0rem 0.45rem 0rem;
   width: 100%;

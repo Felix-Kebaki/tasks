@@ -163,12 +163,24 @@
   align-items: center;
 }
 
-.BlueColorBackground {
+.BlueColorBackgroundAndOne {
   background-color: #0483bb;
+  padding:0.2rem 0.35rem;
 }
 
-.BlackColorBackground {
+.BlueColorBackgroundAndTwo{
+  background-color: #0483bb;
+  padding:0.2rem 0.2rem;
+}
+
+.BlackColorBackgroundOne {
   background-color: rgba(0, 0, 0, 0.801);
+    padding:0.2rem 0.35rem;
+}
+
+.BlackColorBackgroundTwo{
+  background-color: rgba(0, 0, 0, 0.801);
+    padding:0.2rem 0.2rem;
 }
 
 .TodayLink div {
@@ -177,7 +189,6 @@
   display: flex;
   align-items: center;
   text-decoration: overline;
-  padding: 0.2rem;
   border-radius: 0.2rem;
 }
 
@@ -309,7 +320,6 @@
 
   .TodayLink div {
   font-size: 0.55rem;
-  padding: 0.15rem;
 }
 
   .SideNavMainNavlinksDiv {

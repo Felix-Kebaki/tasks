@@ -1,0 +1,81 @@
+.EditGoalMainSec {
+  width: 100%;
+  max-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+
+.EditGoalMainForm{
+    background:white;
+    padding:1.5rem;
+    border-radius:0.3rem;
+    box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
+}
+
+.EditGoalTopDiv{
+    display: flex;
+  justify-content: space-between;
+  align-items: top;
+}
+
+.EditGoalTopDiv p {
+  font-size: 1.3rem;
+}
+
+.EditGoalExitIcon {
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.EditGoalDisabled{
+  padding: 0.45rem 0rem 0.45rem 0rem;
+  width: 100%;
+  border-radius: 0.3rem;
+  background-color: #eeecec;
+  border: none;
+  color: rgba(60, 60, 60, 0.726);
+}
+
+.EditGoalAtFormBtn {
+  padding: 0.45rem 0rem 0.45rem 0rem;
+  width: 100%;
+  border-radius: 0.3rem;
+  background-color: #fc8415;
+  border: none;
+  color: black;
+  cursor: pointer;
+}
+
+.EditGoalLoader {
+  padding: 0.32rem 0rem;
+  width: 100%;
+  background-color: #fc8415;
+  border-radius: 0.3rem;
+  border: none;
+}
+
+@keyframes LoaderEditeGoal {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.EditGoalLoader img {
+  height: 1rem;
+  width: 1.2rem;
+  animation: LoaderEditeGoal 1s ease-in infinite;
+}
+
+
+@media screen and (max-width: 907px) {
+  .EditGoalMainForm {
+    padding: 1rem;
+    width: 97%;
+    margin: 0rem auto 0rem;
+  }
+}

@@ -25,21 +25,37 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [type, setType] = useState("");
-  const [fileUrl, setFileUrl] = useState("");
-  const [newfile, setNewfile] = useState("");
+  const [linkUrl, setLinkUrl] = useState("");
+
+  const [newfile, setNewfile] = useState(null);
+  const [newLink, setNewLink] = useState("");
   const [newtype, setNewtype] = useState("");
 
   const HandleEditTeamtask = async (e) => {
     e.preventDefault();
     try {
+      const newDataUpdate = {
+        name,
+        description,
+        dueDate,
+        fileType: newtype === "" ? undefined : newtype,
+        fileUrl:
+          type === "None" || newtype === "None"
+            ? undefined
+            : newtype === "" && type === "Link"
+            ? linkUrl
+            : newtype !== "" && newLink !== ""
+            ? newLink
+            : undefined,
+        file:
+          type === "None" || newtype === "None"
+            ? undefined
+            : newtype === "Document" || newtype === "Photo"
+            ? newfile
+            : undefined,
+      };
       const res = await editTheTeamtask({
-        data: {
-          name,
-          description,
-          dueDate,
-          fileType: newtype || type,
-          fileUrl: type === "None" ? undefined : newfile || fileUrl,
-        },
+        data: newDataUpdate,
         teamtaskId: editTeamtask,
       });
       if (res.error) {
@@ -67,16 +83,13 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
     setNewtype(newValue);
   };
 
-  const isUnchanged = useMemo(() => {
-    return (
-      name === (data?.name || "") &&
-      description === (data?.description || "") &&
-      dueDate === moment(data?.dueDate).format("YYYY-MM-DD") &&
-      type === (data?.fileType || "") &&
-      fileUrl === (data?.fileUrl || "") &&
-      !editLoading
-    );
-  }, [data, name, description, dueDate, type, fileUrl]);
+  const HandleChangeFile = (e) => {
+    const selected = e.target.files[0];
+    if (selected) {
+      setNewfile(selected);
+    }
+  };
+
 
   useEffect(() => {
     if (data) {
@@ -84,7 +97,7 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
       setDescription(data.description || "");
       setDueDate(moment(data.dueDate).format("YYYY-MM-DD") || "");
       setType(data.fileType || "");
-      setFileUrl(data.fileUrl || "");
+      setLinkUrl(data?.fileType === "Link" ? data.fileUrl : undefined);
     }
   }, [data]);
 
@@ -133,6 +146,7 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
             <br />
             <input
               type="date"
+              className="text"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
               id="dueDateId"
@@ -148,14 +162,14 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
               <option value="Document">Document</option>
             </select>
           </div>
-          {type === "None" ? null : newtype === "" ? (
+          {type === "None" ? null : newtype === "" && type === "Link" ? (
             <div className="text">
-              <label htmlFor="SameLinkId">{type}</label>
+              <label htmlFor="SameLinkId">Link</label>
               <br />
               <input
                 type="text"
-                value={fileUrl}
-                onChange={(e) => setFileUrl(e.target.value)}
+                value={linkUrl}
+                onChange={(e) => setLinkUrl(e.target.value)}
                 id="SameLinkId"
               />
             </div>
@@ -166,8 +180,8 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
               <br />
               <input
                 type="text"
-                value={newfile}
-                onChange={(e) => setNewfile(e.target.value)}
+                value={newLink}
+                onChange={(e) => setNewLink(e.target.value)}
                 id="linkId"
               />
             </div>
@@ -175,12 +189,7 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
             <div className="DocAndPhotoDiv text">
               <label htmlFor="photoDocId">{type}</label>
               <br />
-              <input
-                type="file"
-                id="photoDocId"
-                value={newfile}
-                onChange={(e) => setNewfile(e.target.value)}
-              />
+              <input type="file" id="photoDocId" onChange={HandleChangeFile} />
             </div>
           ) : newtype === "None" || type === "None" ? null : null}
           <div className="TeamtaskEditBtnDiv text">

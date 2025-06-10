@@ -32,7 +32,6 @@ export function AllPerCategory() {
   useEffect(() => {
     refetch();
     getCurrentTime();
-    console.log(data);
   }, [refetch]);
 
   if(isLoading){

@@ -125,11 +125,17 @@ export function SumbitYouWork({ submit, setSubmit }) {
         {type !== "" ? (
           <div className="SubmitWorkMainSubmitDiv">
             <button
-              disabled={type === "Link" ? unChangedLink : unChangedUpload}
+              disabled={
+                type === "Link"
+                  ? unChangedLink
+                  : type === "Photo" || type==="Document"
+                  ? unChangedUpload
+                  : null
+              }
               className={
                 type === "Link" && unChangedLink
                   ? "DisabledSubmitWork text"
-                  : type !== "Link" && type!=="None" && unChangedUpload
+                  : type !== "Link" && type !== "None" && unChangedUpload
                   ? "DisabledSubmitWork text"
                   : isLoading
                   ? "SubmitWorkMainSubmitLoader"
