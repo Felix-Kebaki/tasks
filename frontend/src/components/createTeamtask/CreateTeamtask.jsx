@@ -8,6 +8,8 @@ import { useCreateTeamtaskMutation } from "../../redux/api/teamTaskApiSlice";
 
 import Loader from "../../assets/images/blackLoader.png";
 
+import { useToast } from "../../context/ToastContext";
+
 export function CreateTeamtask({ setAdd, add }) {
   const [errorMessage,setErrorMessage]=useState("")
   const [data, setData] = useState({
@@ -19,6 +21,8 @@ export function CreateTeamtask({ setAdd, add }) {
   });
   const [upload, setUpload] = useState(null);
   const { name, description, dueDate, type, link } = data;
+
+  const {showToast}=useToast()
 
   const OnChange = (e) => {
     setData((prev) => ({
@@ -58,7 +62,7 @@ export function CreateTeamtask({ setAdd, add }) {
           setErrorMessage("")
         },3000)
       } else {
-        console.log(res.data.message);
+        showToast(res.data.message,"success");
         setAdd(null);
       }
     } catch (error) {

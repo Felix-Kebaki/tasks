@@ -7,7 +7,8 @@ import {
   useMarkOneSeenMutation,
   useMarkAsSeenMutation,
 } from "../../redux/api/notifyApiSlice";
-import {useReceiveInviteMutation} from '../../redux/api/invitesApiSlice'
+import { useReceiveInviteMutation } from "../../redux/api/invitesApiSlice";
+import { useToast } from "../../context/ToastContext";
 import moment from "moment";
 
 export function Notifications() {
@@ -15,21 +16,24 @@ export function Notifications() {
   const { refetch: readRefetch, data: read } = useGetReadQuery();
   const [markOneSeen] = useMarkOneSeenMutation();
   const [markAsSeen] = useMarkAsSeenMutation();
-  const [receiveInvite]=useReceiveInviteMutation()
+  const [receiveInvite] = useReceiveInviteMutation();
 
+  const { showToast } = useToast();
 
   const HandleMarkOneNotification = async (id) => {
     try {
       const response = await markOneSeen(id);
       if (response.error) {
         console.error(response.error.data.error || response.error.error);
+        showToast(response.error.data.error || response.error.error, "error");
       } else {
-        console.log(response.data.message);
+        showToast(response.data.message, "success");
         refetch();
         readRefetch();
       }
     } catch (error) {
       console.error(error.message);
+      showToast(error.message || error, "error");
     }
   };
 
@@ -40,36 +44,47 @@ export function Notifications() {
       readRefetch();
     } catch (error) {
       console.error(error.message);
+      showToast(error.message || error, "error");
     }
   };
 
-  const HandleAcceptInvite=async(id)=>{
+  const HandleAcceptInvite = async (id) => {
     try {
-      const res=await receiveInvite({inviteId:id,data:{response:"Accepted"}})
-      if(res.error){
-        console.error(res.error.data.error || res.error.error)
-      }else{
-        console.log(res.data.message)
-        refetch()
+      const res = await receiveInvite({
+        inviteId: id,
+        data: { response: "Accepted" },
+      });
+      if (res.error) {
+        console.error(res.error.data.error || res.error.error);
+        showToast(res.error.data.error || res.error.error, "error");
+      } else {
+        showToast(res.data.message, "success");
+        refetch();
       }
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
+      showToast(error.message || error, "error");
     }
-  }
+  };
 
-  const HandleRejectInvite=async(id)=>{
+  const HandleRejectInvite = async (id) => {
     try {
-      const res=await receiveInvite({inviteId:id,data:{response:"Rejected"}})
-      if(res.error){
-        console.error(res.error.data.error || res.error.error)
-      }else{
-        console.log(res.data.message)
-        refetch()
+      const res = await receiveInvite({
+        inviteId: id,
+        data: { response: "Rejected" },
+      });
+      if (res.error) {
+        console.error(res.error.data.error || res.error.error);
+        showToast(res.error.data.error || res.error.error, "error");
+      } else {
+        showToast(res.data.message, "success");
+        refetch();
       }
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
+      showToast(error.message || error, "error");
     }
-  }
+  };
 
   useEffect(() => {
     refetch();
@@ -90,11 +105,24 @@ export function Notifications() {
             <p className="text">{unreaded.message}</p>
             {unreaded.type === "Invite" ? (
               <div className="AcceptOrRejectInviteDiv">
-                <button className="AcceptInviteBtn text" onClick={()=>HandleAcceptInvite(unreaded.referenceId)}>Accept</button>
-                <button className="RejectInviteBtn text" onClick={()=>HandleRejectInvite(unreaded.referenceId)}>Reject</button>
+                <button
+                  className="AcceptInviteBtn text"
+                  onClick={() => HandleAcceptInvite(unreaded.referenceId)}
+                >
+                  Accept
+                </button>
+                <button
+                  className="RejectInviteBtn text"
+                  onClick={() => HandleRejectInvite(unreaded.referenceId)}
+                >
+                  Reject
+                </button>
               </div>
             ) : (
-              <button onClick={() => HandleMarkOneNotification(unreaded._id)} className="MarkOneAsReadBtn">
+              <button
+                onClick={() => HandleMarkOneNotification(unreaded._id)}
+                className="MarkOneAsReadBtn"
+              >
                 Mark read
               </button>
             )}

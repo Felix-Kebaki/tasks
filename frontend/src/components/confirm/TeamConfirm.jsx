@@ -1,11 +1,15 @@
 import React from "react";
 
+import { useToast } from "../../context/ToastContext";
+
 import { useDeleteTeamMutation } from "../../redux/api/teamApiSlice";
 import { useDeleteTeamtaskMutation } from "../../redux/api/teamTaskApiSlice";
 
 export function TeamConfirm({ msg, setMsg, confirm, setConfirm }) {
   const [deleteTeam] = useDeleteTeamMutation();
   const [deleteTeamtask]=useDeleteTeamtaskMutation()
+
+  const {showToast}=useToast()
 
   const Cancel = () => {
     setConfirm(null);
@@ -17,13 +21,15 @@ export function TeamConfirm({ msg, setMsg, confirm, setConfirm }) {
       const res = await deleteTeam({ teamId: confirm });
       if (res.error) {
         console.error(res.error.data.error || res.error.error);
+        showToast(res.error.data.error || res.error.error,"error")
       } else {
-        console.log(res.data.message);
+        showToast(res.data.message,"success");
         setMsg("");
         setConfirm(null);
       }
     } catch (error) {
-      console.log(error.message);
+      console.log(error.message||error);
+      showToast(error.message||error,"error")
     }
   };
 
@@ -32,13 +38,15 @@ export function TeamConfirm({ msg, setMsg, confirm, setConfirm }) {
       const res = await deleteTeamtask({ teamtaskId:confirm });
       if (res.error) {
         console.error(res.error.data.error || res.error.error);
+        showToast(res.error.data.error || res.error.error,"error")
       } else {
-        console.log(res.data.message);
+        showToast(res.data.message,"success");
         setMsg("")
         setConfirm(null)
       }
     } catch (error) {
-      console.error(error.message);
+      console.error(error.message||error,"error");
+      showToast(error.message||error,"error")
     }
   };
   return (

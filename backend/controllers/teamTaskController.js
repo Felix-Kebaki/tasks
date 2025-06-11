@@ -134,7 +134,7 @@ const deleteTeamtask = async (req, res) => {
       return res.status(422).json({ error: "Unable to delete" });
     }
 
-    res.status(200).json({ message: "Deleted teamtask and associated assets" });
+    res.status(200).json({ message: "Deleted successfully" });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });

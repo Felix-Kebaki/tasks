@@ -30,7 +30,7 @@ export function AddUpcoming({ setAdd, add }) {
         setAdd(null);
       }
     } catch (error) {
-      console.error(error.message);
+      console.error(error.message || error);
       setErrorMessage(error.message || error);
       setTimeout(() => {
         setErrorMessage("");

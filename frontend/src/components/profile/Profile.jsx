@@ -7,6 +7,7 @@ import { useEditProfileMutation } from "../../redux/api/userApiSlice";
 import { useSelector } from "react-redux";
 
 import { DeleteAccount } from "../confirm/DeleteAccount";
+import { useToast } from "../../context/ToastContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +17,7 @@ import Loader from "../../assets/images/Loader.png";
 
 export function Profile() {
   const { userInfo } = useSelector((state) => state.auth);
+  const {showToast}=useToast()
   const [passwordForm, setPasswordForm] = useState({
     current: "",
     newPass: "",
@@ -71,7 +73,7 @@ export function Profile() {
             setErrorMessagePass("");
           }, 3000);
         } else {
-          console.log(res.data.message);
+          showToast(res.data.message,"success");
           setPasswordForm({ current: "", newPass: "", confirmNew: "" });
         }
       } else {
@@ -100,7 +102,7 @@ export function Profile() {
           setErrorMessage("");
         }, 3000);
       } else {
-        console.log(res.data.message);
+        showToast(res.data.message,"success");
         localStorage.setItem("userInfo", JSON.stringify(res.data.user));
       }
     } catch (error) {

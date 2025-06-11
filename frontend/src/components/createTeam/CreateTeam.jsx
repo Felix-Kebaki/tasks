@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./createTeam.css";
 
+import { useToast } from "../../context/ToastContext";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +17,8 @@ export function CreateTeam({ setAdd }) {
   const [invited, setInvited] = useState([]);
   const [inviteMemberNo, setInviteMemberNo] = useState(0);
   const [errorMessage,setErrorMessage]=useState("")
+
+  const {showToast}=useToast()
 
   const [createTeam, { isLoading }] = useCreateTeamMutation();
   const [sendInvite, { isLoading: inviteLoading }] = useSendInviteMutation();
@@ -57,7 +61,7 @@ export function CreateTeam({ setAdd }) {
                   setErrorMessage("");
                 }, 3000);
               } else {
-                console.log("Invitation sent successfully");
+                showToast("Invitation sent successfully","success");
               }
             }
           }

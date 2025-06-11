@@ -11,6 +11,8 @@ import { ViewAssets } from "../viewAssets/ViewAssets";
 import { EditTeamtask } from "../EditTeamtask/EditTeamtask";
 import {Loading} from '../loading/Loading'
 
+import { useToast } from "../../context/ToastContext";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
@@ -35,10 +37,12 @@ export function TeamDetails() {
   const [msg, setMsg] = useState("");
   const [view, setView] = useState(null);
 
+  const {showToast}=useToast()
+
   const { refetch: teamtaskRefetch, data: teamTasks,isLoading } = useGetTeamtaskQuery({
     teamId: param.id,
   });
-  const [assignTask,{isLoading:assignLoading}] = useAssignTaskMutation();
+  const [assignTask] = useAssignTaskMutation();
 
   const HandleAddTeamTask = (teamid) => {
     setAdd(teamid);
@@ -66,8 +70,9 @@ export function TeamDetails() {
         });
         if (res.error) {
           console.error(res.error.data?.error || res.error.error);
+          showToast(res.error.data?.error || res.error.error,"error")
         } else {
-          console.log(res.data.message);
+          showToast(res.data.message,"success");
           teamtaskRefetch();
           setAssignedTask((prev) => ({
             ...prev,
@@ -80,7 +85,8 @@ export function TeamDetails() {
         }
       }
     } catch (error) {
-      console.error(error.message);
+      console.error(error.message||error);
+      showToast(error.message||error,"error")
     }
   };
 

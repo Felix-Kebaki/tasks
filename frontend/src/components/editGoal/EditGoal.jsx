@@ -11,6 +11,8 @@ import { useEditGoalMutation } from "../../redux/api/goalApiSlice";
 import Loader from "../../assets/images/blackLoader.png";
 import { Loading } from "../loading/Loading";
 
+import { useToast } from "../../context/ToastContext";
+
 export function EditGoal({ edit, setEdit }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -22,6 +24,8 @@ export function EditGoal({ edit, setEdit }) {
   const [reward, setReward] = useState("");
 
   const [errorMessage, setErrorMessage] = useState("");
+
+  const {showToast}=useToast()
 
   const { refetch, data, isLoading } = useSingleGoalQuery({ goalId: edit });
   const [editGoal, { isLoading: editLoading }] = useEditGoalMutation();
@@ -48,7 +52,7 @@ export function EditGoal({ edit, setEdit }) {
           setErrorMessage("");
         }, 3000);
       } else {
-        console.log(res.data.message);
+        showToast(res.data.message,"success");
         setEdit(null);
       }
     } catch (error) {

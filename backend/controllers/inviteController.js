@@ -36,7 +36,7 @@ const sendInvite = async (req, res) => {
     });
     await notification.save();
 
-    res.status(200).json({ message: "Invites sent successfully" });
+    res.status(200).json({ message: "Invitation sent successfully" });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });

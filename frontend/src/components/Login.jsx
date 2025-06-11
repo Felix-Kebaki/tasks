@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 
 import { useLoginMutation } from "../redux/api/userApiSlice";
 import { setCredentials } from "../redux/features/authSlice";
-import { useToast } from "../context/ToastContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
@@ -26,7 +25,6 @@ export function Login() {
     password: "",
   });
   const { email, password } = formData;
-  const { showToast } = useToast();
 
   const OnChange = (e) => {
     setFormData((prev) => ({
@@ -51,7 +49,6 @@ export function Login() {
           setErrorMessage("");
         }, 3000);
       } else {
-        showToast(response.data.message, "success");
         dispatch(setCredentials(response.data.User));
         navigate("/app/dashboard");
       }

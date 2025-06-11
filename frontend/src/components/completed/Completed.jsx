@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import moment from "moment";
 
+import { useToast } from "../../context/ToastContext";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,18 +15,21 @@ import { Loading } from "../loading/Loading";
 export function Completed() {
   const { refetch, data: completed, isLoading } = useGetCompleteQuery();
   const [deleteGoal] = useDeleteGoalMutation();
+  const {showToast}=useToast()
 
   const HandleClickOnDelete = async (id) => {
     try {
       const response = await deleteGoal(id);
       if (response.error) {
         console.log(response.error.data.error || response.error.error);
+        showToast(response.error.data.error || response.error.error,"error")
       } else {
-        console.log(response.data.message);
+        showToast(response.data.message,"success");
         refetch();
       }
     } catch (error) {
-      console.error(error.message);
+      console.error(error.message||error);
+      showToast(error.message||error,"error")
     }
   };
 

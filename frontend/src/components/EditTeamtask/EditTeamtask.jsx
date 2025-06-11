@@ -8,6 +8,8 @@ import { useEditTheTeamtaskMutation } from "../../redux/api/teamTaskApiSlice";
 
 import moment from "moment";
 
+import { useToast } from "../../context/ToastContext";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -30,6 +32,8 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
   const [newLink, setNewLink] = useState("");
   const [newtype, setNewtype] = useState("");
   const [newfile, setNewfile] = useState("");
+
+  const {showToast}=useToast()
 
   const HandleEditTeamtask = async (e) => {
     e.preventDefault();
@@ -59,7 +63,7 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
           setErrorMessage("");
         }, 3000);
       } else {
-        console.log(res.data.message);
+        showToast(res.data.message,"success");
         setEditTeamtask(null);
       }
     } catch (error) {

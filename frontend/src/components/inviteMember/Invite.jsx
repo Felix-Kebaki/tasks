@@ -3,6 +3,8 @@ import "./invite.css";
 
 import { useSendInviteMutation } from "../../redux/api/invitesApiSlice";
 
+import { useToast } from "../../context/ToastContext";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,6 +14,9 @@ export function Invite({ invite, setInvite }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const [sendInvite, { isLoading }] = useSendInviteMutation();
+
+  const {showToast}=useToast()
+
   const HandleSubmitInvite = async (e) => {
     e.preventDefault();
     try {
@@ -22,7 +27,7 @@ export function Invite({ invite, setInvite }) {
           setErrorMessage("");
         }, 3000);
       } else {
-        console.log(res.data.message);
+        showToast(res.data.message,"success");
         setInvite(null);
       }
     } catch (error) {

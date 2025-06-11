@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 
+import { useToast } from "../../context/ToastContext";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faSquareCheck } from "@fortawesome/free-solid-svg-icons";
@@ -31,6 +33,8 @@ export function Goals() {
   const [msg, setMsg] = useState("");
   const [edit, setEdit] = useState(null);
 
+  const {showToast}=useToast()
+
   const HandleClickOnAdd = () => {
     setAdd(true);
   };
@@ -49,12 +53,14 @@ export function Goals() {
       const response = await startGoal(id);
       if (response.error) {
         console.error(response.error.data.error || response.error.error);
+        showToast(response.error.data.error || response.error.error,"error")
       } else {
-        console.log(response.data.message);
+        showToast(response.data.message,"success");
         refetch();
       }
     } catch (error) {
-      console.error(error.message);
+      console.error(error.message||error);
+      showToast(error.message||error,"error")
     }
   };
 
@@ -63,12 +69,14 @@ export function Goals() {
       const response = await pauseGoal(id);
       if (response.error) {
         console.error(response.error.data.error || response.error.error);
+        showToast(response.error.data.error || response.error.error,"error")
       } else {
-        console.log(response.data.message);
+        showToast(response.data.message,"success");
         refetch();
       }
     } catch (error) {
-      console.error(error.message);
+      console.error(error.message||error);
+      showToast(error.message||error,"error")
     }
   };
 
@@ -77,12 +85,14 @@ export function Goals() {
       const response = await resumeGoal(id);
       if (response.error) {
         console.error(response.error.data.error || response.error.error);
+        showToast(response.error.data.error || response.error.error,"error")
       } else {
-        console.log(response.data.message);
+        showToast(response.data.message,"success");
         refetch();
       }
     } catch (error) {
-      console.error(error.message);
+      console.error(error.message||error);
+      showToast(error.message||error,"error")
     }
   };
 

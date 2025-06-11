@@ -19,7 +19,7 @@ const createUpcoming=async(req,res)=>{
         if(!upcoming){
             return res.status(422).json({error:"Unable to create"})
         }
-        res.status(200).json({message:"Upcoming event created"})
+        res.status(200).json({message:"Upcoming event added"})
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ error: "Server side issue" });

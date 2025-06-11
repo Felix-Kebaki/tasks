@@ -8,13 +8,15 @@ import { Loading } from "../loading/Loading";
 
 import { useGetAssignedQuery } from "../../redux/api/assignTaskApiSlice";
 import { useStartTeamtaskMutation } from "../../redux/api/assignTaskApiSlice";
-import { useMarkAsDoneMutation } from "../../redux/api/assignTaskApiSlice";
+
+import { useToast } from "../../context/ToastContext";
 
 export function AssignedTask() {
   const [submit, setSubmit] = useState(null);
 
+  const {showToast}=useToast()
+
   const { refetch, data, isLoading } = useGetAssignedQuery();
-  const [markAsDone] = useMarkAsDoneMutation();
   const [startTeamtask] = useStartTeamtaskMutation();
 
   const HandleClickOnStartTeamtask = async (taskId) => {
@@ -22,28 +24,19 @@ export function AssignedTask() {
       const res = await startTeamtask({ taskId });
       if (res.error) {
         console.error(res.error.data.error || res.error.error);
+        showToast(res.error.data.error || res.error.error,"error")
       } else {
-        console.log(res.data.message);
+        showToast(res.data.message,"success");
         refetch();
       }
     } catch (error) {
-      console.error(error.message);
+      console.error(error.message||error);
+      showToast(error.message||error,"error")
     }
   };
 
   const HandleClickOnDoneTeamtask = async (teamtaskId) => {
     setSubmit(teamtaskId);
-    try {
-      const res = await markAsDone({ teamtaskId });
-      if (res.error) {
-        console.error(res.error.data.error || res.error.error);
-      } else {
-        console.log(res.data.message);
-        refetch();
-      }
-    } catch (error) {
-      console.error(error.message || error);
-    }
   };
 
   useEffect(() => {

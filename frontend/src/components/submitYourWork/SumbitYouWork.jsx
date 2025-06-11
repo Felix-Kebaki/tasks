@@ -8,6 +8,8 @@ import { useMarkAsDoneMutation } from "../../redux/api/assignTaskApiSlice";
 
 import Loader from "../../assets/images/blackLoader.png";
 
+import { useToast } from "../../context/ToastContext";
+
 export function SumbitYouWork({ submit, setSubmit }) {
   const [errorMessage,setErrorMessage]=useState("")
   const [submitForm, setSubmitForm] = useState({
@@ -16,6 +18,8 @@ export function SumbitYouWork({ submit, setSubmit }) {
   });
   const [upload, setUpload] = useState(null);
   const { type, link } = submitForm;
+
+  const {showToast}=useToast()
 
   const OnChange = (e) => {
     setSubmitForm((prev) => ({
@@ -49,7 +53,7 @@ export function SumbitYouWork({ submit, setSubmit }) {
           setErrorMessage("")
         },3000)
       } else {
-        console.log(res.data.message);
+        showToast(res.data.message,"success");
         setSubmit(null);
       }
     } catch (error) {

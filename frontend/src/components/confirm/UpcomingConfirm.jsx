@@ -1,9 +1,12 @@
 import React from 'react'
 import './confirm.css'
 
+import { useToast } from '../../context/ToastContext'
+
 import { useDeleteUpcomingMutation } from '../../redux/api/upcomingApiSlice'
 
 export function UpcomingConfirm({setConfirm,confirm}) {
+  const {showToast}=useToast()
 
     const [deleteUpcoming]=useDeleteUpcomingMutation()
 
@@ -12,12 +15,14 @@ export function UpcomingConfirm({setConfirm,confirm}) {
             const res=await deleteUpcoming({date:confirm})
             if(res.error){
                 console.error(res.error.data.error || res.error.error)
+                showToast(res.error.data.error || res.error.error,"error")
             }else{
-                console.log(res.data.message)
+                showToast(res.data.message,"success")
                 setConfirm(null)
             }
         } catch (error) {
-            console.error(error.message)
+            console.error(error.message||error)
+            showToast(error.message||error,"error")
         }
     }
 

@@ -5,6 +5,8 @@ import { useMarkDoneMutation } from "../../redux/api/todayApiSlice";
 import { useDeleteObjectiveMutation } from "../../redux/api/todayApiSlice";
 import "./confirm.css";
 
+import { useToast } from "../../context/ToastContext";
+
 export function ObjectiveConfirm({ setConfirm, confirm, setMsg, msg }) {
   const [deleteGoal] = useDeleteGoalMutation();
   const [completeGoal] = useCompleteGoalMutation();
@@ -15,18 +17,22 @@ export function ObjectiveConfirm({ setConfirm, confirm, setMsg, msg }) {
     setMsg("");
   };
 
+  const {showToast}=useToast()
+
   const ConfirmDelete = async () => {
     try {
       const response = await deleteGoal(confirm);
       if (response.error) {
         console.log(response.error.data.error || response.error.error);
+        showToast(response.error.data.error || response.error.error,"error")
       } else {
-        console.log(response.data.message);
+        showToast(response.data.message,"success");
         setConfirm(null);
         setMsg("");
       }
     } catch (error) {
       console.error("Error in deleting from frontend", error.message);
+      showToast(error.message || error,"error")
     }
   };
 
@@ -35,13 +41,15 @@ export function ObjectiveConfirm({ setConfirm, confirm, setMsg, msg }) {
       const response = await completeGoal(confirm);
       if (response.error) {
         console.error(response.error.data.error || response.error.error);
+        showToast(response.error.data.error || response.error.error,"error")
       } else {
-        console.log(response.data.message);
+        showToast(response.data.message,"success");
         setConfirm(null);
         setMsg("");
       }
     } catch (error) {
       console.error("Error in marking done at frontend", error.message);
+      showToast(error.message|| error,"error")
     }
   };
 
@@ -50,13 +58,15 @@ export function ObjectiveConfirm({ setConfirm, confirm, setMsg, msg }) {
         const response=await markDone(confirm)
         if (response.error) {
             console.error(response.error.data.error || response.error.error);
+            showToast(response.error.data.error || response.error.error,"error")
           } else {
-            console.log(response.data.message);
+            showToast(response.data.message,"success");
             setConfirm(null);
             setMsg("");
           }
     } catch (error) {
       console.error("Error in marking done at frontend", error.message);
+      showToast(error.message||error,"error")
     }
   };
 
@@ -65,13 +75,15 @@ export function ObjectiveConfirm({ setConfirm, confirm, setMsg, msg }) {
         const response=await deleteObjective(confirm)
         if (response.error) {
             console.error(response.error.data.error || response.error.error);
+            showToast(response.error.data.error || response.error.error,"error")
           } else {
-            console.log(response.data.message);
+            showToast(response.data.message,"success");
             setConfirm(null);
             setMsg("");
           }
     } catch (error) {
       console.error("Error in marking done at frontend", error.message);
+      showToast(error.message||error,"error")
     }
   }
 
