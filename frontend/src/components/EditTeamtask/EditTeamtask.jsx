@@ -27,39 +27,33 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
   const [type, setType] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
 
-  const [newfile, setNewfile] = useState(null);
   const [newLink, setNewLink] = useState("");
   const [newtype, setNewtype] = useState("");
+  const [newfile, setNewfile] = useState("");
 
   const HandleEditTeamtask = async (e) => {
     e.preventDefault();
     try {
-      const newDataUpdate = {
-        name,
-        description,
-        dueDate,
-        fileType: newtype === "" ? undefined : newtype,
-        fileUrl:
-          type === "None" || newtype === "None"
-            ? undefined
-            : newtype === "" && type === "Link"
-            ? linkUrl
-            : newtype !== "" && newLink !== ""
-            ? newLink
-            : undefined,
-        file:
-          type === "None" || newtype === "None"
-            ? undefined
-            : newtype === "Document" || newtype === "Photo"
-            ? newfile
-            : undefined,
-      };
+      const newDataUpdate = {}
+      
+      if (name !== data?.name) newDataUpdate.name = name;
+      if (description !== data?.description)
+        newDataUpdate.description = description;
+      if (newtype !=="" && newtype !== data?.fileType) newDataUpdate.fileType = newtype;
+      if (dueDate !== moment(data?.dueDate).format("YYYY-MM-DD"))
+        newDataUpdate.dueDate = dueDate;
+      if (newtype === "" && type === "Link"){
+        newDataUpdate.fileUrl = linkUrl;}else if(newtype !== "" && newLink !== ""){
+          newDataUpdate.fileUrl = newLink
+        }
+        if(newtype === "Document" || newtype === "Photo")
+          newDataUpdate.file=newfile
+
       const res = await editTheTeamtask({
         data: newDataUpdate,
         teamtaskId: editTeamtask,
       });
       if (res.error) {
-        console.error(res.error.data.error || res.error.error);
         setErrorMessage(res.error.data.error || res.error.error);
         setTimeout(() => {
           setErrorMessage("");
@@ -96,36 +90,21 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
       setDescription(data.description || "");
       setDueDate(moment(data.dueDate).format("YYYY-MM-DD") || "");
       setType(data.fileType || "");
-      setLinkUrl(data?.fileType === "Link" ? data.fileUrl : undefined);
+      setLinkUrl(data.fileType === "Link" ? data.fileUrl : "");
     }
   }, [data]);
 
   const isUnchanged = useMemo(() => {
-    return(
-      name===data?.name || ""&&
-      description===data?.description || "" &&
-      type===data?.fileType || "" &&
-      dueDate===moment(data?.dueDate).format("YYYY-MM-DD") || ""
-    )
-  }, [
-    name,
-    description,
-    dueDate,
-    type
-  ]);
+    const baseMatch =
+      description === data?.description &&
+      name === data?.name &&
+      type === data?.fileType &&
+      dueDate === moment(data?.dueDate).format("YYYY-MM-DD");
 
-  const isUnchangedLink=useMemo(()=>{
-    return(
-      linkUrl===data?.fileUrl || "" &&
-      name===data?.name || ""&&
-      description===data?.description || "" &&
-      type===data?.fileType || "" &&
-      dueDate===moment(data?.dueDate).format("YYYY-MM-DD") || ""
-    )
-  },[linkUrl,   name,
-    description,
-    dueDate,
-    type])
+    const linkMatch = linkUrl !== "" ? linkUrl === data?.fileUrl : true;
+
+    return baseMatch && linkMatch;
+  }, [name, description, dueDate, type, linkUrl]);
 
   if (!data || isLoading) {
     return (
@@ -188,7 +167,7 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
               <option value="Document">Document</option>
             </select>
           </div>
-          {type === "None" ? null : newtype === "" && type === "Link" ? (
+          {type === "None" ? null : linkUrl !== "" && newtype==="" ? (
             <div className="text">
               <label htmlFor="SameLinkId">Link</label>
               <br />
@@ -220,22 +199,22 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
           ) : newtype === "None" || type === "None" ? null : null}
           <div className="TeamtaskEditBtnDiv text">
             <button
-              disabled={(newtype === "" && type === "Link")?isUnchangedLink:isUnchanged}
+              disabled={isUnchanged}
               type="submit"
               className={
-              ((newtype === "" && type === "Link")?isUnchangedLink:isUnchanged)
-                  ? "TeamtaskDisabledBtn"
+                isUnchanged
+                  ? "TeamtaskDisabledBtn text"
                   : editLoading
                   ? "TeamtaskEditLoader"
                   : !editLoading
-                  ? "TeamtaskEditBtn"
+                  ? "TeamtaskEditBtn text"
                   : null
               }
             >
               {editLoading ? <img src={Loader} alt="Loading..." /> : "Update"}
             </button>
           </div>
-          <pre>{errorMessage}</pre>
+          <pre className="text">{errorMessage!==""?errorMessage:null}</pre>
         </form>
       </div>
     </section>

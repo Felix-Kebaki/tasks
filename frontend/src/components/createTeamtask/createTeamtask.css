@@ -88,17 +88,25 @@
   border: none;
   width: 100%;
   border-radius: 0.3rem;
-  background-color: #fc8415;
+}
+
+.CreateTeamtaskDisabled{
+  background-color: #eeecec;
+  color:#cecece;
+  padding: 0.4rem 0rem;
 }
 
 .CreateTeamtaskButton {
   color: black;
   padding: 0.4rem 0rem;
   cursor: pointer;
+  background-color: #fc8415;
+  cursor: pointer;
 }
 
 .CreateTeamtaskLoader {
   padding: 0.26rem 0rem;
+  background-color: #fc8415;
 }
 
 @keyframes createTeamtaskSpin {

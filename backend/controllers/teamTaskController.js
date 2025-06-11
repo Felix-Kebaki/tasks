@@ -69,13 +69,13 @@ const getTeamTask = async (req, res) => {
     if (!team) {
       return res.status(422).json({ error: "Couldn't fetch the team" });
     }
-    
+
     res.status(200).json({
       teamTasks: teamtask,
       members: team.members,
       team: team._id,
       isAdmin: req.user._id.toString() === team.admin.toString(),
-      outOfTime: teamtask.outOfTime
+      outOfTime: teamtask.outOfTime,
     });
   } catch (error) {
     console.error(error.message);
@@ -172,19 +172,21 @@ const editTeamtask = async (req, res) => {
           const publicId = currentTask.filePublicId;
           const resourceType = currentTask.resourceType;
           if (publicId) {
-            await cloudinary.uploader.destroy(publicId, {
-              resource_type: resourceType,
-            }).then((result)=>console.log(result));
+            await cloudinary.uploader
+              .destroy(publicId, {
+                resource_type: resourceType,
+              })
+              .then((result) => console.log(result));
           }
         }
 
         updates.fileUrl = req.file.path;
         updates.filePublicId = req.file?.filename;
         updates.resourceType = req.file?.mimetype.startsWith("image/")
-            ? "image"
-            : req.file?.mimetype.startsWith("video/")
-            ? "video"
-            : "raw";
+          ? "image"
+          : req.file?.mimetype.startsWith("video/")
+          ? "video"
+          : "raw";
         updates.fileType = fileType;
       } else {
         return res
@@ -195,45 +197,61 @@ const editTeamtask = async (req, res) => {
       updates.fileUrl = linkUrl;
       updates.fileType = "Link";
 
-      if (
-        currentTask.fileType !== "Link" &&
-        currentTask.fileType !== "None"
-      ) {
+      if (currentTask.fileType !== "Link" && currentTask.fileType !== "None") {
         const publicId = currentTask.filePublicId;
         const resourceType = currentTask.resourceType;
         if (publicId) {
-          await cloudinary.uploader.destroy(publicId, {
-            resource_type: resourceType,
-          }).then((result)=>console.log(result));
+          await cloudinary.uploader
+            .destroy(publicId, {
+              resource_type: resourceType,
+            })
+            .then((result) => console.log(result));
         }
-        updates.filePublicId = undefined
-        updates.resourceType = undefined
+        updates.filePublicId = undefined;
+        updates.resourceType = undefined;
       }
     } else if (fileType === "None") {
       updates.fileUrl = undefined;
       updates.fileType = "None";
 
-      if (
-        currentTask.fileType !== "Link" &&
-        currentTask.fileType !== "None"
-      ) {
+      if (currentTask.fileType !== "Link" && currentTask.fileType !== "None") {
         const publicId = currentTask.filePublicId;
         const resourceType = currentTask.resourceType;
         if (publicId) {
-          await cloudinary.uploader.destroy(publicId, {
-            resource_type: resourceType,
-          }).then((result)=>console.log(result));
+          await cloudinary.uploader
+            .destroy(publicId, {
+              resource_type: resourceType,
+            })
+            .then((result) => console.log(result));
         }
-        updates.filePublicId = undefined
-        updates.resourceType = undefined
+        updates.filePublicId = undefined;
+        updates.resourceType = undefined;
       }
     }
 
     //Handle other fields
     const allowedUpdates = ["name", "description", "dueDate"];
     for (let key of allowedUpdates) {
-      if (req.body[key] !== undefined) {
-        updates[key] = req.body[key];
+      const value = req.body[key];
+
+      if (
+        value !== undefined &&
+        value !== null &&
+        value !== "" &&
+        value !== "undefined"
+      ) {
+        if (key === "dueDate") {
+          const date = new Date(value);
+          if (!isNaN(date)) {
+            updates[key] = date;
+          } else {
+            return res
+              .status(400)
+              .json({ error: "Invalid date format for dueDate" });
+          }
+        } else {
+          updates[key] = value;
+        }
       }
     }
 
@@ -269,13 +287,11 @@ const getEachTeamtask = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   createTeamTask,
   getTeamTask,
   deleteTeamtask,
   getSubmissions,
   editTeamtask,
-  getEachTeamtask
+  getEachTeamtask,
 };

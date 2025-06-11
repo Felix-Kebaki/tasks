@@ -178,9 +178,9 @@ export function Profile() {
               type="submit"
               className={
                 isUnchangedProfile
-                  ? "DisabledBtn"
+                  ? "DisabledBtn text"
                   : !isLoading
-                  ? "EditProfileBtn"
+                  ? "EditProfileBtn text"
                   : isLoading
                   ? "EditProfileLoader"
                   : null
@@ -257,9 +257,9 @@ export function Profile() {
                 type="submit"
                 className={
                   !isPasswordKeyed
-                    ? "DisabledBtn"
+                    ? "DisabledBtn text"
                     : !isLoadingPass
-                    ? "EditProfileBtn"
+                    ? "EditProfileBtn text"
                     : isLoadingPass
                     ? "EditProfileLoader"
                     : null

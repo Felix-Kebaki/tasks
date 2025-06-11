@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import "./objectiveForm.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,9 +7,10 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useCreateObjectiveMutation } from "../../redux/api/todayApiSlice";
 import { useToast } from "../../context/ToastContext";
 
-import Loader from "../../assets/images/blackLoader.png"
+import Loader from "../../assets/images/blackLoader.png";
 
 export function ObjectiveForm({ setAdd }) {
+  const [errorMessage, setErrorMessage] = useState("");
   const [objForm, setObjForm] = useState({
     objective: "",
     startTime: "",
@@ -18,7 +19,7 @@ export function ObjectiveForm({ setAdd }) {
   });
   const { objective, startTime, endTime, category } = objForm;
   const [createObjective, { isLoading }] = useCreateObjectiveMutation();
-  const {showToast}=useToast()
+  const { showToast } = useToast();
 
   const HandleRemoveForm = () => {
     setAdd(false);
@@ -35,16 +36,29 @@ export function ObjectiveForm({ setAdd }) {
     try {
       const response = await createObjective(objForm);
       if (response.error) {
-        showToast(response.error.data.error || response.error.error,"error");
-        setAdd(false)
+        setErrorMessage(response.error.data.error || response.error.error);
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 3000);
       } else {
-        showToast(response.data.message,"success");
+        showToast(response.data.message, "success");
         setAdd(false);
       }
     } catch (error) {
       console.error(error.message);
+      setErrorMessage(error.message || error);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
     }
   };
+
+  const isUnchanged = useMemo(() => {
+    return (
+      objective === "" && startTime === "" && endTime === "" && category === ""
+    );
+  }, [objective, startTime, endTime, category]);
+
   return (
     <section className="ObjectiveFormMainSec">
       <form onSubmit={HandleSubmitObjective} className="ObjectiveFormMainDiv">
@@ -108,10 +122,24 @@ export function ObjectiveForm({ setAdd }) {
               />
             </div>
             <div className="CreateObjectiveBtnDiv">
-              <button className={isLoading?"SubmitAuthLoaderObjective":"CreateObjectiveBtn text"}>{isLoading?<img src={Loader} alt="Loading..."/>:"Create"} </button>
+              <button
+                disabled={isUnchanged}
+                className={
+                  isUnchanged
+                    ? "CreateObjectiveDisabled text"
+                    : isLoading
+                    ? "CreateObjLoader"
+                    : !isLoading
+                    ? "CreateObjectiveBtn text"
+                    : null
+                }
+              >
+                {isLoading ? <img src={Loader} alt="Loading..." /> : "Create"}{" "}
+              </button>
             </div>
           </div>
         </div>
+        <pre className="text">{errorMessage !== "" ? errorMessage : null}</pre>
       </form>
     </section>
   );

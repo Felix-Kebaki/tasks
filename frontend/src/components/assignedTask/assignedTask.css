@@ -16,7 +16,7 @@
   width: 100%;
   flex-wrap: wrap;
   column-gap: 1.25%;
-  row-gap: 1rem;
+    row-gap:0.6rem;
   padding-top: 0.7rem;
 }
 
@@ -25,7 +25,7 @@
   background-color: white;
   border-radius: 0.3rem;
   box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
-  padding: 0.7rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -37,62 +37,66 @@
   align-items: center;
 }
 
-.AssignedStatus {
-  background-color: #0483bb;
-  color: rgba(255, 255, 255, 0.726);
-  padding: 0.25rem 1rem;
+.AssignedStatusNotStarted {
   font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #fc8415;
 }
 
-.TopEachAssignedDiv div {
+.AssignedStatusInProgress {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #3eb489;
+}
+
+.AssignedStatusCompleted {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #0483bb;
+}
+
+.AssignedStatusOutOfTime {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #e53935;
+}
+
+.DueAssignedDate,
+.StartAssignedDate {
   display: flex;
   flex-direction: column;
-  row-gap: 0.2rem;
 }
 
-.DueAssignedDate {
+.DueAssignedDate p,
+.StartAssignedDate p {
   font-size: 0.8rem;
 }
 
 .DueAssignedDate span {
   color: #fc8415;
-  font-size: 0.9rem;
-  margin-left: 0.2rem;
-}
-
-.StartAssignedDate {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .StartAssignedDate span {
   color: #0483bb;
-  font-size: 0.9rem;
-  margin-left: 0.2rem;
+  font-size: 0.7rem;
+}
+
+.TeamtaskTitleOnly {
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .AssignTitleAndValue {
-  font-size: 0.8rem;
+  font-size: 1rem;
   text-transform: uppercase;
+  font-size: 0.9rem;
 }
 
 .AssignTitleAndValue span {
-  font-size: 0.9rem;
-  text-transform: capitalize;
-}
-
-.FirstAssigned {
-  margin-top: 0.5rem;
-}
-
-.LastAssigned {
-  color: #0483bb;
-  font-size: 1rem;
-  margin-top: 0.2rem;
-}
-
-.LastAssigned span {
-  color: black;
-  font-size: 1rem;
+  text-transform: none;
 }
 
 .BottomDivForEachAssign {
@@ -102,45 +106,18 @@
   margin-top: 0.2rem;
 }
 
-.InProgressStatue {
-  font-size: 0.9rem;
-  color: #8ca52b;
-  text-transform: uppercase;
-}
-
-.NotStartedStatue {
-  font-size: 0.9rem;
-  color: #fc8415;
-  text-transform: uppercase;
-}
-.CompletedStatue {
-  font-size: 0.9rem;
-  color: #0483bb;
-  text-transform: uppercase;
-}
-
-.OutOfTimeStatus {
-  font-size: 0.9rem;
-  color: #fc8415;
-  text-transform: uppercase;
-}
-
-.BottomDivForEachAssignOthers {
-  background-color: red;
-  border: none;
-  padding: 0.3rem 1rem;
-  cursor: pointer;
-  border-radius: 0.3rem;
-  color: white;
-}
-
 .BottomDivForEachAssignDelete {
-  background-color: #fc8415;
-  border: none;
-  padding: 0.3rem 1rem;
+  display: none;
+}
+
+.AssignedInProgressAndNotStartedBtn {
+  border: 0.1rem #0483bb solid;
+  padding: 0.2rem 1rem;
+  font-size: 0.8rem;
+  background-color: transparent;
   cursor: pointer;
   border-radius: 0.3rem;
-  color: white;
+  color: #0483bb;
 }
 
 .NoAssignedTaskMainDiv p {
@@ -176,6 +153,9 @@
     padding-top: 0.8rem;
     row-gap: 0.6rem;
   }
+  .EachAssignedTaskDiv {
+  padding: 0.4rem;
+}
 
   .NoAssignedTaskMainDiv p {
     padding: 2rem 0rem;
@@ -187,16 +167,28 @@
   .AssignedTaskMainSec {
     padding: 0rem 0.3rem 0.5rem 3rem;
   }
+  .AssignedInProgressAndNotStartedBtn {
+  padding: 0.15rem 0.7rem;
+  font-size: 0.7rem;
+}
+
 }
 
 @media screen and (max-width: 397px) {
-  .AssignedStatus {
-    padding: 0.2rem 0.6rem;
+  .AssignedStatusNotStarted {
     font-size: 0.7rem;
   }
-  .DueAssignedDate span {
-    font-size: 0.8rem;
-    margin-left: 0.1rem;
+
+  .AssignedStatusInProgress {
+    font-size: 0.7rem;
+  }
+
+  .AssignedStatusCompleted {
+    font-size: 0.7rem;
+  }
+
+  .AssignedStatusOutOfTime {
+    font-size: 0.7rem;
   }
 }
 

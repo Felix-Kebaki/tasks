@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import "./goalForm.css";
 
 import { useCreateGoalMutation } from "../../redux/api/goalApiSlice";
 
-import Loader from '../../assets/images/blackLoader.png'
+import Loader from "../../assets/images/blackLoader.png";
 
 export function GoalForm({ setAdd }) {
+  const [errorMessage, setErrorMessage] = useState("");
   const [goalForm, setGoalForm] = useState({
     name: "",
     description: "",
@@ -41,19 +42,46 @@ export function GoalForm({ setAdd }) {
   const HandleCreateGoal = async (e) => {
     e.preventDefault();
     try {
-
       const response = await createGoal(goalForm);
       if (response.error) {
-        console.error(response.error.data.error || response.error.error);
+        setErrorMessage(response.error.data.error || response.error.error);
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 3000);
       } else {
         console.log(response.data.message);
         setAdd(false);
       }
     } catch (error) {
       console.error(error.message);
+      setErrorMessage(error.message || error);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
     }
   };
 
+  const isUnchanged = useMemo(() => {
+    return (
+      name === "" &&
+      description === "" &&
+      status === "" &&
+      category === "" &&
+      priority === "" &&
+      startDate === "" &&
+      endDate === "" &&
+      reward === ""
+    );
+  }, [
+    name,
+    description,
+    status,
+    category,
+    priority,
+    startDate,
+    endDate,
+    reward,
+  ]);
 
   return (
     <section className="GoalFormMainSec">
@@ -110,7 +138,9 @@ export function GoalForm({ setAdd }) {
                     onChange={OnChange}
                     id="statusId"
                   >
-                    <option value="" disabled selected>Select the status</option>
+                    <option value="" disabled selected>
+                      Select the status
+                    </option>
                     <option value="Not Started">Not Started</option>
                     <option value="In Progress">In Progress</option>
                   </select>
@@ -124,7 +154,9 @@ export function GoalForm({ setAdd }) {
                     onChange={OnChange}
                     id="priorityId"
                   >
-                    <option value="" disabled selected>Select a priority</option>
+                    <option value="" disabled selected>
+                      Select a priority
+                    </option>
                     <option value="Very Low Priority">Very Low Priority</option>
                     <option value="Low Priority">Low Priority</option>
                     <option value="Medium Priority">Medium Priority</option>
@@ -185,10 +217,26 @@ export function GoalForm({ setAdd }) {
                 </div>
               </div>
               <div className="CreateGoalAtForm">
-                <button className={isLoading?"CreateGoalLoader":"CreateGoalAtFormBtn text"}>{isLoading?<img src={Loader} alt="Loading..."/>:"Create"}</button>
+                <button
+                  disabled={isUnchanged}
+                  className={
+                    isUnchanged
+                      ? "EditGoalDisabled text"
+                      : isLoading
+                      ? "CreateGoalLoader"
+                      : !isLoading
+                      ? "CreateGoalAtFormBtn text"
+                      : null
+                  }
+                >
+                  {isLoading ? <img src={Loader} alt="Loading..." /> : "Create"}
+                </button>
               </div>
             </div>
           </div>
+          <pre className="text">
+            {errorMessage !== "" ? errorMessage : null}
+          </pre>
         </form>
       </div>
     </section>

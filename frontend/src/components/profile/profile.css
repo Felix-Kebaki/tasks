@@ -49,7 +49,7 @@
 }
 
 .DisabledBtn {
-  color: rgb(206, 206, 206);
+  color: #cecece;
   background-color: #eeecec;
   padding: 0.4rem 0rem;
 }

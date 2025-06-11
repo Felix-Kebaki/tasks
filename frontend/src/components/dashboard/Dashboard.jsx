@@ -26,18 +26,21 @@ export function Dashboard() {
   const { refetch: Mrefetch, data: Mdata } = useGetMonthlyUsageQuery();
 
   useEffect(() => {
-    Prefetch();
-    Srefetch();
-    Lrefetch();
-    Mrefetch();
-  }, [Prefetch, Srefetch, Lrefetch, Mrefetch]);
+  const refetchAll = async () => {
+    await Prefetch();
+    await Srefetch();
+    await Lrefetch();
+    const result = await Mrefetch();
 
-  useEffect(() => {
-    if (Mdata && Mdata.NumberData && Mdata.labels) {
-      setUsageData(Mdata.NumberData);
-      setUsageLabels(Mdata.labels);
+    if (result?.data?.NumberData && result?.data?.labels) {
+      setUsageData(result.data.NumberData);
+      setUsageLabels(result.data.labels);
     }
-  }, [Mdata]);
+  };
+
+  refetchAll();
+}, []);
+
 
   if (
     !Pdata ||

@@ -43,7 +43,6 @@ export function EditGoal({ edit, setEdit }) {
         id: edit,
       });
       if (res.error) {
-        console.error(res.error.data.error || res.error.error);
         setErrorMessage(res.error.data.error || res.error.error);
         setTimeout(() => {
           setErrorMessage("");
@@ -249,11 +248,11 @@ export function EditGoal({ edit, setEdit }) {
                 disabled={isUnchanged}
                 className={
                   isUnchanged
-                    ? "EditGoalDisabled"
+                    ? "EditGoalDisabled text"
                     : editLoading
                     ? "EditGoalLoader"
                     : !editLoading
-                    ? "EditGoalAtFormBtn"
+                    ? "EditGoalAtFormBtn text"
                     : null
                 }
               >
@@ -262,7 +261,7 @@ export function EditGoal({ edit, setEdit }) {
             </div>
           </div>
         </div>
-        <pre>{errorMessage !== "" ? errorMessage : null}</pre>
+        <pre className="text">{errorMessage !== "" ? errorMessage : null}</pre>
       </form>
     </section>
   );

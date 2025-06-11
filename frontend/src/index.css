@@ -37,7 +37,9 @@ html{
 }
 
 pre{
-  color:red;
+  color:#E53935;
+  margin-top:0.2rem;
+  font-size:0.9rem;
 }
 
 

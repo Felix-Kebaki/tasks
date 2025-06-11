@@ -11,7 +11,7 @@ import { useStartTeamtaskMutation } from "../../redux/api/assignTaskApiSlice";
 import { useMarkAsDoneMutation } from "../../redux/api/assignTaskApiSlice";
 
 export function AssignedTask() {
-  const [submit,setSubmit]=useState(null)
+  const [submit, setSubmit] = useState(null);
 
   const { refetch, data, isLoading } = useGetAssignedQuery();
   const [markAsDone] = useMarkAsDoneMutation();
@@ -32,7 +32,7 @@ export function AssignedTask() {
   };
 
   const HandleClickOnDoneTeamtask = async (teamtaskId) => {
-    setSubmit(teamtaskId)
+    setSubmit(teamtaskId);
     try {
       const res = await markAsDone({ teamtaskId });
       if (res.error) {
@@ -46,17 +46,16 @@ export function AssignedTask() {
     }
   };
 
-
   useEffect(() => {
     refetch();
-  }, [refetch,submit]);
+  }, [refetch, submit]);
 
-  if(isLoading){
-    return(
+  if (isLoading) {
+    return (
       <div className="MainLoaderDiv">
-        <Loading/>
+        <Loading />
       </div>
-    )
+    );
   }
   return (
     <section className="AssignedTaskMainSec">
@@ -70,69 +69,59 @@ export function AssignedTask() {
             data.Assigned.map((each) => (
               <div key={each._id} className="EachAssignedTaskDiv">
                 <div className="TopEachAssignedDiv">
-                  <p className="AssignedStatus text">{each.status}</p>
-                  <div>
-                    <p className="DueAssignedDate text">
-                      Due date:
-                      <span>{moment(each.dueDate).format("MMMM Do YYYY")}</span>
-                    </p>
-                    {each.startDate ? (
-                      <p className="StartAssignedDate text">
-                        Start date:
-                        <span>
-                          {moment(each.startDate).format("MMMM Do YYYY")}
-                        </span>
-                      </p>
-                    ) : null}
+                  <div className="StartAssignedDate text">
+                    <p>Start date:</p>
+                    <span>{moment(each.startDate).format("MMMM Do YYYY")}</span>
+                  </div>
+                  <div className="DueAssignedDate text">
+                    <p>Due date:</p>
+                    <span>{moment(each.dueDate).format("MMMM Do YYYY")}</span>
                   </div>
                 </div>
-                <p className="FirstAssigned AssignTitleAndValue text">
-                  Team: <span>{each.teamName}</span>
+                <p className="TeamtaskTitleOnly title">
+                    {each.teamTaskname}
                 </p>
-                <p className="AssignTitleAndValue text">
-                  Teamtask: <span>{each.teamTaskname}</span>
-                </p>
-                <p className="LastAssigned AssignTitleAndValue text">
-                  Your role: <span>{each.name}</span>
+                <p className="AssignTitleAndValue title">
+                  Your role: <span className="text">{each.name}</span>
                 </p>
                 <div className="BottomDivForEachAssign text">
                   <p
                     className={
                       each.status === "Not Started"
-                        ? "NotStartedStatue"
-                        : each.status === "Completed"
-                        ? "CompletedStatue"
+                        ? "AssignedStatusNotStarted text"
                         : each.status === "In Progress"
-                        ? "InProgressStatue"
-                        :each.status ==="Out of Time"
-                        ?"OutOfTimeStatus": null
+                        ? "AssignedStatusInProgress"
+                        : each.status === "Completed"
+                        ? "AssignedStatusCompleted"
+                        : each.status === "Out of Time"
+                        ? "AssignedStatusOutOfTime"
+                        : null
                     }
                   >
                     {each.status}
                   </p>
-                  {each.status!=="Completed"?
-                  <button
-                    onClick={
-                      each.status === "Not Started"
-                        ? () => HandleClickOnStartTeamtask(each._id)
+                  {each.status !== "Completed" ? (
+                    <button
+                      onClick={
+                        each.status === "Not Started"
+                          ? () => HandleClickOnStartTeamtask(each._id)
+                          : each.status === "In Progress"
+                          ? () => HandleClickOnDoneTeamtask(each._id)
+                          : null
+                      }
+                      className={
+                        (each.status === "Completed" ||  each.status==="Out of Time")
+                          ? "BottomDivForEachAssignDelete"
+                          :(each.status==="Not Started" || each.status==="In Progress")? "AssignedInProgressAndNotStartedBtn":null
+                      }
+                    >
+                      {each.status === "Not Started"
+                        ? "Start"
                         : each.status === "In Progress"
-                        ? () => HandleClickOnDoneTeamtask(each._id)
-                        : null
-                    }
-                    className={
-                      each.status === "Completed" || "Out of Time"
-                        ? "BottomDivForEachAssignDelete"
-                        : "BottomDivForEachAssignOthers"
-                    }
-                  >
-                    {each.status === "Not Started"
-                      ? "Start"
-                      : each.status === "In Progress"
-                      ? "Done"
-                      : each.status === "Out of Time"
-                      ? "Delete"
-                      : null}
-                  </button>:null}
+                        ? "Done"
+                        : null}
+                    </button>
+                  ) : null}
                 </div>
               </div>
             ))}
@@ -142,11 +131,11 @@ export function AssignedTask() {
           <p className="text">You have no tasks assigned to you.</p>
         </div>
       ) : null}
-      {
-        submit!==null?<div className="OverflowAddMainDiv">
-          <SumbitYouWork submit={submit} setSubmit={setSubmit}/>
-        </div>:null
-      }
+      {submit !== null ? (
+        <div className="OverflowAddMainDiv">
+          <SumbitYouWork submit={submit} setSubmit={setSubmit} />
+        </div>
+      ) : null}
     </section>
   );
 }

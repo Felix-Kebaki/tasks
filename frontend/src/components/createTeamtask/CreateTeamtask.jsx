@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import "./createTeamtask.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,9 +6,10 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { useCreateTeamtaskMutation } from "../../redux/api/teamTaskApiSlice";
 
-import Loader from '../../assets/images/blackLoader.png'
+import Loader from "../../assets/images/blackLoader.png";
 
 export function CreateTeamtask({ setAdd, add }) {
+  const [errorMessage,setErrorMessage]=useState("")
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -26,7 +27,7 @@ export function CreateTeamtask({ setAdd, add }) {
     }));
   };
 
-  const [createTeamtask,{isLoading}] = useCreateTeamtaskMutation();
+  const [createTeamtask, { isLoading }] = useCreateTeamtaskMutation();
 
   const HandleSubmitTeamtask = async (e) => {
     e.preventDefault();
@@ -50,17 +51,34 @@ export function CreateTeamtask({ setAdd, add }) {
       });
 
       if (res.error) {
-        console.error(
+        setErrorMessage(
           res.error.data.error || res.error.error || "Unknown error occured"
         );
+        setTimeout(()=>{
+          setErrorMessage("")
+        },3000)
       } else {
         console.log(res.data.message);
         setAdd(null);
       }
     } catch (error) {
       console.error(error.message);
+      setErrorMessage(error.message || error)
+      setTimeout(()=>{
+        setErrorMessage("")
+      },3000)
     }
   };
+
+  const isAllfield = useMemo(() => {
+    return (
+      name !== "" &&
+      description !== "" &&
+      dueDate !== "" &&
+      type !== "" &&
+      type==="None"?true:type==="Link"?link!=="":upload!==null
+    );
+  }, [name, description, dueDate, type, link, upload]);
 
   return (
     <section className="CreateTeamtaskMainSec">
@@ -165,10 +183,22 @@ export function CreateTeamtask({ setAdd, add }) {
           <div className="CreateTeamtaskButtonDiv">
             <button
               type="submit"
-              className={isLoading?"CreateTeamtaskLoader":"CreateTeamtaskButton text"}
-            >{isLoading?<img src={Loader} alt="Loading..."/> :"Create"}</button>
+              disabled={!isAllfield}
+              className={
+                !isAllfield
+                  ? "CreateTeamtaskDisabled text"
+                  : isLoading
+                  ? "CreateTeamtaskLoader"
+                  : !isLoading
+                  ? "CreateTeamtaskButton text"
+                  : null
+              }
+            >
+              {isLoading ? <img src={Loader} alt="Loading..." /> : "Create"}
+            </button>
           </div>
         </div>
+        <pre className="text">{errorMessage!==""?errorMessage:null}</pre>
       </form>
     </section>
   );

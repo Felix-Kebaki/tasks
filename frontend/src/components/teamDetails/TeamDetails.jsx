@@ -301,10 +301,11 @@ export function TeamDetails() {
                   </div>
                 ) : null}
                 <div className="ProgressBarMainOuterDiv">
-                  <p className="text">{each.completedOnes!==0?"Progress":"No progress"}</p>
+                  <p className="text">{each.completedOnes!==0?`Progress:${Math.floor((each.completedOnes / each.allAssigned) * 100)}%`:"No progress"}</p>
                   <div className="ProgressBarMainDiv">
-                    <div className="ProgressBackgroundShowing" style={{width:`${(each.completedOnes/each.allAssigned)*100}%`}}></div>
+                    <div className="ProgressBackgroundShowing" style={{width:each.completedOnes===0?"0%":`${(each.completedOnes / each.allAssigned) * 100}%`}}></div>
                   </div>
+                  
                 </div>
                 <div className="InputDivForAssigningTask">
                   <p className="InputDivForAssigningTaskTitleMembers text">

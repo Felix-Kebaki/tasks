@@ -101,6 +101,15 @@
   margin-top: 0.5rem;
 }
 
+.CreateObjectiveDisabled{
+  padding: 0.5rem 0rem 0.5rem 0rem;
+  width: 100%;
+  background-color: #eeecec;
+  border: none;
+  color: #cecece;
+  border-radius: 0.3rem;
+}
+
 .CreateObjectiveBtn {
   padding: 0.5rem 0rem 0.5rem 0rem;
   width: 100%;
@@ -120,7 +129,7 @@
   }
 }
 
-.SubmitAuthLoaderObjective {
+.CreateObjLoader {
   padding: 0.35rem 0rem;
   width: 100%;
   background-color: #fc8415;
@@ -128,7 +137,7 @@
   border: none;
 }
 
-.SubmitAuthLoaderObjective img {
+.CreateObjLoader img {
   height: 1rem;
   width: 1.2rem;
   animation: ObjloaderSpin 1s ease-in infinite;
@@ -157,10 +166,13 @@
   .CategoryObjectiveDiv {
     width: 20rem;
   }
+  .CreateObjectiveDisabled{
+    width:20rem;
+  }
   .CreateObjectiveBtn {
     width: 20rem;
   }
-  .SubmitAuthLoaderObjective {
+  .CreateObjLoader {
     width: 20rem;
   }
 }
@@ -179,10 +191,13 @@
   .CategoryObjectiveDiv {
     width: 100%;
   }
+  .CreateObjectiveDisabled{
+    width:100%;
+  }
   .CreateObjectiveBtn {
     width: 100%;
   }
-  .SubmitAuthLoaderObjective {
+  .CreateObjLoader {
     width: 100%;
   }
 }

@@ -9,6 +9,7 @@ import { useMarkAsDoneMutation } from "../../redux/api/assignTaskApiSlice";
 import Loader from "../../assets/images/blackLoader.png";
 
 export function SumbitYouWork({ submit, setSubmit }) {
+  const [errorMessage,setErrorMessage]=useState("")
   const [submitForm, setSubmitForm] = useState({
     type: "",
     link: "",
@@ -43,13 +44,20 @@ export function SumbitYouWork({ submit, setSubmit }) {
         },
       });
       if (res.error) {
-        console.error(res.error.data.error || res.error.error);
+        setErrorMessage(res.error.data.error || res.error.error);
+        setTimeout(()=>{
+          setErrorMessage("")
+        },3000)
       } else {
         console.log(res.data.message);
         setSubmit(null);
       }
     } catch (error) {
       console.error(error.message);
+        setErrorMessage(error.message || error);
+        setTimeout(()=>{
+          setErrorMessage("")
+        },3000)
     }
   };
 
@@ -154,6 +162,7 @@ export function SumbitYouWork({ submit, setSubmit }) {
             </button>
           </div>
         ) : null}
+        <pre className="text">{errorMessage!==""?errorMessage:null}</pre>
       </form>
     </section>
   );

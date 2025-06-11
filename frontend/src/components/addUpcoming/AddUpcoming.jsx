@@ -10,6 +10,7 @@ import { useToast } from "../../context/ToastContext";
 import Loader from "../../assets/images/blackLoader.png";
 
 export function AddUpcoming({ setAdd, add }) {
+  const [errorMessage, setErrorMessage] = useState("");
   const [name, setName] = useState("");
   const { showToast } = useToast();
 
@@ -20,15 +21,20 @@ export function AddUpcoming({ setAdd, add }) {
     try {
       const res = await createEvent({ title: name, eventDate: add });
       if (res.error) {
-        showToast(res.error.data.error || res.error.error, "error");
-        setAdd(null);
+        setErrorMessage(res.error.data.error || res.error.error);
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 3000);
       } else {
         showToast(res.data.message, "success");
         setAdd(null);
       }
     } catch (error) {
       console.error(error.message);
-      showToast(error.message, "error");
+      setErrorMessage(error.message || error);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
     }
   };
 
@@ -78,6 +84,7 @@ export function AddUpcoming({ setAdd, add }) {
             </button>
           </div>
         </div>
+        <pre className="text">{errorMessage!==""?errorMessage:null}</pre>
       </form>
     </section>
   );
