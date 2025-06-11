@@ -28,6 +28,14 @@ const createTeamTask = async (req, res) => {
       return res.status(422).json({ error: "Teamtask already exist" });
     }
 
+    if(type==="Document" && req.file?.mimetype.startsWith("image/")){
+      return res.status(422).json({error:"Submit a document"})
+    }
+
+    if(type==="Photo" && !req.file?.mimetype.startsWith("image/") && !req.file.mimetype.startsWith("video/")){
+      return res.status(422).json({error:"Submit a Photo"})
+    }
+
     const created = await TeamTask.create({
       name: capitalizeFirst(name),
       description: capitalizeFirst(description),
@@ -165,6 +173,13 @@ const editTeamtask = async (req, res) => {
 
     if (fileType === "Document" || fileType === "Photo") {
       if (req.file) {
+        if(fileType==="Photo" && !req.file?.mimetype.startsWith("image/")){
+          return res.status(422).json({error:"Upload a photo"})
+        }
+        if(fileType==="Document" && req.file?.mimetype.startsWith("image/")){
+          return res.status(422).json({error:"Upload a document"})
+        }
+
         if (
           currentTask.fileType !== "Link" &&
           currentTask.fileType !== "None"
@@ -194,6 +209,9 @@ const editTeamtask = async (req, res) => {
           .json({ error: `File is required for ${fileType}` });
       }
     } else if (fileType === "Link") {
+      if(!linkUrl){
+        return res.status(422).json({error:"Provide a link"})
+      }
       updates.fileUrl = linkUrl;
       updates.fileType = "Link";
 
@@ -266,7 +284,7 @@ const editTeamtask = async (req, res) => {
     }
 
     res.status(200).json({
-      message: "Teamtask updated successfully",
+      message: "Updated successfully",
     });
   } catch (error) {
     console.error(error.message);

@@ -130,7 +130,7 @@
   border-radius: 0.3rem;
   left: 0rem;
   width: 10rem;
-  z-index:9999;
+  z-index: 9999;
 }
 
 .EachteamTaskSubMenuDiv a {
@@ -199,30 +199,30 @@
   font-size: 0.9rem;
 }
 
-.ProgressBarMainOuterDiv{
-  position:relative;
-  margin-top:0.3rem;
-  width:100%;
-  padding:0.4rem 0rem 0rem 0rem;
+.ProgressBarMainOuterDiv {
+  position: relative;
+  margin-top: 0.3rem;
+  width: 100%;
+  padding: 0.4rem 0rem 0rem 0rem;
 }
 
-.ProgressBarMainOuterDiv p{
+.ProgressBarMainOuterDiv p {
   position: absolute;
-  right:0;
-  top:0;
-  font-size:0.7rem;
-  color:#fc8415;
+  right: 0;
+  top: 0;
+  font-size: 0.7rem;
+  color: #fc8415;
 }
 
-.ProgressBarMainDiv{
-  width:100%;
+.ProgressBarMainDiv {
+  width: 100%;
   background-color: #eeecec;
-  border-radius:1rem;
+  border-radius: 1rem;
   height: 0.2rem;
-  margin-top:0.5rem;
+  margin-top: 0.5rem;
 }
 
-.ProgressBackgroundShowing{
+.ProgressBackgroundShowing {
   background-color: #0483bb;
   border-radius: 1rem;
   height: 100%;
@@ -239,11 +239,11 @@
 }
 
 .AllAssignedTeamtaskTeamDetailsWrapper {
-  margin: 0.4rem 0rem 0.2rem 0.6rem;
+  margin: 0.4rem 0rem 0.2rem 0.2rem;
 }
 
 .AssignTeamtaskInputMainDiv {
-  margin: 0.1rem 0rem 0.5rem 0.6rem;
+  margin: 0.1rem 0rem 0.5rem 0.2rem;
   display: flex;
 }
 
@@ -298,6 +298,9 @@
     font-size: 1rem;
     text-align: center;
   }
+  .EachTeamtaskWithDetailsDiv {
+    padding: 0.5rem;
+  }
   .EachteamTaskTitleAndIconDiv {
     width: 100%;
   }
@@ -331,9 +334,9 @@
 }
 
 @media screen and (max-width: 375px) {
-    .AllAssignedTeamtaskMembersName{
-        font-size:0.9rem;
-    }
+  .AllAssignedTeamtaskMembersName {
+    font-size: 0.9rem;
+  }
 }
 
 @media screen and (max-width: 314px) {
@@ -357,7 +360,6 @@
     font-size: 0.9rem;
   }
 }
-
 
 @media screen and (max-width: 269px) {
   .TopOfTeamDetailsDiv p {

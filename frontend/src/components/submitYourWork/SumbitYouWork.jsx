@@ -98,7 +98,7 @@ export function SumbitYouWork({ submit, setSubmit }) {
             </option>
             <option value="None">None</option>
             <option value="Document">Document</option>
-            <option value="Photo">Image</option>
+            <option value="Photo">Photo</option>
             <option value="Link">Link</option>
           </select>
         </div>

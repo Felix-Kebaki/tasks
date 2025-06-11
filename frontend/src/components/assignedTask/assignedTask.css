@@ -120,6 +120,21 @@
   color: #0483bb;
 }
 
+.AssignedTaskDurationMainDiv{
+  display:flex;
+  flex-direction:column;
+}
+
+.AssignedTaskDurationMainDiv p{
+  font-size:0.7rem;
+}
+
+.AssignedTaskDurationMainDiv span{
+  font-size: 0.7rem;
+  margin-top:-0.2rem;
+  color:#0483bb;
+}
+
 .NoAssignedTaskMainDiv p {
   padding: 3rem 0rem;
   color: #fc8415;

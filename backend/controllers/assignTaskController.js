@@ -1,9 +1,8 @@
 const Team = require("../models/teamModel");
 const EachTask = require("../models/assignTaskModel");
 const TeamTask = require("../models/teamTaskModel");
-const User = require("../models/userModel");
 const capitalizeFirst = require("../utils/capitalize");
-const path = require("path");
+const calculateDuration=require("../utils/calculateAssignedDuration")
 
 const Assigntask = async (req, res) => {
   const { name } = req.body;
@@ -54,10 +53,12 @@ const getAssignedTask = async (req, res) => {
           _id: each._id,
           name: each.name,
           teamTaskname: teamtask.name,
-          teamName: teamtask.teamName,
           dueDate: teamtask.dueDate,
           status: each.status,
           startDate: each.startDate,
+          days:each.duration.days,
+          hours:each.duration.hours,
+          minutes:each.duration.minutes
         });
       }
       res.status(200).json({ Assigned: allDetails });
@@ -145,6 +146,14 @@ const completeTeamtask = async (req, res) => {
       return res.status(422).json({ error: "Task must be in progress first" });
     }
 
+    if(type==="Document" && req.file?.mimetype.startsWith("image/")){
+      return res.status(422).json({error:"Upload a document"})
+    }
+
+    if(type==="Photo" && !req.file?.mimetype.startsWith("image/")){
+      return res.status(422).json({error:"Upload a photo"})
+    }
+
     if (type !== "None") {
       const submission = {
         submittedBy: req.user._id,
@@ -173,6 +182,9 @@ const completeTeamtask = async (req, res) => {
       assignedTask.doneDate = new Date();
     }
 
+    const duration=calculateDuration(assignedTask.startDate,assignedTask.doneDate)
+    assignedTask.duration=duration
+
     const marked = await assignedTask.save();
     teamtask.completedOnes+=1
     await teamtask.save()
@@ -180,6 +192,7 @@ const completeTeamtask = async (req, res) => {
     if (!marked) {
       return res.status(422).json({ error: "Unable to mark as done" });
     }
+
     res.status(200).json({ message: "Marked as complete" });
   } catch (error) {
     console.error(error.message);

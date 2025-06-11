@@ -78,9 +78,7 @@ export function AssignedTask() {
                     <span>{moment(each.dueDate).format("MMMM Do YYYY")}</span>
                   </div>
                 </div>
-                <p className="TeamtaskTitleOnly title">
-                    {each.teamTaskname}
-                </p>
+                <p className="TeamtaskTitleOnly title">{each.teamTaskname}</p>
                 <p className="AssignTitleAndValue title">
                   Your role: <span className="text">{each.name}</span>
                 </p>
@@ -110,9 +108,13 @@ export function AssignedTask() {
                           : null
                       }
                       className={
-                        (each.status === "Completed" ||  each.status==="Out of Time")
+                        each.status === "Completed" ||
+                        each.status === "Out of Time"
                           ? "BottomDivForEachAssignDelete"
-                          :(each.status==="Not Started" || each.status==="In Progress")? "AssignedInProgressAndNotStartedBtn":null
+                          : each.status === "Not Started" ||
+                            each.status === "In Progress"
+                          ? "AssignedInProgressAndNotStartedBtn"
+                          : null
                       }
                     >
                       {each.status === "Not Started"
@@ -121,7 +123,20 @@ export function AssignedTask() {
                         ? "Done"
                         : null}
                     </button>
-                  ) : null}
+                  ) : (
+                    <div className="AssignedTaskDurationMainDiv">
+                      <p className="text">Duration:</p>
+                      <span className="text">
+                        {each.days === "0" && each.hours === "0"
+                          ? `${each.minutes} mins`
+                          : each.days === "0" && each.hours !== "0"
+                          ? `${each.hours} hrs,${each.minutes} mins`
+                          : each.days !== "0"
+                          ? `${each.days} days,${each.hours} hrs,${each.minutes} min`
+                          : null}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
