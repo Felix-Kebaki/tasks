@@ -2,12 +2,16 @@ import React from "react";
 
 import { useToast } from "../../context/ToastContext";
 
+import { useNavigate } from "react-router-dom";
+
 import { useDeleteTeamMutation } from "../../redux/api/teamApiSlice";
 import { useDeleteTeamtaskMutation } from "../../redux/api/teamTaskApiSlice";
 
 export function TeamConfirm({ msg, setMsg, confirm, setConfirm }) {
   const [deleteTeam] = useDeleteTeamMutation();
   const [deleteTeamtask]=useDeleteTeamtaskMutation()
+
+  const navigate=useNavigate()
 
   const {showToast}=useToast()
 
@@ -26,6 +30,7 @@ export function TeamConfirm({ msg, setMsg, confirm, setConfirm }) {
         showToast(res.data.message,"success");
         setMsg("");
         setConfirm(null);
+        navigate("/app/teams")
       }
     } catch (error) {
       console.log(error.message||error);

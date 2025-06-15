@@ -17,7 +17,7 @@ import Loader from "../../assets/images/Loader.png";
 
 export function Profile() {
   const { userInfo } = useSelector((state) => state.auth);
-  const {showToast}=useToast()
+  const { showToast } = useToast();
   const [passwordForm, setPasswordForm] = useState({
     current: "",
     newPass: "",
@@ -34,6 +34,8 @@ export function Profile() {
   const [show3, setShow3] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessagePass, setErrorMessagePass] = useState("");
+
+  const [disableBtn, setDisableBtn] = useState(true);
 
   const { firstName, lastName, email } = profileForm;
   const { current, newPass, confirmNew } = passwordForm;
@@ -73,7 +75,7 @@ export function Profile() {
             setErrorMessagePass("");
           }, 3000);
         } else {
-          showToast(res.data.message,"success");
+          showToast(res.data.message, "success");
           setPasswordForm({ current: "", newPass: "", confirmNew: "" });
         }
       } else {
@@ -102,7 +104,7 @@ export function Profile() {
           setErrorMessage("");
         }, 3000);
       } else {
-        showToast(res.data.message,"success");
+        showToast(res.data.message, "success");
         localStorage.setItem("userInfo", JSON.stringify(res.data.user));
       }
     } catch (error) {
@@ -111,14 +113,26 @@ export function Profile() {
       setTimeout(() => {
         setErrorMessage("");
       }, 3000);
+    } finally {
+      setDisableBtn(true);
     }
   };
 
   const isUnchangedProfile = useMemo(() => {
+    if (
+      firstName === (userInfo?.firstName || "") &&
+      lastName === (userInfo?.lastName || "") &&
+      email === (userInfo?.email || "")
+    ) {
+      setDisableBtn(true);
+    } else {
+      setDisableBtn(false);
+    }
     return (
       firstName === (userInfo?.firstName || "") &&
       lastName === (userInfo?.lastName || "") &&
       email === (userInfo?.email || "") &&
+      disableBtn  &&
       !isLoading
     );
   }, [userInfo, profileForm]);
@@ -176,10 +190,10 @@ export function Profile() {
           </div>
           <div className="text">
             <button
-              disabled={isUnchangedProfile}
+              disabled={isUnchangedProfile || disableBtn}
               type="submit"
               className={
-                isUnchangedProfile
+                isUnchangedProfile || disableBtn
                   ? "DisabledBtn text"
                   : !isLoading
                   ? "EditProfileBtn text"

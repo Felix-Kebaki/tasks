@@ -9,7 +9,7 @@ import { TeamConfirm } from "../confirm/TeamConfirm";
 import { Invite } from "../inviteMember/Invite";
 import { ViewAssets } from "../viewAssets/ViewAssets";
 import { EditTeamtask } from "../EditTeamtask/EditTeamtask";
-import {Loading} from '../loading/Loading'
+import { Loading } from "../loading/Loading";
 
 import { useToast } from "../../context/ToastContext";
 
@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
@@ -36,17 +37,39 @@ export function TeamDetails() {
   const [confirm, setConfirm] = useState(null);
   const [msg, setMsg] = useState("");
   const [view, setView] = useState(null);
+  const [delTeam,setDelTeam]=useState(null)
 
-  const {showToast}=useToast()
+  const { showToast } = useToast();
 
-  const { refetch: teamtaskRefetch, data: teamTasks,isLoading } = useGetTeamtaskQuery({
+  const {
+    refetch: teamtaskRefetch,
+    data: teamTasks,
+    isLoading,
+  } = useGetTeamtaskQuery({
     teamId: param.id,
   });
   const [assignTask] = useAssignTaskMutation();
 
+  const HandleTeamMenuEnter = () => {
+    document
+      .querySelector(".TeamMainAppearingMenu")
+      .classList.add("TeamMainAppearMenu");
+  };
+
+  const HandleTeamMenuLeave = () => {
+    document
+      .querySelector(".TeamMainAppearingMenu")
+      .classList.remove("TeamMainAppearMenu");
+  };
+
   const HandleAddTeamTask = (teamid) => {
     setAdd(teamid);
   };
+
+  const HandleClickOnDeleteTeam=(id)=>{
+    setDelTeam(id)
+    setMsg("Are you sure you want the team and all it's data to be deleted")
+  }
 
   const OnChangeAssignedTask = (taskId, memberId, value) => {
     setAssignedTask((prev) => ({
@@ -70,9 +93,9 @@ export function TeamDetails() {
         });
         if (res.error) {
           console.error(res.error.data?.error || res.error.error);
-          showToast(res.error.data?.error || res.error.error,"error")
+          showToast(res.error.data?.error || res.error.error, "error");
         } else {
-          showToast(res.data.message,"success");
+          showToast(res.data.message, "success");
           teamtaskRefetch();
           setAssignedTask((prev) => ({
             ...prev,
@@ -85,8 +108,8 @@ export function TeamDetails() {
         }
       }
     } catch (error) {
-      console.error(error.message||error);
-      showToast(error.message||error,"error")
+      console.error(error.message || error);
+      showToast(error.message || error, "error");
     }
   };
 
@@ -111,13 +134,12 @@ export function TeamDetails() {
     teamtaskRefetch();
   }, [add, teamtaskRefetch, confirm, invite, editTeamtask]);
 
-
-  if(isLoading){
-    return(
+  if (isLoading) {
+    return (
       <div className="MainLoaderDiv">
-        <Loading/>
+        <Loading />
       </div>
-    )
+    );
   }
 
   return (
@@ -125,12 +147,51 @@ export function TeamDetails() {
       <div className="TopOfTeamDetailsDiv">
         <p className="title">Teamtasks</p>
         {teamTasks?.isAdmin ? (
-          <button
-            onClick={() => HandleAddTeamTask(teamTasks?.team)}
-            className="text"
+          <ul
+            className="TeamMainMenuAndIcon"
+            onMouseEnter={HandleTeamMenuEnter}
+            onMouseLeave={HandleTeamMenuLeave}
           >
-            Create Teamtask
-          </button>
+            <FontAwesomeIcon
+              icon={faEllipsisVertical}
+              className="TeamMainMenuIconForMenuIcon"
+            />
+            <div className="TeamMainAppearingMenu">
+              <p
+                onClick={() => HandleAddTeamTask(teamTasks?.team)}
+                className="text"
+              >
+                {" "}
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="EachteamSubmenuIcons"
+                />
+                Create Teamtask
+              </p>
+              <p
+                className="text"
+                onClick={() => HandleClickOnInvite(teamTasks?.team)}
+              >
+                {" "}
+                <FontAwesomeIcon
+                  icon={faUserPlus}
+                  className="EachteamSubmenuIcons"
+                />
+                Invite member
+              </p>
+              <p
+                className="text"
+                onClick={() => HandleClickOnDeleteTeam(teamTasks?.team)}
+              >
+                {" "}
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  className="EachteamSubmenuIcons"
+                />
+                Delete
+              </p>
+            </div>
+          </ul>
         ) : null}
       </div>
       <div>
@@ -182,13 +243,6 @@ export function TeamDetails() {
                                   className="EachteamTaskSubmenuIcons"
                                 />
                                 Edit
-                              </p>
-                              <p onClick={() => HandleClickOnInvite(each.team)}>
-                                <FontAwesomeIcon
-                                  icon={faUserPlus}
-                                  className="EachteamTaskSubmenuIcons"
-                                />
-                                Invite member
                               </p>
                               <p onClick={() => HandleDeleteTeamtask(each._id)}>
                                 <FontAwesomeIcon
@@ -243,13 +297,6 @@ export function TeamDetails() {
                                   className="EachteamTaskSubmenuIcons"
                                 />
                                 Edit
-                              </p>
-                              <p onClick={() => HandleClickOnInvite(each.team)}>
-                                <FontAwesomeIcon
-                                  icon={faUserPlus}
-                                  className="EachteamTaskSubmenuIcons"
-                                />
-                                Invite member
                               </p>
                               <p onClick={() => HandleDeleteTeamtask(each._id)}>
                                 <FontAwesomeIcon
@@ -307,11 +354,26 @@ export function TeamDetails() {
                   </div>
                 ) : null}
                 <div className="ProgressBarMainOuterDiv">
-                  <p className="text">{each.completedOnes!==0?`Progress:${Math.floor((each.completedOnes / each.allAssigned) * 100)}%`:"No progress"}</p>
+                  <p className="text">
+                    {each.completedOnes !== 0
+                      ? `Progress:${Math.floor(
+                          (each.completedOnes / each.allAssigned) * 100
+                        )}%`
+                      : "No progress"}
+                  </p>
                   <div className="ProgressBarMainDiv">
-                    <div className="ProgressBackgroundShowing" style={{width:each.completedOnes===0?"0%":`${(each.completedOnes / each.allAssigned) * 100}%`}}></div>
+                    <div
+                      className="ProgressBackgroundShowing"
+                      style={{
+                        width:
+                          each.completedOnes === 0
+                            ? "0%"
+                            : `${
+                                (each.completedOnes / each.allAssigned) * 100
+                              }%`,
+                      }}
+                    ></div>
                   </div>
-                  
                 </div>
                 <div className="InputDivForAssigningTask">
                   <p className="InputDivForAssigningTaskTitleMembers text">
@@ -400,6 +462,13 @@ export function TeamDetails() {
           />
         </div>
       ) : null}
+      {
+        delTeam!==null?(
+          <div className="OverflowAddMainDiv">
+            <TeamConfirm setMsg={setMsg} msg={msg} confirm={delTeam} setConfirm={setDelTeam}/>
+          </div>
+        ):null
+      }
     </section>
   );
 }

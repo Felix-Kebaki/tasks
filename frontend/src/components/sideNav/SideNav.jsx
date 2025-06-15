@@ -69,7 +69,7 @@ export function SideNav() {
     try {
       await logout();
       dispatch(logoutS());
-      navigate("/home");
+      navigate("/login");
     } catch (error) {
       console.error(error.message);
     }

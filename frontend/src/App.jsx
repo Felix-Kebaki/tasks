@@ -1,23 +1,24 @@
-import { MyGoals } from "./components/myGoalsHome/MyGoals";
-import { DailyRoutine } from "./components/dailyRoutineHome/DailyRoutine";
-import { Navigation } from "./components/navigationHome/Navigation";
-import { TeamWork } from "./components/teamWorkHome/TeamWork";
-import { HowItWorks } from "./components/whoWeAreHome/HowItWorks";
-import { Hero } from "./components/heroHome/Hero";
+import React from "react";
+import "./index.css";
+import { SideNav } from "./components/sideNav/SideNav";
+import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
-function App() {
+export function App() {
+  const { userInfo } = useSelector((state) => state.auth);
   return (
     <>
-      <main className="MainAtApp">
-        <Navigation />
-        <Hero/>
-        <HowItWorks/>
-        <DailyRoutine/>
-        <MyGoals/>
-        <TeamWork/>
-      </main>
+      {userInfo ? (
+        <main className="AppLoggedInMain">
+          <SideNav />
+          <div>
+            <Outlet />
+          </div>
+        </main>
+      ) : (
+        <Navigate to="/login" />
+      )}
     </>
   );
 }
-
-export default App;

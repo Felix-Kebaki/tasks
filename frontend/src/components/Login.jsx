@@ -67,7 +67,7 @@ export function Login() {
         <img src={formBackground} className="AuthBackground" />
         <div className="AuthActualFormDiv">
           <form className="AuthFormDiv" onSubmit={HandleSubmitLogin}>
-            <Link to="/" className="AuthFormLogoAndTitle">
+            <Link to="/login" className="AuthFormLogoAndTitle">
               <img src={Logo} alt="" />
               <p className="title">TaskTracker</p>
             </Link>

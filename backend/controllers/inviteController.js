@@ -11,7 +11,7 @@ const sendInvite = async (req, res) => {
     }
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ error: "The email is not registered" });
+      return res.status(404).json({ error: `${email} is not registered` });
     }
     const team = await Team.findById(req.params.teamId);
     if (!team) {

@@ -36,6 +36,10 @@ const createTeamTask = async (req, res) => {
       return res.status(422).json({error:"Submit a Photo"})
     }
 
+    if(new Date(dueDate)<new Date()){
+      return res.status(422).json({error:"Due date can't be in the past"})
+    }
+
     const created = await TeamTask.create({
       name: capitalizeFirst(name),
       description: capitalizeFirst(description),

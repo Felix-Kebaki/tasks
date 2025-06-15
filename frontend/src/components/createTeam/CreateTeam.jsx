@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import Loader from '../../assets/images/blackLoader.png'
+import Loader from "../../assets/images/blackLoader.png";
 
 import { useCreateTeamMutation } from "../../redux/api/teamApiSlice";
 import { useSendInviteMutation } from "../../redux/api/invitesApiSlice";
@@ -16,9 +16,9 @@ export function CreateTeam({ setAdd }) {
   const [teamName, setTeamName] = useState("");
   const [invited, setInvited] = useState([]);
   const [inviteMemberNo, setInviteMemberNo] = useState(0);
-  const [errorMessage,setErrorMessage]=useState("")
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const {showToast}=useToast()
+  const { showToast } = useToast();
 
   const [createTeam, { isLoading }] = useCreateTeamMutation();
   const [sendInvite, { isLoading: inviteLoading }] = useSendInviteMutation();
@@ -37,7 +37,7 @@ export function CreateTeam({ setAdd }) {
   const HandleSubmitCreateTeam = async (e) => {
     e.preventDefault();
     try {
-      if (invited.length === 0 || invited.some(item=>item ==="")) {
+      if (invited.length === 0) {
         setErrorMessage("Invite atleast one user");
         setTimeout(() => {
           setErrorMessage("");
@@ -55,29 +55,26 @@ export function CreateTeam({ setAdd }) {
             if (each?.trim()) {
               const res = await sendInvite({ data: { email: each }, teamId });
               if (res.error) {
-                console.log(res.error.data.error || res.error.error);
-                setErrorMessage(res.error.data.error || res.error.error);
-                setTimeout(() => {
-                  setErrorMessage("");
-                }, 3000);
+                showToast(res.error.data.error || res.error.error, "error")
+                continue
               } else {
-                showToast("Invitation sent successfully","success");
+                showToast("Invitation sent successfully", "success");
               }
             }
           }
+          showToast(response.data.message, "success");
           setInviteMemberNo(0);
           setAdd(false);
         }
       }
     } catch (error) {
       console.log(error.message);
-      setErrorMessage(error.message);      
+      setErrorMessage(error.message);
       setTimeout(() => {
         setErrorMessage("");
       }, 3000);
     }
   };
-
 
   return (
     <section className="CreateTeamMainSec">
@@ -137,12 +134,16 @@ export function CreateTeam({ setAdd }) {
                 member
               </div>
               <div className="CreateTeamSubmitBtnDiv">
-                <button type="submit" className={isLoading || inviteLoading?"CreateTeamLoader":"CreateTeamSubmitBtn text"}>
+                <button
+                  type="submit"
+                  className={
+                    isLoading || inviteLoading
+                      ? "CreateTeamLoader"
+                      : "CreateTeamSubmitBtn text"
+                  }
+                >
                   {isLoading || inviteLoading ? (
-                    <img
-                      src={Loader}
-                      alt="Loading..."
-                    />
+                    <img src={Loader} alt="Loading..." />
                   ) : (
                     "Create"
                   )}

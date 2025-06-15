@@ -92,10 +92,15 @@
 
 .AnyOfTheTwoGoalForm div select {
   width: 100%;
+  max-width: 100%;
   padding: 0.3rem 0.1rem;
   outline: none;
   border-radius: 0.3rem;
   border: 0.1rem black solid;
+}
+
+.AnyOfTheTwoGoalForm div select option {
+  max-width: fit-content;
 }
 
 .AnyOfTheTwoGoalForm div input {
@@ -110,7 +115,7 @@
   width: 100%;
 }
 
-.CreateGoalDisabled{
+.CreateGoalDisabled {
   padding: 0.45rem 0rem 0.45rem 0rem;
   width: 100%;
   border-radius: 0.3rem;
@@ -192,34 +197,34 @@
     font-size: 0.9rem;
     max-width: 100%;
   }
-    .GoalFormAllInputDiv {
-    flex-direction:column;
-    row-gap:0.5rem;
+  .GoalFormAllInputDiv {
+    flex-direction: column;
+    row-gap: 0.5rem;
   }
-    .NameDescGoalForm {
+  .NameDescGoalForm {
     width: 100%;
   }
   .NameDescGoalForm div textarea {
-  max-height: 5rem;
-  min-height: 5rem;
+    max-height: 5rem;
+    min-height: 5rem;
     max-width: 100%;
-  min-width: 100%;
-}
-.AllOtherAtGoalFormMainDiv {
-  width: 100%;
-}
+    min-width: 100%;
+  }
+  .AllOtherAtGoalFormMainDiv {
+    width: 100%;
+  }
   .AnyOfTheTwoGoalForm {
     margin-bottom: 0.5rem;
   }
 }
 
 @media screen and (max-width: 344px) {
-.AnyOfTheTwoGoalForm {
-  flex-direction:column;
-  row-gap:0.5rem;
-}
-.AnyOfTheTwoGoalForm div {
-  width: 100%;
-}
-
+  .AnyOfTheTwoGoalForm {
+    flex-direction: column;
+    row-gap: 0.5rem;
+  }
+  .AnyOfTheTwoGoalForm div {
+    width: 100%;
+    max-width: 100%;
+  }
 }

@@ -1,13 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { ToastProvider } from "./context/ToastContext.jsx";
 
 import store from "./redux/store.js";
-import App from "./App.jsx";
-import { AppLogged } from "./AppLogged.jsx";
+import { App } from "./App.jsx";
 import { LoginPage } from "./pages/LoginPage.jsx";
 import { RegisterPage } from "./pages/RegisterPage.jsx";
 import { GoalsPage } from "./pages/GoalsPage.jsx";
@@ -25,12 +24,12 @@ import { ProfilePage } from "./pages/ProfilePage.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App />,
+    path:"/",
+    element:<Navigate to="/app/dashboard"/>
   },
   {
     path: "/app",
-    element: <AppLogged />,
+    element: <App />,
     children: [
       {
         path: "/app/dashboard",

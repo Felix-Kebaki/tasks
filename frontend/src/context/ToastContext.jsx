@@ -29,7 +29,7 @@ export const ToastProvider = ({ children }) => {
             style={{
               ...toastStyle,
               ...typeStyles[toast.type],
-              animation: "slideUp 0.4s ease forwards",
+              animation: "slideUp 0.3s ease forwards",
             }}
           >
             {toast.message}

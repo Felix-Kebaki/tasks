@@ -53,21 +53,6 @@
   outline: none;
 }
 
-.CheckBoxUpcomingDiv {
-  display: flex;
-  column-gap: 0.2rem;
-  margin-top: 0.8rem;
-  justify-content: start;
-}
-
-.CheckBoxUpcomingDiv input {
-  width: 1rem;
-}
-
-.CheckBoxUpcomingDiv p {
-  font-size: 1rem;
-}
-
 .UpcomingCreateBtn {
   margin-top: 0.8rem;
 }
@@ -115,6 +100,8 @@
   animation: CreateUpcomingSpin 1s ease-in infinite;
 }
 
+@media screen and (max-width: 1071px) {}
+
 @media screen and (max-width: 729px) {
   .AddUpcomingMainForm {
     padding: 1rem;
@@ -129,7 +116,7 @@
 
 @media screen and (max-width: 540px) {
   .AddUpcomingMainForm {
-    width: 97%;
+    width: 97vw;
     margin: 0rem auto 0rem;
   }
   .ActualUpcomintFormDiv {

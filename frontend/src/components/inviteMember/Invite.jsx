@@ -66,7 +66,7 @@ export function Invite({ invite, setInvite }) {
           </label>
           <br />
           <input
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             id="inviteEmailId"

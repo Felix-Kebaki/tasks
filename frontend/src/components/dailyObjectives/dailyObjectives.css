@@ -55,6 +55,7 @@
 
 .ObjectiveMarkDivDone {
   background-color: #0483bb;
+  font-size:0.8rem;
   color: white;
   border: none;
 }
@@ -62,6 +63,7 @@
 .ObjectiveMarkDivOutOfTime {
   background-color: #fc8415;
   color: white;
+  font-size:0.8rem;
   border: none;
 }
 
