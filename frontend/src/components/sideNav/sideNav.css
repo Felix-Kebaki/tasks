@@ -5,7 +5,7 @@
   background-color: white;
   box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
   padding: 0.5rem;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 
@@ -16,7 +16,7 @@
   background-color: white;
   box-shadow: 0rem 0rem 0.4rem rgba(192, 192, 192, 0.582);
   padding: 0.5rem;
-   overflow-y: auto;
+   /* overflow-y: auto; */
 }
 
 .SideNavTopMainDiv {
