@@ -100,3 +100,29 @@
     height: 1.1rem;
     animation: VerifySpin 1s ease-in infinite;
 }
+
+
+@media screen and (max-width:377px){
+    .VerifyMainDivInside{
+    width:98%;
+    margin: 0rem auto 0rem;
+}
+.VerifyDigitsInputDiv{
+    column-gap:0.2%;
+    justify-content: start;
+    flex-wrap: wrap;
+    width:100%;
+}
+.VerifyDigitsInputDiv input{
+    width:16.5%;
+    height:2.1rem;
+    font-size:1rem;
+}
+}
+
+@media screen and (max-width:347px){
+.VerifyMainDivInside{
+    padding:1rem 0.7rem;
+}
+
+}

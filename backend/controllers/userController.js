@@ -47,7 +47,7 @@ const registerUser = async (req, res) => {
 
     res.status(201).json({
       message: "User created successfully",
-      User: { ...user._doc, password: undefined,verificationCode:undefined },
+      User: { ...user._doc, password: undefined,verificationCode:undefined ,verificationCodeExpiresAt:undefined},
     });
   } catch (error) {
     console.error(error.message);
@@ -75,7 +75,7 @@ const verifyUser=async(req,res)=>{
 		user.verificationCode = undefined;
 		user.verificationCodeExpiresAt = undefined;
 		await user.save();
-
+    
 		// await sendWelcomeEmail(user.email, user.name);
 
 		res.status(200).json({
