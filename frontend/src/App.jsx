@@ -9,14 +9,14 @@ export function App() {
   const { userInfo } = useSelector((state) => state.auth);
   return (
     <>
-      {userInfo ? (
+      {userInfo && userInfo.isVerified ? (
         <main className="AppLoggedInMain">
           <SideNav />
           <div>
             <Outlet />
           </div>
         </main>
-      ) :  (
+      ) : (
         <Navigate to="/login" />
       )}
     </>

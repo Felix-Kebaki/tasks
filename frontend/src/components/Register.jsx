@@ -53,7 +53,7 @@ export function Register() {
           }, 3000);
         } else {
           dispatch(setCredentials(response.data.User));
-          navigate("/app/verify")
+          navigate("/auth/verify")
         }
       } else {
         setErrorMessage("Password don't match");

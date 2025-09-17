@@ -1,15 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 
 import { useVerifyUserMutation } from "../../redux/api/userApiSlice";
 
 import loader from "../../assets/images/Loader.png";
 import VerifyBackground from "../../assets/images/authBackground.jpg";
 import "./verify.css";
+import { setCredentials } from "../../redux/features/authSlice";
 
 export function Verify() {
     const {userInfo}=useSelector((state)=>state.auth)
+    const dispatch=useDispatch()
     
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputRef = useRef([]);
@@ -57,6 +59,11 @@ export function Verify() {
       if (response.error) {
         console.error(response.error.data.error || response.error.error);
       } else {
+        const updatedUserInfo = { ...userInfo, isVerified: true };
+        //update localStorage
+        localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));
+        //update redux store
+        dispatch(setCredentials(updatedUserInfo))
         console.log(response.data.message);
         navigate("/app/dashboard");
       }

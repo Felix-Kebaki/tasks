@@ -33,10 +33,6 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path:"/app/verify",
-        element:<VerifyPage/>
-      },
-      {
         path: "/app/dashboard",
         element: <DashboardPage />,
       },
@@ -90,6 +86,10 @@ const router = createBrowserRouter([
         element: <AllPerCategoryPage />,
       },
     ],
+  },
+  {
+    path:"/auth/verify",
+    element:<VerifyPage/>
   },
   {
     path: "/login",
