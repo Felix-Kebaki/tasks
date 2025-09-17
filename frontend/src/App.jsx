@@ -16,7 +16,7 @@ export function App() {
             <Outlet />
           </div>
         </main>
-      ) : (
+      ) :  (
         <Navigate to="/login" />
       )}
     </>

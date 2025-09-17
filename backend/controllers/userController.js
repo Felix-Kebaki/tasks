@@ -38,7 +38,7 @@ const registerUser = async (req, res) => {
       email,
       password: hashedPassword,
       verificationCode: verificationToken,
-      verificationCodeExpiresAt: Date.now() + 1 * 60 * 60 * 1000, //1hour
+      verificationCodeExpiresAt: Date.now() + 0.5 * 60 * 60 * 1000, //1hour
     });
 
     await user.save();
@@ -53,6 +53,19 @@ const registerUser = async (req, res) => {
     return res.status(500).json({ error: "Server side issue" });
   }
 };
+
+const verifyUser=async(req,res)=>{
+  try {
+    const {code}=req.body;
+    if(!code){
+      return res.status(400).json({error:"Enter verification code sent to your email"})
+    }
+    
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+}
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
