@@ -23,7 +23,6 @@ export function Register() {
   const [errorMessage, setErrorMessage] = useState("");
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
-  const [verifying, setVerifying] = useState(true);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -53,9 +52,8 @@ export function Register() {
             setErrorMessage("");
           }, 3000);
         } else {
-          setVerifying(true);
           dispatch(setCredentials(response.data.User));
-          navigate("/app/dashboard");
+          navigate("/app/verify")
         }
       } else {
         setErrorMessage("Password don't match");
@@ -78,9 +76,6 @@ export function Register() {
       <div className="AuthFormMainDiv">
         <img src={formBackground} className="AuthBackground" />
         <div className="AuthActualFormDiv">
-          {verifying ? (
-            <Verify />
-          ) : (
             <form className="AuthFormDiv" onSubmit={HandleFormSubmit}>
               <Link to="/register" className="AuthFormLogoAndTitle">
                 <img src={Logo} alt="" />
@@ -204,7 +199,6 @@ export function Register() {
               </div>
               <pre className="text">{errorMessage ? errorMessage : null}</pre>
             </form>
-          )}
         </div>
       </div>
     </section>

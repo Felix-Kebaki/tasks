@@ -1,7 +1,36 @@
 .VerifyMainSec{
-    padding:1rem 1.5rem;
-    border-radius:0.5rem;
+    width:100%;
+    height: 100dvh;
+    overflow-y: auto;
+}
+
+.VerifyMainDivRelative{
+    width:100%;
+    height:100%;
+    position:relative;
+}
+
+.VerifyMainDivBackground{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+
+.VerifyMainDiv{
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.VerifyMainDivInside{
     background-color: #eeecec;
+    padding:1rem 1.5rem;
+    border-radius:0.3rem;
 }
 
 .VerifyMainTitle{
@@ -25,7 +54,9 @@
 .VerifyDigitsInputDiv input{
     width:2.5rem;
     height:2rem;
+    font-size:1.1rem;
     border-radius: 0.4rem;
+    text-align: center;
     border:0.1rem black solid;
 }
 

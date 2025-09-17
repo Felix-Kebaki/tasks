@@ -12,6 +12,7 @@ const bcrypt = require("bcryptjs");
 
 const generateTokenAndSetCookie = require("../utils/generateTokenAndSetCookie");
 const capitalizeFirst = require("../utils/capitalize");
+const { response } = require("express");
 
 const registerUser = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -38,7 +39,7 @@ const registerUser = async (req, res) => {
       email,
       password: hashedPassword,
       verificationCode: verificationToken,
-      verificationCodeExpiresAt: Date.now() + 0.5 * 60 * 60 * 1000, //1hour
+      verificationCodeExpiresAt: Date.now() + 0.5 * 60 * 60 * 1000, //30min
     });
 
     await user.save();
@@ -46,7 +47,7 @@ const registerUser = async (req, res) => {
 
     res.status(201).json({
       message: "User created successfully",
-      User: { ...user._doc, password: undefined },
+      User: { ...user._doc, password: undefined,verificationCode:undefined },
     });
   } catch (error) {
     console.error(error.message);
@@ -55,12 +56,31 @@ const registerUser = async (req, res) => {
 };
 
 const verifyUser=async(req,res)=>{
-  try {
-    const {code}=req.body;
-    if(!code){
-      return res.status(400).json({error:"Enter verification code sent to your email"})
-    }
+	const { code } = req.body;
+	try {
+    const user=await User.findById(req.params.userId);
     
+		if (!user) {
+			return res.status(400).json({ error: "User doesn't exist" });
+		}
+    if(user.verificationCode !==code){
+      return res.status(400).json({error:"Invalid code"})
+    }
+
+    if(user.verificationCodeExpiresAt <new Date()){
+      return res.status(400).json({error:"Expired code"})
+    }
+
+    user.isVerified = true;
+		user.verificationCode = undefined;
+		user.verificationCodeExpiresAt = undefined;
+		await user.save();
+
+		// await sendWelcomeEmail(user.email, user.name);
+
+		res.status(200).json({
+			message: "Email verified successfully"
+		});
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });
@@ -231,6 +251,7 @@ const deleteAccount = async (req, res) => {
 module.exports = {
   loginUser,
   registerUser,
+  verifyUser,
   logoutUser,
   editPassword,
   editProfile,

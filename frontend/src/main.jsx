@@ -21,6 +21,7 @@ import { UpcomingPage } from "./pages/UpcomingPage.jsx";
 import { SubmissionsPage } from "./pages/SubmissionsPage.jsx";
 import { AllPerCategoryPage } from "./pages/AllPerCategoryPage.jsx";
 import { ProfilePage } from "./pages/ProfilePage.jsx";
+import {VerifyPage} from './pages/VerifyPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
     path: "/app",
     element: <App />,
     children: [
+      {
+        path:"/app/verify",
+        element:<VerifyPage/>
+      },
       {
         path: "/app/dashboard",
         element: <DashboardPage />,
