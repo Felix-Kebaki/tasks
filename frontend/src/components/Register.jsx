@@ -14,7 +14,6 @@ import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import formBackground from "../assets/images/authBackground.jpg";
 import Logo from "../assets/images/Logo.png";
 import Loader from "../assets/images/Loader.png";
-import { Verify } from "./verify/Verify";
 
 export function Register() {
   const navigate = useNavigate();
@@ -53,7 +52,7 @@ export function Register() {
           }, 3000);
         } else {
           dispatch(setCredentials(response.data.User));
-          navigate("/auth/verify")
+          navigate("/app/dashboard")
         }
       } else {
         setErrorMessage("Password don't match");
