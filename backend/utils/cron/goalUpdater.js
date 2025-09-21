@@ -1,31 +1,50 @@
-const cron = require('node-cron');
-const Goal = require('../../models/goalModel');
-const Notify=require("../../models/notifyModel")
+require("dotenv").config();
+const mongoose = require("mongoose");
+const Goal = require("../../models/goalModel");
+const Notify = require("../../models/notifyModel");
 
-cron.schedule('*/10 * * * *', async () => {
+async function connectDB() {
+  const uri = process.env.MONGO_URI;
+  if (!uri) throw new Error("MONGO_URI not set");
+  await mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+}
+
+async function runJob() {
+  const now = new Date();
+
   try {
-    const now = new Date();
-
-    // Find all goals that should start now but are still marked "not started"
+    // Find all goals that should start now but are still marked "Not Started"
     const goalsToStart = await Goal.find({
-        startDate: { $lte: now },
-        status: "Not Started"
+      startDate: { $lte: now },
+      status: "Not Started",
     });
 
-    for (let goal of goalsToStart) {
+    for (const goal of goalsToStart) {
       goal.status = "In Progress";
       await goal.save();
 
-      // Optionally notify user
-    const newMessage=await Notify.create({
-        user:goal.user,
-        referenceId:goal._id,
-        message:`Goal "${goal.name}" has started`,
-    })
-
+      // Notify user
+      await Notify.create({
+        user: goal.user,
+        referenceId: goal._id,
+        message: `Goal "${goal.name}" has started`,
+      });
     }
 
+    console.log(`${goalsToStart.length} goals updated at ${now}`);
   } catch (err) {
-    console.error("Cron error:", err);
+    console.error("Goal start job error:", err.message);
+  } finally {
+    await mongoose.disconnect();
+    process.exit(0);
   }
-});
+}
+
+(async () => {
+  await connectDB();
+  await runJob();
+})();
+

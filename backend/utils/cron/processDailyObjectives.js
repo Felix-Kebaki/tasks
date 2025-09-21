@@ -1,9 +1,17 @@
-const cron = require("node-cron");
+require("dotenv").config();
+const mongoose = require("mongoose");
+
 const Today = require("../../models/todayModel");
 const DailyReport = require("../../models/dailyReportModel");
 const User = require("../../models/userModel");
 
-const processAllUsersDailyObjectives = async () => {
+async function connectDB() {
+  const uri = process.env.MONGO_URI;
+  if (!uri) throw new Error("MONGO_URI not set");
+  await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+}
+
+async function runJob() {
   try {
     const users = await User.find();
 
@@ -11,7 +19,7 @@ const processAllUsersDailyObjectives = async () => {
       const objectives = await Today.find({ user: user._id });
       const prevReport = await DailyReport.findOne({ user: user._id });
 
-      if (prevReport.length !== 0) {
+      if (prevReport) {
         await prevReport.deleteOne();
       }
 
@@ -36,12 +44,17 @@ const processAllUsersDailyObjectives = async () => {
 
       await Today.deleteMany({ user: user._id });
     }
-  } catch (error) {
-    console.error("Error processing daily objectives:", error);
-  }
-};
 
-// Schedule it to run at midnight every day
-cron.schedule("0 0 * * *", () => {
-  processAllUsersDailyObjectives();
-});
+    console.log("Daily objectives processed for all users.");
+  } catch (error) {
+    console.error("Daily objectives job error:", error.message);
+  } finally {
+    await mongoose.disconnect();
+    process.exit(0);
+  }
+}
+
+(async () => {
+  await connectDB();
+  await runJob();
+})();

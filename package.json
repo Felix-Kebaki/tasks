@@ -6,7 +6,10 @@
     "dev": "nodemon backend/index.js",
     "start": "node backend/index.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend",
-    "cron:deadline": "node backend/utils/cron/taskDeadlineChecker.js"
+    "cron:taskDeadlineChecker": "node backend/utils/cron/taskDeadlineChecker.js",
+    "cron:dailyReview":"node backend/utils/cron/processDailyObjectives.js",
+    "cron:upcomingEvents":"node backend/utils/cron/upcomingevents.js",
+    "cron:startGoals":"node backend/utils/cron/goalUpdater.js"
   },
   "author": "",
   "license": "ISC",
