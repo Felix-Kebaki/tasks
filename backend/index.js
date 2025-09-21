@@ -1,7 +1,7 @@
 const express=require("express")
 const cors=require("cors");
 const cookieParser = require("cookie-parser");
-const dotenv=require("dotenv").config()
+require("dotenv").config()
 const connectDb=require("./config/connectDb")
 const path = require("path");
 
@@ -19,11 +19,11 @@ app.use(cookieParser())
 
 connectDb()
 
-require("./utils/cron/processDailyObjectives")
-require("./utils/cron/goalUpdater")
-require("./utils/cron/deleteNotifications")
-require("./utils/cron/taskDeadlineChecker")
-require("./utils/cron/upcomingevents")
+// require("./utils/cron/processDailyObjectives")
+// require("./utils/cron/goalUpdater")
+// require("./utils/cron/deleteNotifications")
+// require("./utils/cron/taskDeadlineChecker")
+// require("./utils/cron/upcomingevents")
 
 app.use("/api/auth",require("./routers/userRouter"))
 app.use("/api/goals",require("./routers/goalRouter"))
