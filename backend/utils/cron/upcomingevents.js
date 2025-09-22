@@ -2,6 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Upcoming = require("../../models/upcomingModel");
 const Notify = require("../../models/notifyModel");
+const Subscription=require("../../models/subscriptionModel")
 
 async function connectDB() {
   const uri = process.env.MONGO_URI;
@@ -28,6 +29,16 @@ async function runJob() {
         referenceId: event._id,
         message: "Upcoming event approaching",
       });
+
+      // Find subscriptions for this user
+      const subs = await Subscription.find({ user: event.user._id });
+      for (const sub of subs) {
+        await sendNotification(sub.subscription, {
+          title: "Upcoming Event",
+          body: `${event.name} starts soon!`,
+          url: `/events/${event._id}`
+        });
+      }
 
       event.notified = true;
       await event.save();
