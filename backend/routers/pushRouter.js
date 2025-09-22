@@ -7,7 +7,7 @@ const Protect=require("../middleware/authMiddleware")
 router.post("/subscribe",Protect, async (req, res) => {
   try {
     const subscription = req.body;
-    const userId = req.user; 
+    const userId = req.user._id; 
     const done=await Subscription.create({ user: userId, subscription });
     if(!done){
         return res.status(400).json({error:"Unable to subscribe"})
