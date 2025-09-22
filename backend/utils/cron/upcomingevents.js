@@ -31,7 +31,7 @@ async function runJob() {
       });
 
       // Find subscriptions for this user
-      const subs = await Subscription.find({ user: event.user._id });
+      const subs = await Subscription.find({ user: event.user });
       for (const sub of subs) {
         await sendNotification(sub.subscription, {
           title: "Upcoming Event",

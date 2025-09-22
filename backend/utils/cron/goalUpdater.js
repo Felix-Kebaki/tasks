@@ -2,6 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Goal = require("../../models/goalModel");
 const Notify = require("../../models/notifyModel");
+const Subscription=require("../../models/subscriptionModel")
 
 async function connectDB() {
   const uri = process.env.MONGO_URI;
@@ -26,6 +27,15 @@ async function runJob() {
       goal.status = "In Progress";
       await goal.save();
 
+      const subs = await Subscription.find({ user: goal.user });
+      for (const sub of subs) {
+        await sendNotification(sub.subscription, {
+          title: "Goal has started",
+          body: `${goal.name} start date has been reached!`,
+          url: `/events/${goal._id}`,
+        });
+      }
+
       // Notify user
       await Notify.create({
         user: goal.user,
@@ -45,4 +55,3 @@ async function runJob() {
   await connectDB();
   await runJob();
 })();
-
