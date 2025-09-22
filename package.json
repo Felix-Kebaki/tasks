@@ -9,7 +9,8 @@
     "cron:taskDeadlineChecker": "node backend/utils/cron/taskDeadlineChecker.js",
     "cron:dailyReview":"node backend/utils/cron/processDailyObjectives.js",
     "cron:upcomingEvents":"node backend/utils/cron/upcomingevents.js",
-    "cron:startGoals":"node backend/utils/cron/goalUpdater.js"
+    "cron:startGoals":"node backend/utils/cron/goalUpdater.js",
+    "cron:goalOutOfTime":"node backend/utils/cron/goalOutOfTime.js"
   },
   "author": "",
   "license": "ISC",

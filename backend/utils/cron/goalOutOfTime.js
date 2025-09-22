@@ -12,25 +12,22 @@ async function connectDB() {
   });
 }
 
-async function runJob() {
+const runJob = async () => {
   const now = new Date();
-
   try {
-    // Find all goals that should start now but are still marked "Not Started"
-    const goalsToStart = await Goal.find({
-      startDate: { $lte: now },
-      status: "Not Started",
+    const goals = await Goal.find({
+      endDate: { $gte: startOfDay, $lte: endOfDay },
+      status: { $ne: "Out of Time" },
     });
-
-    for (const goal of goalsToStart) {
-      goal.status = "In Progress";
-      await goal.save();
+    for (const goal of goals) {
+      goal.status = "Out of Time";
+      goal.save();
 
       // Notify user
       await Notify.create({
         user: goal.user,
         referenceId: goal._id,
-        message: `Goal "${goal.name}" has started`,
+        message: `Goal "${goal.name}" has run out of time.`,
       });
     }
   } catch (err) {
@@ -39,10 +36,9 @@ async function runJob() {
     await mongoose.disconnect();
     process.exit(0);
   }
-}
+};
 
 (async () => {
   await connectDB();
   await runJob();
 })();
-

@@ -32,8 +32,6 @@ async function runJob() {
       event.notified = true;
       await event.save();
     }
-
-    console.log("Upcoming event notifications processed successfully.");
   } catch (error) {
     console.error("Error running upcoming events job:", error.message);
   } finally {

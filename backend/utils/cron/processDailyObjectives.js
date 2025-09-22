@@ -45,7 +45,6 @@ async function runJob() {
       await Today.deleteMany({ user: user._id });
     }
 
-    console.log("Daily objectives processed for all users.");
   } catch (error) {
     console.error("Daily objectives job error:", error.message);
   } finally {
