@@ -156,3 +156,17 @@
   color: red;
   font-size: 0.9rem;
 }
+
+
+
+@media screen and (max-width:395px){
+.AuthFormDiv {
+  padding: 1.5rem 1rem 1.5rem 1rem;
+}
+}
+
+@media screen and (max-width:335px){
+.AuthFormDiv {
+  padding: 1rem 0.3rem 1rem 0.3rem;
+}
+}

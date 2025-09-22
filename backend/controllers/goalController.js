@@ -68,14 +68,22 @@ const getAllGoals = async (req, res) => {
     if (!goals) {
       return res.status(422).json({ error: "Unable to fetch goals" });
     }
-    for (let goal of goals) {
-      const currentDate = new Date();
-      const finishDate = new Date(goal.endDate);
-      if (finishDate <= currentDate) {
-        goal.status = "Out of Time";
-        await goal.save();
-      }
-    }
+   
+    // Custom priority order
+    const priorityOrder = [
+      "Critical Priority",
+      "High Priority",
+      "Medium Priority",
+      "Low Priority",
+      "Very Low Priority",
+    ];
+
+    // Sort goals by priority
+    goals.sort(
+      (a, b) =>
+        priorityOrder.indexOf(a.priority) - priorityOrder.indexOf(b.priority)
+    );
+
     res.status(200).json(goals);
   } catch (error) {
     console.error(error.message);
