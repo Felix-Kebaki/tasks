@@ -37,31 +37,31 @@
 .EachLength2 {
   text-wrap: nowrap;
   padding-left: 0.4rem;
-  border-left: 0.2rem #0483bb solid;
+  border-left: 0.2rem #fc8415 solid;
 }
 
 .EachLength3 {
   text-wrap: nowrap;
   padding-left: 0.4rem;
-  border-left: 0.2rem #3eb489 solid;
+  border-left: 0.2rem #fc8415 solid;
 }
 
 .EachLength4 {
   text-wrap: nowrap;
   padding-left: 0.4rem;
-  border-left: 0.2rem #e53935 solid;
+  border-left: 0.2rem #fc8415 solid;
 }
 
 .EachLength5 {
   text-wrap: nowrap;
   padding-left: 0.4rem;
-  border-left: 0.2rem #64748b solid;
+  border-left: 0.2rem #fc8415 solid;
 }
 
 .EachLength6 {
   text-wrap: nowrap;
   padding-left: 0.4rem;
-  border-left: 0.2rem #64748b solid;
+  border-left: 0.2rem #fc8415 solid;
 }
 
 @media screen and (max-width: 1229px) {

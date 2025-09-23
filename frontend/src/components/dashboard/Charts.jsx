@@ -68,7 +68,7 @@ export function Charts({ statusData, priorityData }) {
     "Low Priority",
     "Very Low Priority",
   ];
-  const barColors = ["#FC8415", "#FC8415", "#FC8415", "#FC8415", "#FC8415"];
+  const barColors = ["#0483bb", "#0483bb", "#0483bb", "#0483bb", "#0483bb"];
   const barData = {
     labels: priorityLabels,
     datasets: [
