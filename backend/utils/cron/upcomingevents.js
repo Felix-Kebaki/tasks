@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Upcoming = require("../../models/upcomingModel");
 const Notify = require("../../models/notifyModel");
 const Subscription=require("../../models/subscriptionModel")
+const sendNotification=require("../../utils/push")
 
 async function connectDB() {
   const uri = process.env.MONGO_URI;
