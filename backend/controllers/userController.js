@@ -8,6 +8,7 @@ const Invite = require("../models/inviteModel");
 const Goal = require("../models/goalModel");
 const DailyReport = require("../models/dailyReportModel");
 const EachTask = require("../models/assignTaskModel");
+const Subscription=require("../models/subscriptionModel")
 const bcrypt = require("bcryptjs");
 
 const generateTokenAndSetCookie = require("../utils/generateTokenAndSetCookie");
@@ -167,13 +168,14 @@ const editProfile = async (req, res) => {
 
 const deleteAccount = async (req, res) => {
   try {
-    const dailyDelete = await Today.deleteMany({ _id: req.user._id });
-    const upcomingDelete = await Upcoming.deleteMany({ _id: req.user._id });
+    const dailyDelete = await Today.deleteMany({ user: req.user._id });
+    const upcomingDelete = await Upcoming.deleteMany({ user: req.user._id });
     const teamUserAdmin = await Team.deleteMany({ admin: req.user._id });
     const teamtaskUserAdmin = await TeamTask.deleteMany({
       admin: req.user._id,
     });
-    const notifyDelete = await Notify.deleteMany({ referenceId: req.user._id });
+    const subscriptionDelete= await Subscription.deleteMany({user:req.user._id})
+    const notifyDelete = await Notify.deleteMany({ user: req.user._id });
     const inviteDelete = await Invite.deleteMany({ user: req.user._id });
     const goalDelete = await Goal.deleteMany({ user: req.user._id });
     const dailyRepDelete = await DailyReport.deleteMany({ user: req.user._id });
@@ -198,6 +200,7 @@ const deleteAccount = async (req, res) => {
       !dailyRepDelete ||
       !assingnedDelete ||
       !memberOfTeam ||
+      !subscriptionDelete ||
       !userDelete
     ) {
       return res.status(422).json({ error: "Unable to clear everydata" });
