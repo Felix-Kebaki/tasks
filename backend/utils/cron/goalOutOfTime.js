@@ -2,6 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Goal = require("../../models/goalModel");
 const Notify = require("../../models/notifyModel");
+const sendNotification = require("../../utils/push");
 
 async function connectDB() {
   const uri = process.env.MONGO_URI;
@@ -22,6 +23,15 @@ const runJob = async () => {
     for (const goal of goals) {
       goal.status = "Out of Time";
       goal.save();
+
+      const subs = await Subscription.find({ user: goal.user });
+      for (const sub of subs) {
+        await sendNotification(sub.subscription, {
+          title: "Goal run out of time",
+          body: `The goal ${goal.name} time has elapsed! You were unable to finish on time.`,
+          url: `/app/goals`,
+        });
+      }
 
       // Notify user
       await Notify.create({

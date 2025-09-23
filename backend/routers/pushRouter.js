@@ -8,6 +8,10 @@ router.post("/subscribe",Protect, async (req, res) => {
   try {
     const subscription = req.body;
     const userId = req.user._id; 
+    const exists=await Subscription.findOne({user:userId})
+    if(exists){
+      return null;
+    }
     const done=await Subscription.create({ user: userId, subscription });
     if(!done){
         return res.status(400).json({error:"Unable to subscribe"})

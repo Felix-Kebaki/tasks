@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { useLoginMutation } from "../redux/api/userApiSlice";
 import { setCredentials } from "../redux/features/authSlice";
+import { subscribeToPush } from "../utils/notifications";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
@@ -51,6 +52,7 @@ export function Login() {
       } else {
         dispatch(setCredentials(response.data.User));
         navigate("/app/dashboard");
+        subscribeToPush();
       }
     } catch (error) {
       console.error("Error in frontend on trying to login", error.message);

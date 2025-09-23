@@ -16,11 +16,11 @@ async function connectDB() {
 
 async function runJob() {
   const now = new Date();
-  const next24Hours = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+  const next15Hours = new Date(now.getTime() + 15 * 60 * 60 * 1000);
 
   try {
     const upcomingEvents = await Upcoming.find({
-      eventDate: { $gte: now, $lte: next24Hours },
+      eventDate: { $gte: now, $lte: next15Hours },
       notified: false,
     }).populate("user");
 
@@ -31,13 +31,13 @@ async function runJob() {
         message: "Upcoming event approaching",
       });
 
-      // Find subscriptions for this user
+      
       const subs = await Subscription.find({ user: event.user });
       for (const sub of subs) {
         await sendNotification(sub.subscription, {
-          title: "Upcoming Event",
-          body: `${event.name} starts soon!`,
-          url: `/events/${event._id}`
+          title:"Upcoming Event",
+          body: `The event ${event.name} will be tomorrow!`,
+          url: `/app/upcoming`
         });
       }
 
