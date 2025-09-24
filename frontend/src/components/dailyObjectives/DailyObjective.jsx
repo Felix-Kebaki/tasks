@@ -108,7 +108,7 @@ export function DailyObjective() {
                     <p className="text">
                       Category: <span>{obj.category}</span>
                     </p>
-                    {!obj.objectiveDone ? (
+                    {!obj.objectiveDone || !obj.outOfTime? (
                       <FontAwesomeIcon
                         icon={faTrashCan}
                         className="DeleteObjectiveIcon"
