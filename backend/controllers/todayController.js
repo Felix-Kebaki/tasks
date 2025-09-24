@@ -115,6 +115,10 @@ const deleteObjective=async(req,res)=>{
             return res.status(401).json({error:"Unauthorized access"})
         }
 
+        if(objective.objectiveDone){
+          return res.status(400).json({error:"Can't delete a completed objective"})
+        }
+        
         const deleted= await objective.deleteOne()
         if(!deleted){
             return res.status(422).json({error:"Unable to delete"})

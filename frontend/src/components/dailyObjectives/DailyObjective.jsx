@@ -20,36 +20,43 @@ export function DailyObjective() {
   const [confirm, setConfirm] = useState(null);
   const [msg, setMsg] = useState("");
   const daysOfWeek = [
-    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
   ];
 
   const HandleAddObjective = () => {
     setAdd(true);
   };
 
-  const HandleDoneClick=(id,outOftime)=>{
-    if(outOftime){
-      return null
-    }else{
-    setConfirm(id)
-    setMsg("marked as done")}
-  }
+  const HandleDoneClick = (id, outOftime) => {
+    if (outOftime) {
+      return null;
+    } else {
+      setConfirm(id);
+      setMsg("marked as done");
+    }
+  };
 
-  const HandleClickDelete=(id)=>{
-    setConfirm(id)
-    setMsg("removed")
-  }
+  const HandleClickDelete = (id) => {
+    setConfirm(id);
+    setMsg("removed");
+  };
 
   useEffect(() => {
     refetch();
-  }, [refetch, add,confirm]);
+  }, [refetch, add, confirm]);
 
-  if(isLoading){
-    return(
+  if (isLoading) {
+    return (
       <div className="MainLoaderDiv">
-        <Loading/>
+        <Loading />
       </div>
-    )
+    );
   }
   return (
     <section className="DailyObjectivesMainSec">
@@ -66,7 +73,8 @@ export function DailyObjective() {
             objectives.map((obj) => (
               <div key={obj._id} className="OnlyObjectivesMainDiv">
                 <div className="ObjectiveMarkMainDiv">
-                  <div onClick={()=>HandleDoneClick(obj._id,obj.outOfTime)}
+                  <div
+                    onClick={() => HandleDoneClick(obj._id, obj.outOfTime)}
                     className={
                       obj.outOfTime
                         ? "ObjectiveMarkDiv ObjectiveMarkDivOutOfTime"
@@ -97,12 +105,16 @@ export function DailyObjective() {
                     </div>
                   ) : null}
                   <div className="CategoryAndDeleteObjectiveDiv">
-                      <p className="text">Category: <span>{obj.category}</span></p>
-                    <FontAwesomeIcon
-                      icon={faTrashCan}
-                      className="DeleteObjectiveIcon"
-                      onClick={()=>HandleClickDelete(obj._id)}
-                    />
+                    <p className="text">
+                      Category: <span>{obj.category}</span>
+                    </p>
+                    {!obj.objectiveDone ? (
+                      <FontAwesomeIcon
+                        icon={faTrashCan}
+                        className="DeleteObjectiveIcon"
+                        onClick={() => HandleClickDelete(obj._id)}
+                      />
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -117,10 +129,16 @@ export function DailyObjective() {
           </div>
         ) : null}
 
-        {confirm !==null?
-        <div className="OverflowAddMainDiv">
-            <ObjectiveConfirm setConfirm={setConfirm} msg={msg} setMsg={setMsg} confirm={confirm}/>
-        </div>:null}
+        {confirm !== null ? (
+          <div className="OverflowAddMainDiv">
+            <ObjectiveConfirm
+              setConfirm={setConfirm}
+              msg={msg}
+              setMsg={setMsg}
+              confirm={confirm}
+            />
+          </div>
+        ) : null}
       </div>
     </section>
   );

@@ -33,6 +33,7 @@ async function runJob() {
       const percent = (completed / total) * 100;
       if (percent >= 80) performance = "Excellent";
       else if (percent >= 50) performance = "Average";
+      else performance="Poor";
 
       await DailyReport.create({
         user: user._id,
