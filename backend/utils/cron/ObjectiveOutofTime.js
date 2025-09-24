@@ -18,7 +18,7 @@ const runJob = async () => {
     const users = await User.find();
 
     const now = new Date();
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    const currentMinutes = (now.getUTCHours() + 3) * 60 + now.getUTCMinutes();
 
     for (const user of users) {
       const objectives = await Today.find({ user: user._id });
