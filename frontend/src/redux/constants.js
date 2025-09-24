@@ -2,6 +2,7 @@ export const BASE_URL=''
 export const USER_URL="/api/auth"
 export const GOAL_URL="/api/goals"
 export const TODAY_URL="/api/objectives"
+export const DAILYREPORT_URL="/api/dailyReport"
 export const NOTIFY_URL="/api/notifications"
 export const TEAM_URL="/api/teams"
 export const INVITE_URL="/api/invitations"

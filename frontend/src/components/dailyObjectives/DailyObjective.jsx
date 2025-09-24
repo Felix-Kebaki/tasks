@@ -4,8 +4,10 @@ import "../../index.css";
 import { ObjectiveForm } from "../createObjective/ObjectiveForm";
 import { ObjectiveConfirm } from "../confirm/ObjectiveConfirm";
 import { Loading } from "../loading/Loading";
+import { DailyReport } from "../dailyReport/DailyReport";
 
 import { useGetObjectivesQuery } from "../../redux/api/todayApiSlice";
+import { useDailyReportQuery } from "../../redux/api/todayApiSlice";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +18,7 @@ import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 export function DailyObjective() {
   const { refetch, data: objectives, isLoading } = useGetObjectivesQuery();
+  const { data: report, isLoading: reportLoading } = useDailyReportQuery();
   const [add, setAdd] = useState(false);
   const [confirm, setConfirm] = useState(null);
   const [msg, setMsg] = useState("");
@@ -51,7 +54,7 @@ export function DailyObjective() {
     refetch();
   }, [refetch, add, confirm]);
 
-  if (isLoading) {
+  if (isLoading || reportLoading) {
     return (
       <div className="MainLoaderDiv">
         <Loading />
@@ -59,8 +62,8 @@ export function DailyObjective() {
     );
   }
   return (
-    <section className="DailyObjectivesMainSec">
-      <div className="DailyObjectivesMainDiv">
+    <section className={report?"DailyObjectivesMainSec1":"DailyObjectivesMainSec"}>
+      <div className={report?"DailyObjectivesMainDiv1":"DailyObjectivesMainDiv"}>
         <p className="TodayMainTitle title">Today's Objectives</p>
         <p className="TodayDate text">
           {String(new Date().getDate()).padStart(2, "0")}-
@@ -108,7 +111,7 @@ export function DailyObjective() {
                     <p className="text">
                       Category: <span>{obj.category}</span>
                     </p>
-                    {!obj.objectiveDone || !obj.outOfTime? (
+                    {!obj.objectiveDone || !obj.outOfTime ? (
                       <FontAwesomeIcon
                         icon={faTrashCan}
                         className="DeleteObjectiveIcon"
@@ -140,6 +143,13 @@ export function DailyObjective() {
           </div>
         ) : null}
       </div>
+      {report ? (
+        <div className="YesterdayMainDiv">
+          <DailyReport report={report}/>
+        </div>
+      ) : (
+        <div className="YesterdayMainDiv1"></div>
+      )}
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import { apiSlice } from "./apiSlice";
-import { TODAY_URL } from "../constants";
+import { TODAY_URL,DAILYREPORT_URL } from "../constants";
 
 
 const todayApiSlice=apiSlice.injectEndpoints({
@@ -28,8 +28,14 @@ const todayApiSlice=apiSlice.injectEndpoints({
                 url:`${TODAY_URL}/deleteObjective/${id}`,
                 method:"DELETE"
             })
+        }),
+        dailyReport:builder.query({
+            query:()=>({
+                url:`${DAILYREPORT_URL}/getDailyReport`,
+                method:"GET"
+            })
         })
     })
 })
 
-export const {useCreateObjectiveMutation, useMarkDoneMutation,useGetObjectivesQuery,useDeleteObjectiveMutation}=todayApiSlice
+export const {useCreateObjectiveMutation, useMarkDoneMutation,useGetObjectivesQuery,useDeleteObjectiveMutation,useDailyReportQuery}=todayApiSlice

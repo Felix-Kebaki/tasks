@@ -30,6 +30,7 @@ app.use("/api/invitations",require("./routers/inviteRouter"))
 app.use("/api/upcomings",require("./routers/upcomingRouter"))
 app.use("/api/allCategory",require("./routers/getAllCategoryRouter"))
 app.use("/api/allLength",require("./routers/dashboardRouter"))
+app.use("/api/dailyReport",require("./routers/dailyReportRouter"))
 app.use("/api/push",require("./routers/pushRouter"))
 
 

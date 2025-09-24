@@ -3,8 +3,23 @@
   padding: 0rem 0.4rem 1rem 16.1rem;
 }
 
+.DailyObjectivesMainSec1{
+  width: 100%;
+  padding: 0rem 0.4rem 1rem 16.1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+  column-gap: 1.3rem;
+}
+
+.DailyObjectivesMainDiv1{
+    padding-top: 1rem;
+    width:100%;
+}
+
 .DailyObjectivesMainDiv {
   padding-top: 1rem;
+  width:60rem;
 }
 
 .TodayMainTitle {
@@ -18,7 +33,7 @@
 }
 
 .DailyObjectiveStartMainDiv {
-  width: 60rem;
+  width: 100%;
   margin-top: 1rem;
 }
 
@@ -139,10 +154,23 @@
   color: #0483bb;
 }
 
+.YesterdayMainDiv{
+  background-color: white;  
+  padding-top: 0.2rem;
+  width:30rem;
+}
+
+.YesterdayMainDiv1{
+   display: none;
+}
+
 @media screen and (max-width: 1229px) {
   .DailyObjectivesMainSec {
     padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
+  .DailyObjectivesMainSec1{
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
+}
   .DailyObjectivesMainDiv {
     padding-top: 0.5rem;
   }
@@ -189,6 +217,9 @@
     .DailyObjectivesMainSec {
       padding: 0rem 0.4rem 0.5rem 3rem;
   }
+    .DailyObjectivesMainSec1{
+      padding: 0rem 0.4rem 0.5rem 3rem;
+}
 }
 
 @media screen and (max-width: 314px) {

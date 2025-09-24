@@ -56,6 +56,7 @@ export function Charts({ statusData, priorityData }) {
         data: statusLabels.map((label) => statusData[label] || 0),
         backgroundColor: statusColors,
         borderWidth: 1,
+        cutout: "70%",
       },
     ],
   };
