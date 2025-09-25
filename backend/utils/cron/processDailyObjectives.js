@@ -19,11 +19,11 @@ async function runJob() {
       const objectives = await Today.find({ user: user._id });
       const prevReport = await DailyReport.findOne({ user: user._id });
 
+      if (!objectives.length) continue;
+
       if (prevReport) {
         await prevReport.deleteOne();
       }
-
-      if (!objectives.length) continue;
 
       const total = objectives.length;
       const completed = objectives.filter((obj) => obj.objectiveDone).length;
@@ -31,9 +31,11 @@ async function runJob() {
 
       let performance = "Poor";
       const percent = (completed / total) * 100;
-      if (percent >= 80) performance = "Excellent";
-      else if (percent >= 50) performance = "Average";
-      else performance="Poor";
+      if (percent >= 90) performance = "Excellent";
+      else if (percent >= 75) performance = "Good";
+      else if (percent >= 60) performance = "Fair";
+      else if (percent >= 40) performance = "Poor";
+      else performance="Very Poor";
 
       await DailyReport.create({
         user: user._id,
