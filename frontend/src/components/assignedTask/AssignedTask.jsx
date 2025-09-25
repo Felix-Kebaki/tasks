@@ -64,11 +64,11 @@ export function AssignedTask() {
                 <div className="TopEachAssignedDiv">
                   <div className="StartAssignedDate text">
                     <p>Start date:</p>
-                    <span>{moment(each.startDate).format("MMMM Do YYYY")}</span>
+                    <span>{moment(each.startDate).format("MMM Do YYYY")}</span>
                   </div>
                   <div className="DueAssignedDate text">
                     <p>Due date:</p>
-                    <span>{moment(each.dueDate).format("MMMM Do YYYY")}</span>
+                    <span>{moment(each.dueDate).format("MMM Do YYYY")}</span>
                   </div>
                 </div>
                 <p className="TeamtaskTitleOnly title">{each.teamTaskname}</p>

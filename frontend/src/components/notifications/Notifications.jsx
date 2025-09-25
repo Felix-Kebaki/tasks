@@ -17,6 +17,7 @@ import {
 import { useToast } from "../../context/ToastContext";
 import moment from "moment";
 import { Loading } from "../loading/Loading";
+import { NotificationDetails } from "./NotificationDetails";
 
 export function Notifications() {
   const { refetch, data: unread = [], isLoading } = useGetUnreadQuery();
@@ -30,6 +31,7 @@ export function Notifications() {
 
   const { showToast } = useToast();
 
+  const [showNotification, setShowNotification] = useState(null);
   const [activeTab, setActiveTab] = useState("all");
   let filteredNotification = [];
 
@@ -56,6 +58,10 @@ export function Notifications() {
     }
   };
 
+  const HandleOpenNotification = (id) => {
+    setShowNotification(id);
+  };
+
   const HandleMarkAllRead = async () => {
     try {
       await markAsSeen();
@@ -70,7 +76,7 @@ export function Notifications() {
   useEffect(() => {
     refetch();
     allRefetch();
-  }, [refetch, allRefetch]);
+  }, [refetch, allRefetch, showNotification]);
 
   if (allLoading || isLoading) {
     return (
@@ -124,18 +130,33 @@ export function Notifications() {
             <div className="AllNotificationMainWrapper">
               {filteredNotification && filteredNotification.length !== 0 ? (
                 filteredNotification.map((notify) => (
-                  <div className="EachNotificationMainDiv">
+                  <div
+                    className="EachNotificationMainDiv"
+                    onClick={() => HandleOpenNotification(notify._id)}
+                  >
                     <div className="NotificationReferenceTitle title">
-                      {notify.seen?<FontAwesomeIcon icon={faSquareCheck} className="NotificationReadIcon"/>:<FontAwesomeIcon icon={faSquare} className="MarkAsReadIcon" title="Mark as read" onClick={()=>HandleMarkOneDone(notify._id)}/>}
-                      <p>{notify.referenceObj}</p>
+                      {notify.seen ? (
+                        <FontAwesomeIcon
+                          icon={faSquareCheck}
+                          className="NotificationReadIcon"
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={faSquare}
+                          className="MarkAsReadIcon"
+                          title="Mark as read"
+                          onClick={() => HandleMarkOneDone(notify._id)}
+                        />
+                      )}
+                      <p>{notify?.referenceObj}</p>
                     </div>
                     <div className="AlInNotificationExceptReferenceDiv">
                       <p className="EachNotificationTitleAndMsg text">
-                        {notify.title}<span>{" "}- {" "}{notify.message}</span>
-                        
+                        {notify.title}
+                        <span> - {notify.message}</span>
                       </p>
                       <div className="NotificationDateDiv text">
-                        <p>{moment(notify.date).format("DD MMM")}</p>
+                        <p>{moment(notify?.date).format("DD MMM")}</p>
                       </div>
                     </div>
                   </div>
@@ -152,6 +173,11 @@ export function Notifications() {
             <p className="text">No notifications at the moment.</p>
           </div>
         )}
+        {showNotification !== null ? (
+          <div className="OverflowAddMainDiv">
+            <NotificationDetails id={showNotification} setShowNotification={setShowNotification}/>
+          </div>
+        ) : null}
       </div>
     </section>
   );

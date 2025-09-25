@@ -75,6 +75,9 @@ const getNotificationDetails=async(req,res)=>{
         if(!notification){
             return res.status(400).json({error:"Can't find the notification"})
         }
+        notification.seen=true;
+        notification.seenAt=new Date();
+        await notification.save();
         res.status(200).json(notification)
     } catch (error) {
         console.error(error.message)

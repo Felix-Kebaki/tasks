@@ -83,7 +83,7 @@ export function Completed() {
                     <div>
                       <p className="dateTitle text">Date completed:</p>
                       <p className="dateActual text">
-                        {moment(complete.dayCompleted).format("MMMM Do YYYY")}
+                        {moment(complete.dayCompleted).format("MMM Do YYYY")}
                       </p>
                     </div>
                     <div>

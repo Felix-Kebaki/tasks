@@ -58,7 +58,7 @@ export function DailyReport({report}) {
     <div className="DailyReportMainSec">
         <div>
       <p className="DailyReportMainTitle title">Review</p>
-      <p className="ReviewsDate text">{moment(report.date).format("MMMM Do YYYY")}</p>
+      <p className="ReviewsDate text">{moment(report.date).format("MMM Do YYYY")}</p>
       </div>
       <div className="DailyDoghnutWrapper">
         <Doughnut data={data} options={options} />

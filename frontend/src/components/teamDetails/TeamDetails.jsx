@@ -266,7 +266,7 @@ export function TeamDetails() {
                       <p className="EachteamtaskDueDate text">
                         Due date:
                         <span>
-                          {moment(each.dueDate).format("MMMM Do YYYY")}
+                          {moment(each.dueDate).format("MMM Do YYYY")}
                         </span>
                       </p>
                     )}

@@ -26,8 +26,14 @@ const notifyApiSlice=apiSlice.injectEndpoints({
                 url:`${NOTIFY_URL}/getAllNotifications`,
                 method:"GET"
             })
+        }),
+        getNotificationDetails:builder.query({
+            query:({id})=>({
+                url:`${NOTIFY_URL}/notificationDetails/${id}`,
+                method:"GET"
+            })
         })
     })
 })
 
-export const {useGetUnreadQuery,useMarkAsSeenMutation,useMarkOneSeenMutation,useGetallQuery}=notifyApiSlice
+export const {useGetUnreadQuery,useMarkAsSeenMutation,useMarkOneSeenMutation,useGetallQuery,useGetNotificationDetailsQuery}=notifyApiSlice

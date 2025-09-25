@@ -1,0 +1,138 @@
+.NotificationDetailsMainSec{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.NotificationDetailsMainDiv{
+    background-color: white;
+    padding:1rem;
+    border-radius:0.6rem;
+}
+
+.NotificationDetailsTopDiv{
+    display:flex;
+    justify-content: space-between;
+}
+
+.NotificationCloseIcon{
+    font-size:1.2rem;
+    cursor:pointer;
+}
+
+.NotificationDetailsTopDiv p{
+    font-size:1.3rem;
+}
+
+.NotificationTitle{
+    margin-top:0.4rem;
+    font-size:1.1rem;
+}
+
+.NotificationMsg{
+    margin-top:0.2rem;
+    max-width:45rem;
+    font-size:0.9rem;
+}
+
+.AcceptDeclineInviteDiv{
+    display:flex;
+    justify-content: start;
+    column-gap:3rem;
+    align-items:center;
+}
+
+.AcceptDeclineInviteDiv button{
+    padding:0.3rem 2rem;
+    border:none;
+    cursor:pointer;
+    border-radius:0.4rem;
+    margin-top:0.4rem;
+    font-size:0.7rem;
+}
+
+.AcceptInvite{
+    background-color: #0483bb;
+    color:white;
+}
+
+.DeclineInvite{
+    background-color: #fc8415;
+    color:black;
+}
+
+.NotificationDatesDiv{
+    display:flex;
+    justify-content: start;
+    column-gap:3rem;
+    align-items:center;
+    margin-top:0.4rem;
+}
+
+.NotificationDatesDiv p{
+    text-transform: uppercase;
+    font-size:0.8rem;
+    color:black;
+}
+
+.NotificationDatesDiv p span{
+    color:#0483bb;
+    font-size:0.8rem;
+    text-transform: none;
+}
+
+.NotificationMarkedReadDeleteDiv{
+    display:flex;
+    width:100%;
+    justify-content:space-between;
+    align-items: center;
+    margin-top: 0.4rem;
+}
+
+.NotificationMarkedReadIcon{
+    color:#0483bb;
+    font-size:1rem;
+    margin-right:0.4rem;
+}
+
+.DeleteNotificationBtn{
+    background-color: #fc8415;
+    color:black;
+    padding:0.3rem 1.8rem;
+    border-radius:0.5rem;
+    cursor: pointer;
+    font-size:0.9rem;
+}
+
+@media screen and (max-width:360px){
+    .NotificationDetailsMainDiv{
+    padding:0.7rem;
+}
+.AcceptDeclineInviteDiv{
+    column-gap:1.5rem;
+}
+
+    .NotificationDatesDiv{
+    column-gap:2rem;
+}
+
+.NotificationDatesDiv p{
+    font-size:0.7rem;
+}
+
+.NotificationDatesDiv p span{
+    font-size:0.7rem;
+}
+.NotificationMarkedReadIcon{
+    font-size:1rem;
+    margin-right:0.2rem;
+}
+.NotificationMarkedReadDeleteDiv p{
+    font-size:0.9rem;
+}
+.DeleteNotificationBtn{
+    padding:0.3rem 1.2rem;
+    font-size:0.8rem;
+}
+}

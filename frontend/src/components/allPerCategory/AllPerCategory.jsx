@@ -151,11 +151,11 @@ export function AllPerCategory() {
                   <div className="StartAndDueDateOfGoalsPerCatDiv">
                     <div className="text">
                       <p>Start date:</p>
-                      <p>{moment(goal.startDate).format("MMMM Do YYYY")}</p>
+                      <p>{moment(goal.startDate).format("MMM Do YYYY")}</p>
                     </div>
                     <div className="text">
                       <p>Due date:</p>
-                      <p>{moment(goal.endDate).format("MMMM Do YYYY")}</p>
+                      <p>{moment(goal.endDate).format("MMM Do YYYY")}</p>
                     </div>
                   </div>
                 </div>

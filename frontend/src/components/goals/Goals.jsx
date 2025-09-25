@@ -138,13 +138,13 @@ export function Goals() {
                   <div>
                     <p className="dateTitle text">Start date:</p>
                     <p className="dateActual text">
-                      {moment(goal.startDate).format("MMMM Do YYYY")}
+                      {moment(goal.startDate).format("MMM Do YYYY")}
                     </p>
                   </div>
                   <div>
                     <p className="dateTitle text">Due date:</p>
                     <p className="dateActual text">
-                      {moment(goal.endDate).format("MMMM Do YYYY")}
+                      {moment(goal.endDate).format("MMM Do YYYY")}
                     </p>
                   </div>
                 </div>
