@@ -1,198 +1,249 @@
-.NotificationMainSec{
-    padding:0rem 0.4rem 1rem 16.3rem;
-    width:100%;
+.NotificationMainSec {
+  padding: 0rem 0.4rem 1rem 16.1rem;
+  width: 100%;
 }
 
-.UnreadTopNotificationDiv{
-    padding-top:1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.NotificationMainDiv {
+  width: 100%;
 }
 
-.UnreadMainTitle{
-    font-size:1.3rem;
+.NotificationTabsMainDiv {
+  display: flex;
+  column-gap: 0rem;
+  justify-content: start;
+  align-items: center;
+  padding-top: 0.8rem;
 }
 
-.UnreadTopNotificationDiv button{
-    background:#0483bb;
-    color:white;
-    border:none;
-    padding:0.4rem 1rem;
-    border-radius:0.3rem;
-    cursor:pointer;
+.EachNotificationTab {
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+  justify-content: start;
+  column-gap: 0.9rem;
+  width: 18rem;
 }
 
-.UnreadActualEachMainDiv{
-    width:60rem;
-    margin-top:1rem;
-    display:flex;
-    align-items: end;
-    justify-content: space-between;
+.EachNotificationTab:hover {
+  background-color: #e1e1e1;
 }
 
-.UnreadActualEachMainDiv p{
-    font-size:1rem;
+.activeNotiTab {
+  color: #fc8415;
+  border-bottom: 0.14rem #fc8415 solid;
 }
 
-.AcceptOrRejectInviteDiv{
-    display:flex;
-    column-gap:0.5rem;
-    align-items:center;
+.activeNotiTab .OptionalViewNotification {
+  display: none;
 }
 
-.AcceptInviteBtn{
-    background:#0483bb;
-    color:white;
-    border-radius: 0.3rem;
-    border:none;
-    padding:0.3rem 1rem;
-    cursor:pointer;
-    font-size: 0.8rem;
+.NotificationTabIcon {
+  font-size: 1.2rem;
 }
 
-.RejectInviteBtn{
-    background:#FC8415;
-    border-radius: 0.3rem;
-    color:white;
-    border:none;
-    padding:0.3rem 1rem;
-    cursor:pointer;
-    font-size: 0.8rem;
+.EachNotificationTab div {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
 }
 
-.MarkOneAsReadBtn{
-    border:none;
-    color:#FC8415;
-    font-size: 0.9rem;
-    cursor: pointer;
-    background-color: transparent;
+.TabTitleAtNoti {
+  font-size: 0.8rem;
 }
 
-.NoUnreadNotificationDiv{
-    width:60rem;
-    padding:2rem 0rem 2rem 0rem;
+.OptionalViewNotification {
+  font-size: 0.7rem;
+  color: rgba(76, 76, 76, 0.705);
 }
 
-.NoUnreadNotificationDiv p{
-    text-align: center;
-    font-size: 1.1rem;
-    color:#FC8415;
+.AllNotificationMainWrapper {
+  margin-top: 0.7rem;
+  width: 100%;
 }
 
-.OtherNotificationMainDiv{
-    padding-top:1.5rem;
+.EachNotificationMainDiv {
+  width: 100%;
+  border-bottom: 0.06rem #cfcfcf solid;
+  padding: 0.4rem 0rem 0.4rem 0rem;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
-.OtherNotificationTitle{
-    font-size:1.3rem;
+.NotificationReferenceTitle {
+  width: 20%;
+  display: flex;
+  justify-content: start;
+  column-gap: 0.5rem;
+  align-items: center;
 }
 
-.AllOtherNotificationWrapper{
-    margin-top:0.8rem;
+.NotificationReadIcon {
+  color: #0483bb;
 }
 
-.AllOtherNotificationWrapper div{
-    display: flex;
-    width:60rem;
-    justify-content:space-between;
-    padding:0.3rem 0rem;
+.MarkAsReadIcon {
+  cursor: pointer;
 }
 
-.DateOfNotifications{
-    font-size:0.9rem;
+.NotificationReferenceTitle p {
+  width: 100%;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.DateOfNotifications span{
-    text-transform: uppercase;
-    color:#0483bb;
-    font-size:0.7rem;
+.AlInNotificationExceptReferenceDiv {
+  width: 80%;
+  display: flex;
+  column-gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.EachNotificationTitleAndMsg {
+  width: 95%;
+  color: black;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.EachNotificationTitleAndMsg span {
+  color: rgb(89, 89, 89);
+}
+
+.NotificationDateDiv {
+  width: 5%;
+  display: flex;
+  justify-content: end;
+  font-size: 0.8rem;
+  color: black;
+}
+
+.TabHasNoNotificationDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.TabHasNoNotificationDiv p {
+  font-size: 1rem;
+  color: #fc8415;
+  text-align: center;
+}
+
+.NoNotificationMainDiv {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0rem;
+  width: 100%;
+}
+
+.NoNotificationMainDiv p {
+  text-align: center;
+  color: #fc8415;
+  font-size: 1.2rem;
 }
 
 @media screen and (max-width: 1229px) {
   .NotificationMainSec {
-    padding: 0rem 0.3rem 0.5rem 4rem;
-  }
-  .UnreadTopNotificationDiv{
-    padding-top:0.5rem;
-}
-.UnreadMainTitle{
-    font-size:1.25rem;
-}
-.OtherNotificationTitle{
-    font-size:1.25rem;
-}
-}
-
-@media screen and (max-width: 1041px) {
-.UnreadActualEachMainDiv{
-    width:100%;
-    margin-top:0.8rem;
-}
-.NoUnreadNotificationDiv{
-    width:100%;
-    padding:1.5rem 0rem 1.5rem 0rem;
-}
-.OtherNotificationMainDiv{
-    padding-top:0.4rem;
-    width:100%;
-}
-.AllOtherNotificationWrapper div{
-    display: flex;
-    width:100%;
-    justify-content:space-between;
-    padding:0.3rem 0rem;
-}
-.AcceptInviteBtn{
-    padding:0.2rem 1rem;
-    font-size: 0.8rem;
-}
-
-.RejectInviteBtn{
-    padding:0.2rem 1rem;
-    font-size: 0.8rem;
-}
-
-}
-
-@media screen and (max-width: 640px) {
-    .DateOfNotifications{
-    font-size:0.8rem;
-}
-
-.DateOfNotifications span{
-    font-size:0.6rem;
-}
-}
-
-@media screen and (max-width: 576px) {
-  .NotificationMainSec {
     padding: 0rem 0.3rem 0.5rem 3.6rem;
   }
-  .DateOfNotifications span{
+  .EachNotificationTab {
+    column-gap: 0.5rem;
+    width: 13rem;
+      padding: 0.4rem 0.8rem;
+  }
+}
+
+@media screen and (max-width: 1037px) {
+  .NotificationDateDiv {
+    width: 8%;
+  }
+}
+
+@media screen and (max-width: 830px) {
+  .NotificationReferenceTitle {
+    width: 30%;
+  }
+  .AlInNotificationExceptReferenceDiv {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 783px) {
+  .NotificationDateDiv {
+    width: 12%;
+  }
+}
+
+@media screen and (max-width: 583px) {
+  .NotificationReferenceTitle {
+    width: 40%;
+  }
+  .AlInNotificationExceptReferenceDiv {
+    width: 60%;
+  }
+  .NotificationDateDiv {
+    width: 14%;
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (max-width: 514px) {
+      .NotificationDateDiv {
+    width: 17%;
+  }
+}
+
+@media screen and (max-width: 469px) {
+  .NotificationReferenceTitle {
+    width: 80%;
+  }
+  .AlInNotificationExceptReferenceDiv {
+    width: 20%;
+  }
+  .EachNotificationTitleAndMsg {
     display: none;
-}
-    .DateOfNotifications{
-    color: #0483bb;
-}
-
-.AcceptOrRejectInviteDiv{
-    flex-direction: column;
-    row-gap:0.2rem;
+  }
+  .NotificationDateDiv {
+    width: 100%;
+  }
 }
 
-.AcceptInviteBtn{
-    padding:0.1rem 0.6rem;
-    font-size:0.8rem;
+@media screen and (max-width: 450px) {
+    .NotificationTabsMainDiv {
+        width:100%;
+  padding-top: 0.5rem;
 }
-.RejectInviteBtn{
-    padding:0.1rem 0.7rem;
-    font-size:0.8rem;
+.EachNotificationTab {
+  width:50%;
+}
+.NotificationTabIcon {
+  font-size: 1rem;
+}
+.TabTitleAtNoti {
+  font-size: 0.7rem;
 }
 }
 
 @media screen and (max-width: 399px) {
-    .NotificationMainSec {
-      padding: 0rem 0.4rem 0.5rem 3.3rem;
+  .NotificationMainSec {
+    padding: 0rem 0.4rem 0.5rem 3rem;
   }
+}
+
+
+@media screen and (max-width: 299px) {
+    .NotificationReferenceTitle p {
+  font-size:0.9rem;
+}
 }

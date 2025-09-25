@@ -1,26 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./notification.css";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faFolder } from "@fortawesome/free-regular-svg-icons";
+import { faHandshake } from "@fortawesome/free-regular-svg-icons";
+import { faSquare } from "@fortawesome/free-regular-svg-icons";
+import { faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 
 import {
   useGetUnreadQuery,
-  useGetReadQuery,
+  useGetallQuery,
   useMarkOneSeenMutation,
   useMarkAsSeenMutation,
 } from "../../redux/api/notifyApiSlice";
-import { useReceiveInviteMutation } from "../../redux/api/invitesApiSlice";
 import { useToast } from "../../context/ToastContext";
 import moment from "moment";
+import { Loading } from "../loading/Loading";
 
 export function Notifications() {
-  const { refetch, data: unread, isLoading } = useGetUnreadQuery();
-  const { refetch: readRefetch, data: read } = useGetReadQuery();
+  const { refetch, data: unread = [], isLoading } = useGetUnreadQuery();
+  const {
+    refetch: allRefetch,
+    data: allNotification = [],
+    isLoading: allLoading,
+  } = useGetallQuery();
   const [markOneSeen] = useMarkOneSeenMutation();
   const [markAsSeen] = useMarkAsSeenMutation();
-  const [receiveInvite] = useReceiveInviteMutation();
 
   const { showToast } = useToast();
 
-  const HandleMarkOneNotification = async (id) => {
+  const [activeTab, setActiveTab] = useState("all");
+  let filteredNotification = [];
+
+  if (activeTab === "all") {
+    filteredNotification = allNotification;
+  } else if (activeTab === "unread") {
+    filteredNotification = unread;
+  }
+
+  const HandleMarkOneDone = async (id) => {
     try {
       const response = await markOneSeen(id);
       if (response.error) {
@@ -29,7 +48,7 @@ export function Notifications() {
       } else {
         showToast(response.data.message, "success");
         refetch();
-        readRefetch();
+        allRefetch();
       }
     } catch (error) {
       console.error(error.message);
@@ -41,45 +60,7 @@ export function Notifications() {
     try {
       await markAsSeen();
       refetch();
-      readRefetch();
-    } catch (error) {
-      console.error(error.message);
-      showToast(error.message || error, "error");
-    }
-  };
-
-  const HandleAcceptInvite = async (id) => {
-    try {
-      const res = await receiveInvite({
-        inviteId: id,
-        data: { response: "Accepted" },
-      });
-      if (res.error) {
-        console.error(res.error.data.error || res.error.error);
-        showToast(res.error.data.error || res.error.error, "error");
-      } else {
-        showToast(res.data.message, "success");
-        refetch();
-      }
-    } catch (error) {
-      console.error(error.message);
-      showToast(error.message || error, "error");
-    }
-  };
-
-  const HandleRejectInvite = async (id) => {
-    try {
-      const res = await receiveInvite({
-        inviteId: id,
-        data: { response: "Rejected" },
-      });
-      if (res.error) {
-        console.error(res.error.data.error || res.error.error);
-        showToast(res.error.data.error || res.error.error, "error");
-      } else {
-        showToast(res.data.message, "success");
-        refetch();
-      }
+      allRefetch();
     } catch (error) {
       console.error(error.message);
       showToast(error.message || error, "error");
@@ -88,68 +69,90 @@ export function Notifications() {
 
   useEffect(() => {
     refetch();
-    readRefetch();
-  }, [refetch, readRefetch]);
+    allRefetch();
+  }, [refetch, allRefetch]);
+
+  if (allLoading || isLoading) {
+    return (
+      <div className="MainLoaderDiv">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <section className="NotificationMainSec">
-      <div className="UnreadTopNotificationDiv">
-        <p className="UnreadMainTitle title">Unread</p>
-        {unread && unread.length !== 0 ? (
-          <button onClick={HandleMarkAllRead}>Mark all as read</button>
-        ) : null}
-      </div>
-      {unread && unread.length !== 0 ? (
-        unread &&
-        unread.map((unreaded) => (
-          <div key={unreaded._id} className="UnreadActualEachMainDiv">
-            <p className="text">{unreaded.message}</p>
-            {unreaded.type === "Invite" ? (
-              <div className="AcceptOrRejectInviteDiv">
-                <button
-                  className="AcceptInviteBtn text"
-                  onClick={() => HandleAcceptInvite(unreaded.referenceId)}
-                >
-                  Accept
-                </button>
-                <button
-                  className="RejectInviteBtn text"
-                  onClick={() => HandleRejectInvite(unreaded.referenceId)}
-                >
-                  Reject
-                </button>
-              </div>
-            ) : (
+      <div className="NotificationMainDiv">
+        {allNotification && allNotification.length !== 0 ? (
+          <div>
+            <div className="NotificationTabsMainDiv text">
               <button
-                onClick={() => HandleMarkOneNotification(unreaded._id)}
-                className="MarkOneAsReadBtn"
+                onClick={() => setActiveTab("all")}
+                className={
+                  activeTab === "all"
+                    ? "EachNotificationTab activeNotiTab"
+                    : "EachNotificationTab"
+                }
               >
-                Mark read
-              </button>
-            )}
-          </div>
-        ))
-      ) : (
-        <div className="NoUnreadNotificationDiv">
-          <p className="text">You have no unread notifications</p>
-        </div>
-      )}
-      {read && read.length !== 0 ? (
-        <div className="OtherNotificationMainDiv">
-          <p className="OtherNotificationTitle title">Read</p>
-          <div className="AllOtherNotificationWrapper">
-            {read &&
-              read.map((readed) => (
-                <div key={readed._id}>
-                  <p className="text">{readed.message}</p>
-                  <p className="DateOfNotifications text">
-                    <span>Read on: </span>
-                    {moment(readed.seenAt).format("MMMM Do YYYY")}
-                  </p>
+                <FontAwesomeIcon
+                  icon={faFolder}
+                  className="NotificationTabIcon"
+                />
+                <div>
+                  <p className="TabTitleAtNoti">Overview</p>
+                  <p className="OptionalViewNotification"></p>
                 </div>
-              ))}
+              </button>
+              <button
+                onClick={() => setActiveTab("unread")}
+                className={
+                  activeTab === "unread"
+                    ? "EachNotificationTab activeNotiTab"
+                    : "EachNotificationTab"
+                }
+              >
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="NotificationTabIcon"
+                />
+                <div>
+                  <p className="TabTitleAtNoti">Unread</p>
+                  <p className="OptionalViewNotification"> </p>
+                </div>
+              </button>
+            </div>
+            <div className="AllNotificationMainWrapper">
+              {filteredNotification && filteredNotification.length !== 0 ? (
+                filteredNotification.map((notify) => (
+                  <div className="EachNotificationMainDiv">
+                    <div className="NotificationReferenceTitle title">
+                      {notify.seen?<FontAwesomeIcon icon={faSquareCheck} className="NotificationReadIcon"/>:<FontAwesomeIcon icon={faSquare} className="MarkAsReadIcon" title="Mark as read" onClick={()=>HandleMarkOneDone(notify._id)}/>}
+                      <p>{notify.referenceObj}</p>
+                    </div>
+                    <div className="AlInNotificationExceptReferenceDiv">
+                      <p className="EachNotificationTitleAndMsg text">
+                        {notify.title}<span>{" "}- {" "}{notify.message}</span>
+                        
+                      </p>
+                      <div className="NotificationDateDiv text">
+                        <p>{moment(notify.date).format("DD MMM")}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="TabHasNoNotificationDiv text">
+                  <p>You have no notification here.</p>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      ) : null}
+        ) : (
+          <div className="NoNotificationMainDiv">
+            <p className="text">No notifications at the moment.</p>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

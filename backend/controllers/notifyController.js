@@ -2,7 +2,7 @@ const Notify=require("../models/notifyModel")
 
 const getUnread=async(req,res)=>{
     try {
-        const notifications=await Notify.find({user:req.user._id,seen:false})
+        const notifications=await Notify.find({user:req.user._id,seen:false}).sort({createdAt:-1})
         if(!notifications){
             return res.status(200).json({message:"You have no unread notifications"})
         }else{
@@ -57,7 +57,7 @@ const markOneSeen=async(req,res)=>{
 
 const getAllNotifications=async(req,res)=>{
     try {
-        const allnotifications=await Notify.find({user:req.user._id,seen:true})
+        const allnotifications=await Notify.find({user:req.user._id}).sort({createdAt:-1});
         if(!allnotifications){
             return res.status(422).json({error:"Unable to get notifications"})
         }
@@ -68,4 +68,18 @@ const getAllNotifications=async(req,res)=>{
     }
 }
 
-module.exports={getUnread,markAllSeen,markOneSeen,getAllNotifications}
+
+const getNotificationDetails=async(req,res)=>{
+    try {
+        const notification=await Notify.findById(req.params.id);
+        if(!notification){
+            return res.status(400).json({error:"Can't find the notification"})
+        }
+        res.status(200).json(notification)
+    } catch (error) {
+        console.error(error.message)
+        return res.status(500).json({error:"Server side issue"})
+    }
+}
+
+module.exports={getUnread,markAllSeen,markOneSeen,getAllNotifications,getNotificationDetails}

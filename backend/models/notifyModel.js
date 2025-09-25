@@ -9,6 +9,14 @@ const notifySchema=mongoose.Schema({
     referenceId:{
         type:mongoose.Schema.Types.ObjectId,
     },
+    referenceObj:{
+        type:String,
+        required:true
+    },
+    title:{
+        type:String,
+        required:true
+    },
     message:{
         type:String,
         required:true
@@ -23,10 +31,6 @@ const notifySchema=mongoose.Schema({
     createdAt:{
         type:Date,
         default:Date.now
-    },
-    type:{
-        type:String,
-        enum:["Invite"]
     }
 })
 

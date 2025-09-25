@@ -21,7 +21,7 @@ const notifyApiSlice=apiSlice.injectEndpoints({
                 method:"POST"
             })
         }),
-        getRead:builder.query({
+        getall:builder.query({
             query:()=>({
                 url:`${NOTIFY_URL}/getAllNotifications`,
                 method:"GET"
@@ -30,4 +30,4 @@ const notifyApiSlice=apiSlice.injectEndpoints({
     })
 })
 
-export const {useGetUnreadQuery,useMarkAsSeenMutation,useMarkOneSeenMutation,useGetReadQuery}=notifyApiSlice
+export const {useGetUnreadQuery,useMarkAsSeenMutation,useMarkOneSeenMutation,useGetallQuery}=notifyApiSlice
