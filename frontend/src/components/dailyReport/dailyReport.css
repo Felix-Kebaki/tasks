@@ -34,7 +34,14 @@
   padding: 1rem;
   margin-top: 0.5rem;
   border-radius: 0.6rem;
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.ReviewsPercentageBlueMainDiv{
+     box-shadow: 0 0 0.5rem #0484bb50;
+}
+
+.ReviewsPercentageOrgMainDiv{
+     box-shadow: 0 0 0.5rem #fc851559;
 }
 
 .PerformancePercentage{

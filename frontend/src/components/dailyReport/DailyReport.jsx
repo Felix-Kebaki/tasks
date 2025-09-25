@@ -65,7 +65,7 @@ export function DailyReport({report}) {
       </div>
 
         <p className="DailyDoughnutText text">{completed} of {total} objectives completed</p>
-        <div className="ReviewsPercentageMainDiv">
+        <div className={report?.performance===("Excellent" || "Good" || "Fair")?"ReviewsPercentageMainDiv ReviewsPercentageBlueMainDiv":"ReviewsPercentageMainDiv ReviewsPercentageOrgMainDiv"}>
             <p className="PerformancePercentage title">{(completed*100)/total}%</p>
             <p className={report?.performance===("Excellent" || "Good" || "Fair")?"BlueColorPerfomance text":"OrangeColorPerformance text"}>{report?.performance}</p>
         </div>
