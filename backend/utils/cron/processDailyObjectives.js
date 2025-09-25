@@ -8,7 +8,10 @@ const User = require("../../models/userModel");
 async function connectDB() {
   const uri = process.env.MONGO_URI;
   if (!uri) throw new Error("MONGO_URI not set");
-  await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  await mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 }
 
 async function runJob() {
@@ -35,7 +38,10 @@ async function runJob() {
       else if (percent >= 75) performance = "Good";
       else if (percent >= 60) performance = "Fair";
       else if (percent >= 40) performance = "Poor";
-      else performance="Very Poor";
+      else performance = "Very Poor";
+
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
 
       await DailyReport.create({
         user: user._id,
@@ -43,11 +49,11 @@ async function runJob() {
         completedObjectives: completed,
         failedObjectives: failed,
         performance,
+        date: yesterday,
       });
 
       await Today.deleteMany({ user: user._id });
     }
-
   } catch (error) {
     console.error("Daily objectives job error:", error.message);
   } finally {

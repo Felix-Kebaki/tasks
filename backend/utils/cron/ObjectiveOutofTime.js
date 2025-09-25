@@ -21,7 +21,7 @@ const runJob = async () => {
     const currentMinutes = (now.getUTCHours() + 3) * 60 + now.getUTCMinutes();
 
     for (const user of users) {
-      const objectives = await Today.find({ user: user._id });
+      const objectives = await Today.find({ user: user._id ,objectiveDone:false});
       for (const obj of objectives) {
         const [endHour, endMinute] = obj.endTime.split(":").map(Number);
         const endMinutes = endHour * 60 + endMinute;

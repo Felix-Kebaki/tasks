@@ -111,13 +111,13 @@ export function DailyObjective() {
                     <p className="text">
                       Category: <span>{obj.category}</span>
                     </p>
-                    {!obj.objectiveDone || !obj.outOfTime ? (
+                    {obj.objectiveDone || obj.outOfTime ? null: (
                       <FontAwesomeIcon
                         icon={faTrashCan}
                         className="DeleteObjectiveIcon"
                         onClick={() => HandleClickDelete(obj._id)}
                       />
-                    ) : null}
+                    )}
                   </div>
                 </div>
               </div>
