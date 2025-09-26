@@ -11,18 +11,9 @@ const inviteSchema=mongoose.Schema({
         ref:"User",
         required:true,
     },
-    sentOn:{
-        type:Date,
-        default:Date.now
-    },
     expiresAt:{
         type:Date,
 
-    },
-    status:{
-        type:String,
-        enum:["Pending","Expired","Accepted"],
-        default:"Pending"
     }
 })
 

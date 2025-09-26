@@ -30,10 +30,11 @@ const sendInvite = async (req, res) => {
     const title = `You've been invited to join a team called "${team.name}".`;
     const notification = new Notify({
       user: user._id,
-      referenceObj:"Team Invitation",
+      referenceObj: "Team Invitation",
       title,
-      message:`${senderOfInvite.firstName} has invited you to join the Project ${team.name}. This is your chance to collaborate, share skills and contribute to exciting goals. Accept the invitation to become part of the journey and make an impact with the team!`,
+      message: `${senderOfInvite.firstName} has invited you to join the Project ${team.name}. This is your chance to collaborate, share skills and contribute to exciting goals. Accept the invitation to become part of the journey and make an impact with the team!`,
       referenceId: invite._id,
+      inviteId: invite._id,
     });
     await notification.save();
 
@@ -50,26 +51,36 @@ const receiveInvite = async (req, res) => {
     if (!response) {
       return res.status(422).json({ error: "Provide a response" });
     }
+    const notification = await Notify.findOne({
+      inviteId: req.params.inviteId,
+    });
     const invite = await Invite.findById(req.params.inviteId);
     if (!invite || invite.expiresAt < new Date()) {
-      invite.status = "Expired";
-      await invite.save();
-      await Notify.deleteOne({ referenceId: invite._id });
-      return res.status(422).json({ error: "Invitation has expired" });
+      await Invite.findByIdAndDelete(invite._id);
+      notification.inviteId = undefined;
+      notification.inviteRes="Expired";
+      await notification.save();
+      return res
+        .status(422)
+        .json({ error: "Invitation has expired,request to join" });
     }
 
     if (response === "Rejected") {
       await Invite.findByIdAndDelete(invite._id);
-      await Notify.deleteOne({ referenceId: invite._id });
-      return res.status(200).json({ message: "Invite rejected" });
+      notification.inviteId = undefined;
+      notification.inviteRes="Rejected";
+      await notification.save();
+      return res.status(200).json({ message: "Invitation rejected" });
     }
 
     if (response === "Accepted") {
-      invite.status = "Accepted";
       await Team.findByIdAndUpdate(invite.team, {
         $addToSet: { members: invite.user },
       });
-      await Notify.deleteOne({ referenceId: invite._id });
+      await Invite.findByIdAndDelete(invite._id);
+      notification.inviteId = undefined;
+      notification.inviteRes="Accepted";
+      await notification.save();
       res.status(200).json({ message: "Successfully joined the team" });
     }
   } catch (error) {

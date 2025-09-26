@@ -25,6 +25,22 @@
     font-size:1.3rem;
 }
 
+.NotificationDetailsTopDiv p span{
+    font-size:0.7rem;
+}
+
+.RedInviteRes{
+    color:red;
+}
+
+.BlueInviteRes{
+    color:#0483bb;
+}
+
+.OrgInviteRes{
+    color:#fc8415;
+}
+
 .NotificationTitle{
     margin-top:0.4rem;
     font-size:1.1rem;

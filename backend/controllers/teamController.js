@@ -10,7 +10,7 @@ const createTeam = async (req, res) => {
     if (!name) {
       return res.status(422).json({ error: "Input all fields" });
     }
-    const existTeam = await Team.findOne({ name });
+    const existTeam = await Team.findOne({ name , admin: req.user._id });
     if (existTeam) {
       return res.status(422).json({ error: "Team already exist" });
     }

@@ -31,6 +31,13 @@ const notifySchema=mongoose.Schema({
     createdAt:{
         type:Date,
         default:Date.now
+    },
+    inviteId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Invite"
+    },
+    inviteRes:{
+        type:String
     }
 })
 

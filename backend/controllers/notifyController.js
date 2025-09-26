@@ -85,4 +85,17 @@ const getNotificationDetails=async(req,res)=>{
     }
 }
 
-module.exports={getUnread,markAllSeen,markOneSeen,getAllNotifications,getNotificationDetails}
+const deleteNotification=async(req,res)=>{
+    try {
+        const noti=await Notify.findByIdAndDelete(req.params.id);
+        if(!noti){
+            return res.status(400).json({error:"Unable to delete notification"})
+        }
+        res.status(201).json({message:"Deleted successfully"})
+    } catch (error) {
+        console.error(error.message)
+        return res.status(500).json({error:"Server side issue"})
+    }
+}
+
+module.exports={getUnread,markAllSeen,markOneSeen,getAllNotifications,getNotificationDetails,deleteNotification}

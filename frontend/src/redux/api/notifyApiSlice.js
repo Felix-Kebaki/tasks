@@ -32,8 +32,14 @@ const notifyApiSlice=apiSlice.injectEndpoints({
                 url:`${NOTIFY_URL}/notificationDetails/${id}`,
                 method:"GET"
             })
+        }),
+        deleteNotification:builder.mutation({
+            query:({id})=>({
+                url:`${NOTIFY_URL}/deleteNotification/${id}`,
+                method:"DELETE"
+            })
         })
     })
 })
 
-export const {useGetUnreadQuery,useMarkAsSeenMutation,useMarkOneSeenMutation,useGetallQuery,useGetNotificationDetailsQuery}=notifyApiSlice
+export const {useGetUnreadQuery,useMarkAsSeenMutation,useMarkOneSeenMutation,useGetallQuery,useGetNotificationDetailsQuery,useDeleteNotificationMutation}=notifyApiSlice

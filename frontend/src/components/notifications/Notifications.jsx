@@ -4,7 +4,6 @@ import "./notification.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faFolder } from "@fortawesome/free-regular-svg-icons";
-import { faHandshake } from "@fortawesome/free-regular-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 
@@ -74,8 +73,8 @@ export function Notifications() {
   };
 
   useEffect(() => {
-    refetch();
     allRefetch();
+    refetch();
   }, [refetch, allRefetch, showNotification]);
 
   if (allLoading || isLoading) {
@@ -131,6 +130,7 @@ export function Notifications() {
               {filteredNotification && filteredNotification.length !== 0 ? (
                 filteredNotification.map((notify) => (
                   <div
+                    key={notify._id}
                     className="EachNotificationMainDiv"
                     onClick={() => HandleOpenNotification(notify._id)}
                   >
@@ -175,7 +175,10 @@ export function Notifications() {
         )}
         {showNotification !== null ? (
           <div className="OverflowAddMainDiv">
-            <NotificationDetails id={showNotification} setShowNotification={setShowNotification}/>
+            <NotificationDetails
+              id={showNotification}
+              setShowNotification={setShowNotification}
+            />
           </div>
         ) : null}
       </div>
