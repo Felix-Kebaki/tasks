@@ -27,11 +27,12 @@ const sendInvite = async (req, res) => {
     });
     await invite.save();
 
-    const message = `You've been invited to join a team called "${team.name}" by ${senderOfInvite.firstName}.`;
+    const title = `You've been invited to join a team called "${team.name}".`;
     const notification = new Notify({
       user: user._id,
-      type: "Invite",
-      message,
+      referenceObj:"Team Invitation",
+      title,
+      message:`${senderOfInvite.firstName} has invited you to join the Project ${team.name}. This is your chance to collaborate, share skills and contribute to exciting goals. Accept the invitation to become part of the journey and make an impact with the team!`,
       referenceId: invite._id,
     });
     await notification.save();

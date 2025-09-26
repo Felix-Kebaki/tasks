@@ -28,7 +28,9 @@ async function runJob() {
       await Notify.create({
         user: event.user,
         referenceId: event._id,
-        message: "Upcoming event approaching",
+        referenceObj:"Upcoming event",
+        title: `Upcoming event ${event.title} approaching`,
+        message:`Your upcoming event is scheduled for tomorrow. Don’t forget to prepare in advance so you’re ready when the time comes.`
       });
 
       

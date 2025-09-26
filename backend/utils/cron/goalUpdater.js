@@ -37,11 +37,15 @@ async function runJob() {
         });
       }
 
+      const startdate=new Date(goal.startDate);
+      const enddate=new Date(goal.endDate)
       // Notify user
       await Notify.create({
         user: goal.user,
         referenceId: goal._id,
-        message: `Goal "${goal.name}" has started`,
+        referenceObj:"Personal goals",
+        title:`Goal "${goal.name}" has started`,
+        message:`Your personal goal has officially started today, with a completion deadline of ${enddate.getMonth()},${enddate.getD}. You set this goal on ${} with the reward of ${goal?.reward} awaiting you at the finish line. Stay consistent and begin working now to stay on track and secure your reward!`,
       });
     }
   } catch (err) {

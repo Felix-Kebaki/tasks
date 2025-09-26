@@ -29,15 +29,20 @@ const runJob = async () => {
         await sendNotification(sub.subscription, {
           title: "Goal run out of time",
           body: `The goal ${goal.name} time has elapsed! You were unable to finish on time.`,
-          url: `/app/goals`,
+          url: `/app/notifications`,
         });
       }
+
+      const enddate=new Date(goal.endDate);
+      const startdate=new Date(goal.startDate)
 
       // Notify user
       await Notify.create({
         user: goal.user,
         referenceId: goal._id,
-        message: `Goal "${goal.name}" has run out of time.`,
+        referenceObj:"Personal goals",
+        title:`Goal "${goal.name}" has run out of time.`,
+        message:`Your goal ${goal.name} started on ${startdate.getMonth()},${startdate.getDate()} ${startdate.getFullYear()} and was due by ${enddate.getMonth()},${enddate.getDate()} ${endda.getFullYear()}. The reward was a ${goal?.reward}, but unfortunately, the deadline has passed and the goal remains incomplete. Don’t worry—set a new goal and keep pushing forward!`,
       });
     }
   } catch (err) {
