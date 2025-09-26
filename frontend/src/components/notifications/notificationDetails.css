@@ -41,6 +41,10 @@
     color:#fc8415;
 }
 
+.NothingAtInviteRes{
+    display:none;
+}
+
 .NotificationTitle{
     margin-top:0.4rem;
     font-size:1.1rem;

@@ -61,7 +61,7 @@ export function NotificationDetails({ id, setShowNotification }) {
   };
 
   const RequestInviteToTeam=async()=>{
-    
+
   }
 
   useEffect(() => {
@@ -87,7 +87,9 @@ export function NotificationDetails({ id, setShowNotification }) {
                   ? "BlueInviteRes"
                   : data?.inviteRes === "Rejected"
                   ? "OrgInviteRes"
-                  : "RedInviteRes"
+                  : data?.inviteRes === "Expired"
+                  ?"RedInviteRes"
+                  : "NothingAtInviteRes"
               }
             >
               ({data?.inviteRes})
