@@ -143,7 +143,11 @@ export function Upcoming() {
                         : "OnlyDateDivWithoutDeleteUpcoming text"
                     }
                   >
-                    <p className="OnlyDatesWithEvent">{date.getDate()}</p>
+                    <p className="OnlyDatesWithEvent">
+                      {date.toDateString() === new Date().toDateString()
+                        ? "Today"
+                        : date.getDate()}
+                    </p>
                     {events[dateKey] ? (
                       <FontAwesomeIcon
                         icon={faXmark}
