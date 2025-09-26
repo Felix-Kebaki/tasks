@@ -15,12 +15,16 @@ async function connectDB() {
 }
 
 async function runJob() {
-  const now = new Date();
-  const next15Hours = new Date(now.getTime() + 15 * 60 * 60 * 1000);
+  const tomorrowStart = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1, 0, 0, 0)
+  );
+  const tomorrowEnd = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1, 23, 59, 59)
+  );
 
   try {
     const upcomingEvents = await Upcoming.find({
-      eventDate: { $gte: now, $lte: next15Hours },
+      eventDate: { $gte: tomorrowStart, $lte: tomorrowEnd },
       notified: false,
     }).populate("user");
 
@@ -39,7 +43,7 @@ async function runJob() {
         await sendNotification(sub.subscription, {
           title:"Upcoming Event",
           body: `The event ${event.name} will be tomorrow!`,
-          url: `/app/upcoming`
+          url: `/app/notifications`
         });
       }
 

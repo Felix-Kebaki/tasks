@@ -33,7 +33,7 @@ async function runJob() {
         await sendNotification(sub.subscription, {
           title: "Goal has started",
           body: `${goal.name} start date has been reached!`,
-          url: `/app/goals`,
+          url: `/app/notifications`,
         });
       }
 
