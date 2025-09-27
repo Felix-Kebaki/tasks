@@ -16,9 +16,9 @@ async function connectDB() {
 
 async function runJob() {
   const now = new Date();
+      const startDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0));
 
   try {
-    // Find all goals that should start now but are still marked "Not Started"
     const goalsToStart = await Goal.find({
       startDate: { $lte: now },
       status: "Not Started",
