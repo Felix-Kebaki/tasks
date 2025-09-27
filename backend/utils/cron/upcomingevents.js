@@ -15,6 +15,7 @@ async function connectDB() {
 }
 
 async function runJob() {
+  const now = new Date();
   const tomorrowStart = new Date(
     Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1, 0, 0, 0)
   );

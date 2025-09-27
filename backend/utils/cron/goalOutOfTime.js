@@ -30,7 +30,7 @@ const runJob = async () => {
       for (const sub of subs) {
         await sendNotification(sub.subscription, {
           title: "Goal run out of time",
-          body: `The goal ${goal.name} time has elapsed! You were unable to finish on time.`,
+          body: `The goal "${goal.name}" time has elapsed! You were unable to finish on time.`,
           url: `/app/notifications`,
         });
       }
