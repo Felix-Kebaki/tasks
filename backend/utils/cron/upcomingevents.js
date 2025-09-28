@@ -16,12 +16,8 @@ async function connectDB() {
 
 async function runJob() {
   const now = new Date();
-  const tomorrowStart = new Date(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1, 0, 0, 0)
-  );
-  const tomorrowEnd = new Date(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1, 23, 59, 59)
-  );
+  const tomorrowStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+  const tomorrowEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 23, 59, 59);
 
   try {
     const upcomingEvents = await Upcoming.find({
@@ -43,7 +39,7 @@ async function runJob() {
       for (const sub of subs) {
         await sendNotification(sub.subscription, {
           title:"Upcoming Event",
-          body: `The event ${event.name} will be tomorrow!`,
+          body: `The event ${event.title} will be tomorrow!`,
           url: `/app/notifications`
         });
       }
@@ -55,7 +51,6 @@ async function runJob() {
     console.error("Error running upcoming events job:", error.message);
   } finally {
     await mongoose.disconnect();
-    process.exit(0);
   }
 }
 

@@ -58,7 +58,7 @@
     background:#FC8415;
     color:rgba(0, 0, 0, 0.459);
     padding:0.2rem 0.9rem;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     text-wrap: nowrap;
 }
 
@@ -66,8 +66,8 @@
     background-color: #0483bb;
     color:rgba(255, 255, 255, 0.5);
     padding:0.2rem 0.9rem;
-    font-size:0.9rem;
-       text-wrap: nowrap;
+    font-size:0.8rem;
+    text-wrap: nowrap;
 }
 
 .GoalName{
@@ -212,12 +212,12 @@
   
 .statusP{
     padding:0.2rem 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 
 .priorityP{
     padding:0.2rem 0.5rem;
-    font-size:0.8rem;
+    font-size:0.7rem;
 }
 
 .GoalName{

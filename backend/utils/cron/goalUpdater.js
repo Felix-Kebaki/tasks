@@ -16,25 +16,26 @@ async function connectDB() {
 
 async function runJob() {
   const now = new Date();
-
   const startOfDay = new Date(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0)
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    0,
+    0,
+    0
   );
-
   const endOfDay = new Date(
-    Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate(),
-      23,
-      59,
-      59
-    )
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    23,
+    59,
+    59
   );
 
   try {
     const goalsToStart = await Goal.find({
-     startDate: { $gte: startOfDay, $lte: endOfDay },
+      startDate: { $gte: startOfDay, $lte: endOfDay },
       status: "Not Started",
     });
 
@@ -58,7 +59,10 @@ async function runJob() {
         referenceId: goal._id,
         referenceObj: "Personal goals",
         title: `Goal "${goal.name}" has started`,
-        message: `Your personal goal has officially started today, with a completion deadline of ${enddate.getMonth()},${enddate.getDate()} ${enddate.getFullYear()}. You set this goal with the reward of ${
+        message: `Your personal goal has officially started today, with a completion deadline of ${enddate.toLocaleDateString(
+          "en-US",
+          { month: "long", day: "numeric", year: "numeric" }
+        )}. You set this goal with the reward of ${
           goal?.reward
         } awaiting you at the finish line. Stay consistent and begin working now to stay on track and secure your reward!`,
       });
@@ -67,7 +71,6 @@ async function runJob() {
     console.error("Goal start job error:", err.message);
   } finally {
     await mongoose.disconnect();
-    process.exit(0);
   }
 }
 

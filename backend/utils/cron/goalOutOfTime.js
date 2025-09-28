@@ -2,6 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Goal = require("../../models/goalModel");
 const Notify = require("../../models/notifyModel");
+const Subscription=require("../../models/subscriptionModel")
 const sendNotification = require("../../utils/push");
 
 async function connectDB() {
@@ -15,8 +16,8 @@ async function connectDB() {
 
 const runJob = async () => {
   const now = new Date();
-    const startOfDay = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0));
-    const endOfDay = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 23, 59, 59));
+  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+  const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
   try {
     const goals = await Goal.find({
       endDate: { $gte: startOfDay, $lte: endOfDay },
@@ -24,7 +25,7 @@ const runJob = async () => {
     });
     for (const goal of goals) {
       goal.status = "Out of Time";
-      goal.save();
+      await goal.save();
 
       const subs = await Subscription.find({ user: goal.user });
       for (const sub of subs) {
@@ -44,14 +45,13 @@ const runJob = async () => {
         referenceId: goal._id,
         referenceObj:"Personal goals",
         title:`Goal "${goal.name}" has run out of time.`,
-        message:`Your goal ${goal.name} started on ${startdate.getMonth()},${startdate.getDate()} ${startdate.getFullYear()} and was due by ${enddate.getMonth()},${enddate.getDate()} ${endda.getFullYear()}. The reward was a ${goal?.reward}, but unfortunately, the deadline has passed and the goal remains incomplete. Don’t worry—set a new goal and keep pushing forward!`,
+        message:`Your goal ${goal.name} started on ${startdate.getMonth()},${startdate.getDate()} ${startdate.getFullYear()} and was due by ${enddate.getMonth()},${enddate.getDate()} ${enddate.getFullYear()}. The reward was a ${goal?.reward}, but unfortunately, the deadline has passed and the goal remains incomplete. Don’t worry—set a new goal and keep pushing forward!`,
       });
     }
   } catch (err) {
     console.error("Goal start job error:", err.message);
   } finally {
     await mongoose.disconnect();
-    process.exit(0);
   }
 };
 
