@@ -16,19 +16,20 @@ async function connectDB() {
 
 async function runJob() {
   const now = new Date();
+  const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
   const startOfDay = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    0,
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate(),
+    0 - TZ_OFFSET,
     0,
     0
   );
   const endOfDay = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    23,
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate(),
+    23 - TZ_OFFSET,
     59,
     59
   );

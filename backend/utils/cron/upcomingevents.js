@@ -23,7 +23,7 @@ async function runJob() {
     now.getUTCFullYear(),
     now.getUTCMonth(),
     now.getUTCDate() + 1,
-    0 - TZ_OFFSET, // shift back by offset
+    0 - TZ_OFFSET, 
     0,
     0
   ));
@@ -32,7 +32,7 @@ async function runJob() {
     now.getUTCFullYear(),
     now.getUTCMonth(),
     now.getUTCDate() + 1,
-    23 - TZ_OFFSET, // shift back by offset
+    23 - TZ_OFFSET, 
     59,
     59
   ));

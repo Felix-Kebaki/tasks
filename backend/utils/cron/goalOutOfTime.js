@@ -2,7 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Goal = require("../../models/goalModel");
 const Notify = require("../../models/notifyModel");
-const Subscription=require("../../models/subscriptionModel")
+const Subscription = require("../../models/subscriptionModel");
 const sendNotification = require("../../utils/push");
 
 async function connectDB() {
@@ -16,8 +16,24 @@ async function connectDB() {
 
 const runJob = async () => {
   const now = new Date();
-  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
-  const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+  const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
+  const startOfDay = new Date(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate(),
+    0 - TZ_OFFSET,
+    0,
+    0
+  );
+  const endOfDay = new Date(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate(),
+    23 - TZ_OFFSET,
+    59,
+    59
+  );
+
   try {
     const goals = await Goal.find({
       endDate: { $gte: startOfDay, $lte: endOfDay },
@@ -36,16 +52,20 @@ const runJob = async () => {
         });
       }
 
-      const enddate=new Date(goal.endDate);
-      const startdate=new Date(goal.startDate)
+      const enddate = new Date(goal.endDate);
+      const startdate = new Date(goal.startDate);
 
       // Notify user
       await Notify.create({
         user: goal.user,
         referenceId: goal._id,
-        referenceObj:"Personal goals",
-        title:`Goal "${goal.name}" has run out of time.`,
-        message:`Your goal ${goal.name} started on ${startdate.getMonth()},${startdate.getDate()} ${startdate.getFullYear()} and was due by ${enddate.getMonth()},${enddate.getDate()} ${enddate.getFullYear()}. The reward was a ${goal?.reward}, but unfortunately, the deadline has passed and the goal remains incomplete. Don’t worry—set a new goal and keep pushing forward!`,
+        referenceObj: "Personal goals",
+        title: `Goal "${goal.name}" has run out of time.`,
+        message: `Your goal ${
+          goal.name
+        } started on ${startdate.getMonth()},${startdate.getDate()} ${startdate.getFullYear()} and was due by ${enddate.getMonth()},${enddate.getDate()} ${enddate.getFullYear()}. The reward was a ${
+          goal?.reward
+        }, but unfortunately, the deadline has passed and the goal remains incomplete. Don’t worry—set a new goal and keep pushing forward!`,
       });
     }
   } catch (err) {
