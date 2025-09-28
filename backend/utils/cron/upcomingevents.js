@@ -22,6 +22,9 @@ async function runJob() {
   const tomorrowLocalStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
   const tomorrowLocalEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 23, 59, 59, 999);
 
+  console.log(`Here is your end time ${tomorrowLocalEnd}`);
+  console.log(`Here is your start time ${tomorrowLocalStart}`)
+
   const tomorrowStartUTC = zonedTimeToUtc(tomorrowLocalStart, timeZone);
   const tomorrowEndUTC = zonedTimeToUtc(tomorrowLocalEnd, timeZone);
 
