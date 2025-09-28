@@ -24,6 +24,7 @@ const runJob = async () => {
       status: { $ne: "Out of Time" },
     });
     for (const goal of goals) {
+      console.log(goal);
       goal.status = "Out of Time";
       await goal.save();
 

@@ -21,11 +21,12 @@ async function runJob() {
 
   try {
     const upcomingEvents = await Upcoming.find({
-      eventDate: { $gte: tomorrowStart, $lte: tomorrowEnd },
+      eventDate: {  $gte: now, $lte: new Date(now.getTime() + 24*60*60*1000) },
       notified: false,
     }).populate("user");
 
     for (const event of upcomingEvents) {
+    console.log(event)
       await Notify.create({
         user: event.user,
         referenceId: event._id,
