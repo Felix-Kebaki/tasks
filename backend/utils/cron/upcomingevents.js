@@ -1,5 +1,6 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
+const { zonedTimeToUtc } = require("date-fns-tz");
 const Upcoming = require("../../models/upcomingModel");
 const Notify = require("../../models/notifyModel");
 const Subscription=require("../../models/subscriptionModel")
@@ -15,20 +16,25 @@ async function connectDB() {
 }
 
 async function runJob() {
+  const timeZone = process.env.TIMEZONE || "Africa/Nairobi";
+
   const now = new Date();
-  const tomorrowStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-  const tomorrowEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 23, 59, 59);
+  const tomorrowLocalStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
+  const tomorrowLocalEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 23, 59, 59, 999);
+
+  const tomorrowStartUTC = zonedTimeToUtc(tomorrowLocalStart, timeZone);
+  const tomorrowEndUTC = zonedTimeToUtc(tomorrowLocalEnd, timeZone);
 
   try {
     const upcomingEvents = await Upcoming.find({
-      eventDate: {  $gte: now, $lte: new Date(now.getTime() + 24*60*60*1000) },
+      eventDate: {  $gte: tomorrowStartUTC, $lte: tomorrowEndUTC },
       notified: false,
-    }).populate("user");
+    }).populate("user","email")
 
     for (const event of upcomingEvents) {
-    console.log(event)
+      const userId = event.user && event.user._id ? event.user._id : event.user;
       await Notify.create({
-        user: event.user,
+        user: userId,
         referenceId: event._id,
         referenceObj:"Upcoming event",
         title: `Upcoming event ${event.title} approaching`,
