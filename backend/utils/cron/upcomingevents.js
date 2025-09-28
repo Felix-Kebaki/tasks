@@ -1,6 +1,5 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const { zonedTimeToUtc } = require("date-fns-tz");
 const Upcoming = require("../../models/upcomingModel");
 const Notify = require("../../models/notifyModel");
 const Subscription=require("../../models/subscriptionModel")
@@ -16,21 +15,32 @@ async function connectDB() {
 }
 
 async function runJob() {
-  const timeZone = process.env.TIMEZONE || "Africa/Nairobi";
+  const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
 
   const now = new Date();
-  const tomorrowLocalStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
-  const tomorrowLocalEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 23, 59, 59, 999);
 
-  console.log(`Here is your end time ${tomorrowLocalEnd}`);
-  console.log(`Here is your start time ${tomorrowLocalStart}`)
+  // Build tomorrow's start and end in UTC
+  const tomorrowStart = new Date(Date.UTC(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate() + 1,
+    0 - TZ_OFFSET, // shift back by offset
+    0,
+    0
+  ));
 
-  const tomorrowStartUTC = zonedTimeToUtc(tomorrowLocalStart, timeZone);
-  const tomorrowEndUTC = zonedTimeToUtc(tomorrowLocalEnd, timeZone);
+  const tomorrowEnd = new Date(Date.UTC(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate() + 1,
+    23 - TZ_OFFSET, // shift back by offset
+    59,
+    59
+  ));
 
   try {
     const upcomingEvents = await Upcoming.find({
-      eventDate: {  $gte: tomorrowStartUTC, $lte: tomorrowEndUTC },
+      eventDate: {  $gte: tomorrowStart, $lte: tomorrowEnd },
       notified: false,
     }).populate("user","email")
 
