@@ -19,7 +19,6 @@ async function runJob() {
 
   const now = new Date();
 
-  // Build tomorrow's start and end in UTC
   const tomorrowStart = new Date(Date.UTC(
     now.getUTCFullYear(),
     now.getUTCMonth(),

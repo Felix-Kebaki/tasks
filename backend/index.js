@@ -33,7 +33,6 @@ app.use("/api/allLength",require("./routers/dashboardRouter"))
 app.use("/api/dailyReport",require("./routers/dailyReportRouter"))
 app.use("/api/push",require("./routers/pushRouter"))
 
-require("./utils/cron/upcomingevents");
 
 // Serve frontend
 if (process.env.NODE_ENV === "production") {
