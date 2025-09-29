@@ -1,4 +1,4 @@
-import { INVITE_URL } from "../constants";
+import { INVITE_URL, NOTIFY_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 
 const invitesApiSlice=apiSlice.injectEndpoints({
@@ -16,8 +16,22 @@ const invitesApiSlice=apiSlice.injectEndpoints({
                 method:"POST",
                 body:data
             })
+        }),
+        reqestTojoin:builder.mutation({
+            query:({data})=>({
+                url:`${INVITE_URL}/requestTojoin`,
+                method:"POST",
+                body:data
+            })
+        }),
+        responseToRequest:builder.mutation({
+            query:({id,data})=>({
+                url:`${INVITE_URL}/requestResponse/${id}`,
+                method:"POST",
+                body:data
+            })
         })
     })
 })
 
-export const {useSendInviteMutation,useReceiveInviteMutation}=invitesApiSlice
+export const {useSendInviteMutation,useReceiveInviteMutation,useReqestTojoinMutation,useResponseToRequestMutation}=invitesApiSlice

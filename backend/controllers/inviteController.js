@@ -23,7 +23,7 @@ const sendInvite = async (req, res) => {
     const invite = new Invite({
       team: team._id,
       user: user._id,
-      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      expiresAt: new Date(Date.now() + 5 * 60 * 1000),
     });
     await invite.save();
 
@@ -33,7 +33,7 @@ const sendInvite = async (req, res) => {
       referenceObj: "Team Invitation",
       title,
       message: `${senderOfInvite.firstName} has invited you to join the Project ${team.name}. This is your chance to collaborate, share skills and contribute to exciting goals. Accept the invitation to become part of the journey and make an impact with the team!`,
-      referenceId: invite._id,
+      referenceId: team._id,
       inviteId: invite._id,
     });
     await notification.save();
@@ -58,7 +58,7 @@ const receiveInvite = async (req, res) => {
     if (!invite || invite.expiresAt < new Date()) {
       await Invite.findByIdAndDelete(invite._id);
       notification.inviteId = undefined;
-      notification.inviteRes="Expired";
+      notification.inviteRes = "Expired";
       await notification.save();
       return res
         .status(422)
@@ -68,7 +68,7 @@ const receiveInvite = async (req, res) => {
     if (response === "Rejected") {
       await Invite.findByIdAndDelete(invite._id);
       notification.inviteId = undefined;
-      notification.inviteRes="Rejected";
+      notification.inviteRes = "Rejected";
       await notification.save();
       return res.status(200).json({ message: "Invitation rejected" });
     }
@@ -79,7 +79,7 @@ const receiveInvite = async (req, res) => {
       });
       await Invite.findByIdAndDelete(invite._id);
       notification.inviteId = undefined;
-      notification.inviteRes="Accepted";
+      notification.inviteRes = "Accepted";
       await notification.save();
       res.status(200).json({ message: "Successfully joined the team" });
     }
@@ -89,4 +89,62 @@ const receiveInvite = async (req, res) => {
   }
 };
 
-module.exports = { sendInvite, receiveInvite };
+const requestTojoin = async (req, res) => {
+  const { teamId } = req.body;
+  try {
+    const team = await Team.findById(teamId);
+    if (!team) {
+      return res.status(400).json({ error: "The team does not exist" });
+    }
+    const notify = new Notify({
+      user: team.admin,
+      referenceObj: "Join Request",
+      title: `${req.user.firstName} ${req.user.lastName} is requesting to join your team`,
+      message: ` The invitation period has expired, but ${req.user.email}
+ has requested to join your team "${team.name}". Please review their request and decide whether to send a new invitation.`,
+      referenceId: team._id,
+      requestingUser: req.user._id,
+    });
+    await notify.save();
+    res.status(200).json({ message: "Request sent successfully" });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+};
+
+const requestResponse = async (req, res) => {
+  const { response } = req.body;
+  try {
+    const notify = await Notify.findById(req.params.id);
+    if (!notify) {
+      return res.status(404).json({ error: "Request doesn't exist" });
+    }
+
+    if (response === "Accepted") {
+      const teamUpdate = await Team.findByIdAndUpdate(notify.referenceId, {
+        $addToSet: { members: notify.requestingUser },
+      });
+      if (!teamUpdate) {
+        return res.status(404).json({ error: "Team doesn't exist." });
+      }
+
+      notify.requestingUser = undefined;
+      notify.inviteRes = "Accepted";
+      await notify.save();
+
+      res.status(200).json({ message: "Request accepted successfully" });
+    } else if (response === "Rejected") {
+      notify.requestingUser = undefined;
+      notify.inviteRes = "Rejected";
+      await notify.save();
+
+      res.status(200).json({ message: "Request accepted successfully" });
+    }
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+};
+
+module.exports = { sendInvite, receiveInvite, requestTojoin, requestResponse };

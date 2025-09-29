@@ -1,6 +1,8 @@
 import { useGetNotificationDetailsQuery } from "../../redux/api/notifyApiSlice";
 import { useDeleteNotificationMutation } from "../../redux/api/notifyApiSlice";
 import { useReceiveInviteMutation } from "../../redux/api/invitesApiSlice";
+import { useReqestTojoinMutation } from "../../redux/api/invitesApiSlice";
+import { useResponseToRequestMutation } from "../../redux/api/invitesApiSlice";
 import { useToast } from "../../context/ToastContext";
 import { Loading } from "../loading/Loading";
 
@@ -11,7 +13,7 @@ import { faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 import "./notificationDetails.css";
 
 import moment from "moment";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function NotificationDetails({ id, setShowNotification }) {
   const { refetch, data, isLoading } = useGetNotificationDetailsQuery({ id });
@@ -19,7 +21,12 @@ export function NotificationDetails({ id, setShowNotification }) {
     useDeleteNotificationMutation();
   const [receiveInvite, { isLoading: inviteLoading }] =
     useReceiveInviteMutation();
+  const [reqestTojoin, { isLoading: requestLoading }] =
+    useReqestTojoinMutation();
+  const [responseToRequest, { isLoading: responseLoading }] =
+    useResponseToRequestMutation();
   const { showToast } = useToast();
+  const [refresh, setRefresh] = useState(1);
 
   const CloseNotificationDetails = () => {
     setShowNotification(null);
@@ -32,6 +39,7 @@ export function NotificationDetails({ id, setShowNotification }) {
         data: { response: choice },
       });
       if (res.error) {
+        setRefresh(2);
         showToast(res.error.data.error || res.error.error, "error");
         console.error(res.error.data.error || res.error.error);
       } else {
@@ -60,13 +68,41 @@ export function NotificationDetails({ id, setShowNotification }) {
     }
   };
 
-  const RequestInviteToTeam=async()=>{
+  const RequestInviteToTeam = async (teamId) => {
+    try {
+      const res = await reqestTojoin({ data: { teamId } });
+      if (res.error) {
+        console.error(res.error.data.error || res.error.error);
+        showToast(res.error.data.error || res.error.error, "error");
+      } else {
+        setShowNotification(null);
+        showToast(res.data.message, "success");
+      }
+    } catch (error) {
+      console.error(error.message || error);
+      showToast(error.message || error, "error");
+    }
+  };
 
-  }
+  const TeamAdminOnReceingRequest = async (resp) => {
+    try {
+      const res = await responseToRequest({ data: { response :resp}, id });
+      if (res.error) {
+        console.error(res.error.data.error || res.error.error);
+        showToast(res.error.data.error || res.error.error, "error");
+      } else {
+        setShowNotification(null);
+        showToast(res.data.message, "success");
+      }
+    } catch (error) {
+      console.error(error.message || error);
+      showToast(error.message || error, "error");
+    }
+  };
 
   useEffect(() => {
-    refetch;
-  }, [refetch]);
+    refetch();
+  }, [refetch, refresh]);
 
   if (isLoading || !data) {
     return (
@@ -88,7 +124,7 @@ export function NotificationDetails({ id, setShowNotification }) {
                   : data?.inviteRes === "Rejected"
                   ? "OrgInviteRes"
                   : data?.inviteRes === "Expired"
-                  ?"RedInviteRes"
+                  ? "RedInviteRes"
                   : "NothingAtInviteRes"
               }
             >
@@ -103,24 +139,36 @@ export function NotificationDetails({ id, setShowNotification }) {
         </div>
         <p className="NotificationTitle text">{data?.title}</p>
         <p className="NotificationMsg text">{data?.message}</p>
-        {data?.referenceObj === "Team Invitation" && data?.inviteId ? (
+        {(data?.referenceObj === "Team Invitation" ||
+          data?.referenceObj === "Join Request") &&
+        (data?.inviteId || data?.requestingUser) ? (
           <div className="AcceptDeclineInviteDiv">
             <button
               className="AcceptInvite"
-              onClick={() => HandleReceiveInvite("Accepted")}
+              onClick={
+                data?.inviteId
+                  ? () => HandleReceiveInvite("Accepted")
+                  : () => TeamAdminOnReceingRequest("Accepted")
+              }
             >
               Accept
             </button>
             <button
               className="DeclineInvite"
-              onClick={() => HandleReceiveInvite("Rejected")}
+              onClick={
+                data?.inviteId
+                  ? () => HandleReceiveInvite("Rejected")
+                  : () => TeamAdminOnReceingRequest("Rejected")
+              }
             >
               Decline
             </button>
           </div>
         ) : data?.inviteRes === "Expired" ? (
           <div className="RequestToJoinTeam text">
-            <button onClick={RequestInviteToTeam}>Request admin to join</button>
+            <button onClick={() => RequestInviteToTeam(data?.referenceId)}>
+              Request admin to join
+            </button>
           </div>
         ) : null}
         <div className="NotificationDatesDiv text">
@@ -138,7 +186,7 @@ export function NotificationDetails({ id, setShowNotification }) {
               icon={faSquareCheck}
               className="NotificationMarkedReadIcon"
             />
-            Mark as read
+            Marked as read
           </p>
           <p
             className="DeleteNotificationBtn"

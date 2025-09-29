@@ -38,6 +38,9 @@ const notifySchema=mongoose.Schema({
     },
     inviteRes:{
         type:String
+    },
+    requestingUser:{
+        type:mongoose.Schema.Types.ObjectId
     }
 })
 
