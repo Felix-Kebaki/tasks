@@ -82,6 +82,24 @@
     color:black;
 }
 
+.RequestToJoinTeam{
+    margin-top:0.4rem;
+}
+
+.RequestToJoinTeam button{
+    border:none;
+    border-bottom:0.1rem black solid;
+    padding:0.1rem 0.3rem;
+    cursor: pointer;
+    background:transparent;
+    color:black;
+}
+
+.RequestToJoinTeam button:hover{
+    color:#0483bb;
+    border-bottom:0.1rem #0483bb solid;
+}
+
 .NotificationDatesDiv{
     display:flex;
     justify-content: start;

@@ -156,7 +156,7 @@ export function Notifications() {
                         <span> - {notify.message}</span>
                       </p>
                       <div className="NotificationDateDiv text">
-                        <p>{moment(notify?.date).format("DD MMM")}</p>
+                        <p>{moment(notify?.createdAt).format("DD MMM")}</p>
                       </div>
                     </div>
                   </div>

@@ -119,7 +119,7 @@ export function NotificationDetails({ id, setShowNotification }) {
             </button>
           </div>
         ) : data?.inviteRes === "Expired" ? (
-          <div>
+          <div className="RequestToJoinTeam text">
             <button onClick={RequestInviteToTeam}>Request admin to join</button>
           </div>
         ) : null}
