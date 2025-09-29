@@ -23,7 +23,7 @@ const sendInvite = async (req, res) => {
     const invite = new Invite({
       team: team._id,
       user: user._id,
-      expiresAt: new Date(Date.now() + 5 * 60 * 1000),
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     });
     await invite.save();
 
