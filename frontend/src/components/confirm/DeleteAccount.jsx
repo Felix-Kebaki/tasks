@@ -5,14 +5,18 @@ import { useLogoutMutation } from "../../redux/api/userApiSlice";
 import {logoutS} from '../../redux/features/authSlice'
 
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 export function DeleteAccount({setDeleteAcc}) {
     const dispatch=useDispatch()
   const [deleteAccount] = useDeleteAccountMutation();
   const [logout]=useLogoutMutation()
 
+  const [active,setActive]=useState(true);
+
   const HandleDeleteAccount = async () => {
     try {
+      setActive(false);
       const res = await deleteAccount();
       if (res.error) {
         console.error(res.error.data.error || res.error.error);
@@ -37,8 +41,8 @@ export function DeleteAccount({setDeleteAcc}) {
           Are you sure you want to delete your account together with all associated data?
         </p>
         <div>
-          <button onClick={HandleDeleteAccount}>confirm</button>
-          <button onClick={Cancel}>cancel</button>
+          <button onClick={HandleDeleteAccount} disabled={!active}>confirm</button>
+          <button onClick={Cancel} disabled={!active}>cancel</button>
         </div>
       </div>
     </section>
