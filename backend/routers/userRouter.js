@@ -8,6 +8,7 @@ const {
   editPassword,
   editProfile,
   deleteAccount,
+  getUser
 } = require("../controllers/userController");
 
 router.post("/login", loginUser);
@@ -16,5 +17,6 @@ router.post("/logout", logoutUser);
 router.put("/editPassword", Protect, editPassword);
 router.put("/editProfile", Protect, editProfile);
 router.delete("/deleteAccount", Protect, deleteAccount);
+router.get("/me", Protect, getUser);
 
 module.exports = router;

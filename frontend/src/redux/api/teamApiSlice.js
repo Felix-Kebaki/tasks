@@ -22,13 +22,13 @@ const teamApiSlice=apiSlice.injectEndpoints({
                 method:'DELETE',
             })
         }),
-        getMembers:builder.query({
-            query:({teamId})=>({
-                url:`${TEAM_URL}/teamMembers/${teamId}`,
-                method:"GET"
+        getTeamdashboard:builder.query({
+            query:({id})=>({
+                url:`${TEAM_URL}/teamDashboard/${id}`,
+                method:"POST",
             })
         })
     })
 })
 
-export const {useGetYourTeamsQuery,useCreateTeamMutation,useDeleteTeamMutation,useGetMembersQuery}=teamApiSlice
+export const {useGetYourTeamsQuery,useCreateTeamMutation,useDeleteTeamMutation,useGetTeamdashboardQuery}=teamApiSlice

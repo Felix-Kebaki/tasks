@@ -1,6 +1,7 @@
 const Team = require("../models/teamModel");
 const TeamTask = require("../models/teamTaskModel");
 const EachTask = require("../models/assignTaskModel");
+const User=require("../models/userModel")
 const capitalizeFirst = require("../utils/capitalize");
 const cloudinary = require("../utils/cloudinary/cloudinary");
 
@@ -96,21 +97,27 @@ const deleteTeam = async (req, res) => {
   }
 };
 
-const getMembers = async (req, res) => {
+const getTeamDashboard=async(req,res)=>{
   try {
-    const team = await Team.findById(req.params.teamId).populate(
-      "members",
-      "firstName lastName email"
-    );
-    if (!team) {
-      return res.status(422).json({ error: "Unable to fetch team members" });
+    const team=await Team.findById(req.params.id).populate("members","firstName lastName email");
+    if(!team){
+      return res.status(404).json({error:"Unable to get the team"})
     }
+    const admin=await User.findById(team.admin);
+    const teamtasks=await TeamTask.find({team:req.params.id})
 
-    res.status(200).json({ members: team.members });
+    res.status(200).json({
+      name:team.name,
+      createdAt:team.createdAt,
+      isAdmin:team.admin.toString()===req.user._id.toString(),
+      members:team.members,
+      teamtask:teamtasks,
+      admin:[admin.firstName,admin.lastName,admin.email]
+    })
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });
   }
-};
+}
 
-module.exports = { createTeam, deleteTeam, getYourTeams, getMembers };
+module.exports = { createTeam, deleteTeam, getYourTeams,getTeamDashboard };

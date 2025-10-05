@@ -86,19 +86,6 @@ const logoutUser = async (req, res) => {
   res.status(200).json({ message: "Logged out successfully" });
 };
 
-const getProfile = async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id);
-    if (!user) {
-      return res.status(422).json({ error: "Unable to get profile" });
-    }
-    res.status(200).json({});
-  } catch (error) {
-    console.error(error.message);
-    return res.status(500).json({ error: "Server side issue" });
-  }
-};
-
 const editPassword = async (req, res) => {
   const { oldPassword, newPassword } = req.body;
   try {
@@ -213,6 +200,18 @@ const deleteAccount = async (req, res) => {
   }
 };
 
+
+const getUser=async(req,res)=>{
+  try {
+    const user=await User.findById(req.user);
+    const me={...user._doc,password:undefined}
+    res.status(200).json(me);
+  } catch (error) {
+        console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+}
+
 module.exports = {
   loginUser,
   registerUser,
@@ -220,4 +219,5 @@ module.exports = {
   editPassword,
   editProfile,
   deleteAccount,
+  getUser
 };

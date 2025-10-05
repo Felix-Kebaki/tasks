@@ -42,6 +42,12 @@ const userApiSlice = apiSlice.injectEndpoints({
         url:`${USER_URL}/deleteAccount`,
         method:"DELETE"
       })
+    }),
+    getMe:builder.query({
+      query:()=>({
+        url:`${USER_URL}/me`,
+        method:"GET",
+      })
     })
   }),
 });
@@ -52,5 +58,6 @@ export const {
   useLogoutMutation,
   useEditPasswordMutation,
   useEditProfileMutation,
-  useDeleteAccountMutation
+  useDeleteAccountMutation,
+  useGetMeQuery
 } = userApiSlice;
