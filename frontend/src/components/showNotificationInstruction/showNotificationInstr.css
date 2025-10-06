@@ -1,0 +1,61 @@
+.ShowNotificationInstrMainSec {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ShowNotificationInstrMainDiv {
+  padding: 1.2rem;
+  overflow-y: auto;
+  border-radius: 0.3rem;
+  background-color: white;
+  width: 30rem;
+  box-shadow: 0rem 0rem 0.4rem rgba(233, 233, 233, 0.438);
+}
+
+.ShowNotificationInstrTopDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+}
+
+.ShowNotificationInstrTopDiv p {
+  font-size: 1.3rem;
+}
+
+.CloseInstrIcon {
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.EachBrowserInstructionsDiv p {
+  font-size: 0.9rem;
+}
+
+@media screen and (max-width: 504px) {
+  .ShowNotificationInstrMainSec {
+    width: 97%;
+    margin: 0rem auto 0rem;
+  }
+
+  .ShowNotificationInstrMainDiv {
+    width: 100%;
+  }
+  .CloseInstrIcon {
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 349px) {
+    .ShowNotificationInstrMainDiv{
+        padding:1rem 0.5rem 1rem 0.5rem;
+    }
+}
+
+@media screen and (max-width: 261px) {
+    .ShowNotificationInstrTopDiv p {
+  font-size: 1.2rem;
+}
+}

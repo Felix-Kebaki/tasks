@@ -32,6 +32,7 @@ app.use("/api/allCategory",require("./routers/getAllCategoryRouter"))
 app.use("/api/allLength",require("./routers/dashboardRouter"))
 app.use("/api/dailyReport",require("./routers/dailyReportRouter"))
 app.use("/api/push",require("./routers/pushRouter"))
+app.use("/api/subscription",require("./routers/subscriptionRouter"))
 
 
 // Serve frontend

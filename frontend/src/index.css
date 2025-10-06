@@ -36,6 +36,30 @@ html{
   background-color: #eeecec;
 }
 
+.ConvinceToSubscribeMainDiv{
+  background-color: #fc8415;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ConvinceToSubscribeMainDiv p{
+  padding: 0.1rem 0rem 0.2rem 16.1rem;
+  font-size:0.9rem;
+}
+
+.OnclickAllowNotiSpan{
+  cursor:pointer;
+  padding:0rem 1rem;
+ border-bottom:0.1rem black solid;
+}
+
+.NotificationXIcon{
+  font-size:0.9rem;
+  cursor: pointer;
+  margin-right: 0.3rem;
+}
+
 pre{
   color:#E53935;
   margin-top:0.2rem;
@@ -73,4 +97,31 @@ pre{
 }
 
 
+@media screen and (max-width: 1229px) {
+  .ConvinceToSubscribeMainDiv p {
+    padding: 0.1rem 0rem 0.2rem 3.6rem;
+  }}
 
+  @media screen and (max-width: 595px) {
+      .ConvinceToSubscribeMainDiv p {
+     font-size:0.8rem;
+  }
+    .OnclickAllowNotiSpan{
+      padding:0rem 0.3rem;
+    }
+    .DisappearSpan{
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 399px) {
+  .ConvinceToSubscribeMainDiv p {
+    padding: 0.1rem 0rem 0.2rem 3rem;
+  }
+}
+
+  @media screen and (max-width: 355px) {
+      .ConvinceToSubscribeMainDiv p {
+    font-size:0.7rem;
+  }
+  }

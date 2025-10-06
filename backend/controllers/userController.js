@@ -203,7 +203,7 @@ const deleteAccount = async (req, res) => {
 
 const getUser=async(req,res)=>{
   try {
-    const user=await User.findById(req.user);
+    const user=await User.findById(req.user._id);
     const me={...user._doc,password:undefined}
     res.status(200).json(me);
   } catch (error) {
