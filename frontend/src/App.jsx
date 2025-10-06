@@ -25,14 +25,10 @@ export function App() {
   const { showToast } = useToast();
   const [hidePrompt, setHidePrompt] = useState(false);
   const [showInstructions, setShowInstructions] = useState(null);
+  const [endpoint, setEndpoint] = useState(null);
 
   const [logout, { isLoading }] = useLogoutMutation();
   const { refetch } = useGetMeQuery(undefined, { skip: !userInfo });
-  const {
-    refetch: subscribeRefetch,
-    data: subscription,
-    isLoading: subscLoading,
-  } = useGetSubscriptionQuery();
   const [deleteSubs] = useDeleteSubsMutation();
   const [createSubscription] = useCreateSubscriptionMutation();
 
@@ -63,6 +59,23 @@ export function App() {
   };
 
   useEffect(() => {
+    const getEndpoint = async () => {
+      const reg = await navigator.serviceWorker.ready;
+      const sub = await reg.pushManager.getSubscription();
+      if (sub) {
+        setEndpoint(sub.endpoint);
+      }
+    };
+    getEndpoint();
+  }, []);
+
+  const {
+    refetch: subscribeRefetch,
+    data: subscription,
+    isLoading: subscLoading,
+  } = useGetSubscriptionQuery(endpoint, { skip: !endpoint });
+
+  useEffect(() => {
     const checkSession = async () => {
       try {
         const res = await refetch();
@@ -91,15 +104,23 @@ export function App() {
         prevPermission = Notification.permission;
 
         if (Notification.permission === "denied" && subscription) {
-          await deleteSubs();
-          subscribeRefetch();
-          showToast("Unsubscribed successfully.", "success");
-          window.location.reload();
+          if (endpoint) {
+            await deleteSubs({ endpoint });
+            subscribeRefetch();
+            showToast("Unsubscribed successfully.", "success");
+            window.location.reload();
+          } else {
+            showToast("Unable to unsubscribe", "error");
+          }
         } else if (Notification.permission === "default" && subscription) {
-          await deleteSubs();
-          subscribeRefetch();
-          showToast("Unsubscribed successfully.", "success");
-          window.location.reload();
+          if (endpoint) {
+            await deleteSubs({ endpoint });
+            subscribeRefetch();
+            showToast("Unsubscribed successfully.", "success");
+            window.location.reload();
+          } else {
+            showToast("Unable to unsubscribe", "error");
+          }
         } else if (Notification.permission === "granted" && !subscription) {
           try {
             const reg = await navigator.serviceWorker.register("/sw.js");
@@ -108,7 +129,7 @@ export function App() {
               applicationServerKey: vapidKey,
             });
 
-            await createSubscription({ data: { subscription: sub } });
+            await createSubscription({ subscription: sub });
             subscribeRefetch();
             showToast("Subscribed successfully!", "success");
             window.location.reload();
@@ -126,7 +147,7 @@ export function App() {
     try {
       const permission = await Notification.requestPermission();
       if (permission === "denied") {
-        const browser=getBrowserName();
+        const browser = getBrowserName();
         setShowInstructions(browser);
       } else if (permission === "granted") {
         const reg = await navigator.serviceWorker.register("/sw.js");
@@ -191,11 +212,14 @@ export function App() {
             ) : null}
             <Outlet />
           </div>
-          {
-            showInstructions!==null?<div className="OverflowAddMainDiv">
-              <ShowNotificationInstr setShowInstructions={setShowInstructions} showInstructions={showInstructions}/>
-            </div>:null
-          }
+          {showInstructions !== null ? (
+            <div className="OverflowAddMainDiv">
+              <ShowNotificationInstr
+                setShowInstructions={setShowInstructions}
+                showInstructions={showInstructions}
+              />
+            </div>
+          ) : null}
         </main>
       ) : (
         <Navigate to="/login" />

@@ -4,22 +4,23 @@ import { SUBSCRIBE_URL } from "../constants";
 const subscriptionApiSlice=apiSlice.injectEndpoints({
     endpoints:(builder)=>({
         createSubscription:builder.mutation({
-            query:({data})=>({
+            query:(body)=>({
                 url:`${SUBSCRIBE_URL}/createSubscription`,
                 method:"POST",
-                body:data
+                body
             })
         }),
         getSubscription:builder.query({
-            query:()=>({
-                url:`${SUBSCRIBE_URL}/getSubscription`,
+            query:(endpoint)=>({
+                url:`${SUBSCRIBE_URL}/getSubscription?endpoint=${encodeURIComponent(endpoint)}`,
                 method:"GET"
             })
         }),
         deleteSubs:builder.mutation({
-            query:()=>({
+            query:(body)=>({
                 url:`${SUBSCRIBE_URL}/deleteSubscriber`,
-                method:"DELETE"
+                method:"DELETE",
+                body
             })
         })
     })
