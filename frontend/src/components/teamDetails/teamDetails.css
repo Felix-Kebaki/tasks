@@ -3,87 +3,221 @@
   width: 100%;
 }
 
-.TeamDetailsMainDiv{
-  width:100%;
-  padding-top:1rem;
+.TeamDetailsMainDiv {
+  width: 100%;
+  padding-top: 1rem;
 }
 
-.TeamDetailTopDiv{
-  width:100%;
+.TeamDetailTopDiv {
+  width: 100%;
 }
 
-.TeamName{
-  font-size:1.4rem;
+.TeamName {
+  font-size: 1.4rem;
 }
 
-.DateOfTeamCreation{
-  font-size:0.8rem;
-  color:#0483bb;
+.DateOfTeamCreation {
+  font-size: 0.8rem;
+  color: #0483bb;
 }
 
-.MembersTableMainDivWrapper{
-  max-width:100%;
-  margin-top:1rem;
+.TeamtaskAndGraphMainWrapper {
+  margin-top: 1rem;
+}
+
+.NoTeamtaskMainDiv {
+  background-color: white;
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 0.3rem;
+}
+
+.NoTeamtaskMainDiv p {
+  color: #fc8415;
+}
+
+.NoTeamtaskAdminMainDiv {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 0.3rem;
+  background-color: white;
+}
+
+.TeamtaskMainTitleDiv {
+  display: flex;
+  justify-content: start;
+  column-gap: 0.2rem;
+  align-items: center;
+}
+
+.TeamTaskLengthMain {
+  font-size: 0.7rem;
+  background-color: #fc8415;
+  color: white;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.TeamtaskMainTitle {
+  font-size: 1.1rem;
+}
+
+.TeamtaskCreateOneAndFewInfoMainDiv {
+  margin-top: 0.9rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  column-gap: 3rem;
+}
+
+.CreateTeamtaskMainDiv {
+  background: #eeecec;
+  border-radius: 0.3rem;
+  min-width:14rem;
+  height: 14rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: nowrap;
+  align-items: center;
+  row-gap: 1rem;
+}
+
+.CreateTeamtaskFolderIcon {
+  font-size: 4rem;
+}
+
+.CreateTeamtaskplusIcon {
+  margin-right: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.CreateTeamtaskMainDiv:hover .CreateTeamtaskplusIcon {
+  color: #0483bb;
+}
+
+.CreateTeamtaskMainDiv:hover .CreateTeamtaskFolderIcon {
+  color: #0483bb;
+}
+
+.CreateTeamtaskMainDiv:hover .TeamtaskCreateText {
+  color: #0483bb;
+}
+
+.FewInfoOnCreatingTeamtaskDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.FewInfoOnCreatingTeamtaskDiv p {
+  text-align: start;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.FewInfoOnCreatingTeamtaskDiv div p {
+  font-size: 0.9rem;
+}
+
+.TeamTaskAndGraphMainDiv {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.TeamtaskMainDivAtTeamDetails {
+  width: 49.5%;
+  background-color: white;
+  border-radius: 0.3rem;
+  padding: 0.9rem;
+}
+
+.GraphOnTeamDashboardMainDiv {
+  width: 49.5%;
+  background-color: white;
+  border-radius: 0.3rem;
+}
+
+.MembersTableMainDivWrapper {
+  max-width: 100%;
+  margin-top: 1rem;
   background-color: white;
   border-radius: 0.3rem;
   overflow-x: auto;
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.MembersTableMainTitle{
-  padding:0.4rem 0rem 0rem 0.9rem;
-  font-size:1.1rem;
+.MembersTableMainTitleDiv {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  column-gap: 0.2rem;
+  padding: 0.4rem 0rem 0rem 0.9rem;
+}
+
+.MembersTableMainTitle {
+  font-size: 1.1rem;
+}
+
+.MembersTableMainLength {
+  font-size: 0.7rem;
+  background-color: #fc8415;
+  color: white;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.5rem;
 }
 
 .MembersTableMainDivWrapper::-webkit-scrollbar {
-  display: none;            
+  display: none;
 }
 
-.MembersTableMainDiv{
-  width:100%;
+.MembersTableMainDiv {
+  width: 100%;
   min-width: 1400px;
-  padding:0.7rem;
+  padding: 0.7rem;
   border: none;
 }
 
-.MemberTableHeadingRow th{
-  padding:0.5rem 0rem 0.5rem 0rem;
+.MemberTableHeadingRow th {
+  padding: 0.5rem 0rem 0.5rem 0rem;
   text-align: start;
   background-color: #eeecec;
   border: none;
 }
 
-.MemberTableHeadingRow th:first-child{
+.MemberTableHeadingRow th:first-child {
   padding-left: 0.3rem;
 }
 
-.MembersTableDetailsRow td{
-  border:none;
-  padding:0.3rem 0rem 0.3rem 0rem;
+.MembersTableDetailsRow td {
+  border: none;
+  padding: 0.3rem 0rem 0.3rem 0rem;
   border-bottom: 0.06rem #cfcfcf solid;
 }
 
-.AdminTextColor{
-  color:#0483bb;
+.AdminTextColor {
+  color: #0483bb;
 }
 
-.NotAdminTextColor{
-  color:#fc8415;
+.NotAdminTextColor {
+  color: #fc8415;
 }
 
-.ActiveOnLastLogged{
-  color:#0483bb;
+.ActiveOnLastLogged {
+  color: #0483bb;
 }
 
-.NotActiveOnLastLogged{
-  color:#fc8415;
+.NotActiveOnLastLogged {
+  color: #fc8415;
 }
 
-.MembersTableDetailsRow td:first-child{
+.MembersTableDetailsRow td:first-child {
   padding-left: 0.3rem;
 }
-
 
 @media screen and (max-width: 1229px) {
   .TeamDetailsMainSec {
@@ -91,8 +225,64 @@
   }
 }
 
-@media screen and (max-width: 399px) {
-    .TeamDetailsMainSec {
-      padding: 0rem 0.4rem 0.5rem 3rem;
+@media screen and (max-width: 871px) {
+  .TeamtaskCreateOneAndFewInfoMainDiv {
+    column-gap: 1.5rem;
   }
+}
+
+@media screen and (max-width: 794px) {
+    .TeamtaskCreateOneAndFewInfoMainDiv {
+    column-gap: 0.9rem;
+  }
+  .CreateTeamtaskplusIcon {
+  margin-right: 0.2rem;
+  font-size: 0.8rem;
+}
+.TeamtaskCreateText{
+  font-size:0.9rem;
+}
+}
+
+@media screen and (max-width: 704px) {
+
+  .CreateTeamtaskMainDiv {
+    min-width: 12rem;
+    height: 12rem;
+}
+}
+
+@media screen and (max-width: 623px) {
+  .TeamtaskCreateOneAndFewInfoMainDiv {
+  flex-direction: column-reverse;
+  align-items: start;
+  justify-content: start;
+  column-gap: 0rem;
+  row-gap: 1.5rem;
+}
+
+  .CreateTeamtaskMainDiv {
+    min-width: 14rem;
+    height: 14rem;
+}
+}
+
+@media screen and (max-width: 517px) {
+  .NoTeamtaskMainDiv p {
+  font-size:0.9rem;
+}
+}
+
+@media screen and (max-width: 399px) {
+  .TeamDetailsMainSec {
+    padding: 0rem 0.4rem 0.5rem 3rem;
+  }
+}
+
+@media screen and (max-width: 296px) {
+    .CreateTeamtaskMainDiv {
+    min-width: 100%;
+    height: auto;
+    padding:3rem 0rem;
+}
 }
