@@ -28,7 +28,7 @@ export function App() {
   const [endpoint, setEndpoint] = useState(null);
 
   const [logout, { isLoading }] = useLogoutMutation();
-  const { refetch } = useGetMeQuery(undefined, { skip: !userInfo });
+  const { refetch, data } = useGetMeQuery(undefined, { skip: !userInfo });
   const [deleteSubs] = useDeleteSubsMutation();
   const [createSubscription] = useCreateSubscriptionMutation();
 
@@ -80,14 +80,24 @@ export function App() {
       try {
         const res = await refetch();
         if (res.error) {
-          await logout();
+          const logres = await logout(userInfo._id);
+          if (logres.error) {
+            showToast(logres.error.data.error || logres.error.error, "error");
+            console.error(logres.error.data.error || logres.error.error);
+          } else {
+            dispatch(logoutS());
+            showToast("Your session expired.", "error");
+          }
+        }
+      } catch (err) {
+        const loggres = await logout( userInfo._id );
+        if (loggres.error) {
+          showToast(loggres.error.data.error || loggres.error.error, "error");
+          console.error(loggres.error.data.error || loggres.error.error);
+        } else {
           dispatch(logoutS());
           showToast("Your session expired.", "error");
         }
-      } catch (err) {
-        await logout();
-        dispatch(logoutS());
-        showToast("Your session expired.", "error");
       }
     };
 

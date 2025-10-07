@@ -10,76 +10,89 @@
 
 .TeamDetailTopDiv{
   width:100%;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.TeamInfoMainDiv{
-  background-color: white;
-  padding:1rem;
-  border-radius:0.5rem;
-  width:33%;
-  height: 9rem;
 }
 
 .TeamName{
-  font-size:1.3rem;
+  font-size:1.4rem;
 }
 
-.TeamInfoMainDiv div p{
+.DateOfTeamCreation{
+  font-size:0.8rem;
+  color:#0483bb;
+}
+
+.MembersTableMainDivWrapper{
+  max-width:100%;
+  margin-top:1rem;
+  background-color: white;
+  border-radius: 0.3rem;
+  overflow-x: auto;
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+.MembersTableMainTitle{
+  padding:0.4rem 0rem 0rem 0.9rem;
   font-size:1.1rem;
-  
 }
 
-.TeamInfoMainDiv div p span{
-  font-size:1rem;
-  margin-left:0.2rem;
+.MembersTableMainDivWrapper::-webkit-scrollbar {
+  display: none;            
 }
 
-.TeamMembersMainDiv{
-  background-color: white;
-  padding:1rem;
-  border-radius: 0.5rem;
-  width:33%;
-  height: 9rem;
-  overflow-y: auto;
+.MembersTableMainDiv{
+  width:100%;
+  min-width: 1400px;
+  padding:0.7rem;
+  border: none;
 }
 
-.TeamMembersMainTitle span{
-  background-color: #0483bb;
-  color:white;
-  padding:0.1rem 0.4rem;
-  border-radius: 0.5rem;
-  font-size:0.7rem;
-  margin-left:0.3rem;
+.MemberTableHeadingRow th{
+  padding:0.5rem 0rem 0.5rem 0rem;
+  text-align: start;
+  background-color: #eeecec;
+  border: none;
 }
 
-.TeamMembersInsideDiv{
-  display:flex;
-  flex-direction:column;
-  row-gap:0.2rem;
-  padding-top:0.4rem;
+.MemberTableHeadingRow th:first-child{
+  padding-left: 0.3rem;
 }
 
-.EachMemberDiv{
-  display:flex;
-  column-gap:0.4rem;
-  align-items:center;
+.MembersTableDetailsRow td{
+  border:none;
+  padding:0.3rem 0rem 0.3rem 0rem;
+  border-bottom: 0.06rem #cfcfcf solid;
 }
 
-.TeamMembersProfileDiv{
-  background-color: #fc8415;
-  color:black;
-  padding:0.24rem;
-  border-radius:1rem;
-  font-size:0.7rem;
+.AdminTextColor{
+  color:#0483bb;
 }
 
-.TeamRecentActivitiesMainDiv{
-  width:33%;
-  background-color: white;
-    padding:1rem;
-  border-radius: 0.5rem;
-  height: 10rem;
+.NotAdminTextColor{
+  color:#fc8415;
+}
+
+.ActiveOnLastLogged{
+  color:#0483bb;
+}
+
+.NotActiveOnLastLogged{
+  color:#fc8415;
+}
+
+.MembersTableDetailsRow td:first-child{
+  padding-left: 0.3rem;
+}
+
+
+@media screen and (max-width: 1229px) {
+  .TeamDetailsMainSec {
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
+  }
+}
+
+@media screen and (max-width: 399px) {
+    .TeamDetailsMainSec {
+      padding: 0rem 0.4rem 0.5rem 3rem;
+  }
 }

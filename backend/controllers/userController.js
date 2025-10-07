@@ -8,7 +8,7 @@ const Invite = require("../models/inviteModel");
 const Goal = require("../models/goalModel");
 const DailyReport = require("../models/dailyReportModel");
 const EachTask = require("../models/assignTaskModel");
-const Subscription=require("../models/subscriptionModel")
+const Subscription = require("../models/subscriptionModel");
 const bcrypt = require("bcryptjs");
 
 const generateTokenAndSetCookie = require("../utils/generateTokenAndSetCookie");
@@ -34,7 +34,8 @@ const registerUser = async (req, res) => {
       firstName: capitalizeFirst(firstName),
       lastName: capitalizeFirst(lastName),
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      active: "active",
     });
 
     await user.save();
@@ -42,7 +43,7 @@ const registerUser = async (req, res) => {
 
     res.status(201).json({
       message: "User created successfully",
-      User: { ...user._doc, password: undefined},
+      User: { ...user._doc, password: undefined },
     });
   } catch (error) {
     console.error(error.message);
@@ -68,6 +69,8 @@ const loginUser = async (req, res) => {
     }
 
     user.lastLogin = new Date();
+    user.active = "active";
+    user.loggedOut = undefined;
     await user.save();
     generateTokenAndSetCookie(res, user._id);
 
@@ -82,8 +85,20 @@ const loginUser = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
-  res.clearCookie("token");
-  res.status(200).json({ message: "Logged out successfully" });
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ error: "Unable to find user" });
+    }
+    user.loggedOut = new Date();
+    user.active = undefined;
+    await user.save();
+    res.clearCookie("token");
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
 };
 
 const editPassword = async (req, res) => {
@@ -161,7 +176,9 @@ const deleteAccount = async (req, res) => {
     const teamtaskUserAdmin = await TeamTask.deleteMany({
       admin: req.user._id,
     });
-    const subscriptionDelete= await Subscription.deleteMany({user:req.user._id})
+    const subscriptionDelete = await Subscription.deleteMany({
+      user: req.user._id,
+    });
     const notifyDelete = await Notify.deleteMany({ user: req.user._id });
     const inviteDelete = await Invite.deleteMany({ user: req.user._id });
     const goalDelete = await Goal.deleteMany({ user: req.user._id });
@@ -200,17 +217,16 @@ const deleteAccount = async (req, res) => {
   }
 };
 
-
-const getUser=async(req,res)=>{
+const getUser = async (req, res) => {
   try {
-    const user=await User.findById(req.user._id);
-    const me={...user._doc,password:undefined}
+    const user = await User.findById(req.user._id);
+    const me = { ...user._doc, password: undefined };
     res.status(200).json(me);
   } catch (error) {
-        console.error(error.message);
+    console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });
   }
-}
+};
 
 module.exports = {
   loginUser,
@@ -219,5 +235,5 @@ module.exports = {
   editPassword,
   editProfile,
   deleteAccount,
-  getUser
+  getUser,
 };

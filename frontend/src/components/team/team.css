@@ -22,7 +22,7 @@
 .EachTeamMainDiv {
   width: 100%;
   padding: 0.4rem 0rem;
-  border-bottom: 0.1rem black solid;
+  border-bottom: 0.09rem #cfcfcf solid;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,9 +36,9 @@
   align-items: center;
 }
 
-#EachTeamDot {
-  color: #fc8415;
-  font-size: 0.4rem;
+.EachTeamIcon{
+  color:#a8a8a8;
+  font-size:1rem;
 }
 
 .EachTeamMainDiv:last-child {
@@ -121,9 +121,11 @@
     column-gap: 0.2rem;
     align-items: center;
   }
-  #EachTeamDot {
-    font-size: 0.3rem;
-  }
+
+  .EachTeamIcon{
+  font-size:0.8rem;
+}
+
   .teamName {
   font-size:0.9rem;
 }

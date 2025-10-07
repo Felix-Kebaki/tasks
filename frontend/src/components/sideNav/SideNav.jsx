@@ -20,6 +20,7 @@ import { logoutS } from "../../redux/features/authSlice";
 import { useLogoutMutation } from "../../redux/api/userApiSlice";
 import { useGetUnreadQuery } from "../../redux/api/notifyApiSlice";
 import { useGetCategoryQuery } from "../../redux/api/allCategoryApiSlice";
+import { useToast } from "../../context/ToastContext";
 
 import "./sideNav.css";
 import { Loading } from "../loading/Loading";
@@ -34,6 +35,7 @@ export function SideNav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+  const {showToast}=useToast();
 
   const [logout] = useLogoutMutation();
   const { refetch, data: notifications, isLoading } = useGetUnreadQuery();
@@ -56,7 +58,7 @@ export function SideNav() {
 
   const HandleFullSideNav = () => {
     setSideNavState(!sideNavState);
-        document
+    document
       .querySelector(".AppearAtTopOnSideNav")
       .classList.add("AppearAtTopOnSideNavShow");
   };
@@ -67,9 +69,14 @@ export function SideNav() {
 
   const HandleClickLogout = async () => {
     try {
-      await logout();
-      dispatch(logoutS());
-      navigate("/login");
+      const loggres = await logout( userInfo._id );
+      if (loggres.error) {
+        showToast(loggres.error.data.error || loggres.error.error, "error");
+        console.error(loggres.error.data.error || loggres.error.error);
+      } else {
+        dispatch(logoutS());
+        navigate("/login");
+      }
     } catch (error) {
       console.error(error.message);
     }
@@ -123,7 +130,11 @@ export function SideNav() {
           <div
             className="SideNavProfileAndNameDiv"
             onMouseEnter={
-              (!isSmallerScreen && !sideNavState) || sideNavState ? HandleMouseEnter :isSmallerScreen && !sideNavState? HandleFullSideNav:null
+              (!isSmallerScreen && !sideNavState) || sideNavState
+                ? HandleMouseEnter
+                : isSmallerScreen && !sideNavState
+                ? HandleFullSideNav
+                : null
             }
             onMouseLeave={HandleMouseLeave}
           >

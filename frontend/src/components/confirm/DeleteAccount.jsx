@@ -6,6 +6,7 @@ import {logoutS} from '../../redux/features/authSlice'
 
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { useToast } from "../../context/ToastContext";
 
 export function DeleteAccount({setDeleteAcc}) {
     const dispatch=useDispatch()
@@ -13,6 +14,7 @@ export function DeleteAccount({setDeleteAcc}) {
   const [logout]=useLogoutMutation()
 
   const [active,setActive]=useState(true);
+  const {showToast}=useToast();
 
   const HandleDeleteAccount = async () => {
     try {
@@ -21,9 +23,8 @@ export function DeleteAccount({setDeleteAcc}) {
       if (res.error) {
         console.error(res.error.data.error || res.error.error);
       } else {
-        console.log(res.data.message);
-        dispatch(logoutS())
-        logout()
+        showToast(res.data.message,"success");
+        dispatch(logoutS());
       }
     } catch (error) {
       console.error(error.message);

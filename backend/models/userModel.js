@@ -22,6 +22,12 @@ const userSchema = mongoose.Schema(
     lastLogin:{
         type:Date,
         default:Date.now
+    },
+    loggedOut:{
+      type:Date
+    },
+    active:{
+      type:String
     }
   },
   { timestamps: true }

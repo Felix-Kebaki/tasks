@@ -1,7 +1,7 @@
 const Team = require("../models/teamModel");
 const TeamTask = require("../models/teamTaskModel");
 const EachTask = require("../models/assignTaskModel");
-const User=require("../models/userModel")
+const User = require("../models/userModel");
 const capitalizeFirst = require("../utils/capitalize");
 const cloudinary = require("../utils/cloudinary/cloudinary");
 
@@ -11,7 +11,7 @@ const createTeam = async (req, res) => {
     if (!name) {
       return res.status(422).json({ error: "Input all fields" });
     }
-    const existTeam = await Team.findOne({ name , admin: req.user._id });
+    const existTeam = await Team.findOne({ name, admin: req.user._id });
     if (existTeam) {
       return res.status(422).json({ error: "Team already exist" });
     }
@@ -97,27 +97,58 @@ const deleteTeam = async (req, res) => {
   }
 };
 
-const getTeamDashboard=async(req,res)=>{
+const getTeamDashboard = async (req, res) => {
   try {
-    const team=await Team.findById(req.params.id).populate("members","firstName lastName email");
-    if(!team){
-      return res.status(404).json({error:"Unable to get the team"})
+    const team = await Team.findById(req.params.id).populate(
+      "members",
+      "firstName lastName email active loggedOut"
+    );
+    if (!team) {
+      return res.status(404).json({ error: "Unable to get the team" });
     }
-    const admin=await User.findById(team.admin);
-    const teamtasks=await TeamTask.find({team:req.params.id})
+    const admin = await User.findById(team.admin);
+    const teamtasks = await TeamTask.find({ team: req.params.id });
+
+    //promise.all lets you run multiple asynchronous tasks at the same time and wait for all of them to finish before continuing
+    const membersWithTaskCount = await Promise.all(
+      team.members.map(async (member) => {
+        const Allcount = await EachTask.countDocuments({
+          team: req.params.id,
+          assignedTo: member._id
+        });
+
+        const completeCount=await EachTask.countDocuments({
+          team:req.params.id,
+          assignedTo:member._id,
+          status:"Completed"
+        })
+
+        const submissionsCount=await TeamTask.countDocuments({
+          team:req.params.id,
+          "submissions.submittedBy":member._id
+        })
+
+        return {
+          ...member.toObject(), 
+          assignedTasks: Allcount,
+          completeTasks:completeCount,
+          submissions:submissionsCount
+        };
+      })
+    );
 
     res.status(200).json({
-      name:team.name,
-      createdAt:team.createdAt,
-      isAdmin:team.admin.toString()===req.user._id.toString(),
-      members:team.members,
-      teamtask:teamtasks,
-      admin:[admin.firstName,admin.lastName,admin.email]
-    })
+      name: team.name,
+      createdAt: team.createdAt,
+      isAdmin: team.admin.toString() === req.user._id.toString(),
+      members: membersWithTaskCount,
+      teamtask: teamtasks,
+      admin: [admin.firstName, admin.lastName, admin.email],
+    });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });
   }
-}
+};
 
-module.exports = { createTeam, deleteTeam, getYourTeams,getTeamDashboard };
+module.exports = { createTeam, deleteTeam, getYourTeams, getTeamDashboard };

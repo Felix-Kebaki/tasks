@@ -13,7 +13,7 @@ const {
 
 router.post("/login", loginUser);
 router.post("/register", registerUser);
-router.post("/logout", logoutUser);
+router.post("/logout/:id", logoutUser);
 router.put("/editPassword", Protect, editPassword);
 router.put("/editProfile", Protect, editProfile);
 router.delete("/deleteAccount", Protect, deleteAccount);

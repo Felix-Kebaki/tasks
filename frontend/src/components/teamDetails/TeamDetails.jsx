@@ -18,7 +18,6 @@ export function TeamDetails() {
 
   useEffect(() => {
     refetch();
-    console.log(teamDashboard);
   }, [refetch]);
 
   if (isLoading) {
@@ -33,39 +32,52 @@ export function TeamDetails() {
     <section className="TeamDetailsMainSec">
       <div className="TeamDetailsMainDiv">
         <div className="TeamDetailTopDiv">
-          <div className="TeamInfoMainDiv">
-            <p className="TeamName title">{teamDashboard?.name}</p>
-            <div className="text">
-              <p>
-                Admin:
-                <span>
-                  {teamDashboard?.admin[0]} {teamDashboard?.admin[1]}{" "}
-                  {teamDashboard?.admin[2]}
-                </span>
-              </p>
-              <p>
-                Created on:
-                <span>{moment(teamDashboard?.createdAt).format("MMMM Do YYYY")}</span>
-              </p>
-              <p>Total members: <span>{teamDashboard?.members.length}</span></p>
-              <p>Total Teamtasks: <span>{teamDashboard?.teamtask.length}</span></p>
-            </div>
-          </div>
-          <div className="TeamMembersMainDiv">
-            <p className="TeamMembersMainTitle title">
-              Members<span>{teamDashboard?.members.length}</span>
-            </p>
-            <div className="TeamMembersInsideDiv">
-            {teamDashboard?.members.map((member, i) => (
-              <div key={i} className="EachMemberDiv text">
-                <div className="TeamMembersProfileDiv">{member.firstName.charAt(0).toUpperCase()}{member.lastName.charAt(0).toUpperCase()}</div>
-                <p>{member.firstName}</p>
-                <p>{member.lastName}</p>
-              </div>
-            ))}
-            </div>
-          </div>
-          <div className="TeamRecentActivitiesMainDiv"></div>
+          <p className="TeamName title">{teamDashboard?.name}</p>
+          <p className="DateOfTeamCreation text">Created on {moment(teamDashboard?.createdAt).format("YYYY Do MMMM")}</p>
+        </div>
+
+    {
+
+    }
+
+        <div className="MembersTableMainDivWrapper">
+          <p className="MembersTableMainTitle title">Members</p>
+          <table border="1" cellSpacing="0" className="MembersTableMainDiv">
+            <thead>
+              <tr className="MemberTableHeadingRow text">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Admin</th>
+                <th>Tasks assigned</th>
+                <th>Tasks completed</th>
+                <th>Submissions</th>
+                {teamDashboard.isAdmin ? <th>Last active</th> : null}
+              </tr>
+            </thead>
+            <tbody>
+              {teamDashboard?.members.map((member) => (
+                <tr className="MembersTableDetailsRow text" key={member.email}>
+                  <td>
+                    {member.firstName} {member.lastName}
+                  </td>
+                  <td>{member.email}</td>
+                  <td className={member.email===teamDashboard.admin[2]?"AdminTextColor":"NotAdminTextColor"}>{member.email === teamDashboard.admin[2]?"Yes":"No"}</td>
+                  <td>{member.assignedTasks}</td>
+                  <td>{member.completeTasks}</td>
+                  <td>{member.submissions}</td>
+                  {teamDashboard.isAdmin ? (
+                    <td className={member.active!==undefined?"ActiveOnLastLogged":"NotActiveOnLastLogged"}>
+                      {member.active !== undefined
+                        ? member.active
+                        : moment(member.loggedOut).isSame(moment(), "day")
+                        ? moment(member.loggedOut).format("HH:mm")
+                        : moment(member.loggedOut).format("DD MMM")}
+                    </td>
+                  ) : null}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
