@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./teamDetails.css";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 import { Loading } from "../loading/Loading";
 
 import { useGetTeamdashboardQuery } from "../../redux/api/teamApiSlice";
+import { CreateTeamtask } from "../createTeamtask/CreateTeamtask";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolder } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +15,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export function TeamDetails() {
   const param = useParams();
+  const [teamId, setTeamId] = useState(null);
 
   const {
     refetch,
@@ -20,12 +23,14 @@ export function TeamDetails() {
     isLoading,
   } = useGetTeamdashboardQuery({ id: param.id });
 
-  const HandleCreateTeamtask = () => {};
+  const OnClickOfCreateTeamtask = (getid) => {
+    setTeamId(getid);
+  };
 
   useEffect(() => {
     refetch();
     console.log(teamDashboard);
-  }, [refetch]);
+  }, [refetch, teamId]);
 
   if (isLoading) {
     return (
@@ -62,7 +67,10 @@ export function TeamDetails() {
                 </p>
               </div>
               <div className="TeamtaskCreateOneAndFewInfoMainDiv">
-                <div className="CreateTeamtaskMainDiv">
+                <div
+                  className="CreateTeamtaskMainDiv"
+                  onClick={() => OnClickOfCreateTeamtask(param.id)}
+                >
                   <FontAwesomeIcon
                     icon={faFolder}
                     className="CreateTeamtaskFolderIcon"
@@ -104,6 +112,47 @@ export function TeamDetails() {
                     {teamDashboard?.teamtask.length}
                   </p>
                 </div>
+                <div className="TeamtasksAtTeamDashDivWrapper">
+                  {teamDashboard?.teamtask.map((task) => (
+                    <Link
+                      key={task._id}
+                      className="TeamtaskTeamDashEachtaskdiv"
+                      to={"/app/teams/eachTeam/eachTeamtask/"+task._id}
+                    >
+                      <div className="TopEachTeamtaskTeamDash text">
+                        <p>
+                          Due:{" "}
+                          <span>
+                            {moment(task.dueDate).format("DD MMM 'YY")}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="EachTeamtaskFolderAndTaskName">
+                        <FontAwesomeIcon
+                          icon={faFolder}
+                          className="EachTeamtaskFolderIcon"
+                        />
+                        <p className="text">{task.name}</p>
+                      </div>
+                    </Link>
+                  ))}
+                  <div
+                    className="CreateTeamtaskWithExistingTaskDiv"
+                    onClick={() => OnClickOfCreateTeamtask(param.id)}
+                  >
+                    <FontAwesomeIcon
+                      icon={faFolder}
+                      className="CreateTeamtaskFolderIconwithTasks"
+                    />
+                    <p className="CreateTeamtaskTextWithTasks text">
+                      <FontAwesomeIcon
+                        icon={faPlus}
+                        className="CreateTeamtaskplusIconWithTasks"
+                      />
+                      Create Teamtask.
+                    </p>
+                  </div>
+                </div>
               </div>
               <div className="GraphOnTeamDashboardMainDiv"></div>
             </div>
@@ -126,7 +175,7 @@ export function TeamDetails() {
                 <th>Tasks assigned</th>
                 <th>Tasks completed</th>
                 <th>Submissions</th>
-                {teamDashboard.isAdmin ? <th>Last active</th> : null}
+                {teamDashboard?.isAdmin ? <th>Last active</th> : null}
               </tr>
             </thead>
             <tbody>
@@ -148,7 +197,7 @@ export function TeamDetails() {
                   <td>{member.assignedTasks}</td>
                   <td>{member.completeTasks}</td>
                   <td>{member.submissions}</td>
-                  {teamDashboard.isAdmin ? (
+                  {teamDashboard?.isAdmin ? (
                     <td
                       className={
                         member.active !== undefined
@@ -168,6 +217,11 @@ export function TeamDetails() {
             </tbody>
           </table>
         </div>
+        {teamId !== null ? (
+          <div className="OverflowAddMainDiv">
+            <CreateTeamtask setAdd={setTeamId} add={teamId} />
+          </div>
+        ) : null}
       </div>
     </section>
   );

@@ -21,6 +21,7 @@ import { UpcomingPage } from "./pages/UpcomingPage.jsx";
 import { SubmissionsPage } from "./pages/SubmissionsPage.jsx";
 import { AllPerCategoryPage } from "./pages/AllPerCategoryPage.jsx";
 import { ProfilePage } from "./pages/ProfilePage.jsx";
+import { TeamTaskDetailsPage } from "./pages/TeamTaskDetailsPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -52,14 +53,18 @@ const router = createBrowserRouter([
         element: <TeamsPage />,
       },
       {
-        path: "/app/teams/eachTeamtask",
+        path: "/app/teams/eachTeam",
         children: [
           {
-            path: "/app/teams/eachTeamtask/:id",
+            path: "/app/teams/eachTeam/:id",
             element: <TeamDetailsPage />,
           },
           {
-            path: "/app/teams/eachTeamtask/submissions/:teamtaskId",
+            path: "/app/teams/eachTeam/eachTeamtask/:id",
+            element: <TeamTaskDetailsPage />,
+          },
+          {
+            path: "/app/teams/eachTeam/eachTeamtask/submissions/:teamtaskId",
             element: <SubmissionsPage />,
           },
         ],

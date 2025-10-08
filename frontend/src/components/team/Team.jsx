@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CreateTeam } from "../createTeam/CreateTeam";
-import { TeamConfirm } from "../confirm/TeamConfirm";
 import {Loading} from '../loading/Loading'
 import "./team.css";
 
@@ -14,7 +13,6 @@ import { Link } from "react-router-dom";
 
 export function Team() {
   const [add, setAdd] = useState(false);
-  const [msg,setMsg]=useState("")
 
   const { refetch, data: yourTeams, isLoading } = useGetYourTeamsQuery();
 
@@ -45,7 +43,7 @@ export function Team() {
             yourTeams &&
             yourTeams.map((team,index) => (
               <div className="EachTeamMainDiv" key={team._id}>
-                <Link to={"/app/teams/eachTeamtask/"+team._id}>
+                <Link to={"/app/teams/eachTeam/"+team._id}>
                 <FontAwesomeIcon icon={faFolder} className="EachTeamIcon"/>
                   <p className="teamName text">{team.name}</p>
                   {team.isAdmin ? (
