@@ -29,7 +29,6 @@ export function TeamDetails() {
 
   useEffect(() => {
     refetch();
-    console.log(teamDashboard);
   }, [refetch, teamId]);
 
   if (isLoading) {
