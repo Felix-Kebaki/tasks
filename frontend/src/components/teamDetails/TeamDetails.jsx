@@ -45,7 +45,7 @@ export function TeamDetails() {
         <div className="TeamDetailTopDiv">
           <p className="TeamName title">{teamDashboard?.name}</p>
           <p className="DateOfTeamCreation text">
-            Created on {moment(teamDashboard?.createdAt).format("Do MMMM YYYY")}
+            Created on {moment(teamDashboard?.createdAt).format("Do MMM 'YY")} by {teamDashboard?.admin[0]} {teamDashboard?.admin[1]} 
           </p>
         </div>
 
