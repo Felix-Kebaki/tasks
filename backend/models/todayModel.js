@@ -28,6 +28,10 @@ const todaySchema = mongoose.Schema(
     category:{
       type:String,
       required:true
+    },
+    notified:{
+      type:Boolean,
+      default:false
     }
   },
   { timestamps: true }

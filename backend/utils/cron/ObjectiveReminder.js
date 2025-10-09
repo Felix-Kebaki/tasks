@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 
 const Today = require("../../models/todayModel");
 const User = require("../../models/userModel");
-const Subscription=require("../../models/subscriptionModel")
-const Notify=require("../../models/notifyModel")
+const Subscription = require("../../models/subscriptionModel");
+const Notify = require("../../models/notifyModel");
 const sendNotification = require("../../utils/push");
 
 async function connectDB() {
@@ -40,28 +40,30 @@ const runJob = async () => {
           continue;
         }
 
-        const subs = await Subscription.find({ user: obj.user });
-        for (const sub of subs) {
-          await sendNotification(sub.subscription, {
-            title: "Objective Reminder",
-            body: `Your objective "${obj.objective}" ends in ${diff} min!`,
-            url: `/app/notifications`,
+        if (diff <= 10 && !obj.notified) {
+          const subs = await Subscription.find({ user: obj.user });
+          for (const sub of subs) {
+            await sendNotification(sub.subscription, {
+              title: "Objective Reminder",
+              body: `Your objective "${obj.objective}" ends in ${diff} min!`,
+              url: `/app/notifications`,
+            });
+          }
+
+          await Notify.create({
+            user: obj.user,
+            referenceId: obj._id,
+            referenceObj: "Objective Reminder",
+            title: `Daily objective "${obj.objective}" reminder`,
+            message: `If you’ve completed this objective, go ahead and mark it as done. If not, take these last few minutes to wrap things up and get ready to start your next goal if one is scheduled. Stay focused, you’re doing great!`,
           });
+          obj.notified = true;
+          await obj.save();
         }
-      
-        await Notify.create({
-          user: obj.user,
-          referenceId: obj._id,
-          referenceObj: "Objective Reminder",
-          title: `Daily objective "${obj.objective}" reminder`,
-          message: `If you’ve completed this objective, go ahead and mark it as done. If not, take these last few minutes to wrap things up and get ready to start your next goal if one is scheduled. Stay focused, you’re doing great!`,
-        });
       }
     }
   } catch (error) {
-    console.error(
-      `Daily objective Notify error ${error.message || error}`
-    );
+    console.error(`Daily objective Notify error ${error.message || error}`);
   } finally {
     await mongoose.disconnect();
     process.exit(0);
