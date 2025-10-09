@@ -50,6 +50,7 @@ async function runJob() {
           title: "Goal has started",
           body: `"${goal.name}" start date has been reached!`,
           url: `/app/notifications`,
+          data: { url: "https://task-app-3f5087a586f5.herokuapp.com/" }
         });
       }
 

@@ -49,6 +49,7 @@ const runJob = async () => {
           title: "Goal run out of time",
           body: `The goal "${goal.name}" time has elapsed! You were unable to finish on time.`,
           url: `/app/notifications`,
+          data: { url: "https://task-app-3f5087a586f5.herokuapp.com/" }
         });
       }
 

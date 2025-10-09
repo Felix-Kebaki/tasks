@@ -59,7 +59,8 @@ async function runJob() {
         await sendNotification(sub.subscription, {
           title:"Upcoming Event",
           body: `The event ${event.title} will be tomorrow!`,
-          url: `/app/notifications`
+          url: `/app/notifications`,
+          data: { url: "https://task-app-3f5087a586f5.herokuapp.com/" }
         });
       }
 

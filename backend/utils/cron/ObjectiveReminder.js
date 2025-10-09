@@ -47,6 +47,7 @@ const runJob = async () => {
               title: "Objective Reminder",
               body: `Your objective "${obj.objective}" ends in ${diff} min!`,
               url: `/app/notifications`,
+              data: { url: "https://task-app-3f5087a586f5.herokuapp.com/" }
             });
           }
 
