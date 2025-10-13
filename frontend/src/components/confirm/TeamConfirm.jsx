@@ -1,7 +1,6 @@
-import React from "react";
+
 
 import { useToast } from "../../context/ToastContext";
-
 import { useNavigate } from "react-router-dom";
 
 import { useDeleteTeamMutation } from "../../redux/api/teamApiSlice";
@@ -17,7 +16,7 @@ export function TeamConfirm({ msg, setMsg, confirm, setConfirm }) {
 
   const Cancel = () => {
     setConfirm(null);
-    setMsg("");
+    setMsg(null);
   };
 
   const HandleDeleteTeam = async () => {
@@ -28,7 +27,7 @@ export function TeamConfirm({ msg, setMsg, confirm, setConfirm }) {
         showToast(res.error.data.error || res.error.error,"error")
       } else {
         showToast(res.data.message,"success");
-        setMsg("");
+        setMsg(null);
         setConfirm(null);
         navigate("/app/teams")
       }
@@ -40,13 +39,13 @@ export function TeamConfirm({ msg, setMsg, confirm, setConfirm }) {
 
   const HandleDeleteTeamtask = async () => {
     try {
-      const res = await deleteTeamtask({ teamtaskId:confirm });
+      const res = await deleteTeamtask(confirm);
       if (res.error) {
         console.error(res.error.data.error || res.error.error);
         showToast(res.error.data.error || res.error.error,"error")
       } else {
         showToast(res.data.message,"success");
-        setMsg("")
+        setMsg(null)
         setConfirm(null)
       }
     } catch (error) {
@@ -54,6 +53,7 @@ export function TeamConfirm({ msg, setMsg, confirm, setConfirm }) {
       showToast(error.message||error,"error")
     }
   };
+
   return (
     <section className="ConfirmMainSec">
       <div className="ConfirmMainDiv">

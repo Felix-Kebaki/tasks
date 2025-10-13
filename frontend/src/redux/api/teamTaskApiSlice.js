@@ -50,15 +50,9 @@ const teamTaskApiSlice = apiSlice.injectEndpoints({
         };
       },
     }),
-    getTeamtask: builder.query({
-      query: ({ teamId }) => ({
-        url: `${TEAMTASK_URL}/getTeamtask/${teamId}`,
-        method: "GET",
-      }),
-    }),
     deleteTeamtask: builder.mutation({
-      query: ({ teamtaskId }) => ({
-        url: `${TEAMTASK_URL}/deleteTeamtask/${teamtaskId}`,
+      query: (id) => ({
+        url: `${TEAMTASK_URL}/deleteTeamtask/${id}`,
         method: "DELETE",
       }),
     }),
@@ -69,7 +63,7 @@ const teamTaskApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     getEachTeamtask: builder.query({
-      query: ({ teamtaskId }) => ({
+      query: (teamtaskId) => ({
         url: `${TEAMTASK_URL}/getEachTeamtask/${teamtaskId}`,
         method: "GET",
       }),
@@ -79,7 +73,6 @@ const teamTaskApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useCreateTeamtaskMutation,
-  useGetTeamtaskQuery,
   useDeleteTeamtaskMutation,
   useGetSubmissionsQuery,
   useGetEachTeamtaskQuery,

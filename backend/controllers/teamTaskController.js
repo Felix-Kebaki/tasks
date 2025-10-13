@@ -312,7 +312,6 @@ const getEachTeamtask = async (req, res) => {
 
 module.exports = {
   createTeamTask,
-  getTeamTask,
   deleteTeamtask,
   getSubmissions,
   editTeamtask,

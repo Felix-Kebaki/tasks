@@ -1,0 +1,127 @@
+.TeamtaskDetailsMainSec {
+  padding: 0rem 0.4rem 1rem 16.1rem;
+  width: 100%;
+}
+
+.TeamtaskDetailsMainDiv {
+  width: 100%;
+  padding-top:0.8rem;
+}
+
+.TeamtaskDetailsTopMainDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+  padding: 0.6rem 0.4rem 0.6rem 0.4rem;
+  background-color: white;
+  border-radius: 0.3rem;
+}
+
+.TeamtaskDetailsTitleAndDescDiv {
+  width: 100%;
+}
+
+.TeamtaskDetailsTitleAndDescDiv p:first-child {
+  font-size: 1.3rem;
+}
+
+.TeamtaskDetailsTitleAndDescDiv p:last-child {
+  font-size: 0.8rem;
+  max-width: 70%;
+}
+
+.TeamtaskDetailsTopButtonsAndDueDateDiv {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  height: fit-content;
+  row-gap: 0.2rem;
+}
+
+.TeamtaskDetailsTopButtonsDiv{
+    display: flex;
+    width: fit-content;
+    justify-content:end;
+    align-items: center;
+    column-gap:0.3rem;
+}
+
+.TeamtaskDetailsTopButtonsDiv div {
+  border: none;
+  background-color: #eeecec;
+  padding: 0.3rem 1.3rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.3rem;
+}
+
+.TeamtaskDetailsTopButtonsDiv div p {
+  color: black;
+  font-size: 0.7rem;
+}
+
+.TeamtaskDetailsTopButtonsDiv div span {
+  font-size: 0.7rem;
+}
+
+.TeamtaskDetailsDueDateOnlyMainDiv{
+    width: fit-content;
+    white-space: nowrap;
+}
+
+.TeamtaskDetailsOutOfTimeOverall{
+    color:#fc8415;
+    font-size:0.9rem;
+}
+
+.TeamtaskDetailsDueDateOnly{
+    font-size:0.7rem;
+}
+
+.TeamtaskDetailsDueDateOnly span{
+    color: #fc8415;
+}
+
+@media screen and (max-width: 1589px) {
+  .TeamtaskDetailsTitleAndDescDiv p:last-child {
+    max-width: 80%;
+  }
+}
+
+@media screen and (max-width: 1229px) {
+  .TeamtaskDetailsMainSec {
+    padding: 0rem 0.3rem 0.5rem 3.6rem;
+  }
+}
+
+@media screen and (max-width: 888px) {
+  .TeamtaskDetailsTitleAndDescDiv p:last-child {
+    max-width: 100%;
+  }
+  .NotAdminTeamtaskDesc {
+    max-width: 98%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .TeamtaskDetailsTopButtonsDiv div {
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.3rem;
+    column-gap: 0.2rem;
+  }
+
+  .TeamtaskDetailsTopButtonsDiv div p {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 399px) {
+  .TeamtaskDetailsMainSec {
+    padding: 0rem 0.4rem 0.5rem 3rem;
+  }
+}

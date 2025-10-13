@@ -3,7 +3,6 @@ const Protect = require("../middleware/authMiddleware");
 const upload = require("../utils/cloudinary/storage");
 const {
   createTeamTask,
-  getTeamTask,
   deleteTeamtask,
   getSubmissions,
   editTeamtask,
@@ -18,7 +17,6 @@ router.post(
   createTeamTask
 );
 router.delete("/deleteTeamtask/:id", Protect, deleteTeamtask);
-router.get("/getTeamtask/:teamId", Protect, getTeamTask);
 router.get("/getTeamtaskSubmissions/:teamtaskId", Protect, getSubmissions);
 router.put(
   "/updateTeamtask/:teamtaskId",

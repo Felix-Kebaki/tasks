@@ -16,9 +16,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../../assets/images/blackLoader.png";
 
 export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
-  const { refetch, data, isLoading } = useGetEachTeamtaskQuery({
-    teamtaskId: editTeamtask,
-  });
+  const { refetch, data, isLoading } = useGetEachTeamtaskQuery(editTeamtask);
   const [editTheTeamtask, { isLoading: editLoading }] =
     useEditTheTeamtaskMutation();
   const [errorMessage, setErrorMessage] = useState("");
@@ -33,25 +31,27 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
   const [newtype, setNewtype] = useState("");
   const [newfile, setNewfile] = useState("");
 
-  const {showToast}=useToast()
+  const { showToast } = useToast();
 
   const HandleEditTeamtask = async (e) => {
     e.preventDefault();
     try {
-      const newDataUpdate = {}
-      
+      const newDataUpdate = {};
+
       if (name !== data?.name) newDataUpdate.name = name;
       if (description !== data?.description)
         newDataUpdate.description = description;
-      if (newtype !=="" && newtype !== data?.fileType) newDataUpdate.fileType = newtype;
+      if (newtype !== "" && newtype !== data?.fileType)
+        newDataUpdate.fileType = newtype;
       if (dueDate !== moment(data?.dueDate).format("YYYY-MM-DD"))
         newDataUpdate.dueDate = dueDate;
-      if (newtype === "" && type === "Link"){
-        newDataUpdate.fileUrl = linkUrl;}else if(newtype !== "" && newLink !== ""){
-          newDataUpdate.fileUrl = newLink
-        }
-        if(newtype === "Document" || newtype === "Photo")
-          newDataUpdate.file=newfile
+      if (newtype === "" && type === "Link") {
+        newDataUpdate.fileUrl = linkUrl;
+      } else if (newtype !== "" && newLink !== "") {
+        newDataUpdate.fileUrl = newLink;
+      }
+      if (newtype === "Document" || newtype === "Photo")
+        newDataUpdate.file = newfile;
 
       const res = await editTheTeamtask({
         data: newDataUpdate,
@@ -63,7 +63,7 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
           setErrorMessage("");
         }, 3000);
       } else {
-        showToast(res.data.message,"success");
+        showToast(res.data.message, "success");
         setEditTeamtask(null);
       }
     } catch (error) {
@@ -171,7 +171,7 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
               <option value="Document">Document</option>
             </select>
           </div>
-          {type === "None" ? null : linkUrl !== "" && newtype==="" ? (
+          {type === "None" ? null : linkUrl !== "" && newtype === "" ? (
             <div className="text">
               <label htmlFor="SameLinkId">Link</label>
               <br />
@@ -218,7 +218,9 @@ export function EditTeamtask({ editTeamtask, setEditTeamtask }) {
               {editLoading ? <img src={Loader} alt="Loading..." /> : "Update"}
             </button>
           </div>
-          <pre className="text">{errorMessage!==""?errorMessage:null}</pre>
+          <pre className="text">
+            {errorMessage !== "" ? errorMessage : null}
+          </pre>
         </form>
       </div>
     </section>
