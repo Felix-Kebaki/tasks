@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./notification.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,6 +19,7 @@ import { Loading } from "../loading/Loading";
 import { NotificationDetails } from "./NotificationDetails";
 
 export function Notifications() {
+
   const { refetch, data: unread = [], isLoading } = useGetUnreadQuery();
   const {
     refetch: allRefetch,

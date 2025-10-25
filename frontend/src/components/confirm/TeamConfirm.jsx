@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDeleteTeamMutation } from "../../redux/api/teamApiSlice";
 import { useDeleteTeamtaskMutation } from "../../redux/api/teamTaskApiSlice";
 
-export function TeamConfirm({ msg, setMsg, confirm, setConfirm }) {
+export function TeamConfirm({ msg, setMsg, confirm, setConfirm ,team}) {
   const [deleteTeam] = useDeleteTeamMutation();
   const [deleteTeamtask]=useDeleteTeamtaskMutation()
 
@@ -47,6 +47,7 @@ export function TeamConfirm({ msg, setMsg, confirm, setConfirm }) {
         showToast(res.data.message,"success");
         setMsg(null)
         setConfirm(null)
+        navigate(`/app/teams/eachTeam/${team}`)
       }
     } catch (error) {
       console.error(error.message||error,"error");

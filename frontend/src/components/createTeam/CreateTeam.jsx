@@ -11,6 +11,7 @@ import Loader from "../../assets/images/blackLoader.png";
 
 import { useCreateTeamMutation } from "../../redux/api/teamApiSlice";
 import { useSendInviteMutation } from "../../redux/api/invitesApiSlice";
+import { useCheckUserMutation } from "../../redux/api/teamApiSlice";
 
 export function CreateTeam({ setAdd }) {
   const [teamName, setTeamName] = useState("");
@@ -22,10 +23,28 @@ export function CreateTeam({ setAdd }) {
 
   const [createTeam, { isLoading }] = useCreateTeamMutation();
   const [sendInvite, { isLoading: inviteLoading }] = useSendInviteMutation();
+  const [checkUser, { isLoading: checkloading }] = useCheckUserMutation();
 
-  const HandleInviteClick = () => {
-    setInviteMemberNo((prev) => prev + 1);
-    setInvited((prev) => [...prev, ""]);
+  const HandleInviteClick = async(email) => {
+    console.log(email)
+    try {
+      const res = await checkUser(email);
+      if (res.error) {
+        setErrorMessage(res.error.data.error || res.error.error);
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 3000);
+      } else {
+        setInviteMemberNo((prev) => prev + 1);
+        setInvited((prev) => [...prev, ""]);
+      }
+    } catch (error) {
+      console.error(error.message || error);
+      setErrorMessage(error.message || error);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
+    }
   };
 
   const OnChange = (index, value) => {
@@ -55,8 +74,8 @@ export function CreateTeam({ setAdd }) {
             if (each?.trim()) {
               const res = await sendInvite({ data: { email: each }, teamId });
               if (res.error) {
-                showToast(res.error.data.error || res.error.error, "error")
-                continue
+                showToast(res.error.data.error || res.error.error, "error");
+                continue;
               } else {
                 showToast("Invitation sent successfully", "success");
               }
@@ -68,7 +87,7 @@ export function CreateTeam({ setAdd }) {
         }
       }
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
       setErrorMessage(error.message);
       setTimeout(() => {
         setErrorMessage("");
@@ -127,7 +146,7 @@ export function CreateTeam({ setAdd }) {
                 ))}
               <div
                 className="CreateTeamInviteMemberBtn text"
-                onClick={HandleInviteClick}
+                onClick={()=>HandleInviteClick(invited)}
               >
                 <FontAwesomeIcon icon={faPlus} id="PlusObjective" />
                 {inviteMemberNo !== 0 ? "Add another " : "Invite a "}

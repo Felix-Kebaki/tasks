@@ -85,7 +85,7 @@ export function TeamTaskDetails() {
 
         {(msg !== null && confirm!==null)? (
           <div className="OverflowAddMainDiv">
-            <TeamConfirm setMsg={setMsg} msg={msg} confirm={confirm} setConfirm={setConfirm}/>
+            <TeamConfirm setMsg={setMsg} msg={msg} confirm={confirm} setConfirm={setConfirm} team={data?.team}/>
           </div>
         ) : null}
 
