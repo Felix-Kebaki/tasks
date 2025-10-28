@@ -25,18 +25,22 @@ export function CreateTeam({ setAdd }) {
   const [sendInvite, { isLoading: inviteLoading }] = useSendInviteMutation();
   const [checkUser, { isLoading: checkloading }] = useCheckUserMutation();
 
-  const HandleInviteClick = async(email) => {
-    console.log(email)
+  const HandleInviteClick = async (email) => {
     try {
-      const res = await checkUser(email);
-      if (res.error) {
-        setErrorMessage(res.error.data.error || res.error.error);
-        setTimeout(() => {
-          setErrorMessage("");
-        }, 3000);
-      } else {
+      if (invited.length === 0) {
         setInviteMemberNo((prev) => prev + 1);
         setInvited((prev) => [...prev, ""]);
+      } else {
+        const res = await checkUser(email);
+        if (res.error) {
+          setErrorMessage(res.error.data.error || res.error.error);
+          setTimeout(() => {
+            setErrorMessage("");
+          }, 3000);
+        } else {
+          setInviteMemberNo((prev) => prev + 1);
+          setInvited((prev) => [...prev, ""]);
+        }
       }
     } catch (error) {
       console.error(error.message || error);
@@ -70,6 +74,7 @@ export function CreateTeam({ setAdd }) {
           }, 3000);
         } else {
           const teamId = response.data.teamId;
+          let success = false;
           for (const each of invited) {
             if (each?.trim()) {
               const res = await sendInvite({ data: { email: each }, teamId });
@@ -77,9 +82,12 @@ export function CreateTeam({ setAdd }) {
                 showToast(res.error.data.error || res.error.error, "error");
                 continue;
               } else {
-                showToast("Invitation sent successfully", "success");
+                success = true;
               }
             }
+          }
+          if (success) {
+            showToast("Invitations sent successfully", "success");
           }
           showToast(response.data.message, "success");
           setInviteMemberNo(0);
@@ -146,11 +154,18 @@ export function CreateTeam({ setAdd }) {
                 ))}
               <div
                 className="CreateTeamInviteMemberBtn text"
-                onClick={()=>HandleInviteClick(invited)}
+                onClick={() => HandleInviteClick(invited)}
               >
                 <FontAwesomeIcon icon={faPlus} id="PlusObjective" />
                 {inviteMemberNo !== 0 ? "Add another " : "Invite a "}
-                member
+                member{" "}
+                {checkloading ? (
+                  <img
+                    src={Loader}
+                    alt="Loading"
+                    className="LoaderAtAddMemberToInvite"
+                  />
+                ) : null}
               </div>
               <div className="CreateTeamSubmitBtnDiv">
                 <button

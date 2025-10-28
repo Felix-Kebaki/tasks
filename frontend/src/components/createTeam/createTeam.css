@@ -80,11 +80,30 @@
 
 .CreateTeamInviteMemberBtn {
   cursor: pointer;
+  display: flex;
+  align-items:center;
 }
 
 .CreateTeamInviteMemberBtn:hover {
   color: #0483bb;
 }
+
+@keyframes InviteSpinner {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+
+.LoaderAtAddMemberToInvite{
+  width:1rem;
+  height: 1rem;
+  margin-left:1rem;
+  animation:InviteSpinner 1s ease-in infinite ;
+}
+
 
 .CreateTeamSubmitBtnDiv {
   width: 100%;
