@@ -10,6 +10,9 @@
 
 .TeamDetailTopDiv {
   width: 100%;
+  display: flex;
+  justify-content:space-between;
+  align-items: top;
 }
 
 .TeamName {
@@ -19,6 +22,28 @@
 .DateOfTeamCreation {
   font-size: 0.8rem;
   color: #0483bb;
+}
+
+.TeamDetailTopDivDelete{
+  border:none;
+  background-color: #fc8415;
+  height: fit-content;
+  padding:0.3rem 1.3rem;
+  border-radius:0.3rem;
+  cursor:pointer;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  column-gap:0.3rem;
+}
+
+.TeamDetailTopDivDelete span{
+  font-size:0.7rem;
+}
+
+.TeamDetailTopDivDelete p{
+  color: black;
+  font-size: 0.7rem;
 }
 
 .TeamtaskAndGraphMainWrapper {
@@ -369,6 +394,18 @@
     min-width: 14rem;
     height: 14rem;
 }
+}
+
+@media screen and (max-width: 576px) {
+  .TeamDetailTopDivDelete {
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.3rem;
+    column-gap: 0rem;
+  }
+
+  .TeamDetailTopDivDelete p {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 517px) {

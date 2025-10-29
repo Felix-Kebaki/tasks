@@ -12,10 +12,14 @@ import { CreateTeamtask } from "../createTeamtask/CreateTeamtask";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { TeamConfirm } from "../confirm/TeamConfirm";
 
 export function TeamDetails() {
   const param = useParams();
   const [teamId, setTeamId] = useState(null);
+  const [confirm, setConfirm] = useState(null);
+  const [msg, setMsg] = useState(null);
 
   const {
     refetch,
@@ -27,9 +31,14 @@ export function TeamDetails() {
     setTeamId(getid);
   };
 
+  const HandleClickDelTeam = () => {
+    setConfirm(param.id);
+    setMsg("Are you sure you want the team and all it's data to be deleted");
+  };
+
   useEffect(() => {
     refetch();
-  }, [refetch, teamId]);
+  }, [refetch, teamId, msg, confirm]);
 
   if (isLoading) {
     return (
@@ -43,10 +52,23 @@ export function TeamDetails() {
     <section className="TeamDetailsMainSec">
       <div className="TeamDetailsMainDiv">
         <div className="TeamDetailTopDiv">
-          <p className="TeamName title">{teamDashboard?.name}</p>
-          <p className="DateOfTeamCreation text">
-            Created on {moment(teamDashboard?.createdAt).format("Do MMM 'YY")} by {teamDashboard?.admin[0]} {teamDashboard?.admin[1]} 
-          </p>
+          <div className="TeamDetailTopDivNameDiv">
+            <p className="TeamName title">{teamDashboard?.name}</p>
+            <p className="DateOfTeamCreation text">
+              Created on {moment(teamDashboard?.createdAt).format("Do MMM 'YY")}{" "}
+              by {teamDashboard?.admin[0]} {teamDashboard?.admin[1]}
+            </p>
+          </div>
+          <div
+            className="TeamDetailTopDivDelete text"
+            onClick={HandleClickDelTeam}
+          >
+            <span>
+              {" "}
+              <FontAwesomeIcon icon={faTrashCan} />
+            </span>
+            <p>Delete</p>
+          </div>
         </div>
 
         <div className="TeamtaskAndGraphMainWrapper">
@@ -116,7 +138,7 @@ export function TeamDetails() {
                     <Link
                       key={task._id}
                       className="TeamtaskTeamDashEachtaskdiv"
-                      to={"/app/teams/eachTeam/eachTeamtask/"+task._id}
+                      to={"/app/teams/eachTeam/eachTeamtask/" + task._id}
                     >
                       <div className="TopEachTeamtaskTeamDash text">
                         <p>
@@ -219,6 +241,17 @@ export function TeamDetails() {
         {teamId !== null ? (
           <div className="OverflowAddMainDiv">
             <CreateTeamtask setAdd={setTeamId} add={teamId} />
+          </div>
+        ) : null}
+
+        {(confirm !== null && msg !== null) ? (
+          <div className="OverflowAddMainDiv">
+            <TeamConfirm
+              msg={msg}
+              setMsg={setMsg}
+              confirm={confirm}
+              setConfirm={setConfirm}
+            />
           </div>
         ) : null}
       </div>
