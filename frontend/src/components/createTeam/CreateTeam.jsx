@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import "./createTeam.css";
 
 import { useToast } from "../../context/ToastContext";
@@ -59,39 +59,48 @@ export function CreateTeam({ setAdd }) {
 
   const HandleSubmitCreateTeam = async (e) => {
     e.preventDefault();
+
     try {
-      if (invited.length === 0) {
-        setErrorMessage("Invite atleast one user");
+      const res = await checkUser(invited);
+      if (res.error) {
+        setErrorMessage(res.error.data.error || res.error.error);
         setTimeout(() => {
           setErrorMessage("");
         }, 3000);
       } else {
-        const response = await createTeam({ name: teamName });
-        if (response.error) {
-          setErrorMessage(response.error.data.error || response.error.error);
+        if (invited.length === 0) {
+          setErrorMessage("Invite atleast one user");
           setTimeout(() => {
             setErrorMessage("");
           }, 3000);
         } else {
-          const teamId = response.data.teamId;
-          let success = false;
-          for (const each of invited) {
-            if (each?.trim()) {
-              const res = await sendInvite({ data: { email: each }, teamId });
-              if (res.error) {
-                showToast(res.error.data.error || res.error.error, "error");
-                continue;
-              } else {
-                success = true;
+          const response = await createTeam({ name: teamName });
+          if (response.error) {
+            setErrorMessage(response.error.data.error || response.error.error);
+            setTimeout(() => {
+              setErrorMessage("");
+            }, 3000);
+          } else {
+            const teamId = response.data.teamId;
+            let success = false;
+            for (const each of invited) {
+              if (each?.trim()) {
+                const res = await sendInvite({ data: { email: each }, teamId });
+                if (res.error) {
+                  showToast(res.error.data.error || res.error.error, "error");
+                  continue;
+                } else {
+                  success = true;
+                }
               }
             }
+            if (success) {
+              showToast("Invitations sent successfully", "success");
+            }
+            showToast(response.data.message, "success");
+            setInviteMemberNo(0);
+            setAdd(false);
           }
-          if (success) {
-            showToast("Invitations sent successfully", "success");
-          }
-          showToast(response.data.message, "success");
-          setInviteMemberNo(0);
-          setAdd(false);
         }
       }
     } catch (error) {
@@ -105,7 +114,7 @@ export function CreateTeam({ setAdd }) {
 
   return (
     <section className="CreateTeamMainSec">
-      <form className="CreateTeamMainForm" onSubmit={HandleSubmitCreateTeam}>
+      <form className="CreateTeamMainForm">
         <div className="CreateTeamTopDiv">
           <p className="CreateTeamTitle title">Create a team</p>
           <FontAwesomeIcon
@@ -169,14 +178,14 @@ export function CreateTeam({ setAdd }) {
               </div>
               <div className="CreateTeamSubmitBtnDiv">
                 <button
-                  type="submit"
+                  onClick={HandleSubmitCreateTeam}
                   className={
-                    isLoading || inviteLoading
+                    (isLoading || inviteLoading) && !checkloading
                       ? "CreateTeamLoader"
                       : "CreateTeamSubmitBtn text"
                   }
                 >
-                  {isLoading || inviteLoading ? (
+                  {(isLoading || inviteLoading) && !checkloading ? (
                     <img src={Loader} alt="Loading..." />
                   ) : (
                     "Create"

@@ -70,12 +70,12 @@
   width: 100%;
   justify-content: center;
   padding: 1rem 0rem;
-  border-bottom: 0.1rem black solid;
+  border-bottom: 0.09rem #cfcfcf solid;
 }
 
 .NotAMemberOfTeamText {
   color: #fc8415;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .AddTeamButton {
