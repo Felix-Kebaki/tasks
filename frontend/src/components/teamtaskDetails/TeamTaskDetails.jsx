@@ -53,6 +53,7 @@ export function TeamTaskDetails() {
 
   const onClickOnArrow = (id) => {
     setOpenId((prev) => (prev === id ? null : id));
+    setSubtask("");
   };
 
   const HandleClickAssign=async(e,getUser)=>{
@@ -60,11 +61,12 @@ export function TeamTaskDetails() {
     try {
       const res=await assignTask({teamId:data?.teamId,teamTaskId:data?.teamtaskId,userId:getUser,data:{name:subtask}})
       if(res.error){
-        showToast(res.error.data.error || res.error.error)
+        showToast(res.error.data.error || res.error.error,"error")
         console.error(res.error.data.error || res.error.error)
       }else{
-        showToast(res.data.message);
+        showToast(res.data.message,"success");
         setOpenId(null)
+        setSubtask("");
         assignedRefetch();
       }
     } catch (error) {
@@ -78,8 +80,6 @@ export function TeamTaskDetails() {
     if (data?.teamId) {
       assignedRefetch();
     }
-    console.log(data)
-    console.log(assignedWithMembers)
   }, [refetch, assignedRefetch, msg, confirm, editTeamtask]);
 
   if (assignedLoading || isLoading || !data || !assignedWithMembers) {
@@ -163,13 +163,15 @@ export function TeamTaskDetails() {
                     ) : null}
                   </div>
                   {openId === member._id ? (
-                    <form onSubmit={()=>HandleClickAssign(member._id)} className="TeamtaskDetailsAssignFormDiv">
+                    <form onSubmit={(e)=>HandleClickAssign(e,member._id)} className="TeamtaskDetailsAssignFormDiv">
                       <input type="text" placeholder="Assign a subtask" value={subtask} onChange={(e)=>setSubtask(e.target.value)}/>
                       <button type="submit" disabled={assignLoading}>{assignLoading?<img src={Loader}/>:<FontAwesomeIcon icon={faCheck} />}</button>
                     </form>
                   ) : null}
                   {member.tasks.map((task,index)=>(
-                    <div key={index}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias alias qui adipisci quam, eius doloribus dolores? Perferendis impedit facilis laborum?</div>
+                    <div key={index} className="text">
+                      <p>{task.name}</p>
+                    </div>
                   ))}
                 </div>
               ))}

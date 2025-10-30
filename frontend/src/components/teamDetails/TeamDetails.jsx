@@ -159,6 +159,7 @@ export function TeamDetails() {
                       </div>
                     </Link>
                   ))}
+                  {teamDashboard?.isAdmin?
                   <div
                     className="CreateTeamtaskWithExistingTaskDiv"
                     onClick={() => OnClickOfCreateTeamtask(param.id)}
@@ -174,7 +175,7 @@ export function TeamDetails() {
                       />
                       Create Teamtask.
                     </p>
-                  </div>
+                  </div>:null}
                 </div>
               </div>
               <div className="GraphOnTeamDashboardMainDiv"></div>
