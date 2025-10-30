@@ -59,16 +59,18 @@ export function TeamDetails() {
               by {teamDashboard?.admin[0]} {teamDashboard?.admin[1]}
             </p>
           </div>
-          <div
-            className="TeamDetailTopDivDelete text"
-            onClick={HandleClickDelTeam}
-          >
-            <span>
-              {" "}
-              <FontAwesomeIcon icon={faTrashCan} />
-            </span>
-            <p>Delete</p>
-          </div>
+          {teamDashboard?.isAdmin ? (
+            <div
+              className="TeamDetailTopDivDelete text"
+              onClick={HandleClickDelTeam}
+            >
+              <span>
+                {" "}
+                <FontAwesomeIcon icon={faTrashCan} />
+              </span>
+              <p>Delete</p>
+            </div>
+          ) : null}
         </div>
 
         <div className="TeamtaskAndGraphMainWrapper">
@@ -244,7 +246,7 @@ export function TeamDetails() {
           </div>
         ) : null}
 
-        {(confirm !== null && msg !== null) ? (
+        {confirm !== null && msg !== null ? (
           <div className="OverflowAddMainDiv">
             <TeamConfirm
               msg={msg}

@@ -5,7 +5,7 @@
 
 .TeamtaskDetailsMainDiv {
   width: 100%;
-  padding-top:0.8rem;
+  padding-top: 0.8rem;
 }
 
 .TeamtaskDetailsTopMainDiv {
@@ -40,12 +40,12 @@
   row-gap: 0.2rem;
 }
 
-.TeamtaskDetailsTopButtonsDiv{
-    display: flex;
-    width: fit-content;
-    justify-content:end;
-    align-items: center;
-    column-gap:0.3rem;
+.TeamtaskDetailsTopButtonsDiv {
+  display: flex;
+  width: fit-content;
+  justify-content: end;
+  align-items: center;
+  column-gap: 0.3rem;
 }
 
 .TeamtaskDetailsTopButtonsDiv div {
@@ -69,22 +69,168 @@
   font-size: 0.7rem;
 }
 
-.TeamtaskDetailsDueDateOnlyMainDiv{
-    width: fit-content;
-    white-space: nowrap;
+.TeamtaskDetailsDueDateOnlyMainDiv {
+  width: fit-content;
+  white-space: nowrap;
 }
 
-.TeamtaskDetailsOutOfTimeOverall{
-    color:#fc8415;
-    font-size:0.9rem;
+.TeamtaskDetailsOutOfTimeOverall {
+  color: #fc8415;
+  font-size: 0.9rem;
 }
 
-.TeamtaskDetailsDueDateOnly{
-    font-size:0.7rem;
+.TeamtaskDetailsDueDateOnly {
+  font-size: 0.7rem;
 }
 
-.TeamtaskDetailsDueDateOnly span{
-    color: #fc8415;
+.TeamtaskDetailsDueDateOnly span {
+  color: #fc8415;
+}
+
+.TeamtaskDetailsAssignedSubmissionsMainDiv {
+  display: flex;
+  column-gap: 1%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 0.9rem;
+}
+
+.TeamtaskDetailsAssignedMainDiv {
+  width: 32.5%;
+  background-color: white;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+}
+
+.TeamtaskDetailsAssignedTitle{
+  padding-bottom:0.7rem;
+}
+
+.TeamtaskDetailsAssignedTitle p {
+  font-size: 0.9rem;
+}
+
+.TeamtaskDetailsAssignedInsideDiv{
+  max-height: 18rem;
+  width:100%;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.TeamtaskDetailsAssignedInsideDiv::-webkit-scrollbar {
+  display: none;
+}
+
+.TeamtaskDetailsAssignedHeaderDiv{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:0.2rem ;
+}
+
+.TeamtaskDetAssignedProfile{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  column-gap: 0.7rem;
+}
+
+.TeamtaskDetAssignProfPic{
+  background-color: #eeecec;
+  color:white;
+  padding:0.5rem 0.6rem;
+  border-radius: 50%;
+}
+
+.TeamtaskDetAssignArrowBtn{
+  font-size:0.8rem;
+  cursor: pointer;
+  padding:0.2rem;
+}
+
+.TeamtaskDetailsAssignFormDiv{
+  padding:0rem 0.2rem 0.3rem 1.2rem;
+  width:100%;
+  display:flex;
+  justify-content: space-between;
+}
+
+.TeamtaskDetailsAssignFormDiv input{
+  border:none;
+  width:100%;
+  border-bottom:0.1rem black solid;
+  outline: none;
+  padding:0.2rem 0.2rem 0.3rem 0.2rem;
+}
+
+.TeamtaskDetailsAssignFormDiv button{
+  border:none;
+  background-color: #0483bb;
+  color:white;
+  cursor:pointer;
+  padding:0.3rem 0.5rem;
+  border-radius:0.2rem;
+}
+
+.TeamtaskDetailsResourceMainDiv {
+  width: 32.5%;
+  background-color: white;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+}
+
+.TeamtaskDetailsResourcesTitle {
+  width: 100%;
+}
+
+.TeamtaskDetailsResourcesTitle p {
+  font-size: 0.9rem;
+  text-align: start;
+}
+
+.TeamtaskDetailsResourceInsideDiv {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NoResourceMainText {
+  font-size: 0.9rem;
+  color: #fc8415;
+  text-align: center;
+}
+
+.TeamtaskDetailsSubmissionsMainDiv {
+  width: 32.5%;
+  background-color: white;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+}
+
+.TeamtaskDetailsSubmissionTitle {
+  width: 100%;
+}
+
+.TeamtaskDetailsSubmissionTitle p {
+  font-size: 0.9rem;
+  text-align: start;
+}
+
+.TeamtaskDetailsSubmissionsInsideDiv {
+    width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NoSubmissionsMainText {
+  font-size: 0.9rem;
+  color: #fc8415;
+  text-align: center;
 }
 
 @media screen and (max-width: 1589px) {

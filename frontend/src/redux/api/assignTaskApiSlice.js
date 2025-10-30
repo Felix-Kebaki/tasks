@@ -16,11 +16,11 @@ const assignTaskApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    getTeamAssignedTask: builder.query({
-      query: ({ taskId, userId }) => ({
-        url: `${ASSIGNTASK_URL}/getTeamAssignedTasks/${taskId}/${userId}`,
-        method: "GET",
-      }),
+    getAssignedMembers:builder.query({
+      query:(teamId)=>({
+        url:`${ASSIGNTASK_URL}/assignedWithMembers/${teamId}`,
+        method:"GET"
+      })
     }),
     startTeamtask: builder.mutation({
       query: ({ taskId }) => ({
@@ -60,8 +60,8 @@ const assignTaskApiSlice = apiSlice.injectEndpoints({
 export const {
   useAssignTaskMutation,
   useGetAssignedQuery,
-  useGetTeamAssignedTaskQuery,
+  useGetAssignedMembersQuery,
   useStartTeamtaskMutation,
   useDeleteAssignedTaskMutation,
-  useMarkAsDoneMutation,
+  useMarkAsDoneMutation
 } = assignTaskApiSlice;
