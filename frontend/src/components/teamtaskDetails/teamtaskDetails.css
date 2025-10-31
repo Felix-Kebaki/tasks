@@ -102,17 +102,62 @@
   padding: 0.5rem;
 }
 
+.TeamtaskDetailsAssignedTitleAndLabelDiv {
+  padding-bottom: 0.7rem;
+}
+
 .TeamtaskDetailsAssignedTitle{
-  padding-bottom:0.7rem;
+  display:flex;
+  justify-content: start;
+  column-gap: 0.2rem;
 }
 
 .TeamtaskDetailsAssignedTitle p {
   font-size: 0.9rem;
 }
 
-.TeamtaskDetailsAssignedInsideDiv{
+.TeamtaskDetailsAssignedTitle div{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  background-color: #fc8415;
+  color: white;
+  padding: 0.03rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.TeamtaskDetailsAssignedLabelDiv{
+  display:flex;
+  justify-content: start;
+  column-gap:0.4rem;
+  align-items:center;
+  margin-top: 0.4rem;
+}
+
+.TeamtaskDetailsAssignedLabelDiv p{
+  font-size:0.6rem;
+}
+
+.TeamtaskDetailsAssignedLabelDiv p span{
+  margin-right:0.1rem;
+}
+
+.TeamtaskDetailsAssignNotStrtLabel{
+  color:#bebebe;
+}
+
+.TeamtaskDetailsAssignInProgLabel,.TeamtaskDetailsAssignCompletedLabel{
+  color:#0483bb;
+}
+
+.TeamtaskDetailsAssignOutofTimeLabel{
+  color:#fc8415;
+}
+
+.TeamtaskDetailsAssignedInsideDiv {
   max-height: 18rem;
-  width:100%;
+  width: 100%;
   overflow-y: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -122,55 +167,79 @@
   display: none;
 }
 
-.TeamtaskDetailsAssignedHeaderDiv{
-  display:flex;
+.TeamtaskDetailsAssignedHeaderDiv {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  padding:0.2rem ;
+  padding: 0.2rem;
+  cursor: pointer;
 }
 
-.TeamtaskDetAssignedProfile{
+.TeamtaskDetailsAssignedHeaderDiv:hover{
+  background-color: #eeecec;
+  border-radius: 0.3rem;
+}
+
+.TeamtaskDetAssignedProfile {
   display: flex;
   align-items: center;
   justify-content: start;
   column-gap: 0.7rem;
 }
 
-.TeamtaskDetAssignProfPic{
+.TeamtaskDetAssignProfPic {
   background-color: #eeecec;
-  color:white;
-  padding:0.5rem 0.6rem;
+  color: white;
+  padding: 0.5rem 0.6rem;
   border-radius: 50%;
 }
 
-.TeamtaskDetAssignArrowBtn{
+.TeamtaskDetailsAssignPlusIcon{
   font-size:0.8rem;
-  cursor: pointer;
-  padding:0.2rem;
+  color:black;
 }
 
-.TeamtaskDetailsAssignFormDiv{
-  padding:0rem 0.2rem 0.3rem 1.2rem;
-  width:100%;
-  display:flex;
+.TeamtaskDetailsAssignEachAssignedMainDiv {
+  display: flex;
   justify-content: space-between;
+  width: 100%;
+  align-items: top;
+  padding: 0.2rem 0.2rem 0rem 1rem;
 }
 
-.TeamtaskDetailsAssignFormDiv input{
-  border:none;
-  width:100%;
-  border-bottom:0.1rem black solid;
-  outline: none;
-  padding:0.2rem 0.2rem 0.3rem 0.2rem;
+.TeamtaskDetailsAssignedNotStrt {
+  font-size: 0.85rem;
+  color: #bebebe;
 }
 
-.TeamtaskDetailsAssignFormDiv button{
-  border:none;
-  background-color: #0483bb;
-  color:white;
-  cursor:pointer;
-  padding:0.3rem 0.5rem;
-  border-radius:0.2rem;
+.TeamtaskDetailsAssignInProg,
+.TeamtaskDetailsAssigneCompleted {
+  font-size: 0.85rem;
+  color: #0483bb;
+}
+
+.TeamtaskDetailsAssignOutOfTimeIcon{
+  color:#fc8415;
+  font-size:0.85rem;
+}
+
+.TeamtaskDetailsAssignEachAssignedMainDiv div {
+  display: flex;
+  align-items: top;
+  justify-content: start;
+  column-gap: 0.25rem;
+}
+
+.TeamtaskDetailsAssignEachAssignedMainDiv div p {
+  font-size: 0.8rem;
+  color: #3d3d3d;
+}
+
+.TeamtaskDetailsAssignDelEachAssign {
+  color: #fc8415;
+  font-size: 0.7rem;
+  padding: 0.1rem;
+  cursor: pointer;
 }
 
 .TeamtaskDetailsResourceMainDiv {
@@ -220,7 +289,7 @@
 }
 
 .TeamtaskDetailsSubmissionsInsideDiv {
-    width: 100%;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
