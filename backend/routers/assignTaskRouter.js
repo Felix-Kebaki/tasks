@@ -2,7 +2,7 @@ const express = require("express");
 const {
   Assigntask,
   getAssignedTask,
-  assignedTaskfromTheTeam,
+  getAssignedWithMembers,
   startTeamtask,
   deleteAssignedTeamtask,
   completeTeamtask
@@ -16,10 +16,6 @@ router.get("/getAssignedtask", Protect, getAssignedTask);
 router.post("/startTeamtask/:taskId", Protect, startTeamtask);
 router.delete("/deleteAssignedtask/:id", Protect, deleteAssignedTeamtask);
 router.post("/completeAssignedtask/:id", Protect,upload.single("file"), completeTeamtask);
-router.get(
-  "/getTeamAssignedTasks/:taskId/:userId",
-  Protect,
-  assignedTaskfromTheTeam
-);
+router.get("/assignedWithMembers/:teamId",Protect,getAssignedWithMembers)
 
 module.exports = router;

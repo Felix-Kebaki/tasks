@@ -1,13 +1,15 @@
 const Team = require("../models/teamModel");
 const EachTask = require("../models/assignTaskModel");
 const TeamTask = require("../models/teamTaskModel");
+const mongoose = require("mongoose");
 const capitalizeFirst = require("../utils/capitalize");
-const calculateDuration=require("../utils/calculateAssignedDuration")
+const calculateDuration = require("../utils/calculateAssignedDuration");
 
 const Assigntask = async (req, res) => {
-  const { name } = req.body;
+  const { name ,dueDate ,submission } = req.body;
+  console.log(req.params)
   try {
-    if (!name) {
+    if (!name || !dueDate || !submission) {
       return res.status(422).json({ error: "Input all fields" });
     }
     const team = await Team.findById(req.params.teamId);
@@ -19,6 +21,7 @@ const Assigntask = async (req, res) => {
 
     const newTask = await EachTask.create({
       name: capitalizeFirst(name),
+      dueDate,
       assignedTo: req.params.userId,
       teamtask: teamtask._id,
       team: team._id,
@@ -27,8 +30,11 @@ const Assigntask = async (req, res) => {
       return res.status(422).json({ error: "Unable to assign task" });
     }
 
-    teamtask.allAssigned+=1
-    await teamtask.save()
+    if(submission!=="None"){
+      
+    }
+    teamtask.allAssigned += 1;
+    await teamtask.save();
 
     res.status(200).json({ message: "Task assigned successfully" });
   } catch (error) {
@@ -56,9 +62,9 @@ const getAssignedTask = async (req, res) => {
           dueDate: teamtask.dueDate,
           status: each.status,
           startDate: each.startDate,
-          days:each.duration.days,
-          hours:each.duration.hours,
-          minutes:each.duration.minutes
+          days: each.duration.days,
+          hours: each.duration.hours,
+          minutes: each.duration.minutes,
         });
       }
       res.status(200).json({ Assigned: allDetails });
@@ -69,16 +75,80 @@ const getAssignedTask = async (req, res) => {
   }
 };
 
-const assignedTaskfromTheTeam = async (req, res) => {
+const getAssignedWithMembers = async (req, res) => {
+  const { teamId } = req.params;
   try {
-    const assigned = await EachTask.find({
-      assignedTo: req.params.userId,
-      teamtask: req.params.taskId,
-    });
-    if (!assigned) {
-      return res.status(422).json({ error: "Unable to fetch your teamTasks" });
+    // 🧩 Validate teamId
+    if (!mongoose.Types.ObjectId.isValid(teamId)) {
+      return res.status(400).json({ error: "Invalid team ID" });
     }
-    res.status(200).json(assigned);
+
+    // 🧠 Aggregation pipeline
+    const teamData = await Team.aggregate([
+      // 1️⃣ Match the team
+      { $match: { _id: new mongoose.Types.ObjectId(teamId) } },
+
+      // 2️⃣ Populate members with user details
+      {
+        $lookup: {
+          from: "users",
+          localField: "members",
+          foreignField: "_id",
+          as: "members",
+          pipeline: [{ $project: { firstName: 1, lastName: 1, _id: 1 } }],
+        },
+      },
+
+      // 3️⃣ Unwind members (process each member individually)
+      { $unwind: { path: "$members", preserveNullAndEmptyArrays: true } },
+
+      // 4️⃣ Lookup tasks assigned to that member in this team
+      {
+        $lookup: {
+          from: "eachtasks",
+          let: { memberId: "$members._id", teamId: "$_id" },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$assignedTo", "$$memberId"] },
+                    { $eq: ["$team", "$$teamId"] },
+                  ],
+                },
+              },
+            },
+            {
+              $project: {
+                _id: 1,
+                name: 1,
+                status: 1,
+                startDate: 1,
+                doneDate: 1,
+              },
+            },
+          ],
+          as: "members.tasks",
+        },
+      },
+
+      // 5️⃣ Group members back into an array
+      {
+        $group: {
+          _id: "$_id",
+          name: { $first: "$name" },
+          members: { $push: "$members" },
+        },
+      },
+    ]);
+
+    // 🟢 If no team found
+    if (!teamData || teamData.length === 0) {
+      return res.status(404).json({ error: "Team not found" });
+    }
+
+    // ✅ Success
+    res.status(200).json(teamData[0]);
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });
@@ -146,21 +216,18 @@ const completeTeamtask = async (req, res) => {
       return res.status(422).json({ error: "Task must be in progress first" });
     }
 
-    if(type==="Document" && req.file?.mimetype.startsWith("image/")){
-      return res.status(422).json({error:"Upload a document"})
+    if (type === "Document" && req.file?.mimetype.startsWith("image/")) {
+      return res.status(422).json({ error: "Upload a document" });
     }
 
-    if(type==="Photo" && !req.file?.mimetype.startsWith("image/")){
-      return res.status(422).json({error:"Upload a photo"})
+    if (type === "Photo" && !req.file?.mimetype.startsWith("image/")) {
+      return res.status(422).json({ error: "Upload a photo" });
     }
 
     if (type !== "None") {
       const submission = {
         submittedBy: req.user._id,
-        fileUrl:
-          type === "Link"
-            ? fileUrl
-            : req.file.path,
+        fileUrl: type === "Link" ? fileUrl : req.file.path,
         submissionPublicId: req.file?.filename,
         submissionType: req.file?.mimetype.startsWith("image/")
           ? "image"
@@ -177,17 +244,20 @@ const completeTeamtask = async (req, res) => {
       if (!markedteam) {
         return res.status(422).json({ error: "Unable to mark as done" });
       }
-    }else if(type==="None"){
-      assignedTask.status="Completed"
+    } else if (type === "None") {
+      assignedTask.status = "Completed";
       assignedTask.doneDate = new Date();
     }
 
-    const duration=calculateDuration(assignedTask.startDate,assignedTask.doneDate)
-    assignedTask.duration=duration
+    const duration = calculateDuration(
+      assignedTask.startDate,
+      assignedTask.doneDate
+    );
+    assignedTask.duration = duration;
 
     const marked = await assignedTask.save();
-    teamtask.completedOnes+=1
-    await teamtask.save()
+    teamtask.completedOnes += 1;
+    await teamtask.save();
 
     if (!marked) {
       return res.status(422).json({ error: "Unable to mark as done" });
@@ -212,6 +282,16 @@ const deleteAssignedTeamtask = async (req, res) => {
       return res.status(401).json({ error: "Unauthorized access" });
     }
 
+    const teamtask = await TeamTask.findById(assignedtask.teamtask);
+    if (assignedtask.status === "Completed") {
+      teamtask.completedOnes -= 1;
+      teamtask.allAssigned -= 1;
+      await teamtask.save();
+    } else {
+      teamtask.allAssigned -= 1;
+      await teamtask.save();
+    }
+
     const deleteAssigned = await assignedtask.deleteOne();
     if (!deleteAssigned) {
       return res.status(422).json({ error: "Unable to delete" });
@@ -226,7 +306,7 @@ const deleteAssignedTeamtask = async (req, res) => {
 module.exports = {
   Assigntask,
   getAssignedTask,
-  assignedTaskfromTheTeam,
+  getAssignedWithMembers,
   startTeamtask,
   deleteAssignedTeamtask,
   completeTeamtask,

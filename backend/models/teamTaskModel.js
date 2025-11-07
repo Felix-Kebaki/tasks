@@ -76,6 +76,18 @@ const teamTaskSchema = mongoose.Schema({
       },
     },
   ],
+  expectedSubmissions:[
+    {
+      fileType:{
+        type:String,
+        enum:["Photo","Document","Link"]
+      },
+      user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+      }
+    }
+  ],
   allAssigned:{
     type:Number,
     default:0

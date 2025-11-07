@@ -8,11 +8,12 @@ import { useToast } from "../../context/ToastContext";
 
 import { useGetEachTeamtaskQuery } from "../../redux/api/teamTaskApiSlice";
 import { useGetAssignedMembersQuery } from "../../redux/api/assignTaskApiSlice";
-import { useAssignTaskMutation } from "../../redux/api/assignTaskApiSlice";
 
 import { TeamConfirm } from "../confirm/TeamConfirm";
 import { EditTeamtask } from "../EditTeamtask/EditTeamtask";
 import { Loading } from "../loading/Loading";
+import { TeamTaskConfirm } from "../confirm/TeamTaskConfirm";
+import { CreateSubtask } from "../createSubtask/CreateSubtask";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
@@ -22,7 +23,6 @@ import { faSquareXmark } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/free-regular-svg-icons";
-import { TeamTaskConfirm } from "../confirm/TeamTaskConfirm";
 
 export function TeamTaskDetails() {
   const { userInfo } = useSelector((state) => state.auth);
@@ -35,13 +35,15 @@ export function TeamTaskDetails() {
     refetch: assignedRefetch,
     isLoading: assignedLoading,
   } = useGetAssignedMembersQuery(data?.teamId, { skip: !data?.teamId });
-  const [assignTask, { isLoading: assignLoading }] = useAssignTaskMutation();
 
   const [msg, setMsg] = useState(null);
   const [confirm, setConfirm] = useState(null);
   const [editTeamtask, setEditTeamtask] = useState(null);
-  const [subtask, setSubtask] = useState("");
-  const [assignedTaskDel,setAssignedTaskDel]=useState(null)
+  const [assignedTaskDel, setAssignedTaskDel] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [teamtaskId, setTeamtaskId] = useState(null);
+  const [teamId, setTeamId] = useState(null);
+  const [showAssign, setShowAssign] = useState(false);
 
   const ClickOnDeleteTeamtask = (getId) => {
     setMsg("Are you sure you want the Teamtask deleted with all of it's data");
@@ -52,25 +54,12 @@ export function TeamTaskDetails() {
     setEditTeamtask(Id);
   };
 
-  const HandleClickAssign = async (e, getUser) => {
-    e.preventDefault();
-    try {
-      const res = await assignTask({
-        teamId: data?.teamId,
-        teamTaskId: data?.teamtaskId,
-        userId: getUser,
-        data: { name: subtask },
-      });
-      if (res.error) {
-        showToast(res.error.data.error || res.error.error, "error");
-        console.error(res.error.data.error || res.error.error);
-      } else {
-        showToast(res.data.message, "success");
-        setSubtask("");
-        assignedRefetch();
-      }
-    } catch (error) {
-      console.error(error.message || error);
+  const ClickOnAssignTask = (getUser) => {
+    if (data?.isAdmin) {
+    setUserId(getUser);
+    setTeamId(data?.teamId);
+    setTeamtaskId(data?.teamtaskId);
+    setShowAssign(true);
     }
   };
 
@@ -81,7 +70,14 @@ export function TeamTaskDetails() {
       assignedRefetch();
     }
     console.log(data)
-  }, [refetch, assignedRefetch, msg, confirm, editTeamtask,assignedTaskDel]);
+  }, [
+    refetch,
+    assignedRefetch,
+    msg,
+    confirm,
+    editTeamtask,
+    assignedTaskDel
+  ]);
 
   if (assignedLoading || isLoading || !data || !assignedWithMembers) {
     return (
@@ -191,7 +187,14 @@ export function TeamTaskDetails() {
               {assignedWithMembers?.members.map((member) => (
                 <div key={member._id}>
                   <div className="TeamtaskDetailsAssignedHeaderDiv">
-                    <div className="TeamtaskDetAssignedProfile">
+                    <div
+                      className="TeamtaskDetAssignedProfile"
+                      onClick={
+                        data?.isAdmin
+                          ? () => ClickOnAssignTask(member._id)
+                          : null
+                      }
+                    >
                       <FontAwesomeIcon
                         icon={faUser}
                         className="TeamtaskDetAssignProfPic"
@@ -202,7 +205,10 @@ export function TeamTaskDetails() {
                       </p>
                     </div>
                     {data?.isAdmin ? (
-                      <FontAwesomeIcon icon={faPlus} className="TeamtaskDetailsAssignPlusIcon"/>
+                      <FontAwesomeIcon
+                        icon={faPlus}
+                        className="TeamtaskDetailsAssignPlusIcon"
+                      />
                     ) : null}
                   </div>
                   {member.tasks.map((task, index) => (
@@ -240,7 +246,7 @@ export function TeamTaskDetails() {
                         <FontAwesomeIcon
                           icon={faTrashCan}
                           className="TeamtaskDetailsAssignDelEachAssign"
-                           onClick={()=>setAssignedTaskDel(task._id)}
+                          onClick={() => setAssignedTaskDel(task._id)}
                         />
                       ) : null}
                     </div>
@@ -303,11 +309,28 @@ export function TeamTaskDetails() {
           </div>
         ) : null}
 
-        {
-          assignedTaskDel!==null?<div className="OverflowAddMainDiv">
-            <TeamTaskConfirm getId={assignedTaskDel} setGetId={setAssignedTaskDel}/>
-          </div>:null
-        }
+        {assignedTaskDel !== null ? (
+          <div className="OverflowAddMainDiv">
+            <TeamTaskConfirm
+              getId={assignedTaskDel}
+              setGetId={setAssignedTaskDel}
+            />
+          </div>
+        ) : null}
+
+        {showAssign && (
+          <div className="OverflowAddMainDiv">
+            <CreateSubtask
+              teamId={teamId}
+              teamtaskId={teamtaskId}
+              userId={userId}
+              setShowAssign={setShowAssign}
+              setTeamId={setTeamId}
+              setTeamtaskId={setTeamtaskId}
+              setUserId={setUserId}
+            />
+          </div>
+        )}
       </div>
     </section>
   );

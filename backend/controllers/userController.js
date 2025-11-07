@@ -235,5 +235,5 @@ module.exports = {
   editPassword,
   editProfile,
   deleteAccount,
-  getUser,
+  getUser
 };

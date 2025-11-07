@@ -68,34 +68,6 @@ const createTeamTask = async (req, res) => {
   }
 };
 
-const getTeamTask = async (req, res) => {
-  try {
-    const teamtask = await TeamTask.find({ team: req.params.teamId });
-    if (!teamtask) {
-      return res.status(422).json({ error: "Unable to fetch Teamtask" });
-    }
-
-    const team = await Team.findById(req.params.teamId).populate(
-      "members",
-      "email firstName lastName"
-    );
-    if (!team) {
-      return res.status(422).json({ error: "Couldn't fetch the team" });
-    }
-
-    res.status(200).json({
-      teamTasks: teamtask,
-      members: team.members,
-      team: team._id,
-      isAdmin: req.user._id.toString() === team.admin.toString(),
-      outOfTime: teamtask.outOfTime,
-    });
-  } catch (error) {
-    console.error(error.message);
-    return res.status(500).json({ error: "Server side issue" });
-  }
-};
-
 const deleteTeamtask = async (req, res) => {
   try {
     const teamtask = await TeamTask.findById(req.params.id);
@@ -303,7 +275,25 @@ const getEachTeamtask = async (req, res) => {
     if (!teamtask) {
       return res.status(422).json({ error: "Unable to fetch Teamtask" });
     }
-    res.status(200).json(teamtask);
+
+    const team=await Team.findById(teamtask.team).populate("members","_id firstName lastName");
+    if(!team){
+      return res.status(404).json({error:"Team not found"})
+    }
+
+    res.status(200).json({
+      isAdmin:req.user._id.toString()===team.admin.toString(),
+      name:teamtask.name,
+      description:teamtask.description,
+      dueDate:teamtask.dueDate,
+      fileType:teamtask.fileType,
+      outOfTime:teamtask.outOfTime,
+      submissions:teamtask.submissions,
+      allAssigned:teamtask.allAssigned, 
+      completedOnes:teamtask.completedOnes,
+      teamId:teamtask.team,
+      teamtaskId:teamtask._id,
+    });
   } catch (error) {
     console.error(error.message);
     return res.status(500).json({ error: "Server side issue" });

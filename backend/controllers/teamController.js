@@ -114,25 +114,25 @@ const getTeamDashboard = async (req, res) => {
       team.members.map(async (member) => {
         const Allcount = await EachTask.countDocuments({
           team: req.params.id,
-          assignedTo: member._id
+          assignedTo: member._id,
         });
 
-        const completeCount=await EachTask.countDocuments({
-          team:req.params.id,
-          assignedTo:member._id,
-          status:"Completed"
-        })
+        const completeCount = await EachTask.countDocuments({
+          team: req.params.id,
+          assignedTo: member._id,
+          status: "Completed",
+        });
 
-        const submissionsCount=await TeamTask.countDocuments({
-          team:req.params.id,
-          "submissions.submittedBy":member._id
-        })
+        const submissionsCount = await TeamTask.countDocuments({
+          team: req.params.id,
+          "submissions.submittedBy": member._id,
+        });
 
         return {
-          ...member.toObject(), 
+          ...member.toObject(),
           assignedTasks: Allcount,
-          completeTasks:completeCount,
-          submissions:submissionsCount
+          completeTasks: completeCount,
+          submissions: submissionsCount,
         };
       })
     );
@@ -151,4 +151,28 @@ const getTeamDashboard = async (req, res) => {
   }
 };
 
-module.exports = { createTeam, deleteTeam, getYourTeams, getTeamDashboard };
+const checkUserExists = async (req, res) => {
+  const email=req.body[req.body.length-1];
+  try {
+    if(!email){
+      return null
+    }
+    
+    const user=await User.findOne({email});
+    if(!user){
+      return res.status(404).json({error:`${email} isn't a registered user.`})
+    }
+    res.status(200).json({message:"User exists"})
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+};
+
+module.exports = {
+  createTeam,
+  deleteTeam,
+  getYourTeams,
+  getTeamDashboard,
+  checkUserExists,
+};
