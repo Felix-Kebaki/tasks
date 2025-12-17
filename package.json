@@ -12,7 +12,7 @@
     "cron:startGoals": "node backend/utils/cron/goalUpdater.js",
     "cron:goalOutOfTime": "node backend/utils/cron/goalOutOfTime.js",
     "cron:ObjectiveOutOfTime": "node backend/utils/cron/ObjectiveOutofTime.js",
-    "cron:ObjectiveReminder":"node backend/utils/cron/ObjectiveReminder.js" 
+    "cron:ObjectiveReminder": "node backend/utils/cron/ObjectiveReminder.js"
   },
   "author": "",
   "license": "ISC",
