@@ -7,7 +7,6 @@ const calculateDuration = require("../utils/calculateAssignedDuration");
 
 const Assigntask = async (req, res) => {
   const { name ,dueDate ,submission } = req.body;
-  console.log(req.params)
   try {
     if (!name || !dueDate || !submission) {
       return res.status(422).json({ error: "Input all fields" });

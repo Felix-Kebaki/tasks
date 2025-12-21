@@ -4,8 +4,8 @@ import { apiSlice } from "./apiSlice";
 const assignTaskApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     assignTask: builder.mutation({
-      query: ({ teamId, teamTaskId, userId, data }) => ({
-        url: `${ASSIGNTASK_URL}/assignTask/${teamId}/${teamTaskId}/${userId}`,
+      query: ({ teamId, teamtaskId, userId, data }) => ({
+        url: `${ASSIGNTASK_URL}/assignTask/${teamId}/${teamtaskId}/${userId}`,
         method: "POST",
         body: data,
       }),

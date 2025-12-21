@@ -69,14 +69,14 @@ export function TeamTaskDetails() {
     if (data?.teamId) {
       assignedRefetch();
     }
-    console.log(data)
   }, [
     refetch,
     assignedRefetch,
     msg,
     confirm,
     editTeamtask,
-    assignedTaskDel
+    assignedTaskDel,
+    showAssign
   ]);
 
   if (assignedLoading || isLoading || !data || !assignedWithMembers) {
