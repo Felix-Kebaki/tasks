@@ -38,6 +38,7 @@ export function TeamDetails() {
 
   useEffect(() => {
     refetch();
+    console.log(teamDashboard);
   }, [refetch, teamId, msg, confirm]);
 
   if (isLoading) {
@@ -143,12 +144,16 @@ export function TeamDetails() {
                       to={"/app/teams/eachTeam/eachTeamtask/" + task._id}
                     >
                       <div className="TopEachTeamtaskTeamDash text">
-                        <p>
-                          Due:{" "}
-                          <span>
-                            {moment(task.dueDate).format("DD MMM 'YY")}
-                          </span>
-                        </p>
+                        {task.dueDate ? (
+                          <p className="OutOfTimeTopEachTeamtaskDash text">Out of time</p>
+                        ) : (
+                          <p className="DueDateTopEachTeamtaskTeamDash text">
+                            Due:{" "}
+                            <span>
+                              {moment(task.dueDate).format("DD MMM 'YY")}
+                            </span>
+                          </p>
+                        )}
                       </div>
                       <div className="EachTeamtaskFolderAndTaskName">
                         <FontAwesomeIcon
@@ -159,23 +164,24 @@ export function TeamDetails() {
                       </div>
                     </Link>
                   ))}
-                  {teamDashboard?.isAdmin?
-                  <div
-                    className="CreateTeamtaskWithExistingTaskDiv"
-                    onClick={() => OnClickOfCreateTeamtask(param.id)}
-                  >
-                    <FontAwesomeIcon
-                      icon={faFolder}
-                      className="CreateTeamtaskFolderIconwithTasks"
-                    />
-                    <p className="CreateTeamtaskTextWithTasks text">
+                  {teamDashboard?.isAdmin ? (
+                    <div
+                      className="CreateTeamtaskWithExistingTaskDiv"
+                      onClick={() => OnClickOfCreateTeamtask(param.id)}
+                    >
                       <FontAwesomeIcon
-                        icon={faPlus}
-                        className="CreateTeamtaskplusIconWithTasks"
+                        icon={faFolder}
+                        className="CreateTeamtaskFolderIconwithTasks"
                       />
-                      Create Teamtask.
-                    </p>
-                  </div>:null}
+                      <p className="CreateTeamtaskTextWithTasks text">
+                        <FontAwesomeIcon
+                          icon={faPlus}
+                          className="CreateTeamtaskplusIconWithTasks"
+                        />
+                        Create Teamtask.
+                      </p>
+                    </div>
+                  ) : null}
                 </div>
               </div>
               <div className="GraphOnTeamDashboardMainDiv"></div>
@@ -232,8 +238,8 @@ export function TeamDetails() {
                       {member.active !== undefined
                         ? member.active
                         : moment(member.loggedOut).isSame(moment(), "day")
-                        ? moment(member.loggedOut).format("HH:mm")
-                        : moment(member.loggedOut).format("DD MMM")}
+                          ? moment(member.loggedOut).format("HH:mm")
+                          : moment(member.loggedOut).format("DD MMM")}
                     </td>
                   ) : null}
                 </tr>

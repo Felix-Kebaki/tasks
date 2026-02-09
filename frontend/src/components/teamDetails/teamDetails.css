@@ -190,13 +190,20 @@
   width:100%;
 }
 
-.TopEachTeamtaskTeamDash p{
+.OutOfTimeTopEachTeamtaskDash{
+  text-transform: uppercase;
+  text-align: end;
+  font-size:0.8rem;
+  color:#fc8415;
+}
+
+.DueDateTopEachTeamtaskTeamDash{
   color:black;
   text-align: end;
   font-size:0.8rem;
 }
 
-.TopEachTeamtaskTeamDash p span{
+.DueDateTopEachTeamtaskTeamDash span{
   color:#fc8415;
 }
 
