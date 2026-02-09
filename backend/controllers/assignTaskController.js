@@ -18,6 +18,18 @@ const Assigntask = async (req, res) => {
 
     const teamtask = await TeamTask.findById(req.params.teamtaskId);
 
+    if(teamtask.outOfTime){
+      return res.status(422).json({error:"Teamtask is out of time"})
+    }
+
+    if(new Date(dueDate)<new Date()){
+      return res.status(422).json({error:"Due date can't be in the past"})
+    }
+
+    if(new Date(teamtask.dueDate)<new Date(dueDate)){
+      return res.status(422).json({error:"Due date must be before task due date"})
+    }
+
     const newTask = await EachTask.create({
       name: capitalizeFirst(name),
       dueDate,

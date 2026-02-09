@@ -1,9 +1,11 @@
 import { useDeleteAssignedTaskMutation } from "../../redux/api/assignTaskApiSlice"
 import { useToast } from "../../context/ToastContext"
+import { useNavigate } from "react-router-dom"
 
 export function TeamTaskConfirm({getId,setGetId}) {
 
     const {showToast}=useToast()
+    const navigate=useNavigate();
 
     const [deleteAssignedTask,{isLoading}]=useDeleteAssignedTaskMutation()
 
@@ -16,6 +18,7 @@ export function TeamTaskConfirm({getId,setGetId}) {
             }else{
                 showToast(res.data.message,"success")
                 setGetId(null)
+                navigate("/app/teams/eachTeam")
             }
         } catch (error) {
             showToast(error.message || error ,"error")

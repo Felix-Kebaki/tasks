@@ -38,7 +38,6 @@ export function TeamDetails() {
 
   useEffect(() => {
     refetch();
-    console.log(teamDashboard);
   }, [refetch, teamId, msg, confirm]);
 
   if (isLoading) {
@@ -144,7 +143,7 @@ export function TeamDetails() {
                       to={"/app/teams/eachTeam/eachTeamtask/" + task._id}
                     >
                       <div className="TopEachTeamtaskTeamDash text">
-                        {task.dueDate ? (
+                        {task.outOfTime ? (
                           <p className="OutOfTimeTopEachTeamtaskDash text">Out of time</p>
                         ) : (
                           <p className="DueDateTopEachTeamtaskTeamDash text">

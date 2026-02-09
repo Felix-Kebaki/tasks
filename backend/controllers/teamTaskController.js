@@ -11,6 +11,11 @@ const createTeamTask = async (req, res) => {
     if (!name || !description || !dueDate || !type) {
       return res.status(422).json({ error: "Input all fields" });
     }
+
+    if(new Date(dueDate)<new Date()){
+      return res.status(422).json({error:"Due date can't be in the past"})
+    }
+
     if ((type === "Photo" || type === "Document") && !req.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
@@ -35,10 +40,6 @@ const createTeamTask = async (req, res) => {
 
     if(type==="Photo" && !req.file?.mimetype.startsWith("image/") && !req.file.mimetype.startsWith("video/")){
       return res.status(422).json({error:"Submit a Photo"})
-    }
-
-    if(new Date(dueDate)<new Date()){
-      return res.status(422).json({error:"Due date can't be in the past"})
     }
 
     const created = await TeamTask.create({
