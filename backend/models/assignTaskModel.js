@@ -40,6 +40,9 @@ const taskSchema = mongoose.Schema({
     hours: String,
     minutes: String,
   },
+  submissionType:{
+    type:String
+  }
 });
 
 module.exports = mongoose.model("EachTask", taskSchema);

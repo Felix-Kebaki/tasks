@@ -143,7 +143,7 @@ export function CreateTeamtask({ setAdd, add }) {
           </div>
           <div className="InputOfTeamtask">
             <label htmlFor="typeId" className="typeOfUpload text">
-              Upload type
+              Resource type
             </label>
             <br />
             <select name="type" id="typeId" value={type} onChange={OnChange}>

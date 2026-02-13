@@ -34,7 +34,10 @@ export function TeamTaskDetails() {
     data: assignedWithMembers,
     refetch: assignedRefetch,
     isLoading: assignedLoading,
-  } = useGetAssignedMembersQuery(data?.teamId, { skip: !data?.teamId });
+  } = useGetAssignedMembersQuery(
+    { teamId: data?.teamId, teamtaskId: data?.teamtaskId },
+    { skip: !data?.teamId || !data?.teamtaskId }
+  );
 
   const [msg, setMsg] = useState(null);
   const [confirm, setConfirm] = useState(null);
@@ -56,10 +59,10 @@ export function TeamTaskDetails() {
 
   const ClickOnAssignTask = (getUser) => {
     if (data?.isAdmin) {
-    setUserId(getUser);
-    setTeamId(data?.teamId);
-    setTeamtaskId(data?.teamtaskId);
-    setShowAssign(true);
+      setUserId(getUser);
+      setTeamId(data?.teamId);
+      setTeamtaskId(data?.teamtaskId);
+      setShowAssign(true);
     }
   };
 
@@ -76,7 +79,7 @@ export function TeamTaskDetails() {
     confirm,
     editTeamtask,
     assignedTaskDel,
-    showAssign
+    showAssign,
   ]);
 
   if (assignedLoading || isLoading || !data || !assignedWithMembers) {
@@ -225,8 +228,8 @@ export function TeamTaskDetails() {
                               task.status === "Not Started"
                                 ? "TeamtaskDetailsAssignedNotStrt"
                                 : task.status === "In Progress"
-                                ? "TeamtaskDetailsAssignInProg"
-                                : null
+                                  ? "TeamtaskDetailsAssignInProg"
+                                  : null
                             }
                           />
                         ) : task.status === "Completed" ? (

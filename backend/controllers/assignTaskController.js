@@ -6,7 +6,7 @@ const capitalizeFirst = require("../utils/capitalize");
 const calculateDuration = require("../utils/calculateAssignedDuration");
 
 const Assigntask = async (req, res) => {
-  const { name ,dueDate ,submission } = req.body;
+  const { name, dueDate, submission } = req.body;
   try {
     if (!name || !dueDate || !submission) {
       return res.status(422).json({ error: "Input all fields" });
@@ -18,16 +18,21 @@ const Assigntask = async (req, res) => {
 
     const teamtask = await TeamTask.findById(req.params.teamtaskId);
 
-    if(teamtask.outOfTime){
-      return res.status(422).json({error:"Teamtask is out of time"})
+    if (teamtask.outOfTime) {
+      return res.status(422).json({ error: "Teamtask is out of time" });
     }
 
-    if(new Date(dueDate)<new Date()){
-      return res.status(422).json({error:"Due date can't be in the past"})
+    if (new Date(dueDate) < new Date()) {
+      return res.status(422).json({ error: "Due date can't be in the past" });
     }
 
-    if(new Date(teamtask.dueDate)<new Date(dueDate)){
-      return res.status(422).json({error:"Due date must be before task due date"})
+    if (new Date(teamtask.dueDate) < new Date(dueDate)) {
+      return res
+        .status(422)
+        .json({ error: "Due date must be before task due date" });
+    }
+
+    if (submission !== "None") {
     }
 
     const newTask = await EachTask.create({
@@ -36,14 +41,19 @@ const Assigntask = async (req, res) => {
       assignedTo: req.params.userId,
       teamtask: teamtask._id,
       team: team._id,
+      submissionType:
+        submission === "Link"
+          ? "Link"
+          : submission === "Photo"
+            ? "Photo"
+            : submission === "Document"
+              ? "Document"
+              : "None",
     });
     if (!newTask) {
       return res.status(422).json({ error: "Unable to assign task" });
     }
 
-    if(submission!=="None"){
-      
-    }
     teamtask.allAssigned += 1;
     await teamtask.save();
 
@@ -87,11 +97,14 @@ const getAssignedTask = async (req, res) => {
 };
 
 const getAssignedWithMembers = async (req, res) => {
-  const { teamId } = req.params;
+  const { teamId, teamtaskId } = req.params;
   try {
     // 🧩 Validate teamId
-    if (!mongoose.Types.ObjectId.isValid(teamId)) {
-      return res.status(400).json({ error: "Invalid team ID" });
+    if (
+      !mongoose.Types.ObjectId.isValid(teamId) ||
+      !mongoose.Types.ObjectId.isValid(teamtaskId)
+    ) {
+      return res.status(400).json({ error: "Invalid ID" });
     }
 
     // 🧠 Aggregation pipeline
@@ -117,7 +130,11 @@ const getAssignedWithMembers = async (req, res) => {
       {
         $lookup: {
           from: "eachtasks",
-          let: { memberId: "$members._id", teamId: "$_id" },
+          let: {
+            memberId: "$members._id",
+            teamId: "$_id",
+            teamtaskId: new mongoose.Types.ObjectId(teamtaskId),
+          },
           pipeline: [
             {
               $match: {
@@ -125,6 +142,7 @@ const getAssignedWithMembers = async (req, res) => {
                   $and: [
                     { $eq: ["$assignedTo", "$$memberId"] },
                     { $eq: ["$team", "$$teamId"] },
+                    { $eq: ["$teamtask", "$$teamtaskId"] },
                   ],
                 },
               },
@@ -243,8 +261,8 @@ const completeTeamtask = async (req, res) => {
         submissionType: req.file?.mimetype.startsWith("image/")
           ? "image"
           : req.file?.mimetype.startsWith("video/")
-          ? "video"
-          : "raw",
+            ? "video"
+            : "raw",
         fileType: type,
       };
       teamtask.submissions.push(submission);
@@ -262,7 +280,7 @@ const completeTeamtask = async (req, res) => {
 
     const duration = calculateDuration(
       assignedTask.startDate,
-      assignedTask.doneDate
+      assignedTask.doneDate,
     );
     assignedTask.duration = duration;
 

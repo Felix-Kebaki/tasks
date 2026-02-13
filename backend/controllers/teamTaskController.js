@@ -294,6 +294,7 @@ const getEachTeamtask = async (req, res) => {
       completedOnes:teamtask.completedOnes,
       teamId:teamtask.team,
       teamtaskId:teamtask._id,
+      expectedSubmissions:teamtask.expectedSubmissions,
     });
   } catch (error) {
     console.error(error.message);

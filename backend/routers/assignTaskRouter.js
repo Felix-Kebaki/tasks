@@ -16,6 +16,6 @@ router.get("/getAssignedtask", Protect, getAssignedTask);
 router.post("/startTeamtask/:taskId", Protect, startTeamtask);
 router.delete("/deleteAssignedtask/:id", Protect, deleteAssignedTeamtask);
 router.post("/completeAssignedtask/:id", Protect,upload.single("file"), completeTeamtask);
-router.get("/assignedWithMembers/:teamId",Protect,getAssignedWithMembers)
+router.get("/assignedWithMembers/:teamId/:teamtaskId",Protect,getAssignedWithMembers)
 
 module.exports = router;

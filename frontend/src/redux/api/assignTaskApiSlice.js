@@ -17,8 +17,8 @@ const assignTaskApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     getAssignedMembers:builder.query({
-      query:(teamId)=>({
-        url:`${ASSIGNTASK_URL}/assignedWithMembers/${teamId}`,
+      query:({teamId,teamtaskId})=>({
+        url:`${ASSIGNTASK_URL}/assignedWithMembers/${teamId}/${teamtaskId}`,
         method:"GET"
       })
     }),
