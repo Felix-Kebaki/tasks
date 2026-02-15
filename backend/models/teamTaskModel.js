@@ -36,21 +36,24 @@ const teamTaskSchema = mongoose.Schema({
   doneDate: {
     type: Date,
   },
-  fileUrl: {
-    type: String,
-  },
-
-  fileType: {
-    type: String,
-    enum: ["Photo", "Document", "Link", "None"],
-    required: true,
-  },
-  filePublicId: {
-    type: String,
-  },
-  resourceType: {
-    type: String,
-  },
+  resources: [
+    {
+      fileType: {
+        type: String,
+        enum: ["Photo", "Document", "Link", "None"],
+        required:true
+      },
+      filePublicId: {
+        type: String,
+      },
+      resourceType: {
+        type: String,
+      },
+      fileUrl:{
+        type:String
+      }
+    },
+  ],
   submissions: [
     {
       fileType: {
@@ -76,26 +79,26 @@ const teamTaskSchema = mongoose.Schema({
       },
     },
   ],
-  expectedSubmissions:[
+  expectedSubmissions: [
     {
-      fileType:{
-        type:String,
-        enum:["Photo","Document","Link"]
+      fileType: {
+        type: String,
+        enum: ["Photo", "Document", "Link"],
       },
-      user:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
-      }
-    }
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    },
   ],
-  allAssigned:{
-    type:Number,
-    default:0
+  allAssigned: {
+    type: Number,
+    default: 0,
   },
-  completedOnes:{
-    type:Number,
-    default:0
-  }
+  completedOnes: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("TeamTask", teamTaskSchema);

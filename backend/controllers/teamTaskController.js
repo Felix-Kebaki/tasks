@@ -34,17 +34,65 @@ const createTeamTask = async (req, res) => {
       return res.status(422).json({ error: "Teamtask already exist" });
     }
 
-    if (type === "Document" && req.file?.mimetype.startsWith("image/")) {
+    let resources = [];
+
+    if (type === "Link") {
+      resources.push({
+        fileType: type,
+        fileUrl,
+        resourceType: "link",
+      });
+    }
+
+    // if (type === "Document" || type === "Photo") {
+    //   for (let file of req.files) {
+    //     if (type === "Document" && file.mimetype.startsWith("image/")) {
+    //       return res.status(422).json({ error: "Submit a document" });
+    //     }
+
+    //     if (
+    //       type === "Photo" &&
+    //       !file.mimetype.startsWith("image/") &&
+    //       !file.mimetype.startsWith("video/")
+    //     ) {
+    //       return res.status(422).json({ error: "Submit a Photo" });
+    //     }
+
+    //     resources.push({
+    //       fileType: type,
+    //       filePublicId: file.filename,
+    //       fileUrl: file.path,
+    //       resourceType: file.mimetype.startsWith("image/")
+    //         ? "image"
+    //         : file.mimetype.startsWith("video/")
+    //           ? "video"
+    //           : "raw",
+    //     });
+    //   }
+    // }
+
+    if (type === "Document" && req.file.mimetype.startsWith("image/")) {
       return res.status(422).json({ error: "Submit a document" });
     }
 
     if (
       type === "Photo" &&
-      !req.file?.mimetype.startsWith("image/") &&
+      !req.file.mimetype.startsWith("image/") &&
       !req.file.mimetype.startsWith("video/")
     ) {
       return res.status(422).json({ error: "Submit a Photo" });
     }
+
+    resources.push({
+      fileType: type,
+      filePublicId: req.file.filename,
+      fileUrl: req.file.path,
+      resourceType: req.file.mimetype.startsWith("image/")
+        ? "image"
+        : req.file.mimetype.startsWith("video/")
+          ? "video"
+          : "raw",
+    });
 
     const created = await TeamTask.create({
       name: capitalizeFirst(name),
@@ -53,15 +101,7 @@ const createTeamTask = async (req, res) => {
       teamName: theTeam.name,
       admin: theTeam.admin,
       team: theTeam._id,
-      fileUrl:
-        type === "Link" ? fileUrl : type === "None" ? undefined : req.file.path,
-      fileType: type,
-      filePublicId: req.file?.filename,
-      resourceType: req.file?.mimetype.startsWith("image/")
-        ? "image"
-        : req.file?.mimetype.startsWith("video/")
-          ? "video"
-          : "raw",
+      resources,
     });
     if (!created) {
       return res.status(422).json({ error: "Unable to create teamTask" });
@@ -300,7 +340,7 @@ const getEachTeamtask = async (req, res) => {
       name: teamtask.name,
       description: teamtask.description,
       dueDate: teamtask.dueDate,
-      fileType: teamtask.fileType,
+      resources: teamtask.resources,
       outOfTime: teamtask.outOfTime,
       submissions: teamtask.submissions,
       allAssigned: teamtask.allAssigned,

@@ -20,9 +20,12 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faSquareXmark } from "@fortawesome/free-solid-svg-icons";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/free-regular-svg-icons";
+import { faImage } from "@fortawesome/free-regular-svg-icons";
+import { faFile } from "@fortawesome/free-regular-svg-icons";
 
 export function TeamTaskDetails() {
   const { userInfo } = useSelector((state) => state.auth);
@@ -68,6 +71,7 @@ export function TeamTaskDetails() {
 
   useEffect(() => {
     refetch();
+    console.log(data);
 
     if (data?.teamId) {
       assignedRefetch();
@@ -264,11 +268,46 @@ export function TeamTaskDetails() {
               <p>Resources</p>
             </div>
             <div className="TeamtaskDetailsResourceInsideDiv">
-              {data?.fileType === "None" ? (
-                <p className="NoResourceMainText text">No resoource provided</p>
-              ) : (
-                <div></div>
-              )}
+              <div className="TeamtaskDetailsResourceInsideTopDiv">
+                {data?.resources.length === 0 ? (
+                  <p className="NoResourceMainText text">
+                    No resoource provided
+                  </p>
+                ) : (
+                  <div className="TeamtaskDetailsResourceMainActualDiv">
+                    {data?.resources.map((res) => (
+                      <div className="TeamtaskDetailsResourceMainWrapperDiv">
+                        {res.fileType === "Photo" ? (
+                          <div>
+                            <FontAwesomeIcon icon={faImage} />
+                          </div>
+                        ) : res.fileType === "Document" ? (
+                          <div>
+                            <FontAwesomeIcon icon={faFile} />
+                          </div>
+                        ) : res.fileType === "Link" ? (
+                          <div>
+                            <FontAwesomeIcon icon={faLink} />
+                          </div>
+                        ) : null}
+                        <p className="text">
+                          {res.fileType === "Photo" ||
+                          res.fileType === "Document"
+                            ? res.filePublicId.split("-")[1]
+                            : res.fileType === "Link"
+                              ? res.fileUrl
+                              : null}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              {data?.isAdmin ? (
+                <div className="TeamtaskAddResourceButtonDiv text">
+                  Add a resource
+                </div>
+              ) : null}
             </div>
           </div>
 
@@ -298,12 +337,16 @@ export function TeamTaskDetails() {
                   {data?.expectedSubmissions.map((each, index) => (
                     <div className="ExpectedSubmissionNoneMadeInsideDiv">
                       <p className="text">
-                        <span id="ExpectedSubmissionNumbering">{index + 1}.</span>
+                        <span id="ExpectedSubmissionNumbering">
+                          {index + 1}.
+                        </span>
                         <span id="ExpectedSubmissionName">
                           {each.user.firstName} {each.user.lastName}
                         </span>
                       </p>
-                      <p className="ExpectedSubmissionsActualFile text">{each.fileType}</p>
+                      <p className="ExpectedSubmissionsActualFile text">
+                        {each.fileType}
+                      </p>
                     </div>
                   ))}
                 </div>
