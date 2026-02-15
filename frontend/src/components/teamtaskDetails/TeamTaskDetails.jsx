@@ -36,7 +36,7 @@ export function TeamTaskDetails() {
     isLoading: assignedLoading,
   } = useGetAssignedMembersQuery(
     { teamId: data?.teamId, teamtaskId: data?.teamtaskId },
-    { skip: !data?.teamId || !data?.teamtaskId }
+    { skip: !data?.teamId || !data?.teamtaskId },
   );
 
   const [msg, setMsg] = useState(null);
@@ -274,19 +274,43 @@ export function TeamTaskDetails() {
 
           <div className="TeamtaskDetailsSubmissionsMainDiv">
             <div className="TeamtaskDetailsSubmissionTitle text">
-              <p>Submissions</p>
-              {data?.submissions.length !== 0 ? (
-                <p>{data?.submissions.length}</p>
-              ) : null}
+              <p>
+                {data?.expectedSubmissions.length !== 0 &&
+                data?.submissions.length === 0
+                  ? "Expected Submissions"
+                  : "Submissions"}
+              </p>
+              <div className="">
+                {data?.expectedSubmissions.length !== 0 &&
+                data?.submissions.length === 0
+                  ? data?.expectedSubmissions.length
+                  : data?.submissions.length}
+              </div>
             </div>
             <div className="TeamtaskDetailsSubmissionsInsideDiv">
-              {data?.submissions.length === 0 ? (
-                <p className="NoSubmissionsMainText text">
-                  No submissions made yet
+              {data?.expectedSubmissions.length === 0 ? (
+                <p className="NoExpectedSubmissionsMainText text">
+                  No submissions expected
                 </p>
-              ) : (
+              ) : data?.expectedSubmissions.length !== 0 &&
+                data?.submissions.length === 0 ? (
+                <div className="ExpectedSubmissionsNoneMadeMainDiv">
+                  {data?.expectedSubmissions.map((each, index) => (
+                    <div className="ExpectedSubmissionNoneMadeInsideDiv">
+                      <p className="text">
+                        <span id="ExpectedSubmissionNumbering">{index + 1}.</span>
+                        <span id="ExpectedSubmissionName">
+                          {each.user.firstName} {each.user.lastName}
+                        </span>
+                      </p>
+                      <p className="ExpectedSubmissionsActualFile text">{each.fileType}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : data?.expectedSubmissions.length !== 0 &&
+                data?.submissions.length !== 0 ? (
                 <div></div>
-              )}
+              ) : null}
             </div>
           </div>
         </div>

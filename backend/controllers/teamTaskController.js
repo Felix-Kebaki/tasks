@@ -3,7 +3,7 @@ const TeamTask = require("../models/teamTaskModel");
 const EachTask = require("../models/assignTaskModel");
 const capitalizeFirst = require("../utils/capitalize");
 const cloudinary = require("../utils/cloudinary/cloudinary");
-const path=require("path");
+const path = require("path");
 
 const createTeamTask = async (req, res) => {
   const { name, description, dueDate, type, fileUrl } = req.body;
@@ -12,8 +12,8 @@ const createTeamTask = async (req, res) => {
       return res.status(422).json({ error: "Input all fields" });
     }
 
-    if(new Date(dueDate)<new Date()){
-      return res.status(422).json({error:"Due date can't be in the past"})
+    if (new Date(dueDate) < new Date()) {
+      return res.status(422).json({ error: "Due date can't be in the past" });
     }
 
     if ((type === "Photo" || type === "Document") && !req.file) {
@@ -34,12 +34,16 @@ const createTeamTask = async (req, res) => {
       return res.status(422).json({ error: "Teamtask already exist" });
     }
 
-    if(type==="Document" && req.file?.mimetype.startsWith("image/")){
-      return res.status(422).json({error:"Submit a document"})
+    if (type === "Document" && req.file?.mimetype.startsWith("image/")) {
+      return res.status(422).json({ error: "Submit a document" });
     }
 
-    if(type==="Photo" && !req.file?.mimetype.startsWith("image/") && !req.file.mimetype.startsWith("video/")){
-      return res.status(422).json({error:"Submit a Photo"})
+    if (
+      type === "Photo" &&
+      !req.file?.mimetype.startsWith("image/") &&
+      !req.file.mimetype.startsWith("video/")
+    ) {
+      return res.status(422).json({ error: "Submit a Photo" });
     }
 
     const created = await TeamTask.create({
@@ -56,8 +60,8 @@ const createTeamTask = async (req, res) => {
       resourceType: req.file?.mimetype.startsWith("image/")
         ? "image"
         : req.file?.mimetype.startsWith("video/")
-        ? "video"
-        : "raw",
+          ? "video"
+          : "raw",
     });
     if (!created) {
       return res.status(422).json({ error: "Unable to create teamTask" });
@@ -123,7 +127,7 @@ const getSubmissions = async (req, res) => {
   try {
     const teamtask = await TeamTask.findById(req.params.teamtaskId).populate(
       "submissions.submittedBy",
-      "firstName lastName"
+      "firstName lastName",
     );
     if (!teamtask) {
       return res
@@ -151,11 +155,14 @@ const editTeamtask = async (req, res) => {
 
     if (fileType === "Document" || fileType === "Photo") {
       if (req.file) {
-        if(fileType==="Photo" && !req.file?.mimetype.startsWith("image/")){
-          return res.status(422).json({error:"Upload a photo"})
+        if (fileType === "Photo" && !req.file?.mimetype.startsWith("image/")) {
+          return res.status(422).json({ error: "Upload a photo" });
         }
-        if(fileType==="Document" && req.file?.mimetype.startsWith("image/")){
-          return res.status(422).json({error:"Upload a document"})
+        if (
+          fileType === "Document" &&
+          req.file?.mimetype.startsWith("image/")
+        ) {
+          return res.status(422).json({ error: "Upload a document" });
         }
 
         if (
@@ -178,8 +185,8 @@ const editTeamtask = async (req, res) => {
         updates.resourceType = req.file?.mimetype.startsWith("image/")
           ? "image"
           : req.file?.mimetype.startsWith("video/")
-          ? "video"
-          : "raw";
+            ? "video"
+            : "raw";
         updates.fileType = fileType;
       } else {
         return res
@@ -187,8 +194,8 @@ const editTeamtask = async (req, res) => {
           .json({ error: `File is required for ${fileType}` });
       }
     } else if (fileType === "Link") {
-      if(!linkUrl){
-        return res.status(422).json({error:"Provide a link"})
+      if (!linkUrl) {
+        return res.status(422).json({ error: "Provide a link" });
       }
       updates.fileUrl = linkUrl;
       updates.fileType = "Link";
@@ -254,7 +261,7 @@ const editTeamtask = async (req, res) => {
     const updatedTeamtask = await TeamTask.findByIdAndUpdate(
       req.params.teamtaskId,
       { $set: updates },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     if (!updatedTeamtask) {
@@ -272,29 +279,35 @@ const editTeamtask = async (req, res) => {
 
 const getEachTeamtask = async (req, res) => {
   try {
-    const teamtask = await TeamTask.findById(req.params.teamtaskId);
+    const teamtask = await TeamTask.findById(req.params.teamtaskId).populate(
+      "expectedSubmissions.user",
+      "firstName , lastName",
+    );
     if (!teamtask) {
       return res.status(422).json({ error: "Unable to fetch Teamtask" });
     }
 
-    const team=await Team.findById(teamtask.team).populate("members","_id firstName lastName");
-    if(!team){
-      return res.status(404).json({error:"Team not found"})
+    const team = await Team.findById(teamtask.team).populate(
+      "members",
+      "_id firstName lastName",
+    );
+    if (!team) {
+      return res.status(404).json({ error: "Team not found" });
     }
 
     res.status(200).json({
-      isAdmin:req.user._id.toString()===team.admin.toString(),
-      name:teamtask.name,
-      description:teamtask.description,
-      dueDate:teamtask.dueDate,
-      fileType:teamtask.fileType,
-      outOfTime:teamtask.outOfTime,
-      submissions:teamtask.submissions,
-      allAssigned:teamtask.allAssigned, 
-      completedOnes:teamtask.completedOnes,
-      teamId:teamtask.team,
-      teamtaskId:teamtask._id,
-      expectedSubmissions:teamtask.expectedSubmissions,
+      isAdmin: req.user._id.toString() === team.admin.toString(),
+      name: teamtask.name,
+      description: teamtask.description,
+      dueDate: teamtask.dueDate,
+      fileType: teamtask.fileType,
+      outOfTime: teamtask.outOfTime,
+      submissions: teamtask.submissions,
+      allAssigned: teamtask.allAssigned,
+      completedOnes: teamtask.completedOnes,
+      teamId: teamtask.team,
+      teamtaskId: teamtask._id,
+      expectedSubmissions: teamtask.expectedSubmissions,
     });
   } catch (error) {
     console.error(error.message);

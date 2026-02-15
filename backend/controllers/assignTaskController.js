@@ -33,6 +33,10 @@ const Assigntask = async (req, res) => {
     }
 
     if (submission !== "None") {
+      const expectedSub = { fileType: submission, user: req.params.userId };
+      await TeamTask.findByIdAndUpdate(req.params.teamtaskId, {
+        $addToSet: { expectedSubmissions: expectedSub },
+      });
     }
 
     const newTask = await EachTask.create({
