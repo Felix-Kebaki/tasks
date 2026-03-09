@@ -193,15 +193,13 @@ export function TeamTaskDetails() {
             <div className="TeamtaskDetailsAssignedInsideDiv">
               {assignedWithMembers?.members.map((member) => (
                 <div key={member._id}>
-                  <div className="TeamtaskDetailsAssignedHeaderDiv">
-                    <div
-                      className="TeamtaskDetAssignedProfile"
-                      onClick={
-                        data?.isAdmin
-                          ? () => ClickOnAssignTask(member._id)
-                          : null
-                      }
-                    >
+                  <div
+                    className="TeamtaskDetailsAssignedHeaderDiv"
+                    onClick={
+                      data?.isAdmin ? () => ClickOnAssignTask(member._id) : null
+                    }
+                  >
+                    <div className="TeamtaskDetAssignedProfile">
                       <FontAwesomeIcon
                         icon={faUser}
                         className="TeamtaskDetAssignProfPic"

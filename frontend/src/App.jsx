@@ -165,8 +165,8 @@ export function App() {
           userVisibleOnly: true,
           applicationServerKey: vapidKey,
         });
-
-        const res = await createSubscription({ data: { subscription: sub } });
+        
+        const res = await createSubscription({subscription: sub });
         if (res.error) {
           showToast(res.error.data.error || res.error.errror, "error");
           console.error(res.error.data.error || res.error.errror);

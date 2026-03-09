@@ -12,7 +12,9 @@
     "cron:startGoals": "node backend/utils/cron/goalUpdater.js",
     "cron:goalOutOfTime": "node backend/utils/cron/goalOutOfTime.js",
     "cron:ObjectiveOutOfTime": "node backend/utils/cron/ObjectiveOutofTime.js",
-    "cron:ObjectiveReminder": "node backend/utils/cron/ObjectiveReminder.js"
+    "cron:ObjectiveReminder": "node backend/utils/cron/ObjectiveReminder.js",
+    
+    "cron:local": "node backend/utils/localScheduler.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +24,7 @@
     "cloudinary": "^1.41.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "cron": "^4.4.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
