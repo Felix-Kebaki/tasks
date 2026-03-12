@@ -22,7 +22,7 @@ const createToday = async (req, res) => {
       return res.status(400).json({ error: "Time cannot be in the past" });
     }
 
-    const existToday = await Today.findOne({ objective });
+    const existToday = await Today.findOne({user:req.user._id ,objective});
     if (existToday) {
       return res.status(409).json({ error: "Objective already exists" });
     }

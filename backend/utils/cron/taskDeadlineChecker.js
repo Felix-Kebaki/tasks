@@ -16,7 +16,7 @@ async function runJob() {
   const next24hrs = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 
   try {
-    // 1. Tasks due soon
+    //Tasks due soon
     const dueSoonTasks = await TeamTask.find({
       dueDate: { $lte: next24hrs, $gte: now },
       outOfTime: false,
@@ -35,7 +35,7 @@ async function runJob() {
       }
     }
 
-    // 2. Overdue tasks
+    //Overdue tasks
     const overdueTasks = await TeamTask.find({
       dueDate: { $lt: now },
       outOfTime: false,
@@ -46,7 +46,7 @@ async function runJob() {
       await task.save();
       const assignedTask = await EachTask.find({ teamtask: task._id });
       for (const each of assignedTask) {
-        each.status = "Out of Time"; // <-- fix: assign string, not call like function
+        each.status = "Out of Time"; 
         await each.save();
       }
     }

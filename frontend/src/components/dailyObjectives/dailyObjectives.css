@@ -43,7 +43,7 @@
   flex-direction: column;
   row-gap: 0.5rem;
   padding: 0.5rem 0rem;
-  border-bottom: 0.1rem black solid;
+  border-bottom: 0.09rem #cfcfcf solid;
 }
 
 .OnlyObjectivesMainDiv:last-child {

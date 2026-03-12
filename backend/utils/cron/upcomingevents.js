@@ -15,24 +15,44 @@ async function connectDB() {
 }
 
 async function runJob() {
-  const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
+  //At the times,line below comment should be replaced with comment to host in heroku
+  // const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
 
   const now = new Date();
 
+  // const tomorrowStart = new Date(Date.UTC(
+  //   now.getUTCFullYear(),
+  //   now.getUTCMonth(),
+  //   now.getUTCDate() + 1,
+  //   0 - TZ_OFFSET, 
+  //   0,
+  //   0
+  // ));
+
+  // const tomorrowEnd = new Date(Date.UTC(
+  //   now.getUTCFullYear(),
+  //   now.getUTCMonth(),
+  //   now.getUTCDate() + 1,
+  //   23 - TZ_OFFSET, 
+  //   59,
+  //   59
+  // ));
+
+  //Locally
   const tomorrowStart = new Date(Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate() + 1,
-    0 - TZ_OFFSET, 
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1,
+    0, 
     0,
     0
   ));
 
   const tomorrowEnd = new Date(Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate() + 1,
-    23 - TZ_OFFSET, 
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1,
+    23, 
     59,
     59
   ));

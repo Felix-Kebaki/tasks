@@ -16,20 +16,41 @@ async function connectDB() {
 
 const runJob = async () => {
   const now = new Date();
-  const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
+
+  //Heroku
+  // const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
+  
+  // const startOfDay = new Date(
+  //   now.getUTCFullYear(),
+  //   now.getUTCMonth(),
+  //   now.getUTCDate(),
+  //   0 - TZ_OFFSET,
+  //   0,
+  //   0
+  // );
+  // const endOfDay = new Date(
+  //   now.getUTCFullYear(),
+  //   now.getUTCMonth(),
+  //   now.getUTCDate(),
+  //   23 - TZ_OFFSET,
+  //   59,
+  //   59
+  // );
+
+  //Locally
   const startOfDay = new Date(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate(),
-    0 - TZ_OFFSET,
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    0,
     0,
     0
   );
   const endOfDay = new Date(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate(),
-    23 - TZ_OFFSET,
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    23,
     59,
     59
   );
