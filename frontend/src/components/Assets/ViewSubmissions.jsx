@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./teamSubmissions.css";
+import "./viewSubmissions.css";
 
 import { useParams } from "react-router-dom";
 
@@ -7,7 +7,7 @@ import { useGetSubmissionsQuery } from "../../redux/api/teamTaskApiSlice";
 
 import {Loading} from '../loading/Loading'
 
-export function TeamSubmissions() {
+export function ViewSubmissions() {
   const param = useParams();
   const { refetch, data, isLoading } = useGetSubmissionsQuery({
     teamtaskId: param.teamtaskId,

@@ -57,6 +57,47 @@
     font-size:1.2rem;
 }
 
+
+
+/*  VIEW IMAGE RESOURCE  */
+
+.ViewResourceMainSection{
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ViewResourceMainDiv{
+  position:relative;
+    max-width: 97%;
+  height: auto;
+  display: block;
+  margin: 0rem auto 0rem;
+}
+
+.ViewResourceMainDiv img{
+  width: 100%;
+}
+
+.CloseViewOfImgResourceDiv{
+  position:absolute;
+  top:0;
+  right: 0;
+  margin-right: -1rem;
+  margin-top: -1rem;
+}
+
+.CloseViewResourceIcon{
+  padding:0.5rem;
+  border-radius: 50%;
+  background-color: #FC8415;
+  color:white;
+  cursor:pointer;
+  font-size:0.8rem;
+}
+
 @media screen and (max-width: 1229px) {
   .TeamSubmissionsMainSec {
     padding: 0rem 0.3rem 0.5rem 3.6rem;

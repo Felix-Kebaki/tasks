@@ -43,8 +43,7 @@ const createTeamTask = async (req, res) => {
         resourceType: "link",
       });
     }
-
-    console.log(req.files);
+    
     for (const file of req.files) {
       if (type === "Document" && file.mimetype.startsWith("image/")) {
         return res.status(422).json({ error: "Submit a document" });

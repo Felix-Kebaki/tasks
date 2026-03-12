@@ -18,7 +18,7 @@ import { DailyObjectivesPage } from "./pages/DailyObjectivesPage.jsx";
 import { NotificationPage } from "./pages/NotificationPage.jsx";
 import { TeamDetailsPage } from "./pages/TeamDetailsPage.jsx";
 import { UpcomingPage } from "./pages/UpcomingPage.jsx";
-import { SubmissionsPage } from "./pages/SubmissionsPage.jsx";
+import { ViewSubmissionsPage } from "./pages/ViewSubmissionsPage.jsx";
 import { AllPerCategoryPage } from "./pages/AllPerCategoryPage.jsx";
 import { ProfilePage } from "./pages/ProfilePage.jsx";
 import { TeamTaskDetailsPage } from "./pages/TeamTaskDetailsPage.jsx";
@@ -64,8 +64,8 @@ const router = createBrowserRouter([
             element: <TeamTaskDetailsPage />,
           },
           {
-            path: "/app/teams/eachTeam/eachTeamtask/submissions/:teamtaskId",
-            element: <SubmissionsPage />,
+            path: "/app/teams/eachTeam/eachTeamtask/submissions/:id",
+            element: <ViewSubmissionsPage />,
           },
         ],
       },

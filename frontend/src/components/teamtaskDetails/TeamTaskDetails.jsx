@@ -2,7 +2,7 @@ import "./teamtaskDetails.css";
 
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useToast } from "../../context/ToastContext";
 
@@ -27,6 +27,7 @@ import { faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { faFile } from "@fortawesome/free-regular-svg-icons";
 import { AddResourceComp } from "../addResource/AddResourceComp";
+import { ViewImgResource } from "../Assets/ViewImgResource";
 
 export function TeamTaskDetails() {
   const { userInfo } = useSelector((state) => state.auth);
@@ -52,6 +53,9 @@ export function TeamTaskDetails() {
   const [teamId, setTeamId] = useState(null);
   const [showAssign, setShowAssign] = useState(false);
   const [addResource, setAddResource] = useState(null);
+  const [viewResource,setViewResource]=useState(null);
+
+  const navigate = useNavigate();
 
   const ClickOnDeleteTeamtask = (getId) => {
     setMsg("Are you sure you want the Teamtask deleted with all of it's data");
@@ -71,9 +75,13 @@ export function TeamTaskDetails() {
     }
   };
 
-  const HandleClickOnAddResource=()=>{
+  const HandleClickOnAddResource = () => {
     setAddResource(param.id);
-  }
+  };
+
+  const HandleClickOfResource = (getfileUrl) => {
+    setViewResource(getfileUrl);
+  };
 
   useEffect(() => {
     refetch();
@@ -89,7 +97,7 @@ export function TeamTaskDetails() {
     editTeamtask,
     assignedTaskDel,
     showAssign,
-    addResource
+    addResource,
   ]);
 
   if (assignedLoading || isLoading || !data || !assignedWithMembers) {
@@ -280,29 +288,45 @@ export function TeamTaskDetails() {
                 ) : (
                   <div className="TeamtaskDetailsResourceMainActualDiv">
                     {data?.resources.map((res) => (
-                      <div className="TeamtaskDetailsResourceMainWrapperDiv" key={res.filePublicId}>
-                        {res.fileType === "Photo" ? (
-                          <div>
-                            <FontAwesomeIcon icon={faImage} />
+                      <>
+                        {res.fileType === "Link" ||
+                        res.fileType === "Document" ? (
+                          <a
+                            href={res.fileUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="TeamtaskDetailsResourceMainWrapperDiv"
+                            key={res.filePublicId}
+                          >
+                            {res.fileType === "Document" ? (
+                              <div>
+                                <FontAwesomeIcon icon={faFile} />
+                              </div>
+                            ) : res.fileType === "Link" ? (
+                              <div>
+                                <FontAwesomeIcon icon={faLink} />
+                              </div>
+                            ) : null}
+                            <p className="text">
+                              {res.fileType === "Document"
+                                ? res.filePublicId.split("-")[1]
+                                : res.fileType === "Link"
+                                  ? res.fileUrl
+                                  : null}
+                            </p>
+                          </a>
+                        ) : (
+                          <div className="TeamtaskDetailsResourceMainWrapperDiv" 
+                            onClick={() => HandleClickOfResource(res.fileUrl)}>
+                            <div>
+                              <FontAwesomeIcon icon={faImage} />
+                            </div>
+                            <p className="text">
+                              {res.filePublicId.split("-")[1]}
+                            </p>
                           </div>
-                        ) : res.fileType === "Document" ? (
-                          <div>
-                            <FontAwesomeIcon icon={faFile} />
-                          </div>
-                        ) : res.fileType === "Link" ? (
-                          <div>
-                            <FontAwesomeIcon icon={faLink} />
-                          </div>
-                        ) : null}
-                        <p className="text">
-                          {res.fileType === "Photo" ||
-                          res.fileType === "Document"
-                            ? res.filePublicId.split("-")[1]
-                            : res.fileType === "Link"
-                              ? res.fileUrl
-                              : null}
-                        </p>
-                      </div>
+                        )}
+                      </>
                     ))}
                   </div>
                 )}
@@ -409,9 +433,18 @@ export function TeamTaskDetails() {
           </div>
         )}
 
-        {addResource !== null ? <div className="OverflowAddMainDiv">
-          <AddResourceComp addResource={addResource} setAddResource={setAddResource}/>
-        </div> : null}
+        {addResource !== null ? (
+          <div className="OverflowAddMainDiv">
+            <AddResourceComp
+              addResource={addResource}
+              setAddResource={setAddResource}
+            />
+          </div>
+        ) : null}
+
+        {viewResource!==null?<div className="OverflowAddMainDiv">
+          <ViewImgResource setViewResource={setViewResource} viewResource={viewResource}/>
+        </div>:null}
       </div>
     </section>
   );
