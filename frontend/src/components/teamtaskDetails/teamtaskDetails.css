@@ -106,8 +106,8 @@
   padding-bottom: 0.7rem;
 }
 
-.TeamtaskDetailsAssignedTitle{
-  display:flex;
+.TeamtaskDetailsAssignedTitle {
+  display: flex;
   justify-content: start;
   column-gap: 0.2rem;
 }
@@ -116,8 +116,8 @@
   font-size: 0.9rem;
 }
 
-.TeamtaskDetailsAssignedTitle div{
-  display:flex;
+.TeamtaskDetailsAssignedTitle div {
+  display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.6rem;
@@ -127,32 +127,33 @@
   border-radius: 0.5rem;
 }
 
-.TeamtaskDetailsAssignedLabelDiv{
-  display:flex;
+.TeamtaskDetailsAssignedLabelDiv {
+  display: flex;
   justify-content: start;
-  column-gap:0.4rem;
-  align-items:center;
+  column-gap: 0.4rem;
+  align-items: center;
   margin-top: 0.4rem;
 }
 
-.TeamtaskDetailsAssignedLabelDiv p{
-  font-size:0.6rem;
+.TeamtaskDetailsAssignedLabelDiv p {
+  font-size: 0.6rem;
 }
 
-.TeamtaskDetailsAssignedLabelDiv p span{
-  margin-right:0.1rem;
+.TeamtaskDetailsAssignedLabelDiv p span {
+  margin-right: 0.1rem;
 }
 
-.TeamtaskDetailsAssignNotStrtLabel{
-  color:#bebebe;
+.TeamtaskDetailsAssignNotStrtLabel {
+  color: #bebebe;
 }
 
-.TeamtaskDetailsAssignInProgLabel,.TeamtaskDetailsAssignCompletedLabel{
-  color:#0483bb;
+.TeamtaskDetailsAssignInProgLabel,
+.TeamtaskDetailsAssignCompletedLabel {
+  color: #0483bb;
 }
 
-.TeamtaskDetailsAssignOutofTimeLabel{
-  color:#fc8415;
+.TeamtaskDetailsAssignOutofTimeLabel {
+  color: #fc8415;
 }
 
 .TeamtaskDetailsAssignedInsideDiv {
@@ -175,7 +176,7 @@
   cursor: pointer;
 }
 
-.TeamtaskDetailsAssignedHeaderDiv:hover{
+.TeamtaskDetailsAssignedHeaderDiv:hover {
   background-color: #eeecec;
   border-radius: 0.3rem;
 }
@@ -194,9 +195,9 @@
   border-radius: 50%;
 }
 
-.TeamtaskDetailsAssignPlusIcon{
-  font-size:0.8rem;
-  color:black;
+.TeamtaskDetailsAssignPlusIcon {
+  font-size: 0.8rem;
+  color: black;
 }
 
 .TeamtaskDetailsAssignEachAssignedMainDiv {
@@ -218,9 +219,9 @@
   color: #0483bb;
 }
 
-.TeamtaskDetailsAssignOutOfTimeIcon{
-  color:#fc8415;
-  font-size:0.85rem;
+.TeamtaskDetailsAssignOutOfTimeIcon {
+  color: #fc8415;
+  font-size: 0.85rem;
 }
 
 .TeamtaskDetailsAssignEachAssignedMainDiv div {
@@ -267,9 +268,9 @@
   align-items: center;
 }
 
-.TeamtaskDetailsResourceInsideTopDiv{
-  width:100%;
-  height:100%;
+.TeamtaskDetailsResourceInsideTopDiv {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -280,40 +281,58 @@
   color: #fc8415;
 }
 
-.TeamtaskDetailsResourceMainActualDiv{
-  width:100%;
-  height:100%;
+.TeamtaskDetailsResourceMainActualDiv {
+  width: 100%;
+  height: 100%;
+  max-height: 18rem;
+  padding:0.2rem 0rem;
+   overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 0.6rem;
+  row-gap: 0.3rem;
 }
 
-.TeamtaskDetailsResourceMainWrapperDiv{
-  cursor:pointer;
+.TeamtaskDetailsResourceMainActualDiv::-webkit-scrollbar {
+  display: none;
+}
+
+.TeamtaskDetailsResourceMainWrapperDiv {
+  width: 10rem;
+  height: 8rem;
+  cursor: pointer;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: center;
+  justify-content: top;
 }
 
-.TeamtaskDetailsResourceMainWrapperDiv div{
-  font-size:6rem;
-  color:#eeecec;
+.TeamtaskDetailsResourceMainWrapperDiv div {
+  font-size: 6rem;
+  color: #eeecec;
 }
 
-.TeamtaskDetailsResourceMainWrapperDiv p{
-  color:#3d3d3d;
-  font-size:0.8rem;
+.TeamtaskDetailsResourceMainWrapperDiv p {
+  color: #3d3d3d;
+  font-size: 0.8rem;
+  white-space: no-wrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.TeamtaskAddResourceButtonDiv{
-  color:black;
-  width:100%;
+.TeamtaskAddResourceButtonDiv {
+  color: black;
+  width: 100%;
   text-align: center;
-  padding:0.4rem 0rem;
+  padding: 0.4rem 0rem;
   background-color: #fc8415;
-  font-size:0.8rem;
-  cursor:pointer;
-  border-radius:0.2rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 0.2rem;
 }
 
 .TeamtaskDetailsSubmissionsMainDiv {
@@ -330,8 +349,8 @@
   column-gap: 0.2rem;
 }
 
-.TeamtaskDetailsSubmissionTitle div{
-  display:flex;
+.TeamtaskDetailsSubmissionTitle div {
+  display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.6rem;
@@ -356,41 +375,41 @@
   color: #fc8415;
   text-align: center;
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: center;
-  height:100%;
+  height: 100%;
   width: 100%;
 }
 
-.ExpectedSubmissionsNoneMadeMainDiv{
-  width:100%;
-  height:100%;
+.ExpectedSubmissionsNoneMadeMainDiv {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  padding-top:0.3rem;
+  padding-top: 0.3rem;
 }
 
-.ExpectedSubmissionNoneMadeInsideDiv{
-  width:100%;
+.ExpectedSubmissionNoneMadeInsideDiv {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items:center;
-  padding:0.1rem 0.2rem;
+  align-items: center;
+  padding: 0.1rem 0.2rem;
 }
 
-#ExpectedSubmissionNumbering{
-  margin-right:0.3rem;
-  font-size:0.8rem;
+#ExpectedSubmissionNumbering {
+  margin-right: 0.3rem;
+  font-size: 0.8rem;
 }
 
-#ExpectedSubmissionName{
-  font-size:0.9rem;
+#ExpectedSubmissionName {
+  font-size: 0.9rem;
 }
 
-.ExpectedSubmissionsActualFile{
-  font-size:0.8rem;
+.ExpectedSubmissionsActualFile {
+  font-size: 0.8rem;
   font-style: italic;
 }
 

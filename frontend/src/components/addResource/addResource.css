@@ -1,0 +1,76 @@
+.AddResourceMainSec{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.AddResourceMainSec form{
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.3rem;
+}
+
+.AddResourceTopDiv p{
+      font-size: 1.2rem;
+}
+
+.AddResourceActualForm{
+    width:30rem;
+    margin-top:1rem;
+}
+
+.AddResourceActualForm div{
+    width:80%;
+}
+
+.AddResourceActualForm div label{
+    font-size:0.9rem;
+}
+
+.AddResourceActualForm div input{
+  width: 100%;
+  border-radius: 0.3rem;
+  border: 0.1rem black solid;
+  background: transparent;
+  padding: 0.3rem 0.2rem;
+  outline: none;
+}
+
+.AddResourceActualForm div select{
+  width: 100%;
+  padding: 0.3rem 0.2rem;
+  border-radius: 0.3rem;
+  border: 0.1rem black solid;
+  background-color: transparent;
+  outline: none;
+  margin-bottom:0.4rem;
+}
+
+#fileId{
+    border: 0rem white solid;
+}
+
+.AddResourceMainBtnDiv{
+    margin-top:0.8rem;
+    display: flex;
+    justify-content: start;
+    column-gap: 0.5rem;
+}
+
+.AddResourceMainBtnDiv button{
+    padding:0.3rem 1.5rem;
+    border:none;
+    cursor:pointer;
+    border-radius: 0.3rem;
+    font-size: 0.8rem;
+}
+
+.AddResourceMainBtnDiv button:first-child{
+    background-color: #0483bb;
+    color:white;
+}
+.AddResourceMainBtnDiv button:last-child{
+    background-color: #fc8415;
+}

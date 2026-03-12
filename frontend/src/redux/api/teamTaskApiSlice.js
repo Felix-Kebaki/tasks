@@ -17,7 +17,11 @@ const teamTaskApiSlice = apiSlice.injectEndpoints({
         formData.append("description", data.description);
         formData.append("dueDate", data.dueDate);
         formData.append("type", data.type);
-        formData.append("file", data.file);
+        if(data.files){
+          data.files.forEach((file)=>{
+            formData.append("files",file)
+          })
+        }
 
         return {
           url: `${TEAMTASK_URL}/createTeamtask/${teamId}`,
@@ -28,7 +32,7 @@ const teamTaskApiSlice = apiSlice.injectEndpoints({
     }),
     editTheTeamtask: builder.mutation({
       query: ({ data, teamtaskId }) => {
-        if (data.fileType === "Link" || data.fileType==="None") {
+        if (data.fileType === "Link" || data.fileType === "None") {
           return {
             url: `${TEAMTASK_URL}/updateTeamtask/${teamtaskId}`,
             method: "PUT",
@@ -41,8 +45,12 @@ const teamTaskApiSlice = apiSlice.injectEndpoints({
         formData.append("name", data.name);
         formData.append("description", data.description);
         formData.append("dueDate", data.dueDate);
-        formData.append("file", data.file);
-       
+        if(data.files){
+          data.files.forEach((file)=>{
+            formData.append("files",file)
+          })
+        }
+
         return {
           url: `${TEAMTASK_URL}/updateTeamtask/${teamtaskId}`,
           method: "PUT",
@@ -67,7 +75,32 @@ const teamTaskApiSlice = apiSlice.injectEndpoints({
         url: `${TEAMTASK_URL}/getEachTeamtask/${teamtaskId}`,
         method: "GET",
       }),
-    })
+    }),
+    addResourcesApi: builder.mutation({
+      query: ({ data, id }) => {
+        if (data.type === "Link") {
+          return {
+            url: `${TEAMTASK_URL}/addResource/${id}`,
+            method: "POST",
+            body: data,
+          };
+        }
+
+        const formData = new FormData();
+        formData.append("type", data.type);
+        if (data.files) {
+          data.files.forEach((file) => {
+            formData.append("files", file);
+          });
+        }
+
+        return {
+          url: `${TEAMTASK_URL}/addResource/${id}`,
+          method: "POST",
+          body: formData,
+        };
+      },
+    }),
   }),
 });
 
@@ -76,8 +109,6 @@ export const {
   useDeleteTeamtaskMutation,
   useGetSubmissionsQuery,
   useGetEachTeamtaskQuery,
-  useEditTheTeamtaskMutation
+  useEditTheTeamtaskMutation,
+  useAddResourcesApiMutation,
 } = teamTaskApiSlice;
-
-
-        

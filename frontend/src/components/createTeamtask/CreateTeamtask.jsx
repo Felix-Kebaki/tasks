@@ -19,7 +19,7 @@ export function CreateTeamtask({ setAdd, add }) {
     type: "",
     link: "",
   });
-  const [upload, setUpload] = useState(null);
+  const [upload, setUpload] = useState([]);
   const { name, description, dueDate, type, link } = data;
 
   const {showToast}=useToast()
@@ -44,7 +44,7 @@ export function CreateTeamtask({ setAdd, add }) {
           type,
           fileUrl:
             type === "None" ? undefined : type === "Link" ? link : undefined,
-          file:
+          files:
             type === "None"
               ? undefined
               : type !== "Link" && type !== "None"
@@ -80,7 +80,7 @@ export function CreateTeamtask({ setAdd, add }) {
       description !== "" &&
       dueDate !== "" &&
       type !== "" &&
-      type==="None"?true:type==="Link"?link!=="":upload!==null
+      type==="None"?true:type==="Link"?link!=="":upload.length!=0
     );
   }, [name, description, dueDate, type, link, upload]);
 
@@ -164,9 +164,9 @@ export function CreateTeamtask({ setAdd, add }) {
               <br />
               <input
                 type="file"
-                onChange={(e) => setUpload(e.target.files[0])}
+                multiple
+                onChange={(e) => setUpload([...e.target.files])}
                 id="UploadId"
-                name="upload"
               />
             </div>
           ) : type === "Link" ? (

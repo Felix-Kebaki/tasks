@@ -26,6 +26,7 @@ import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/free-regular-svg-icons";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { faFile } from "@fortawesome/free-regular-svg-icons";
+import { AddResourceComp } from "../addResource/AddResourceComp";
 
 export function TeamTaskDetails() {
   const { userInfo } = useSelector((state) => state.auth);
@@ -50,6 +51,7 @@ export function TeamTaskDetails() {
   const [teamtaskId, setTeamtaskId] = useState(null);
   const [teamId, setTeamId] = useState(null);
   const [showAssign, setShowAssign] = useState(false);
+  const [addResource, setAddResource] = useState(null);
 
   const ClickOnDeleteTeamtask = (getId) => {
     setMsg("Are you sure you want the Teamtask deleted with all of it's data");
@@ -69,9 +71,12 @@ export function TeamTaskDetails() {
     }
   };
 
+  const HandleClickOnAddResource=()=>{
+    setAddResource(param.id);
+  }
+
   useEffect(() => {
     refetch();
-    console.log(data);
 
     if (data?.teamId) {
       assignedRefetch();
@@ -84,6 +89,7 @@ export function TeamTaskDetails() {
     editTeamtask,
     assignedTaskDel,
     showAssign,
+    addResource
   ]);
 
   if (assignedLoading || isLoading || !data || !assignedWithMembers) {
@@ -274,7 +280,7 @@ export function TeamTaskDetails() {
                 ) : (
                   <div className="TeamtaskDetailsResourceMainActualDiv">
                     {data?.resources.map((res) => (
-                      <div className="TeamtaskDetailsResourceMainWrapperDiv">
+                      <div className="TeamtaskDetailsResourceMainWrapperDiv" key={res.filePublicId}>
                         {res.fileType === "Photo" ? (
                           <div>
                             <FontAwesomeIcon icon={faImage} />
@@ -302,7 +308,10 @@ export function TeamTaskDetails() {
                 )}
               </div>
               {data?.isAdmin ? (
-                <div className="TeamtaskAddResourceButtonDiv text">
+                <div
+                  className="TeamtaskAddResourceButtonDiv text"
+                  onClick={HandleClickOnAddResource}
+                >
                   Add a resource
                 </div>
               ) : null}
@@ -399,6 +408,10 @@ export function TeamTaskDetails() {
             />
           </div>
         )}
+
+        {addResource !== null ? <div className="OverflowAddMainDiv">
+          <AddResourceComp addResource={addResource} setAddResource={setAddResource}/>
+        </div> : null}
       </div>
     </section>
   );

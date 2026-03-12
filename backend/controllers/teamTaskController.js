@@ -16,7 +16,7 @@ const createTeamTask = async (req, res) => {
       return res.status(422).json({ error: "Due date can't be in the past" });
     }
 
-    if ((type === "Photo" || type === "Document") && !req.file) {
+    if ((type === "Photo" || type === "Document") && !req.files) {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
@@ -44,55 +44,31 @@ const createTeamTask = async (req, res) => {
       });
     }
 
-    // if (type === "Document" || type === "Photo") {
-    //   for (let file of req.files) {
-    //     if (type === "Document" && file.mimetype.startsWith("image/")) {
-    //       return res.status(422).json({ error: "Submit a document" });
-    //     }
+    console.log(req.files);
+    for (const file of req.files) {
+      if (type === "Document" && file.mimetype.startsWith("image/")) {
+        return res.status(422).json({ error: "Submit a document" });
+      }
 
-    //     if (
-    //       type === "Photo" &&
-    //       !file.mimetype.startsWith("image/") &&
-    //       !file.mimetype.startsWith("video/")
-    //     ) {
-    //       return res.status(422).json({ error: "Submit a Photo" });
-    //     }
+      if (
+        type === "Photo" &&
+        !file.mimetype.startsWith("image/") &&
+        !file.mimetype.startsWith("video/")
+      ) {
+        return res.status(422).json({ error: "Submit a Photo" });
+      }
 
-    //     resources.push({
-    //       fileType: type,
-    //       filePublicId: file.filename,
-    //       fileUrl: file.path,
-    //       resourceType: file.mimetype.startsWith("image/")
-    //         ? "image"
-    //         : file.mimetype.startsWith("video/")
-    //           ? "video"
-    //           : "raw",
-    //     });
-    //   }
-    // }
-
-    if (type === "Document" && req.file.mimetype.startsWith("image/")) {
-      return res.status(422).json({ error: "Submit a document" });
+      resources.push({
+        fileType: type,
+        filePublicId: file.filename,
+        fileUrl: file.path,
+        resourceType: file.mimetype.startsWith("image/")
+          ? "image"
+          : file.mimetype.startsWith("video/")
+            ? "video"
+            : "raw",
+      });
     }
-
-    if (
-      type === "Photo" &&
-      !req.file.mimetype.startsWith("image/") &&
-      !req.file.mimetype.startsWith("video/")
-    ) {
-      return res.status(422).json({ error: "Submit a Photo" });
-    }
-
-    resources.push({
-      fileType: type,
-      filePublicId: req.file.filename,
-      fileUrl: req.file.path,
-      resourceType: req.file.mimetype.startsWith("image/")
-        ? "image"
-        : req.file.mimetype.startsWith("video/")
-          ? "video"
-          : "raw",
-    });
 
     const created = await TeamTask.create({
       name: capitalizeFirst(name),
@@ -355,10 +331,64 @@ const getEachTeamtask = async (req, res) => {
   }
 };
 
+const AddResource = async (req, res) => {
+  const { type, fileUrl } = req.body;
+
+  try {
+    if (!type || (type === "Link" && !fileUrl)) {
+      return res.status(401).json({ error: "Input all fields" });
+    }
+
+    const teamTask = await TeamTask.findById(req.params.id);
+
+    if (!teamTask) {
+      return res.status(404).json({ error: "Team task not found" });
+    }
+
+    let newResources = [];
+
+    if (type === "Link") {
+      newResources.push({
+        fileType: "Link",
+        fileUrl,
+        resourceType: "link",
+      });
+    }
+
+    if (type === "Photo" || type === "Document") {
+      if (!req.files || req.files.length === 0) {
+        return res.status(400).json({ error: "No files uploaded" });
+      }
+
+      for (const file of req.files) {
+        newResources.push({
+          fileType: type,
+          filePublicId: file.filename,
+          fileUrl: file.path,
+          resourceType: file.mimetype.startsWith("image/")
+            ? "image"
+            : file.mimetype.startsWith("video/")
+              ? "video"
+              : "raw",
+        });
+      }
+    }
+    teamTask.resources.push(...newResources);
+
+    await teamTask.save();
+
+    res.status(200).json({ message: "Resources added successfully" });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Server side issue" });
+  }
+};
+
 module.exports = {
   createTeamTask,
   deleteTeamtask,
   getSubmissions,
   editTeamtask,
   getEachTeamtask,
+  AddResource,
 };
