@@ -16,7 +16,7 @@ export function SumbitYouWork({ submit, setSubmit }) {
     type: "",
     link: "",
   });
-  const [upload, setUpload] = useState(null);
+  const [upload, setUpload] = useState([]);
   const { type, link } = submitForm;
 
   const {showToast}=useToast()
@@ -39,7 +39,7 @@ export function SumbitYouWork({ submit, setSubmit }) {
           type,
           fileUrl:
             type === "None" ? undefined : type === "Link" ? link : undefined,
-          file:
+          files:
             type === "None"
               ? undefined
               : type !== "Link" && type !== "None"
@@ -114,8 +114,9 @@ export function SumbitYouWork({ submit, setSubmit }) {
             <br />
             <input
               type="file"
-              onChange={(e) => setUpload(e.target.files[0])}
+              onChange={(e) => setUpload([...e.target.files])}
               id="UploadId"
+              multiple
             />
           </div>
         ) : type === "Link" ? (

@@ -42,3 +42,9 @@ require("node-cron").schedule("0 0 * * *", () => {
   console.log("Running Check Teamtask deadlines...");
   exec("node backend/utils/cron/taskDeadlineChecker.js");
 });
+
+//Check Assigned Tasks deadlines
+require("node-cron").schedule("0 0 * * *", () => {
+  console.log("Running Check Assigned tasks deadlines...");
+  exec("node backend/utils/cron/AssignedTaskChecker.js");
+});

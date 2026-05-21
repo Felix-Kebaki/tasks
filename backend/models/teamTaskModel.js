@@ -89,6 +89,10 @@ const teamTaskSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
+      SubmissionFor:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"EachTask"
+      }
     },
   ],
   allAssigned: {

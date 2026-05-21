@@ -28,9 +28,9 @@ async function runJob() {
         await Notify.create({
           user: member._id,
           referenceId: task._id,
-          referenceObj:"Task Due",
-          title: `Task "${task.name}" is due in less than 24 hours.`,
-          message:`Your assigned task is approaching its deadline, with less than 24 hours remaining to complete it. Please make final preparations and submit your work on time to ensure smooth team progress`
+          referenceObj:"Teamtask Due",
+          title: `Teamask "${task.name}" is due in less than 24 hours.`,
+          message:`The Teamtask deadline is approaching, with less than 24 hours remaining to complete it. You can go to the Teamtask page to view other submissions and track progress of other members.`
         });
       }
     }

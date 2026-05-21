@@ -32,13 +32,6 @@ const Assigntask = async (req, res) => {
         .json({ error: "Due date must be before task due date" });
     }
 
-    if (submission !== "None") {
-      const expectedSub = { fileType: submission, user: req.params.userId };
-      await TeamTask.findByIdAndUpdate(req.params.teamtaskId, {
-        $addToSet: { expectedSubmissions: expectedSub },
-      });
-    }
-
     const newTask = await EachTask.create({
       name: capitalizeFirst(name),
       dueDate,
@@ -56,6 +49,18 @@ const Assigntask = async (req, res) => {
     });
     if (!newTask) {
       return res.status(422).json({ error: "Unable to assign task" });
+    }
+
+    if (submission !== "None") {
+      const expectedSub = {
+        fileType: submission,
+        user: req.params.userId,
+        SubmissionFor: newTask._id,
+      };
+
+      await TeamTask.findByIdAndUpdate(req.params.teamtaskId, {
+        $addToSet: { expectedSubmissions: expectedSub },
+      });
     }
 
     teamtask.allAssigned += 1;
@@ -216,6 +221,7 @@ const startTeamtask = async (req, res) => {
 
 const completeTeamtask = async (req, res) => {
   const { type, fileUrl } = req.body;
+
   try {
     if (!type) {
       return res.status(422).json({ error: "Input all fields" });
@@ -228,12 +234,18 @@ const completeTeamtask = async (req, res) => {
         .json({ error: "Unable to find the assigned task" });
     }
 
+    if (type !== assignedTask.submissionType) {
+      return res
+        .status(400)
+        .json({ error: "Submission not done appropriately" });
+    }
+
     const teamtask = await TeamTask.findById(assignedTask.teamtask);
     if (!teamtask) {
       return res.status(422).json({ error: "Unable to find the Teamtask" });
     }
 
-    if ((type === "Photo" || type === "Document") && !req.file) {
+    if ((type === "Photo" || type === "Document") && !req.files) {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
@@ -249,50 +261,75 @@ const completeTeamtask = async (req, res) => {
       return res.status(422).json({ error: "Task must be in progress first" });
     }
 
-    if (type === "Document" && req.file?.mimetype.startsWith("image/")) {
-      return res.status(422).json({ error: "Upload a document" });
-    }
-
-    if (type === "Photo" && !req.file?.mimetype.startsWith("image/")) {
-      return res.status(422).json({ error: "Upload a photo" });
-    }
+    let submissions = [];
 
     if (type !== "None") {
-      const submission = {
-        submittedBy: req.user._id,
-        fileUrl: type === "Link" ? fileUrl : req.file.path,
-        submissionPublicId: req.file?.filename,
-        submissionType: req.file?.mimetype.startsWith("image/")
-          ? "image"
-          : req.file?.mimetype.startsWith("video/")
-            ? "video"
-            : "raw",
-        fileType: type,
-      };
-      teamtask.submissions.push(submission);
+      if (type === "Link") {
+        if (!fileUrl) {
+          return res.status(400).json({ error: "Link is not provided" });
+        }
+        submissions.push({
+          submittedBy: req.user._id,
+          fileUrl: fileUrl,
+          fileType: type,
+          submissionType: "link",
+          submittedOn: new Date(),
+        });
+      } else if (type === "Photo" || type === "Document") {
+        for (const file of req.files) {
+          if (type === "Document" && file.mimetype.startsWith("image/")) {
+            return res.status(422).json({ error: "Submit a document" });
+          }
 
-      assignedTask.status = "Completed";
-      assignedTask.doneDate = new Date();
-      const markedteam = await teamtask.save();
-      if (!markedteam) {
-        return res.status(422).json({ error: "Unable to mark as done" });
+          if (
+            type === "Photo" &&
+            !file.mimetype.startsWith("image/") &&
+            !file.mimetype.startsWith("video/")
+          ) {
+            return res.status(422).json({ error: "Submit a Photo" });
+          }
+
+          submissions.push({
+            submittedBy: req.user._id,
+            fileUrl: file?.path,
+            submissionPublicId: file?.filename,
+            submissionType: file?.mimetype.startsWith("image/")
+              ? "image"
+              : file?.mimetype.startsWith("video/")
+                ? "video"
+                : "raw",
+            fileType: type,
+            submittedOn: new Date(),
+          });
+        }
       }
     } else if (type === "None") {
-      assignedTask.status = "Completed";
-      assignedTask.doneDate = new Date();
+      submissions.push({ fileType: "None" });
     }
 
-    const duration = calculateDuration(
-      assignedTask.startDate,
-      assignedTask.doneDate,
-    );
+    assignedTask.status = "Completed";
+    assignedTask.doneDate = new Date();
+    const duration = calculateDuration(assignedTask.startDate, new Date());
     assignedTask.duration = duration;
-
     const marked = await assignedTask.save();
-    teamtask.completedOnes += 1;
-    await teamtask.save();
 
     if (!marked) {
+      return res.status(422).json({ error: "Unable to mark as done" });
+    }
+
+    teamtask.submissions.push(...submissions);
+    teamtask.completedOnes += 1;
+
+    teamtask.expectedSubmissions = teamtask.expectedSubmissions.filter(
+      (sub) =>
+        !(
+          sub.user.toString() === req.user._id.toString() &&
+          sub.SubmissionFor.toString() === assignedTask._id.toString()
+        ),
+    );
+
+    const markedteam = await teamtask.save();
+    if (!markedteam) {
       return res.status(422).json({ error: "Unable to mark as done" });
     }
 

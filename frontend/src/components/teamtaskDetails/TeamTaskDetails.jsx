@@ -2,9 +2,10 @@ import "./teamtaskDetails.css";
 
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useToast } from "../../context/ToastContext";
+import { Link } from "react-router-dom";
 
 import { useGetEachTeamtaskQuery } from "../../redux/api/teamTaskApiSlice";
 import { useGetAssignedMembersQuery } from "../../redux/api/assignTaskApiSlice";
@@ -53,7 +54,7 @@ export function TeamTaskDetails() {
   const [teamId, setTeamId] = useState(null);
   const [showAssign, setShowAssign] = useState(false);
   const [addResource, setAddResource] = useState(null);
-  const [viewResource,setViewResource]=useState(null);
+  const [viewResource, setViewResource] = useState(null);
 
   const navigate = useNavigate();
 
@@ -85,6 +86,7 @@ export function TeamTaskDetails() {
 
   useEffect(() => {
     refetch();
+    console.log(data);
 
     if (data?.teamId) {
       assignedRefetch();
@@ -316,8 +318,10 @@ export function TeamTaskDetails() {
                             </p>
                           </a>
                         ) : (
-                          <div className="TeamtaskDetailsResourceMainWrapperDiv" 
-                            onClick={() => HandleClickOfResource(res.fileUrl)}>
+                          <div
+                            className="TeamtaskDetailsResourceMainWrapperDiv"
+                            onClick={() => HandleClickOfResource(res.fileUrl)}
+                          >
                             <div>
                               <FontAwesomeIcon icon={faImage} />
                             </div>
@@ -348,14 +352,18 @@ export function TeamTaskDetails() {
                 {data?.expectedSubmissions.length !== 0 &&
                 data?.submissions.length === 0
                   ? "Expected Submissions"
-                  : "Submissions"}
+                  : data?.expectedSubmissions.length === 0 &&
+                      data?.submissions.length !== 0
+                    ? "Submissions"
+                    : null}
               </p>
-              <div className="">
-                {data?.expectedSubmissions.length !== 0 &&
-                data?.submissions.length === 0
-                  ? data?.expectedSubmissions.length
-                  : data?.submissions.length}
-              </div>
+              {data?.expectedSubmissions.length !== 0 &&
+              data?.submissions.length === 0 ? (
+                <div>{data?.expectedSubmissions.length}</div>
+              ) : data?.expectedSubmissions.length === 0 &&
+                data?.submissions.length !== 0 ? (
+                <div>{data?.submissions.length}</div>
+              ) : null}
             </div>
             <div className="TeamtaskDetailsSubmissionsInsideDiv">
               {data?.expectedSubmissions.length === 0 ? (
@@ -366,7 +374,10 @@ export function TeamTaskDetails() {
                 data?.submissions.length === 0 ? (
                 <div className="ExpectedSubmissionsNoneMadeMainDiv">
                   {data?.expectedSubmissions.map((each, index) => (
-                    <div className="ExpectedSubmissionNoneMadeInsideDiv">
+                    <div
+                      className="ExpectedSubmissionNoneMadeInsideDiv"
+                      key={index}
+                    >
                       <p className="text">
                         <span id="ExpectedSubmissionNumbering">
                           {index + 1}.
@@ -383,7 +394,89 @@ export function TeamTaskDetails() {
                 </div>
               ) : data?.expectedSubmissions.length !== 0 &&
                 data?.submissions.length !== 0 ? (
-                <div></div>
+                <div className="SubmissionsWithExpectedDiv">
+                  <div className="SubmissionsLengthDiv text">
+                    <p
+                      className={
+                        data?.expectedSubmissions.length === 0
+                          ? "CenterItAsAllIsSubmitted text"
+                          : "ExpectedSubmissionsTitle text"
+                      }
+                    >
+                      {data?.expectedSubmissions.length === 0
+                        ? "All have been submitted"
+                        : "Expected Submissions"}
+                    </p>
+                    <div>{data?.expectedSubmissions.length}</div>
+                  </div>
+                  {data?.expectedSubmissions.map((expSub, index) => (
+                    <div
+                      className="ExpectedSubmissionNoneMadeInsideDiv"
+                      key={index}
+                    >
+                      <p className="text">
+                        <span id="ExpectedSubmissionNumbering">
+                          {index + 1}.
+                        </span>
+                        <span id="ExpectedSubmissionName">
+                          {expSub.user.firstName} {expSub.user.lastName}
+                        </span>
+                      </p>
+                      <p className="ExpectedSubmissionsActualFile text">
+                        {expSub.fileType}
+                      </p>
+                    </div>
+                  ))}
+                  <div className="SubmissionsLengthDiv text">
+                    <p className="SubmittedOnesTitle text">Submitted ones</p>
+                    <div>{data?.submissions.length}</div>
+                  </div>
+                  <div className="TeamtaskDetailsResourceMainActualDiv">
+                    {data?.submissions.map((res) => (
+                      <>
+                        {res.fileType === "Link" ||
+                        res.fileType === "Document" ? (
+                          <a
+                            href={res.fileUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="TeamtaskDetailsResourceMainWrapperDiv"
+                            key={res.filePublicId}
+                          >
+                            {res.fileType === "Document" ? (
+                              <div>
+                                <FontAwesomeIcon icon={faFile} />
+                              </div>
+                            ) : res.fileType === "Link" ? (
+                              <div>
+                                <FontAwesomeIcon icon={faLink} />
+                              </div>
+                            ) : null}
+                            <p className="text">
+                              {res.fileType === "Document"
+                                ? res.submissionPublicId.split("-")[1]
+                                : res.fileType === "Link"
+                                  ? res.fileUrl
+                                  : null}
+                            </p>
+                          </a>
+                        ) : (
+                          <div
+                            className="TeamtaskDetailsResourceMainWrapperDiv"
+                            onClick={() => HandleClickOfResource(res.fileUrl)}
+                          >
+                            <div>
+                              <FontAwesomeIcon icon={faImage} />
+                            </div>
+                            <p className="text">
+                              {res.submissionPublicId.split("-")[1]}
+                            </p>
+                          </div>
+                        )}
+                      </>
+                    ))}
+                  </div>
+                </div>
               ) : null}
             </div>
           </div>
@@ -442,9 +535,14 @@ export function TeamTaskDetails() {
           </div>
         ) : null}
 
-        {viewResource!==null?<div className="OverflowAddMainDiv">
-          <ViewImgResource setViewResource={setViewResource} viewResource={viewResource}/>
-        </div>:null}
+        {viewResource !== null ? (
+          <div className="OverflowAddMainDiv">
+            <ViewImgResource
+              setViewResource={setViewResource}
+              viewResource={viewResource}
+            />
+          </div>
+        ) : null}
       </div>
     </section>
   );

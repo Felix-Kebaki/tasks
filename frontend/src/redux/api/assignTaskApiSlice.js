@@ -45,7 +45,11 @@ const assignTaskApiSlice = apiSlice.injectEndpoints({
         }
         const formData=new FormData()
         formData.append("type",data.type)
-        formData.append('file',data.file)
+        if(data.files){
+          data.files.forEach((file)=>{
+            formData.append("files",file)
+          })
+        }
 
         return{
           url: `${ASSIGNTASK_URL}/completeAssignedtask/${teamtaskId}`,

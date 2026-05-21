@@ -26,7 +26,7 @@ export function AddResourceComp({ addResource, setAddResource }) {
     try {
       const submitedData = {
         type,
-        fileUrl: type === "Link" ? link : undefined,
+        fileUrl: type === "Link" ? fileUrl : undefined,
         files: type !== "Link" ? files : undefined,
       };
       const response = await addResourcesApi({
