@@ -12,10 +12,14 @@ const todaySchema = mongoose.Schema(
       required: true,
     },
     startTime: {
-      type: Date,
+      type: String,
     },
     endTime: {
-      type: Date,
+      type: String,
+    },
+    timezone:{
+      type:String,
+      required:true
     },
     objectiveDone: {
       type: Boolean,

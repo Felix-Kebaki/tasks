@@ -100,12 +100,12 @@ export function DailyObjective() {
                     <p className="OutOfTimeText text">Out of time</p>
                   ) : obj.startTime && obj.endTime ? (
                     <div className="ObjectiveTimeDiv text">
-                      <p>{moment(obj.startTime).format("HH:mm")}</p>
+                      <p>{obj.startTime}</p>
                       <FontAwesomeIcon
                         icon={faAnglesRight}
                         id="TimeArrowObjectives"
                       />
-                      <p>{moment(obj.endTime).format("HH:mm")}</p>
+                      <p>{obj.endTime}</p>
                     </div>
                   ) : null}
                   <div className="CategoryAndDeleteObjectiveDiv">

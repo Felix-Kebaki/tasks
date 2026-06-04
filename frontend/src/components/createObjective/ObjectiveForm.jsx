@@ -34,7 +34,9 @@ export function ObjectiveForm({ setAdd }) {
   const HandleSubmitObjective = async (e) => {
     e.preventDefault();
     try {
-      const response = await createObjective(objForm);
+      const timezone=Intl.DateTimeFormat().resolvedOptions().timeZone;
+      console.log(timezone)
+      const response = await createObjective({...objForm,timezone});
       if (response.error) {
         setErrorMessage(response.error.data.error || response.error.error);
         setTimeout(() => {

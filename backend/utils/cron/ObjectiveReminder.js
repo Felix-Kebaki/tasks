@@ -18,49 +18,55 @@ async function connectDB() {
 
 const runJob = async () => {
   try {
-    const users = await User.find();
+    const objectives = await Today.find({
+      objectiveDone: false,
+      outOfTime: false,
+    });
 
-    const now = new Date();
-    const currentMinutes = now.getUTCHours() * 60 + now.getUTCMinutes();
+    for (const obj of objectives) {
+      const now = new Date();
 
-    for (const user of users) {
-      const objectives = await Today.find({
-        user: user._id,
-        objectiveDone: false,
-        outOfTime: false,
-      });
+      const userNow = new Date(
+        now.toLocaleString("en-US", {
+          timeZone: obj.timezone,
+        })
+      );
 
-      for (const obj of objectives) {
-        const diff =
-          (new Date(obj.endTime).getTime() - Date.now()) / (1000 * 60);
+      const currentMinutes =
+        userNow.getHours() * 60 + userNow.getMinutes();
 
-        if (diff <= 0) {
-          obj.outOfTime = true;
-          await obj.save();
-          continue;
-        }
+      const [endHour, endMinute] = obj.endTime
+        .split(":")
+        .map(Number);
 
-        if (diff <= 10 && diff > 0 && !obj.notified) {
-          const subs = await Subscription.find({ user: obj.user });
-          for (const sub of subs) {
-            await sendNotification(sub.subscription, {
-              title: "Objective Reminder",
-              body: `Your objective "${obj.objective}" ends in ${diff} min!`,
-              url: `/app/notifications`,
-              data: { url: "https://task-app-3f5087a586f5.herokuapp.com/" },
-            });
-          }
+      const endMinutes = endHour * 60 + endMinute;
 
-          await Notify.create({
-            user: obj.user,
-            referenceId: obj._id,
-            referenceObj: "Objective Reminder",
-            title: `Daily objective "${obj.objective}" reminder`,
-            message: `If you’ve completed this objective, go ahead and mark it as done. If not, take these last few minutes to wrap things up and get ready to start your next goal if one is scheduled. Stay focused, you’re doing great!`,
+      const diff = endMinutes - currentMinutes;
+
+      if (diff <= 0) {
+        obj.outOfTime = true;
+        await obj.save();
+        continue;
+      }
+
+      if (diff <= 10 && diff > 0 && !obj.notified) {
+        const subs = await Subscription.find({
+          user: obj.user,
+        });
+
+        for (const sub of subs) {
+          await sendNotification(sub.subscription, {
+            title: "Objective Reminder",
+            body: `Your objective "${obj.objective}" ends in ${diff} min!`,
+            url: `/app/notifications`,
+            data: {
+              url: "https://task-app-3f5087a586f5.herokuapp.com/",
+            },
           });
-          obj.notified = true;
-          await obj.save();
         }
+
+        obj.notified = true;
+        await obj.save();
       }
     }
   } catch (error) {

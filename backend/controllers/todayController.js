@@ -2,26 +2,33 @@ const Today = require("../models/todayModel");
 const capitalizeFirst = require("../utils/capitalize");
 
 const createToday = async (req, res) => {
-  const { objective, startTime, endTime, category } = req.body;
+  const { objective, startTime, endTime, category, timezone} = req.body;
   try {
-    if (!objective || !startTime || !endTime || !category) {
+    if (!objective || !startTime || !endTime || !category || !timezone) {
       return res.status(422).json({ error: "input all fields" });
     }
 
-    const [endHour, endMinute] = endTime.split(":").map(Number);
     const [startHour, startMinute] = startTime.split(":").map(Number);
+    const [endHour, endMinute] = endTime.split(":").map(Number);
 
     const now = new Date();
 
-    const startDateTime = new Date();
-    startDateTime.setHours(startHour, startMinute, 0, 0);
+    const userNow = new Date(
+      now.toLocaleString("en-US", {
+        timeZone: timezone,
+      })
+    );
 
-    const endDateTime = new Date();
-    endDateTime.setHours(endHour, endMinute, 0, 0);
+    const currentMinutes =
+      userNow.getHours() * 60 + userNow.getMinutes();
 
-    // Check if endTime is before current time
-    if (startDateTime < now || endDateTime < now) {
-      return res.status(400).json({ error: "Time cannot be in the past" });
+    const startMinutes = startHour * 60 + startMinute;
+    const endMinutes = endHour * 60 + endMinute;
+
+    if (startMinutes < currentMinutes || endMinutes < currentMinutes) {
+      return res.status(400).json({
+        error: "Time cannot be in the past",
+      });
     }
 
     const existToday = await Today.findOne({ user: req.user._id, objective });
@@ -31,10 +38,11 @@ const createToday = async (req, res) => {
 
     const newObjective = await Today.create({
       objective: capitalizeFirst(objective),
-      startTime: startDateTime,
-      endTime: endDateTime,
+      startTime,
+      endTime,
       category: capitalizeFirst(category),
       user: req.user._id,
+      timezone
     });
     if (!newObjective) {
       return res.status(422).json({ error: "Unable to create Objective" });

@@ -15,22 +15,32 @@ async function connectDB() {
 
 const runJob = async () => {
   try {
-    const users = await User.find();
-
     const now = new Date();
 
-    for (const user of users) {
-      const objectives = await Today.find({
-        user: user._id,
-        objectiveDone: false,
-        outOfTime:false
-      });
-      for (const obj of objectives) {
+    const objectives = await Today.find({
+      objectiveDone: false,
+      outOfTime: false,
+    });
 
-        if (obj.endTime <= now) {
-          obj.outOfTime = true;
-          await obj.save();
-        }
+    for (const obj of objectives) {
+      const userNow = new Date(
+        now.toLocaleString("en-US", {
+          timeZone: obj.timezone,
+        })
+      );
+
+      const currentMinutes =
+        userNow.getHours() * 60 + userNow.getMinutes();
+
+      const [endHour, endMinute] = obj.endTime
+        .split(":")
+        .map(Number);
+
+      const endMinutes = endHour * 60 + endMinute;
+
+      if (endMinutes <= currentMinutes) {
+        obj.outOfTime = true;
+        await obj.save();
       }
     }
   } catch (error) {
