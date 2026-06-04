@@ -15,6 +15,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import moment from "moment";
 
 export function DailyObjective() {
   const { refetch, data: objectives, isLoading } = useGetObjectivesQuery();
@@ -99,12 +100,12 @@ export function DailyObjective() {
                     <p className="OutOfTimeText text">Out of time</p>
                   ) : obj.startTime && obj.endTime ? (
                     <div className="ObjectiveTimeDiv text">
-                      <p>{obj.startTime}</p>
+                      <p>{moment(obj.startTime).format("HH:mm")}</p>
                       <FontAwesomeIcon
                         icon={faAnglesRight}
                         id="TimeArrowObjectives"
                       />
-                      <p>{obj.endTime}</p>
+                      <p>{moment(obj.endTime).format("HH:mm")}</p>
                     </div>
                   ) : null}
                   <div className="CategoryAndDeleteObjectiveDiv">

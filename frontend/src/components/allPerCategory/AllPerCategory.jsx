@@ -91,10 +91,10 @@ export function AllPerCategory() {
                   <div>
                     <div className="StartAndStopTimeAsCategoryDiv">
                       <p className="text">
-                        Start: <span>{today.startTime}</span>
+                        Start: <span>{moment(today.startTime).format("HH:mm")}</span>
                       </p>
                       <p className="text">
-                        Stop: <span>{today.endTime}</span>
+                        Stop: <span>{moment(today.endTime).format("HH:mm")}</span>
                       </p>
                     </div>
                   </div>
