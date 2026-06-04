@@ -32,11 +32,12 @@ const runJob = async () => {
         objectiveDone: false,
         outOfTime: false,
       });
-      console.log(`The user ${user._id} has objectives ${objectives}`)
+
       for (const obj of objectives) {
         const [endHour, endMinute] = obj.endTime.split(":").map(Number);
         const endMinutes = endHour * 60 + endMinute;
         const diff = endMinutes - currentMinutes;
+        console.log(`The objective found is as follows ${obj}`)
 
         if (diff <= 0) {
           obj.outOfTime = true;
