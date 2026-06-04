@@ -22,8 +22,9 @@ const runJob = async () => {
 
     const now = new Date();
     //now.getUTCHours() should be plus 3 first to host in heroku
-    // const currentMinutes = (now.getUTCHours()) * 60 + now.getUTCMinutes();
-    const currentMinutes=now.getHours()*60+now.getMinutes();
+    const currentMinutes = (now.getUTCHours()) * 60 + now.getUTCMinutes();
+    //for local scheduler
+    // const currentMinutes=now.getHours()*60+now.getMinutes();
 
     for (const user of users) {
       const objectives = await Today.find({

@@ -18,42 +18,41 @@ async function runJob() {
   const now = new Date();
 
   //Heroku
-  // const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
-
-  // const startOfDay = new Date(
-  //   now.getUTCFullYear(),
-  //   now.getUTCMonth(),
-  //   now.getUTCDate(),
-  //   0 - TZ_OFFSET,
-  //   0,
-  //   0
-  // );
-  // const endOfDay = new Date(
-  //   now.getUTCFullYear(),
-  //   now.getUTCMonth(),
-  //   now.getUTCDate(),
-  //   23 - TZ_OFFSET,
-  //   59,
-  //   59
-  // );
-
-
+  const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
   const startOfDay = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    0,
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate(),
+    0 - TZ_OFFSET,
     0,
     0
   );
   const endOfDay = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    23,
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate(),
+    23 - TZ_OFFSET,
     59,
     59
   );
+
+//for local scheduler
+  // const startOfDay = new Date(
+  //   now.getFullYear(),
+  //   now.getMonth(),
+  //   now.getDate(),
+  //   0,
+  //   0,
+  //   0
+  // );
+  // const endOfDay = new Date(
+  //   now.getFullYear(),
+  //   now.getMonth(),
+  //   now.getDate(),
+  //   23,
+  //   59,
+  //   59
+  // );
 
   try {
     const goalsToStart = await Goal.find({

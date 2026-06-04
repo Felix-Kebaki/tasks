@@ -15,47 +15,46 @@ async function connectDB() {
 }
 
 async function runJob() {
-  //At the times,line below comment should be replaced with comment to host in heroku
-  // const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
-
   const now = new Date();
 
-  // const tomorrowStart = new Date(Date.UTC(
-  //   now.getUTCFullYear(),
-  //   now.getUTCMonth(),
-  //   now.getUTCDate() + 1,
-  //   0 - TZ_OFFSET, 
-  //   0,
-  //   0
-  // ));
-
-  // const tomorrowEnd = new Date(Date.UTC(
-  //   now.getUTCFullYear(),
-  //   now.getUTCMonth(),
-  //   now.getUTCDate() + 1,
-  //   23 - TZ_OFFSET, 
-  //   59,
-  //   59
-  // ));
-
-  //Locally
+  //Heroku
+  const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
   const tomorrowStart = new Date(Date.UTC(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() + 1,
-    0, 
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate() + 1,
+    0 - TZ_OFFSET, 
     0,
     0
   ));
 
   const tomorrowEnd = new Date(Date.UTC(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() + 1,
-    23, 
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate() + 1,
+    23 - TZ_OFFSET, 
     59,
     59
   ));
+
+   //for local scheduler
+  // const tomorrowStart = new Date(Date.UTC(
+  //   now.getFullYear(),
+  //   now.getMonth(),
+  //   now.getDate() + 1,
+  //   0, 
+  //   0,
+  //   0
+  // ));
+
+  // const tomorrowEnd = new Date(Date.UTC(
+  //   now.getFullYear(),
+  //   now.getMonth(),
+  //   now.getDate() + 1,
+  //   23, 
+  //   59,
+  //   59
+  // ));
 
   try {
     const upcomingEvents = await Upcoming.find({
