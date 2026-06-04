@@ -12,6 +12,7 @@ const createGoal = async (req, res) => {
     startDate,
     endDate,
     reward,
+    timezone
   } = req.body;
   try {
     switch (true) {
@@ -31,6 +32,8 @@ const createGoal = async (req, res) => {
         return res.status(422).json({ error: "Finish date is required" });
       case !reward:
         return res.status(422).json({ error: "reward is required" });
+      case !timezone:
+        return res.status(422).json({ error: "timezone is required" });
     }
 
     const existgoal = await Goal.findOne({ name, user: req.user._id });
@@ -48,6 +51,7 @@ const createGoal = async (req, res) => {
       endDate,
       reward: capitalizeFirst(reward),
       user: req.user._id,
+      timezone
     });
     if (!newGoal) {
       return res.status(422).json({ error: "Unable to create goal" });

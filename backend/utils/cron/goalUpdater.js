@@ -17,77 +17,54 @@ async function connectDB() {
 async function runJob() {
   const now = new Date();
 
-  //Heroku
-  const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
-  const startOfDay = new Date(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate(),
-    0 - TZ_OFFSET,
-    0,
-    0
-  );
-  const endOfDay = new Date(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate(),
-    23 - TZ_OFFSET,
-    59,
-    59
-  );
-
-//for local scheduler
-  // const startOfDay = new Date(
-  //   now.getFullYear(),
-  //   now.getMonth(),
-  //   now.getDate(),
-  //   0,
-  //   0,
-  //   0
-  // );
-  // const endOfDay = new Date(
-  //   now.getFullYear(),
-  //   now.getMonth(),
-  //   now.getDate(),
-  //   23,
-  //   59,
-  //   59
-  // );
-
   try {
     const goalsToStart = await Goal.find({
-      startDate: { $gte: startOfDay, $lte: endOfDay },
       status: "Not Started",
     });
 
     for (const goal of goalsToStart) {
-      goal.status = "In Progress";
-      await goal.save();
+      const userNow = new Date(
+        now.toLocaleString("en-US", {
+          timeZone: goal.timezone,
+        }),
+      );
+      const goalStart = new Date(
+        goal.startDate.toLocaleString("en-US", {
+          timeZone: goal.timezone,
+        }),
+      );
+      const todayString = userNow.toDateString();
+      const startString = goalStart.toDateString();
 
-      const subs = await Subscription.find({ user: goal.user });
-      for (const sub of subs) {
-        await sendNotification(sub.subscription, {
-          title: "Goal has started",
-          body: `"${goal.name}" start date has been reached!`,
-          url: `/app/notifications`,
-          data: { url: "https://task-app-3f5087a586f5.herokuapp.com/" }
+      if (todayString === startString) {
+        goal.status = "In Progress";
+        await goal.save();
+
+        const subs = await Subscription.find({ user: goal.user });
+        for (const sub of subs) {
+          await sendNotification(sub.subscription, {
+            title: "Goal has started",
+            body: `"${goal.name}" start date has been reached!`,
+            url: `/app/notifications`,
+            data: { url: "https://task-app-3f5087a586f5.herokuapp.com/" },
+          });
+        }
+
+        const enddate = new Date(goal.endDate);
+
+        await Notify.create({
+          user: goal.user,
+          referenceId: goal._id,
+          referenceObj: "Personal goals",
+          title: `Goal "${goal.name}" has started`,
+          message: `Your personal goal has officially started today, with a completion deadline of ${enddate.toLocaleDateString(
+            "en-US",
+            { month: "long", day: "numeric", year: "numeric" },
+          )}. You set this goal with the reward of ${
+            goal?.reward
+          } awaiting you at the finish line. Stay consistent and begin working now to stay on track and secure your reward!`,
         });
       }
-
-      const enddate = new Date(goal.endDate);
-      // Notify user
-      await Notify.create({
-        user: goal.user,
-        referenceId: goal._id,
-        referenceObj: "Personal goals",
-        title: `Goal "${goal.name}" has started`,
-        message: `Your personal goal has officially started today, with a completion deadline of ${enddate.toLocaleDateString(
-          "en-US",
-          { month: "long", day: "numeric", year: "numeric" }
-        )}. You set this goal with the reward of ${
-          goal?.reward
-        } awaiting you at the finish line. Stay consistent and begin working now to stay on track and secure your reward!`,
-      });
     }
   } catch (err) {
     console.error("Goal start job error:", err.message);

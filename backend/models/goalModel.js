@@ -47,6 +47,10 @@ const goalSchema = mongoose.Schema(
       type: Date,
       required: true,
     },
+    timezone:{
+      type:String,
+      required:true
+    },
     reward: {
       type: String,
       required: true,

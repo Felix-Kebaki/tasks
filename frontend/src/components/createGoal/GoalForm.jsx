@@ -42,7 +42,8 @@ export function GoalForm({ setAdd }) {
   const HandleCreateGoal = async (e) => {
     e.preventDefault();
     try {
-      const response = await createGoal(goalForm);
+      const timezone=Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const response = await createGoal({timezone,...goalForm});
       if (response.error) {
         setErrorMessage(response.error.data.error || response.error.error);
         setTimeout(() => {
