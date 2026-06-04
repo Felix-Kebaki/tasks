@@ -37,9 +37,9 @@ const runJob = async () => {
         const [endHour, endMinute] = obj.endTime.split(":").map(Number);
         const endMinutes = endHour * 60 + endMinute;
         const diff = endMinutes - currentMinutes;
-        console.log(`The objective found is as follows ${obj}`)
 
         if (diff <= 0) {
+          console.log("Changing to out of time .............................")
           obj.outOfTime = true;
           await obj.save();
           continue;
@@ -47,6 +47,7 @@ const runJob = async () => {
 
         if (diff <= 10 && !obj.notified) {
           const subs = await Subscription.find({ user: obj.user });
+          console.log("Its in the next 10 minutes........................")
           for (const sub of subs) {
             await sendNotification(sub.subscription, {
               title: "Objective Reminder",

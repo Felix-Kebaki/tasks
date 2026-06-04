@@ -63,6 +63,7 @@ async function runJob() {
     }).populate("user","email")
 
     for (const event of upcomingEvents) {
+      console.log(event)
       const userId = event.user && event.user._id ? event.user._id : event.user;
       await Notify.create({
         user: userId,
