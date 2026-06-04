@@ -2,9 +2,9 @@ const Upcoming=require("../models/upcomingModel")
 const capitalizeFirst=require("../utils/capitalize")
 
 const createUpcoming=async(req,res)=>{
-    const {title,eventDate}=req.body
+    const {title,eventDate,timezone}=req.body
     try {
-        if(!title || !eventDate){
+        if(!title || !eventDate || !timezone){
             return res.status(422).json({error:"Input all fields"})
         }
         if(new Date(eventDate)<new Date()){
@@ -14,7 +14,8 @@ const createUpcoming=async(req,res)=>{
         const upcoming=await Upcoming.create({
             user:req.user._id,
             title:capitalizeFirst(title),
-            eventDate
+            eventDate,
+            timezone
         })
         if(!upcoming){
             return res.status(422).json({error:"Unable to create"})

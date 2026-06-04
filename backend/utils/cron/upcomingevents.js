@@ -17,53 +17,27 @@ async function connectDB() {
 async function runJob() {
   const now = new Date();
 
-  //Heroku
-  const TZ_OFFSET = parseInt(process.env.TZ_OFFSET || "3", 10);
-  const tomorrowStart = new Date(Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate() + 1,
-    0 , 
-    0,
-    0
-  ));
+  const userNow = new Date(
+  now.toLocaleString("en-US", {
+    timeZone: event.timezone,
+  })
+);
 
-  const tomorrowEnd = new Date(Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate() + 1,
-    23 , 
-    59,
-    59
-  ));
+ const tomorrow = new Date(userNow);
+tomorrow.setDate(tomorrow.getDate() + 1);
+tomorrow.setHours(0, 0, 0, 0);
 
-   //for local scheduler
-  // const tomorrowStart = new Date(Date.UTC(
-  //   now.getFullYear(),
-  //   now.getMonth(),
-  //   now.getDate() + 1,
-  //   0, 
-  //   0,
-  //   0
-  // ));
-
-  // const tomorrowEnd = new Date(Date.UTC(
-  //   now.getFullYear(),
-  //   now.getMonth(),
-  //   now.getDate() + 1,
-  //   23, 
-  //   59,
-  //   59
-  // ));
+const dayEnd = new Date(userNow);
+dayEnd.setDate(dayEnd.getDate() + 1);
+dayEnd.setHours(23, 59, 59, 999);
 
   try {
     const upcomingEvents = await Upcoming.find({
-      eventDate: {  $gte: tomorrowStart, $lte: tomorrowEnd },
-      notified: false,
+      eventDate: {  $gte: tomorrow, $lte: dayEnd },
+      notified: false
     }).populate("user","email")
 
     for (const event of upcomingEvents) {
-      console.log(event)
       const userId = event.user && event.user._id ? event.user._id : event.user;
       await Notify.create({
         user: userId,

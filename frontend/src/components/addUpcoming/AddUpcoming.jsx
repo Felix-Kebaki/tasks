@@ -19,7 +19,8 @@ export function AddUpcoming({ setAdd, add }) {
   const HandleSubmitUpcoming = async (e) => {
     e.preventDefault();
     try {
-      const res = await createEvent({ title: name, eventDate: add });
+      const timezone=Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const res = await createEvent({ title: name, eventDate: add ,timezone});
       if (res.error) {
         setErrorMessage(res.error.data.error || res.error.error);
         setTimeout(() => {
