@@ -15,7 +15,8 @@ const upcomingSchema=mongoose.Schema({
         required:true
     },
     timezone:{
-        type:String
+        type:String,
+        required:true
     },
     notified:{
         type:Boolean,
