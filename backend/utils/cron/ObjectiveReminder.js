@@ -21,10 +21,7 @@ const runJob = async () => {
     const users = await User.find();
 
     const now = new Date();
-    //now.getUTCHours() should be plus 3 first to host in heroku
-    const currentMinutes = (now.getUTCHours()) * 60 + now.getUTCMinutes();
-    //for local scheduler
-    // const currentMinutes=now.getHours()*60+now.getMinutes();
+    const currentMinutes = now.getUTCHours() * 60 + now.getUTCMinutes();
 
     for (const user of users) {
       const objectives = await Today.find({
@@ -34,26 +31,23 @@ const runJob = async () => {
       });
 
       for (const obj of objectives) {
-        const [endHour, endMinute] = obj.endTime.split(":").map(Number);
-        const endMinutes = endHour * 60 + endMinute;
-        const diff = endMinutes - currentMinutes;
+        const diff =
+          (new Date(obj.endTime).getTime() - Date.now()) / (1000 * 60);
 
         if (diff <= 0) {
-          console.log("Changing to out of time .............................")
           obj.outOfTime = true;
           await obj.save();
           continue;
         }
 
-        if (diff <= 10 && !obj.notified) {
+        if (diff <= 10 && diff > 0 && !obj.notified) {
           const subs = await Subscription.find({ user: obj.user });
-          console.log("Its in the next 10 minutes........................")
           for (const sub of subs) {
             await sendNotification(sub.subscription, {
               title: "Objective Reminder",
               body: `Your objective "${obj.objective}" ends in ${diff} min!`,
               url: `/app/notifications`,
-              data: { url: "https://task-app-3f5087a586f5.herokuapp.com/" }
+              data: { url: "https://task-app-3f5087a586f5.herokuapp.com/" },
             });
           }
 

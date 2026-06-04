@@ -12,25 +12,27 @@ const createToday = async (req, res) => {
     const [startHour, startMinute] = startTime.split(":").map(Number);
 
     const now = new Date();
-    const inputTime1 = new Date(); // same date as today
-    const inputTime2 = new Date(); // same date as today
-    inputTime1.setHours(startHour, startMinute, 0, 0); // Set the inputted time
-    inputTime2.setHours(endHour, endMinute, 0, 0); // Set the inputted time
+
+    const startDateTime = new Date();
+    startDateTime.setHours(startHour, startMinute, 0, 0);
+
+    const endDateTime = new Date();
+    endDateTime.setHours(endHour, endMinute, 0, 0);
 
     // Check if endTime is before current time
-    if (inputTime1 < now || inputTime2 < now) {
+    if (startDateTime < now || endDateTime < now) {
       return res.status(400).json({ error: "Time cannot be in the past" });
     }
 
-    const existToday = await Today.findOne({user:req.user._id ,objective});
+    const existToday = await Today.findOne({ user: req.user._id, objective });
     if (existToday) {
       return res.status(409).json({ error: "Objective already exists" });
     }
 
     const newObjective = await Today.create({
       objective: capitalizeFirst(objective),
-      startTime,
-      endTime,
+      startTime: startDateTime,
+      endTime: endDateTime,
       category: capitalizeFirst(category),
       user: req.user._id,
     });
@@ -50,7 +52,9 @@ const createToday = async (req, res) => {
 
 const getObjectives = async (req, res) => {
   try {
-    const allObjectives = await Today.find({ user: req.user._id }).sort({startTime:1});
+    const allObjectives = await Today.find({ user: req.user._id }).sort({
+      startTime: 1,
+    });
     if (!allObjectives) {
       return res.status(422).json({ error: "Unable to fetch Objectives" });
     }

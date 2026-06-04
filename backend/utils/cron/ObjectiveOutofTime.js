@@ -18,21 +18,16 @@ const runJob = async () => {
     const users = await User.find();
 
     const now = new Date();
-    //now.getUTCHours()+3 in case of heroku
-    const currentMinutes = now.getUTCHours() * 60 + now.getUTCMinutes();
-    //for local scheduler
-    // const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
     for (const user of users) {
       const objectives = await Today.find({
         user: user._id,
         objectiveDone: false,
+        outOfTime:false
       });
       for (const obj of objectives) {
-        const [endHour, endMinute] = obj.endTime.split(":").map(Number);
-        const endMinutes = endHour * 60 + endMinute;
 
-        if (currentMinutes > endMinutes) {
+        if (obj.endTime <= now) {
           obj.outOfTime = true;
           await obj.save();
         }

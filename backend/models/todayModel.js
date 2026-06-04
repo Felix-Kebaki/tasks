@@ -12,10 +12,10 @@ const todaySchema = mongoose.Schema(
       required: true,
     },
     startTime: {
-      type: String,
+      type: Date,
     },
     endTime: {
-      type: String,
+      type: Date,
     },
     objectiveDone: {
       type: Boolean,
